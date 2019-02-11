@@ -244,6 +244,14 @@ bot.on('message', async message => {
                         name: "Server Configurations",
                         value: "showconf: Shows the configurations for your server. \nsetconf [item] [new value]: Sets a new value for your server's configuration. \n(Available configurations: Prefix, Censor on/off) \n" 
                     },
+                    { 
+                        name: "Bot Website",
+                        value: "https://embedandmusicbot.glitch.me/ \n"
+                    },
+                    {
+                        name: "Discord Bot List Page",
+                        value: "https://discordbots.org/bot/414440610418786314 \n"
+                    },
                     {
                         name: "Support Server",
                         value: "https://discord.gg/zd4afDp \n"
