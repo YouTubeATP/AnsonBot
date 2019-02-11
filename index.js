@@ -446,21 +446,6 @@ bot.on('message', async message => {
         .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
         return await message.channel.send(queueEmbed)
     };
-  
-  if(msg === prefix + "replay"){
-  		if(bot. !== message.member.voiceChannel){
-			message.channel.send("Not in the bot's voice channel");
-  			return;
-  		}
-
-  		if(playing){
-  			playing = false;
-  			stayOnQueue = true;
-  			botPlayback.end();
-  		} else
-  			message.channel.send("Need to be playing something to replay");
-  	}
-  
 
   if (message.guild === null) return;
 
