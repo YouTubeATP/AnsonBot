@@ -20,3 +20,8 @@ app.get('/', function(request, response) {
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+const Manager = new Discord.ShardingManager('./index.js');
+Manager.spawn(2);
