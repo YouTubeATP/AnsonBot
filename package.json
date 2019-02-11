@@ -20,7 +20,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node manager.js"
+    "start": "node manager.js",
+    "start": "node express.js"
   },
   "repository": {
     "type": "git",
