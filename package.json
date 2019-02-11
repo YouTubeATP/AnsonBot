@@ -16,12 +16,11 @@
     "opusscript": "^0.0.6",
     "pm2": "^3.2.9",
     "simple-youtube-api": "^5.1.1",
-    "ytdl-core": "^0.29.0"
+    "ytdl-core": "^0.29.0",
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node manager.js",
-    "start": "node express.js"
+    "start": "node manager.js"
   },
   "repository": {
     "type": "git",
