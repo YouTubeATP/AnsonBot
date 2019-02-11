@@ -229,8 +229,12 @@ bot.on('message', async message => {
                         value: "help: Shows this help message. \nbotinfo: Retrieves information about the bot. \nserverinfo: Retrieves information about the server. \nping: Shows latency of the bot and the API. \nvote: Links you to vote for our bot. \n"
                     },
                     {
-                        name: "Embed and Music Commands",
-                        value: "embed [message]: Embeds your message. \nrawembed [message]: Administrator-only command that embeds your message without your name. \nplay [name of music]: Searches for the song you requested. \nskip: Skips the current song. \nnp: Tells you what song is playing. \nvolume ([number]): Sets the volume. Checks the volume if you don't provide a number. \nqueue: Lists the queue. \n"
+                        name: "Embed Commands",
+                        value: "embed [message]: Embeds your message. \nrawembed [message]: Administrator-only command that embeds your message without your name. \n"
+                    },
+                    {
+                        name: "Music Commands",
+                        value: "play [name of music]: Searches for the song you requested. \nskip: Skips the current song. \nnp: Tells you what song is playing. \nvolume ([number]): Sets the volume. Checks the volume if you don't provide a number. \nqueue: Lists the queue. \n"
                     },
                     {
                         name: "Moderation Commands",
