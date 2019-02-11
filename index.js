@@ -22,6 +22,8 @@ var currentlyHave = 22;
 var perMonth = 120;
 var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kys,fuc,pu$$y,xvideo,xvideos,porn,asshole,a$$hole,kunt,knut,d.1.c.k".split(",");
 
+var userData = 0
+
 bot.settings = new Enmap({
   name: "settings",
   fetchAll: false,
@@ -69,6 +71,7 @@ bot.on('message', async message => {
     if (bot.user.id === sender.id) { return }
     let nick = sender.username
     let Owner = message.guild.roles.find("name", "Owner")
+    let i = 0
 
  const args = message.content.slice(prefix.length).trim().split(/ +/g);
  const command = args.shift().toLowerCase();
