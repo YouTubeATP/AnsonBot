@@ -61,7 +61,7 @@ bot.on("ready", () =>  {
             }
         });
     });
-    }, 20000);
+    }, 10000);
 });
 
 bot.on('message', async message => {
