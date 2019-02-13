@@ -85,7 +85,7 @@ bot.on('message', async message => {
 
     if (msg.split(" ")[0] === prefix + "setconf") {
         const [prop, ...value] = args;
-        if (!message.member.hasPermission("ADMINISTRATOR")) {
+        if (!message.member.hasPermission("ADMINISTRATOR" | !message.member.id === owner)) {
         	message.delete().catch(O_o=>{});
             message.reply("you do not have the permissions to change the server's configurations.")
             return;
