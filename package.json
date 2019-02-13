@@ -22,7 +22,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon manager.js"
+    "start": "node manager.js"
   },
   "repository": {
     "type": "git",

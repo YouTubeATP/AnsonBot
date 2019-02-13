@@ -27,6 +27,8 @@ var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowj
 
 var userData = 0
 
+var owner = 344335337889464357
+
 bot.settings = new Enmap({
   name: "settings",
   fetchAll: false,
