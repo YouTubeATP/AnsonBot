@@ -479,8 +479,7 @@ bot.on('message', async message => {
         return;
     }
     let messagesClear = args.join(" ")
-    message.delete().catch(O_o=>{});
-    message.channel.bulkDelete(parseInt(messagesClear));
+    message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
   }
 
   if (msg.split(" ")[0] === prefix + "kick") {
