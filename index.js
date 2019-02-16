@@ -13,7 +13,7 @@ const Enmap = require('enmap');
 const mutedSet = new Set();
 const queue = new Map();
 const youtube = new YouTube("AIzaSyDkCgN5BgLXr9qvpsKunr_x6HmJp77r_hA")
-var rate = 192000;
+var rate = 128000;
 var encoder = new opus.OpusEncoder(rate);
 var frame_size = rate/100;
 var stopping = false;
@@ -631,7 +631,7 @@ function play(guild, song){
         queue.delete(guild.id);
         return undefined;
     }
-    const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 192000})
+    const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: parseInt(rate)})
         .on('end', () =>{
         if(!serverQueue.songs){
                 serverQueue.voiceChannel.leave();
