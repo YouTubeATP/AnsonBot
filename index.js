@@ -13,7 +13,6 @@ const Enmap = require('enmap');
 const mutedSet = new Set();
 const queue = new Map();
 const youtube = new YouTube("AIzaSyDkCgN5BgLXr9qvpsKunr_x6HmJp77r_hA")
-var encoder = new opus.OpusEncoder(128000);
 var stopping = false;
 var voteSkipPass = 0;
 var voted = 0;
