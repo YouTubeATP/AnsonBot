@@ -13,7 +13,6 @@ const Enmap = require('enmap');
 const mutedSet = new Set();
 const queue = new Map();
 const youtube = new YouTube("AIzaSyDkCgN5BgLXr9qvpsKunr_x6HmJp77r_hA")
-var rate = 128000;
 var encoder = new opus.OpusEncoder(rate);
 var frame_size = rate/100;
 var stopping = false;
@@ -345,7 +344,7 @@ bot.on('message', async message => {
         message.delete().catch(O_o=>{});
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
         const permissions = voiceChannel.permissionsFor(bot.user)
-        if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect here, how do you expect me to play music?')
+        if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, how do you expect me to play music?')
         if(!permissions.has('SPEAK')) return message.channel.send('I can\'t speak here, how do you expect me to play music?')
         
     if(!args[0]) return message.reply('please provide a search term, url or playlist link!')
@@ -631,7 +630,7 @@ function play(guild, song){
         queue.delete(guild.id);
         return undefined;
     }
-    const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: parseInt(rate)})
+    const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
         .on('end', () =>{
         if(!serverQueue.songs){
                 serverQueue.voiceChannel.leave();
