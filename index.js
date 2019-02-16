@@ -13,7 +13,7 @@ const Enmap = require('enmap');
 const mutedSet = new Set();
 const queue = new Map();
 const youtube = new YouTube("AIzaSyDkCgN5BgLXr9qvpsKunr_x6HmJp77r_hA")
-var encoder = new opus.OpusEncoder(128000);
+var encoder = new opus.OpusEncoder(192000);
 var stopping = false;
 var voteSkipPass = 0;
 var voted = 0;
@@ -629,7 +629,7 @@ function play(guild, song){
         queue.delete(guild.id);
         return undefined;
     }
-    const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+    const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {})
         .on('end', () =>{
         if(!serverQueue.songs){
                 serverQueue.voiceChannel.leave();
