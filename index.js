@@ -1,6 +1,6 @@
 // Calling the package
 const Discord = require('discord.js');
-const bot = new Discord.Client();
+const client = new Discord.Client();
 const config = require("./config.json");
 const fs = require('fs');
 const moment = require('moment'); // the moment package. to make this work u need to run "npm install moment --save 
@@ -13,7 +13,6 @@ const Enmap = require('enmap');
 const snekfetch = require("snekfetch");
 const { PlayerManager } = require("../src/index");
 const { inspect } = require("util");
-const client = new MusicClient();
 const defaultRegions = {
     asia: ["sydney", "singapore", "japan", "hongkong"],
     eu: ["london", "frankfurt", "amsterdam", "russia", "eu-central", "eu-west"],
@@ -36,7 +35,8 @@ var userData = 0
 
 var owner = config.owner
 
-bot.settings = new Enmap({
+
+.settings = new Enmap({
   name: "settings",
   fetchAll: false,
   autoFetch: true,
@@ -48,7 +48,7 @@ const defaultSettings = {
   censor: "on"
 };
 
-class MusicClient extends bot {
+class MusicClient extends client {
 
     constructor(options) {
         super(options);
@@ -67,6 +67,12 @@ class MusicClient extends bot {
     }
 
 }
+const bot = new MusicClient();
+
+bot.login(config.token);
+
+bot.on("error", console.error)
+    .on("warn", console.warn);
 
 bot.on("ready", () =>  {
 	console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);
@@ -374,125 +380,51 @@ bot.on('message', async message => {
 
     // MUSIC STUFF
 
-    const serverQueue = queue.get(message.guild.id);
-    if(message.content.split(" ")[0] === prefix + "play"){
-        let args = message.content.split(" ").slice(1)
-        const searchString = args.join(' ')
-        const voiceChannel = message.member.voiceChannel;
-        message.delete().catch(O_o=>{});
-        if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
-        const permissions = voiceChannel.permissionsFor(bot.user)
-        if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, how do you expect me to play music?')
-        if(!permissions.has('SPEAK')) return message.channel.send('I can\'t speak here, how do you expect me to play music?')
-        
-    if(!args[0]) return message.reply('please provide a search term, url or playlist link!')
-    if(stopping) stopping = false;
-        
-        if(args[0].match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
-            const playlist = await youtube.getPlaylist(args[0]);
-            var videos = await playlist.getVideos();
-            for(const video of Object.values(videos)){
-                var video2 = await youtube.getVideoByID(video.id);
-                await handleVideo(video2, message, voiceChannel, true)
-            }
-            return await message.channel.send(`Playlist: **${playlist.title}** has been added to the queue!`);
-        } else {
-            try {
-                var video = await youtube.getVideo(args[0])
-            } catch(error){
-                try{
-                    var videos = await youtube.searchVideos(searchString, 10);
-                    let index = 0;
-                    let bicon = bot.user.displayAvatarURL
-                    let videosEmbed = new Discord.RichEmbed()
-                    .setTitle("Song Selection")
-                    .setColor(0x00bdf2)
-                    .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
-                    .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
-                    message.channel.send(videosEmbed)
-                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 10 seconds.")
-                    try{
-                        var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
-                                    maxMatches: 1,
-                    time: 10000,
-                    errors: ['time']
-                });
-                    }catch(err){
-                        return message.channel.send('No value given, or value was invalid, video selection canceled.')
-                    }
-                const videoIndex = parseInt(response.first().content);
-                        var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-                }catch(err){
-                    console.log(err)
-                    return await message.channel.send("No results could be found.");
-                }
-            }
-            return handleVideo(video, message, voiceChannel);
+if (msg.split(" ")[0] === prefix + "play") {
+        if (!message.member || !message.member.voice.channel) return message.reply("Must be in a voice channel");
+        let [...track] = args;
+        track = track.join(" ");
+        const [song] = await getSong(track);
+        const player = await bot.player.join({
+            guild: message.guild.id,
+            channel: message.member.voice.channel.id,
+            host: getIdealHost(message.guild.region)
+        }, { selfdeaf: true });
+        if (!player) throw "No player found...";
+        player.play(song.track);
+        player.once("error", console.error);
+        player.once("end", data => {
+            if (data.reason === "REPLACED") return;
+            message.channel.send("Song has ended...");
+        });
+        return message.reply(`Now playing: **${song.info.title}** by *${song.info.author}*`);
+    }
+    if (command === "leave") {
+        await bot.player.leave(message.guild.id);
+        return message.reply("Successfully left the voice channel");
+    }
+    if (command === "pause") {
+        const player = bot.player.get(message.guild.id);
+        if (!player) return message.reply("No lavalink player found");
+        await player.pause(true);
+        return message.reply("Paused the music");
+    }
+    if (command === "resume") {
+        const player = bot.player.get(message.guild.id);
+        if (!player) return message.reply("No lavalink player found");
+        await player.pause(false);
+        return message.reply("Resumed the music");
+    }
+    if (command === "eval") {
+        if (message.author.id !== config.owner) return;
+        try {
+            const code = args.join(" ");
+            const evaled = eval(code);
+            return message.channel.send(await clean(evaled), { code: "js" });
+        } catch (err) {
+            return message.channel.send(`\`ERROR\` \`\`\`js\n${await clean(err)}\n\`\`\``);
         }
-    } else if(msg === prefix + "stop"){
-    	message.delete().catch(O_o=>{});
-        if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-        if(!serverQueue) return await message.channel.send("Nothing is playing!")
-    stopping = true;
-    serverQueue.voiceChannel.leave();
-        return serverQueue.textChannel.send('Cya, I\'m leaving!');
-    }else if(msg === prefix + "skip"){
-    	message.delete().catch(O_o=>{});
-            if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-            if(!serverQueue) return await message.channel.send("Nothing is playing!")
-        const voiceChannel = message.member.voiceChannel;
-        for (var x = 0; x < playerVoted.length; x++) {
-            if(sender === playerVoted[x]){
-            return message.channel.send(`${sender.username}, you think you run the place? You can\'t vote twice!`)
-        }
-        }
-        voted++;
-        playerVoted.push(sender);
-        if(voteSkipPass === 0){
-            voiceChannel.members.forEach(function() {
-             voteSkipPass++;
-            })
-        }
-        var voteSkipPass1 = voteSkipPass - 1;
-        var voteSkip = Math.floor(voteSkipPass1/2);
-        if(voteSkip === 0) voteSkip = 1;
-        if(voted >= voteSkip){
-        await message.channel.send('Vote skip has passed!')
-            serverQueue.connection.dispatcher.end();
-        voted = 0;
-        voteSkipPass = 0;
-        playerVoted = [];
-        }else{
-            await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!')
-        }
-        return undefined;
-    }else if(msg === prefix + "np"){
-    	message.delete().catch(O_o=>{});
-        if(!serverQueue) return await message.channel.send("Nothing is playing!")
-        
-        return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
-    }else if(msg.split(" ")[0] === prefix + "volume"){
-        let args = msg.split(" ").slice(1)
-        message.delete().catch(O_o=>{});
-        if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-        if(!serverQueue) return await message.channel.send("Nothing is playing!");
-        if(!args[0]) return await message.channel.send(`The current volume is **${serverQueue.volume}**`);
-    if(args[0] > 10 || args[0] < 0) return await message.channel.send('Please choose a number between 0 and 10!');
-        serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 5)
-        serverQueue.volume = args[0];
-        return await message.channel.send(`I set the volume to: **${args[0]}**`);
-    }else if(msg === prefix + "queue"){
-    	message.delete().catch(O_o=>{});
-        if(!serverQueue) return await message.channel.send("Nothing is playing!");
-        let bicon = bot.user.displayAvatarURL
-        let queueEmbed = new Discord.RichEmbed()
-        .setTitle("Queue")
-        .setColor(0x00bdf2)
-        .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
-        .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
-        .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
-        return await message.channel.send(queueEmbed)
-    };
+    }
 
   if (message.guild === null) return;
 
@@ -704,5 +636,3 @@ function sortObject() {
     arr.sort(function(a, b) { return b.value - a.value; });
     return arr;
 }
-
-bot.login(config.token);

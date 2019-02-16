@@ -11,6 +11,7 @@ dependencies:
   node-opus: 0.3.1
   nodemon: 1.18.10
   simple-youtube-api: 5.1.1
+  snekfetch: 4.0.4
   ytdl-core: 0.29.1
 packages:
   /@types/better-sqlite3/5.2.2:
@@ -1782,6 +1783,11 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NjxjITIj04Ffqid5lqr7XdgwM7X61c/Dns073Ly170bPQHLm6jkmelye/eglS++1nfTWktpP6Y2bFXjdPlQqdw==
+  /snekfetch/4.0.4:
+    deprecated: use node-fetch instead
+    dev: false
+    resolution:
+      integrity: sha512-dyycG9fvwtSJqKPfMVOpXt+60qvMGe7vWLwOJDiSJaiAx+hs2EnFChG2bXCWn7ulz+zGzrHdN9/yeEb0YqEPww==
   /source-map-resolve/0.5.2:
     dependencies:
       atob: 2.1.2
@@ -2128,4 +2134,5 @@ specifiers:
   node-opus: ^0.3.1
   nodemon: ^1.18.10
   simple-youtube-api: ^5.1.1
+  snekfetch: ^4.0.4
   ytdl-core: ^0.29.0
