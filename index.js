@@ -1,6 +1,7 @@
 // Calling the package
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const config = require("./config.json");
 const fs = require('fs');
 const moment = require('moment'); // the moment package. to make this work u need to run "npm install moment --save 
 const prefix = 'em/' // The text before commands
@@ -9,6 +10,15 @@ const ytdl = require("ytdl-core");
 const opus = require("node-opus");
 const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
+const snekfetch = require("snekfetch");
+const { PlayerManager } = require("../src/index");
+const { inspect } = require("util");
+const client = new MusicClient();
+const defaultRegions = {
+    asia: ["sydney", "singapore", "japan", "hongkong"],
+    eu: ["london", "frankfurt", "amsterdam", "russia", "eu-central", "eu-west"],
+    us: ["us-central", "us-west", "us-east", "us-south", "brazil"]
+};
 
 const mutedSet = new Set();
 const queue = new Map();
@@ -24,7 +34,7 @@ var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowj
 
 var userData = 0
 
-var owner = 344335337889464357
+var owner = config.owner
 
 bot.settings = new Enmap({
   name: "settings",
@@ -37,6 +47,26 @@ const defaultSettings = {
   prefix: "em/",    
   censor: "on"
 };
+
+class MusicClient extends bot {
+
+    constructor(options) {
+        super(options);
+
+        this.player = null;
+
+        this.once("ready", this._ready.bind(this));
+    }
+
+    _ready() {
+        this.player = new PlayerManager(this, config.nodes, {
+            user: this.user.id,
+            shards: 1
+        });
+        console.log("Music Client is Ready!");
+    }
+
+}
 
 bot.on("ready", () =>  {
 	console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);
@@ -675,4 +705,4 @@ function sortObject() {
     return arr;
 }
 
-bot.login("NDE0NDQwNjEwNDE4Nzg2MzE0.D0g2aw.-GL0Q26y5TQmX-3ACkj3uk1F6yA");
+bot.login(config.token);
