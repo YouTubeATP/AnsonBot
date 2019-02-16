@@ -61,6 +61,16 @@ bot.on("ready", () =>  {
     }, 10000);
 });
 
+bot.on("guildCreate", guild => {
+  // This event triggers when the bot joins a guild.
+  console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+});
+
+bot.on("guildDelete", guild => {
+  // this event triggers when the bot is removed from a guild.
+  console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+});
+
 bot.on('message', async message => {
     // Variables
     let sender = message.author; // The person who sent the message
