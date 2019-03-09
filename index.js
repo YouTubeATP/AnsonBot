@@ -223,7 +223,7 @@ bot.on('message', async message => {
     	message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
-            title: "MusEmbeds Help Message",
+            title: "MusEmbed's Help Message",
             fields: [
                     {
                         name: "Prefix",
@@ -255,7 +255,7 @@ bot.on('message', async message => {
                     },
                     { 
                         name: "Bot Website",
-                        value: "https://embedandmusicbot.glitch.me/ \n"
+                        value: "https://musembed.glitch.me/ \n"
                     },
                     {
                         name: "Discord Bot List Page",
@@ -290,7 +290,7 @@ bot.on('message', async message => {
         .setThumbnail(bicon)
         .addField("Bot Name", bot.user.username, true)
         .addField("Prefix for this Server", prefix, true)
-        .addField("Developer", "<@344335337889464357>, <@426913467790917643>", true)
+        .addField("Developer", "<@344335337889464357>", true)
         .addField("Time of Birth", bot.user.createdAt)
         .addField("Library", "discord.js", true)
         .addField("Server Count", `${results.reduce((prev, val) => prev + val, 0)}`, true)
