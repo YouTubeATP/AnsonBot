@@ -117,7 +117,7 @@ bot.on('message', async message => {
         description:("The following are this server's current configurations: \n\nPrefix: " + prefix + "\nCensors: " + censor),
         footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
     }});
         };
@@ -132,7 +132,7 @@ bot.on('message', async message => {
             description:(pingMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }})
 }
@@ -157,7 +157,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }});
         return;
@@ -175,7 +175,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }})
 }};
@@ -199,7 +199,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }});
         return;
@@ -212,7 +212,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }})
 }};
@@ -223,7 +223,7 @@ bot.on('message', async message => {
     	message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
-            title: "Embed and Music Bot's Help Message",
+            title: "MusEmbeds Help Message",
             fields: [
                     {
                         name: "Prefix",
@@ -272,7 +272,7 @@ bot.on('message', async message => {
                 ],
         footer: {
                     icon_url: bot.user.avatarURL,
-                    text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                    text: "MusEmbed™ by Paraborg Discord Bots"
                 }
   }})
 };
@@ -295,7 +295,7 @@ bot.on('message', async message => {
         .addField("Library", "discord.js", true)
         .addField("Server Count", `${results.reduce((prev, val) => prev + val, 0)}`, true)
         .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
-        .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
+        .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
 
         message.channel.send(botembed)
     })};
@@ -314,7 +314,7 @@ bot.on('message', async message => {
                     ],
             footer: {
                         icon_url: bot.user.avatarURL,
-                        text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                        text: "MusEmbed™ by Paraborg Discord Bots"
                     }
   }})
 };
@@ -336,7 +336,7 @@ bot.on('message', async message => {
         .addField("Total Members", message.guild.memberCount, true)
         .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)
         .addField("Bots", `${Math.round(message.guild.memberCount - message.guild.members.filter(member => !member.user.bot).size)}`, true)
-        .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
+        .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
 
         await message.channel.send(serverembed)
 
@@ -378,7 +378,7 @@ bot.on('message', async message => {
                     .setTitle("Song Selection")
                     .setColor(0x00bdf2)
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
-                    .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
+                    .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
                     message.channel.send(videosEmbed)
                     message.channel.send("Please provide a value from 1 to 10 to select a video! You have 10 seconds.")
                     try{
@@ -460,7 +460,7 @@ bot.on('message', async message => {
         .setColor(0x00bdf2)
         .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
         .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
-        .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
+        .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
         return await message.channel.send(queueEmbed)
     };
 
