@@ -128,6 +128,7 @@ bot.on('message', async message => {
         message.channel.bulkDelete(1)
         message.channel.send({embed: {
             color: 0x00bdf2,
+            title: "Ping",
             description:(pingMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
@@ -271,8 +272,8 @@ bot.on('message', async message => {
         .setTitle("Bot Information")
         .setColor(0x00bdf2)
         .setThumbnail(bicon)
-        .addField("Bot Name", bot.user.username, true)
-        .addField("Prefix for this Server", prefix, true)
+        .addField("Name", bot.user.username, true)
+        .addField("Prefix for this Server", "\`" + prefix + "\`", true)
         .addField("Developer", "<@344335337889464357>", true)
         .addField("Time of Birth", bot.user.createdAt)
         .addField("Library", "discord.js", true)
@@ -287,13 +288,8 @@ bot.on('message', async message => {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
-            fields: [
-                        { 
-                        name: "Links",
-                        value: "[MusEmbed's Website](https://musembed.glitch.me/) \n[Vote for MusEmbed](https://rebrand.ly/musembed-vote) \n[Join MusEmbed's Support Server](https://invite.gg/paraborg) \n[Invite MusEmbed](https://rebrand.ly/musembed-invite)"
-                    },
-                        
-                    ],
+            title: "Links",
+            description: ("[MusEmbed's Website](https://musembed.glitch.me/) \n[Vote for MusEmbed](https://rebrand.ly/musembed-vote) \n[Join MusEmbed's Support Server](https://invite.gg/paraborg) \n[Invite MusEmbed](https://rebrand.ly/musembed-invite)"),
             footer: {
                         icon_url: bot.user.avatarURL,
                         text: "MusEmbed™ by Paraborg Discord Bots"
@@ -484,10 +480,24 @@ bot.on('message', async message => {
     }
     mem.kick().then(() => {
         message.delete().catch(O_o=>{});
-        message.channel.send(mem.displayName + " has successfully been kicked by " + message.author.username + "!");
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:(mem.displayName + " has successfully been kicked by " + message.author.username + "!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
     }).catch(e => {
         message.delete().catch(O_o=>{});
-        message.channel.send("An error occured!");
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
     });
   }};
 
