@@ -89,6 +89,9 @@ bot.on('message', async message => {
  const command = args.shift().toLowerCase();
 
     // commands
+  
+    if (message.guild === null) return;
+    if (message.author.bot) return;
 
     if (msg.split(" ")[0] === prefix + "setconf" | msg.split(" ")[0] === mention + "setconf") {
         const [prop, ...value] = args;
@@ -378,14 +381,14 @@ bot.on('message', async message => {
             }
             return handleVideo(video, message, voiceChannel);
         }
-    } else if(msg === prefix + "stop" | msg === prefix + "stop"){
+    } else if(msg === prefix + "stop" | msg === mention + "stop"){
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
     stopping = true;
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
-    }else if(msg === prefix + "skip"){
+    }else if(msg === prefix + "skip" | msg === mention + "skip"){
         message.delete().catch(O_o=>{});
             if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
             if(!serverQueue) return await message.channel.send("Nothing is playing!")
@@ -420,7 +423,7 @@ bot.on('message', async message => {
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
         
         return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
-    }else if(msg.split(" ")[0] === prefix + "volume"){
+    }else if(msg.split(" ")[0] === prefix + "volume" | msg.split(" ")[0] === mention + "volume"){
         let args = msg.split(" ").slice(1)
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
@@ -430,7 +433,7 @@ bot.on('message', async message => {
         serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 5)
         serverQueue.volume = args[0];
         return await message.channel.send(`I set the volume to: **${args[0]}**`);
-    }else if(msg === prefix + "queue"){
+    }else if(msg === prefix + "queue" | msg === mention + "queue"){
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
         let bicon = bot.user.displayAvatarURL
@@ -443,8 +446,6 @@ bot.on('message', async message => {
         return await message.channel.send(queueEmbed)
     };
 
-  if (message.guild === null) return;
-
   if (censors === "on") {
   for (i=0;i<bannedwords.length;i++) {
     if (message.content.toLowerCase().includes(bannedwords[i])) {
@@ -454,11 +455,7 @@ bot.on('message', async message => {
     }
  }};
 
-  if (message.author.bot) return;
-
-  if (!message.content.toLowerCase().startsWith(prefix)) return;
-
-  if (msg.split(" ")[0] === prefix + "purge") {
+  if (msg.split(" ")[0] === prefix + "purge" | msg.split(" ")[0] === mention + "purge") {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
@@ -468,7 +465,7 @@ bot.on('message', async message => {
     message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
   }
 
-  if (msg.split(" ")[0] === prefix + "kick") {
+  if (msg.split(" ")[0] === prefix + "kick" | msg.split(" ")[0] === prefix + "kick") {
     if (!message.member.hasPermission("KICK_MEMBERS")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
@@ -509,7 +506,7 @@ bot.on('message', async message => {
     });
   }};
 
-  if (msg.split(" ")[0] === prefix + "ban") {
+  if (msg.split(" ")[0] === prefix + "ban" | msg.split(" ")[0] === mention + "ban") {
     if (!message.member.hasPermission("BAN_MEMBERS")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
@@ -543,7 +540,7 @@ bot.on('message', async message => {
     });
   }};
 
-  if (msg.split(" ")[0] === prefix + "mute") {
+  if (msg.split(" ")[0] === prefix + "mute" | msg.split(" ")[0] === mention + "mute") {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
@@ -579,7 +576,7 @@ bot.on('message', async message => {
       });
 }}};
 
-  if (msg.split(" ")[0] === prefix + "unmute") {
+  if (msg.split(" ")[0] === prefix + "unmute" | msg.split(" ")[0] === mention + "unmute") {
     if (!message.member.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
