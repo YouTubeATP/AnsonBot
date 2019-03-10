@@ -238,19 +238,19 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Embed Commands",
-                        value: "embed [message]: Embeds your message. \nrawembed [message]: Administrator-only command that embeds your message without your name. \n"
+                        value: "\`embed [message]\`: Embeds your message. \n\`rawembed [message]\`: Administrator-only command that embeds your message without your name. \n"
                     },
                     {
                         name: "Music Commands",
-                        value: "play [name of music]: Searches for the song you requested. \nskip: Skips the current song. \nnp: Tells you what song is playing. \nvolume ([number]): Sets the volume. Checks the volume if you don't provide a number. \nqueue: Lists the queue. \n"
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n"
                     },
                     {
                         name: "Moderation Commands",
-                        value: "kick [user]: Kicks a user from the server. \nban [user]: Bans a user from the executed server. \npurge [number]: Deletes a number of messages in a channel. \nmute [user]: Mutes a user in the executed server. A 'Muted' role must first be set up for this to work. \nunmute [user]: Unmutes a user in the executed server. \n"
+                        value: "\`kick [user]\`: Kicks a user from the server. \n\`ban [user]\`: Bans a user from the executed server. \n\`purge [number]\`: Deletes a number of messages in a channel. \n\`mute [user]\`: Mutes a user in the executed server. A 'Muted' role must first be set up for this to work. \n\`unmute [user]\`: Unmutes a user in the executed server. \n"
                     },
                     {
                         name: "Server Configurations",
-                        value: "showconf: Shows the configurations for your server. \nsetconf [item] [new value]: Sets a new value for your server's configuration. \n(Available configurations: Prefix, Censor on/off) \n" 
+                        value: "\`showconf\`: Shows the configurations for your server. \n\`setconf [item] [new value]\`: Sets a new value for your server's configuration. \n(Available configurations: \`prefix\`, \`censor\` \`on/off\`) \n" 
                     },
                 ],
         footer: {
@@ -287,7 +287,6 @@ bot.on('message', async message => {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
-            title: "Vote",
             fields: [
                         { 
                         name: "Links",
