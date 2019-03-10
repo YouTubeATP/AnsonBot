@@ -1,4 +1,3 @@
-// Calling the package
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require('fs');
@@ -39,16 +38,16 @@ const defaultSettings = {
 };
 
 bot.on("ready", () =>  {
-	console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);
+    console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);
     setInterval(() => {
     return bot.shard.broadcastEval('this.guilds.size')
     .then(results => {
         bot.user.setStatus('available')
         const index = Math.floor(parseInt(Math.random() * 2) + parseInt(1));
         const activities_list = [
-        	`${results.reduce((prev, val) => prev + val, 0)} servers ask for help`,
+            `${results.reduce((prev, val) => prev + val, 0)} servers ask for help`,
             `${results.reduce((prev, val) => prev + val, 0)} servers use embeds`, 
-	    	`${results.reduce((prev, val) => prev + val, 0)} servers play music`,
+            `${results.reduce((prev, val) => prev + val, 0)} servers play music`,
         ];
         bot.user.setPresence({
             game: {
@@ -93,11 +92,11 @@ bot.on('message', async message => {
     if (msg.split(" ")[0] === prefix + "setconf") {
         const [prop, ...value] = args;
         if (!message.member.hasPermission("ADMINISTRATOR" | !message.member.id === owner)) {
-        	message.delete().catch(O_o=>{});
+            message.delete().catch(O_o=>{});
             message.reply("you do not have the permissions to change the server's configurations.")
             return;
         } else if (!bot.settings.has(message.guild.id, prop)) {
-        	message.delete().catch(O_o=>{});
+            message.delete().catch(O_o=>{});
             return message.reply("this configuration is not available.")
         } else {
             bot.settings.set(message.guild.id, value.join(" "), prop);
@@ -107,9 +106,9 @@ bot.on('message', async message => {
     };
 
     if(msg === prefix + "showconf") {
-    	message.delete().catch(O_o=>{});
-    	let configProps = Object.keys(guildConf).map(prop => {
-      	return `${prop}  :  ${guildConf[prop]}\n`;
+        message.delete().catch(O_o=>{});
+        let configProps = Object.keys(guildConf).map(prop => {
+        return `${prop}  :  ${guildConf[prop]}\n`;
     });
     message.channel.send({embed: {
         color: 0x00bdf2,
@@ -117,7 +116,7 @@ bot.on('message', async message => {
         description:("The following are this server's current configurations: \n\nPrefix: " + prefix + "\nCensors: " + censor),
         footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
     }});
         };
@@ -126,24 +125,24 @@ bot.on('message', async message => {
         const m = await message.channel.send("Pinging...");
         const pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`);
         message.delete().catch(O_o=>{});
-       	message.channel.bulkDelete(1)
+        message.channel.bulkDelete(1)
         message.channel.send({embed: {
             color: 0x00bdf2,
             description:(pingMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }})
 }
 
     if (msg.split(" ")[0] === prefix + "embed") {
-    	if (censors === "on") {
-  			for (i=0;i<bannedwords.length;i++) {
-    		if (message.content.toLowerCase().includes(bannedwords[i])) {
-    			message.delete().catch(O_o=>{});
-      			message.reply("please refrain from using such contemptable words.");
-      		return;
+        if (censors === "on") {
+            for (i=0;i<bannedwords.length;i++) {
+            if (message.content.toLowerCase().includes(bannedwords[i])) {
+                message.delete().catch(O_o=>{});
+                message.reply("please refrain from using such contemptable words.");
+            return;
     } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
         const embedMessage = args.join(" ");
         const senderID = args.join(" ");
@@ -157,12 +156,12 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }});
         return;
 }}
- 		} else {
+        } else {
         const embedMessage = args.join(" ");
         const senderID = args.join(" ");
         message.delete().catch(O_o=>{});
@@ -175,22 +174,22 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }})
 }};
 
     if (msg.split(" ")[0] === prefix + "rawembed") {
-    	if (!message.member.hasPermission("ADMINISTRATOR")) {
-    		message.delete().catch(O_o=>{});
+        if (!message.member.hasPermission("ADMINISTRATOR")) {
+            message.delete().catch(O_o=>{});
             message.reply("you do not have the permissions to send a raw embed.")
             return;
         } else if (censors === "on") {
-  			for (i=0;i<bannedwords.length;i++) {
-    		if (message.content.toLowerCase().includes(bannedwords[i])) {
-    			message.delete().catch(O_o=>{});
-      			message.reply("please refrain from using such contemptable words.");
-      		return;
+            for (i=0;i<bannedwords.length;i++) {
+            if (message.content.toLowerCase().includes(bannedwords[i])) {
+                message.delete().catch(O_o=>{});
+                message.reply("please refrain from using such contemptable words.");
+            return;
     } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
         const embedMessage = args.join(" ");
         message.delete().catch(O_o=>{});
@@ -199,12 +198,12 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }});
         return;
 }}
- 		} else {
+        } else {
         const embedMessage = args.join(" ");
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
@@ -212,7 +211,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }})
 }};
@@ -220,10 +219,10 @@ bot.on('message', async message => {
     
     // Help
     if (msg === prefix + "help" | message.isMentioned(bot.user)) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
-            title: "Embed and Music Bot's Help Message",
+            title: "MusEmbed's Help Message",
             fields: [
                     {
                         name: "Prefix",
@@ -255,7 +254,7 @@ bot.on('message', async message => {
                     },
                     { 
                         name: "Bot Website",
-                        value: "https://embedandmusicbot.glitch.me/ \n"
+                        value: "https://musembed.glitch.me/ \n"
                     },
                     {
                         name: "Discord Bot List Page",
@@ -272,14 +271,14 @@ bot.on('message', async message => {
                 ],
         footer: {
                     icon_url: bot.user.avatarURL,
-                    text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                    text: "MusEmbed™ by Paraborg Discord Bots"
                 }
   }})
 };
 
     //bot info command
     if (msg === prefix + "botinfo") {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         return bot.shard.broadcastEval('this.guilds.size')
         .then(results => {
         let bicon = bot.user.displayAvatarURL
@@ -290,18 +289,20 @@ bot.on('message', async message => {
         .setThumbnail(bicon)
         .addField("Bot Name", bot.user.username, true)
         .addField("Prefix for this Server", prefix, true)
-        .addField("Developer", "<@344335337889464357>, <@426913467790917643>", true)
+        .addField("Developer", "<@344335337889464357>", true)
         .addField("Time of Birth", bot.user.createdAt)
         .addField("Library", "discord.js", true)
         .addField("Server Count", `${results.reduce((prev, val) => prev + val, 0)}`, true)
         .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
-        .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
+        .addField("Bot Invite", `https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847`)
+        .addField("Support Server", `https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847`)
+        .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
 
         message.channel.send(botembed)
     })};
 
     if (msg === prefix + "vote") {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Vote",
@@ -314,14 +315,14 @@ bot.on('message', async message => {
                     ],
             footer: {
                         icon_url: bot.user.avatarURL,
-                        text: "Embed and Music Bot ™ by Nikkablox Gaming Discord Bots"
+                        text: "MusEmbed™ by Paraborg Discord Bots"
                     }
   }})
 };
 
     //serverinfo command
     if (msg === prefix + "serverinfo") {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         let bicon = bot.user.displayAvatarURL
         let sicon = message.guild.iconURL
         
@@ -336,7 +337,7 @@ bot.on('message', async message => {
         .addField("Total Members", message.guild.memberCount, true)
         .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)
         .addField("Bots", `${Math.round(message.guild.memberCount - message.guild.members.filter(member => !member.user.bot).size)}`, true)
-        .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
+        .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
 
         await message.channel.send(serverembed)
 
@@ -378,7 +379,7 @@ bot.on('message', async message => {
                     .setTitle("Song Selection")
                     .setColor(0x00bdf2)
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
-                    .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
+                    .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
                     message.channel.send(videosEmbed)
                     message.channel.send("Please provide a value from 1 to 10 to select a video! You have 10 seconds.")
                     try{
@@ -400,14 +401,14 @@ bot.on('message', async message => {
             return handleVideo(video, message, voiceChannel);
         }
     } else if(msg === prefix + "stop"){
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
     stopping = true;
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
     }else if(msg === prefix + "skip"){
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
             if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
             if(!serverQueue) return await message.channel.send("Nothing is playing!")
         const voiceChannel = message.member.voiceChannel;
@@ -437,7 +438,7 @@ bot.on('message', async message => {
         }
         return undefined;
     }else if(msg === prefix + "np"){
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
         
         return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
@@ -452,7 +453,7 @@ bot.on('message', async message => {
         serverQueue.volume = args[0];
         return await message.channel.send(`I set the volume to: **${args[0]}**`);
     }else if(msg === prefix + "queue"){
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
         let bicon = bot.user.displayAvatarURL
         let queueEmbed = new Discord.RichEmbed()
@@ -460,7 +461,7 @@ bot.on('message', async message => {
         .setColor(0x00bdf2)
         .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
         .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
-        .setFooter("Embed and Music Bot ™ by Nikkablox Gaming Discord Bots", bicon)
+        .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
         return await message.channel.send(queueEmbed)
     };
 
@@ -469,7 +470,7 @@ bot.on('message', async message => {
   if (censors === "on") {
   for (i=0;i<bannedwords.length;i++) {
     if (message.content.toLowerCase().includes(bannedwords[i])) {
-    	message.delete().catch(O_o=>{})
+        message.delete().catch(O_o=>{})
       message.reply("please refrain from using such contemptable words.");
       return;
     }
@@ -481,7 +482,7 @@ bot.on('message', async message => {
 
   if (msg.split(" ")[0] === prefix + "purge") {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
     }
@@ -491,61 +492,61 @@ bot.on('message', async message => {
 
   if (msg.split(" ")[0] === prefix + "kick") {
     if (!message.member.hasPermission("KICK_MEMBERS")) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("KICK_MEMBERS")) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.channel.send("An error occured!");
         return;
     }
     mem.kick().then(() => {
-    	message.delete().catch(O_o=>{});
-      	message.channel.send(mem.displayName + " has successfully been kicked by " + message.author.username + "!");
+        message.delete().catch(O_o=>{});
+        message.channel.send(mem.displayName + " has successfully been kicked by " + message.author.username + "!");
     }).catch(e => {
-    	message.delete().catch(O_o=>{});
-      	message.channel.send("An error occured!");
+        message.delete().catch(O_o=>{});
+        message.channel.send("An error occured!");
     });
   }};
 
   if (msg.split(" ")[0] === prefix + "ban") {
     if (!message.member.hasPermission("BAN_MEMBERS")) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("BAN_MEMBERS")) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.channel.send("An error occured!");
         return;
     }
     mem.ban().then(() => {
-    	message.delete().catch(O_o=>{});
-     	message.channel.send(mem.displayName + " has successfully been banned by " + message.author.username + "!");
+        message.delete().catch(O_o=>{});
+        message.channel.send(mem.displayName + " has successfully been banned by " + message.author.username + "!");
     }).catch(e => {
-    	message.delete().catch(O_o=>{});
-      	message.channel.send("An error occured!");
+        message.delete().catch(O_o=>{});
+        message.channel.send("An error occured!");
     });
   }};
 
   if (msg.split(" ")[0] === prefix + "mute") {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("MANAGE_MESSAGES")) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.channel.send("An error occured!");
         return;
     }   
     if (message.guild.roles.find("name", "Muted")) {
       mem.addRole(message.guild.roles.find("name", "Muted")).then(() => {
-      	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.channel.send(mem.displayName + " has successfully been muted!");
       }).catch(e => {
-      	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.channel.send("An error occured!");
         console.log(e);
       });
@@ -553,16 +554,16 @@ bot.on('message', async message => {
 
   if (msg.split(" ")[0] === prefix + "unmute") {
     if (!message.member.hasPermission("ADMINISTRATOR")) {
-    	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
     } else {var mem = message.mentions.members.first();
     if (message.guild.roles.find("name", "Muted")) {
-    	message.delete().catch(O_o=>{});
-      	mem.removeRole(message.guild.roles.find("name", "Muted")).then(() => {
+        message.delete().catch(O_o=>{});
+        mem.removeRole(message.guild.roles.find("name", "Muted")).then(() => {
         message.channel.send(mem.displayName + " has successfully been unmuted!");
       }).catch(e => {
-      	message.delete().catch(O_o=>{});
+        message.delete().catch(O_o=>{});
         message.channel.send("An error occured!");
         console.log(e);
       });
