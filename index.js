@@ -291,7 +291,7 @@ bot.on('message', async message => {
             fields: [
                         { 
                         name: "Links",
-                        value: "[MusEmbed's Website](https://musembed.glitch.me/) \n[Vote for MusEmbed](https://discordbots.org/bot/414440610418786314/vote) \n[Join MusEmbed's Support Server](https://discord.gg/zd4afDp) \n[Invite MusEmbed](https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847)"
+                        value: "[MusEmbed's Website](https://musembed.glitch.me/) \n[Vote for MusEmbed](https://rebrand.ly/musembed-vote) \n[Join MusEmbed's Support Server](https://invite.gg/paraborg) \n[Invite MusEmbed](https://rebrand.ly/musembed-invite)"
                     },
                         
                     ],
