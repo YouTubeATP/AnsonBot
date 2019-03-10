@@ -253,21 +253,9 @@ bot.on('message', async message => {
                         value: "showconf: Shows the configurations for your server. \nsetconf [item] [new value]: Sets a new value for your server's configuration. \n(Available configurations: Prefix, Censor on/off) \n" 
                     },
                     { 
-                        name: "Bot Website",
-                        value: "https://musembed.glitch.me/ \n"
+                        name: "Links",
+                        value: "[Bot Website](https://musembed.glitch.me/) \n[Discord Bot List Page](https://discordbots.org/bot/414440610418786314) \n[Join Support Server](https://discord.gg/zd4afDp) \n[Invite MusEmbed](https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847)"
                     },
-                    {
-                        name: "Discord Bot List Page",
-                        value: "https://discordbots.org/bot/414440610418786314 \n"
-                    },
-                    {
-                        name: "Support Server",
-                        value: "https://discord.gg/zd4afDp \n"
-                    },
-                    {
-                        name: "Bot Invite",
-                        value: "https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847 \n"
-                    }
                 ],
         footer: {
                     icon_url: bot.user.avatarURL,
@@ -294,8 +282,6 @@ bot.on('message', async message => {
         .addField("Library", "discord.js", true)
         .addField("Server Count", `${results.reduce((prev, val) => prev + val, 0)}`, true)
         .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
-        .addField("Bot Invite", `https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847`)
-        .addField("Support Server", `https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847`)
         .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
 
         message.channel.send(botembed)
