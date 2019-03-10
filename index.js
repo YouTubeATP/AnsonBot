@@ -113,7 +113,7 @@ bot.on('message', async message => {
     message.channel.send({embed: {
         color: 0x00bdf2,
         title: "Server Configurations",
-        description:("The following are this server's current configurations: \n\nPrefix: " + prefix + "\nCensors: " + censor),
+        description:("The following are this server's current configurations: \n\nPrefix: \`" + prefix + "\`\nCensors: \`" + censor + "\`"),
         footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ by Paraborg Discord Bots"
