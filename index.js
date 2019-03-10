@@ -76,6 +76,7 @@ bot.on('message', async message => {
     let msg = message.content.toLowerCase();
     const ownerID = '344335337889464357'
     const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
+    let mention = "<@414440610418786314> "
     let prefix = guildConf.prefix
     let censor = guildConf.censor
     let censors = censor
@@ -89,7 +90,7 @@ bot.on('message', async message => {
 
     // commands
 
-    if (msg.split(" ")[0] === prefix + "setconf") {
+    if (msg.split(" ")[0] === prefix + "setconf" | msg.split(" ")[0] === mention + "setconf") {
         const [prop, ...value] = args;
         if (!message.member.hasPermission("ADMINISTRATOR" | !message.member.id === owner)) {
             message.delete().catch(O_o=>{});
@@ -105,7 +106,7 @@ bot.on('message', async message => {
         }
     };
 
-    if(msg === prefix + "showconf") {
+    if(msg === prefix + "showconf" | msg === mention + "showconf") {
         message.delete().catch(O_o=>{});
         let configProps = Object.keys(guildConf).map(prop => {
         return `${prop}  :  ${guildConf[prop]}\n`;
@@ -121,7 +122,7 @@ bot.on('message', async message => {
     }});
         };
 
-    if (msg === prefix + "ping") {
+    if (msg === prefix + "ping" | msg === mention + "ping") {
         const m = await message.channel.send("Pinging...");
         const pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`);
         message.delete().catch(O_o=>{});
@@ -137,7 +138,7 @@ bot.on('message', async message => {
   }})
 }
 
-    if (msg.split(" ")[0] === prefix + "embed") {
+    if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed") {
         if (censors === "on") {
             for (i=0;i<bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(bannedwords[i])) {
@@ -475,7 +476,14 @@ bot.on('message', async message => {
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("KICK_MEMBERS")) {
         message.delete().catch(O_o=>{});
-        message.channel.send("An error occured!");
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
         return;
     }
     mem.kick().then(() => {
@@ -509,7 +517,14 @@ bot.on('message', async message => {
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("BAN_MEMBERS")) {
         message.delete().catch(O_o=>{});
-        message.channel.send("An error occured!");
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
         return;
     }
     mem.ban().then(() => {
@@ -517,7 +532,14 @@ bot.on('message', async message => {
         message.channel.send(mem.displayName + " has successfully been banned by " + message.author.username + "!");
     }).catch(e => {
         message.delete().catch(O_o=>{});
-        message.channel.send("An error occured!");
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
     });
   }};
 
@@ -529,7 +551,14 @@ bot.on('message', async message => {
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("MANAGE_MESSAGES")) {
         message.delete().catch(O_o=>{});
-        message.channel.send("An error occured!");
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
         return;
     }   
     if (message.guild.roles.find("name", "Muted")) {
@@ -538,7 +567,14 @@ bot.on('message', async message => {
         message.channel.send(mem.displayName + " has successfully been muted!");
       }).catch(e => {
         message.delete().catch(O_o=>{});
-        message.channel.send("An error occured!");
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
         console.log(e);
       });
 }}};
@@ -555,7 +591,14 @@ bot.on('message', async message => {
         message.channel.send(mem.displayName + " has successfully been unmuted!");
       }).catch(e => {
         message.delete().catch(O_o=>{});
-        message.channel.send("An error occured!");
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
         console.log(e);
       });
 }}};
