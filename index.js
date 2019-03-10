@@ -226,7 +226,7 @@ bot.on('message', async message => {
             fields: [
                     {
                         name: "Prefix",
-                        value: ("The prefix for this server is " + prefix + ". \n")
+                        value: ("The prefix for this server is \`" + prefix + "\`. \n")
                     },
                     {
                         name: "Description",
@@ -234,7 +234,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "General Commands",
-                        value: "help: Shows this help message. \nbotinfo: Retrieves information about the bot. \nserverinfo: Retrieves information about the server. \nping: Shows latency of the bot and the API. \nvote: Links you to vote for our bot. \n"
+                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n"
                     },
                     {
                         name: "Embed Commands",
@@ -251,10 +251,6 @@ bot.on('message', async message => {
                     {
                         name: "Server Configurations",
                         value: "showconf: Shows the configurations for your server. \nsetconf [item] [new value]: Sets a new value for your server's configuration. \n(Available configurations: Prefix, Censor on/off) \n" 
-                    },
-                    { 
-                        name: "Links",
-                        value: "[Bot Website](https://musembed.glitch.me/) \n[Discord Bot List Page](https://discordbots.org/bot/414440610418786314) \n[Join Support Server](https://discord.gg/zd4afDp) \n[Invite MusEmbed](https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847)"
                     },
                 ],
         footer: {
@@ -287,16 +283,16 @@ bot.on('message', async message => {
         message.channel.send(botembed)
     })};
 
-    if (msg === prefix + "vote") {
+    if (msg === prefix + "links") {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Vote",
             fields: [
-                        {
-                            name: "Link:",
-                            value: "https://discordbots.org/bot/414440610418786314/vote"
-                        },
+                        { 
+                        name: "Links",
+                        value: "[MusEmbed's Website](https://musembed.glitch.me/) \n[Vote for MusEmbed](https://discordbots.org/bot/414440610418786314/vote) \n[Join MusEmbed's Support Server](https://discord.gg/zd4afDp) \n[Invite MusEmbed](https://discordapp.com/oauth2/authorize?client_id=414440610418786314&scope=bot&permissions=2146958847)"
+                    },
                         
                     ],
             footer: {
