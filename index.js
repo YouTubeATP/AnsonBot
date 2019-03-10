@@ -181,7 +181,7 @@ bot.on('message', async message => {
   }})
 }};
 
-    if (msg.split(" ")[0] === prefix + "rawembed") {
+    if (msg.split(" ")[0] === prefix + "rawembed" | msg.split(" ")[0] === mention + "rawembed") {
         if (!message.member.hasPermission("ADMINISTRATOR")) {
             message.delete().catch(O_o=>{});
             message.reply("you do not have the permissions to send a raw embed.")
@@ -220,7 +220,7 @@ bot.on('message', async message => {
     
     
     // Help
-    if (msg === prefix + "help" | message.isMentioned(bot.user)) {
+    if (msg === prefix + "help" | msg === mention + "help") {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
@@ -228,7 +228,7 @@ bot.on('message', async message => {
             fields: [
                     {
                         name: "Prefix",
-                        value: ("The prefix for this server is \`" + prefix + "\`. \n")
+                        value: ("The prefix for this server is \`" + prefix + "\`. You may also mention me as a prefix.\n")
                     },
                     {
                         name: "Description",
@@ -263,7 +263,7 @@ bot.on('message', async message => {
 };
 
     //bot info command
-    if (msg === prefix + "botinfo") {
+    if (msg === prefix + "botinfo" | msg === mention + "botinfo") {
         message.delete().catch(O_o=>{});
         return bot.shard.broadcastEval('this.guilds.size')
         .then(results => {
@@ -285,7 +285,7 @@ bot.on('message', async message => {
         message.channel.send(botembed)
     })};
 
-    if (msg === prefix + "links") {
+    if (msg === prefix + "links" | msg === mention + "links") {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
@@ -299,7 +299,7 @@ bot.on('message', async message => {
 };
 
     //serverinfo command
-    if (msg === prefix + "serverinfo") {
+    if (msg === prefix + "serverinfo" | msg === mention + "serverinfo") {
         message.delete().catch(O_o=>{});
         let bicon = bot.user.displayAvatarURL
         let sicon = message.guild.iconURL
@@ -324,7 +324,7 @@ bot.on('message', async message => {
     // MUSIC STUFF
 
     const serverQueue = queue.get(message.guild.id);
-    if(message.content.split(" ")[0] === prefix + "play"){
+    if(message.content.split(" ")[0] === prefix + "play" | message.content.split(" ")[0] === mention + "play"){
         let args = message.content.split(" ").slice(1)
         const searchString = args.join(' ')
         const voiceChannel = message.member.voiceChannel;
@@ -378,7 +378,7 @@ bot.on('message', async message => {
             }
             return handleVideo(video, message, voiceChannel);
         }
-    } else if(msg === prefix + "stop"){
+    } else if(msg === prefix + "stop" | msg === prefix + "stop"){
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
