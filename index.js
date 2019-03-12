@@ -252,7 +252,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Moderation Commands",
-                        value: "\`kick [user]\`: Kicks a user from the server. \n\`ban [user]\`: Bans a user from the executed server. \n\`purge [number]\`: Deletes a number of messages in a channel. \n\`mute [user]\`: Mutes a user in the executed server. A 'Muted' role must first be set up for this to work. \n\`unmute [user]\`: Unmutes a user in the executed server. \n"
+                        value: "\`kick [user]\`: Kicks a user from the guild. \n\`ban [user]\`: Bans a user from the guild. \n\`purge [number]\`: Deletes a number of messages in a channel. \n\`mute [user]\`: Mutes a user in the guild. A 'Muted' role must first be set up for this to work. \n\`unmute [user]\`: Unmutes a user in the guild. \n"
                     },
                     {
                         name: "Server Configurations",
