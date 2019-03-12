@@ -294,7 +294,7 @@ bot.on('message', async message => {
         message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Links",
-            description: ("[MusEmbed's Website](https://musembed.glitch.me/) \n[Vote for MusEmbed](https://rebrand.ly/musembed-vote) \n[Join MusEmbed's Support Server](https://invite.gg/paraborg) \n[Invite MusEmbed](https://rebrand.ly/musembed-invite)"),
+            description: ("[MusEmbed's Website](https://musembed.glitch.me/) \n[Vote for MusEmbed](https://rebrand.ly/musembed-vote) \n[Join MusEmbed's Support Server](https://invite.gg/paraborg) \n[Invite MusEmbed](https://rebrand.ly/musembed-invite) \n[Paraborg Discord Bots](https://paraborg.xyz)"),
             footer: {
                         icon_url: bot.user.avatarURL,
                         text: "MusEmbed™ by Paraborg Discord Bots"
