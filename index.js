@@ -248,7 +248,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n"
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Resets the queue and stops music. Also forces bot to leave channel."
                     },
                     {
                         name: "Moderation Commands",
@@ -386,6 +386,7 @@ bot.on('message', async message => {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
+        if (!message.member.hasPermission("ADMINISTRATOR")) return await message.reply("you don't have sufficient permissions!")
     stopping = true;
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
