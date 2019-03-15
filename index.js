@@ -133,7 +133,7 @@ bot.on('message', async message => {
         message.channel.bulkDelete(1)
         message.channel.send({embed: {
             color: 0x00bdf2,
-            title: "Ping",
+            title: "Ping Received",
             description:(pingMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
