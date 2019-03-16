@@ -63,11 +63,29 @@ bot.on("ready", () =>  {
 bot.on("guildCreate", guild => {
   // This event triggers when the bot joins a guild.
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  bot.channels.get(`556497757364420618`).send({embed: {
+            color: 0x00bdf2,
+            title: "Ping Received",
+            description:(`I have been removed from: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
 });
 
 bot.on("guildDelete", guild => {
   // this event triggers when the bot is removed from a guild.
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+  bot.channels.get(`556497757364420618`).send({embed: {
+            color: 0x00bdf2,
+            title: "Ping Received",
+            description:(`I have been removed from: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }});
 });
 
 bot.on('message', async message => {
