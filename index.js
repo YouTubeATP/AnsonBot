@@ -130,7 +130,7 @@ bot.on("guildDelete", guild => {
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
             title: "I've left a server",
-            description: `I am now in \`{results.reduce((prev, val) => prev + val, 0)}\` servers`,
+            description: `I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`,
             thumbnail: {
                           url: (sicon),
                        },
