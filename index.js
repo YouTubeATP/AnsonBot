@@ -65,8 +65,29 @@ bot.on("guildCreate", guild => {
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
-            title: "Ping Received",
-            description:(`I have been removed from: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`),
+            title: "Server Joined",
+            fields: [
+                    {
+                        name: "Server Name",
+                        value: (`\*\*${guild.name}\*\*`)
+                    },
+                    {
+                        name: "Server ID",
+                        value: (`\*\*${guild.id}\*\*`)
+                    },
+                    {
+                        name: "Members",
+                        value: (`\*\*${guild.memberCount}\*\*`)
+                    },
+                    {
+                        name: "Humans",
+                        value: (`\*\*${guild.members.filter(member => !member.user.bot).size}\*\*`)
+                    },
+                    {
+                        name: "Bots",
+                        value: (`\*\*${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}\*\*`)
+                    },
+                ],
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ by Paraborg Discord Bots"
@@ -79,8 +100,29 @@ bot.on("guildDelete", guild => {
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
-            title: "Ping Received",
-            description:(`I have been removed from: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`),
+            title: "Server Left",
+            fields: [
+                    {
+                        name: "Server Name",
+                        value: (`\*\*${guild.name}\*\*`)
+                    },
+                    {
+                        name: "Server ID",
+                        value: (`\*\*${guild.id}\*\*`)
+                    },
+                    {
+                        name: "Members",
+                        value: (`\*\*${guild.memberCount}\*\*`)
+                    },
+                    {
+                        name: "Humans",
+                        value: (`\*\*${guild.members.filter(member => !member.user.bot).size}\*\*`)
+                    },
+                    {
+                        name: "Bots",
+                        value: (`\*\*${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}\*\*`)
+                    },
+                ],
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ by Paraborg Discord Bots"
@@ -334,7 +376,7 @@ bot.on('message', async message => {
         .addField("Server Owner", message.guild.owner, true)
         .addField("Region", message.guild.region ,true)
         .addField("Time of Birth", message.guild.createdAt)
-        .addField("Total Members", message.guild.memberCount, true)
+        .addField("Members", message.guild.memberCount, true)
         .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)
         .addField("Bots", `${Math.round(message.guild.memberCount - message.guild.members.filter(member => !member.user.bot).size)}`, true)
         .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
