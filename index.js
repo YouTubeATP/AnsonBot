@@ -72,12 +72,12 @@ bot.on("guildCreate", guild => {
                        },
             fields: [
                     {
-                        name: "Server Name",
+                        name: "Name",
                         value: (`\*\*${guild.name}\*\*`)
                     },
                     {
-                        name: "Server ID",
-                        value: (`\*\*${guild.id}\*\*`)
+                        name: "Owner",
+                        value: (`\*\*${guild.owner}\*\*`)
                     },
                     {
                         name: "Members",
@@ -111,12 +111,12 @@ bot.on("guildDelete", guild => {
                        },
             fields: [
                     {
-                        name: "Server Name",
+                        name: "Name",
                         value: (`\*\*${guild.name}\*\*`)
                     },
                     {
-                        name: "Server ID",
-                        value: (`\*\*${guild.id}\*\*`)
+                        name: "Owner",
+                        value: (`\*\*${guild.owner}\*\*`)
                     },
                     {
                         name: "Members",
@@ -380,8 +380,8 @@ bot.on('message', async message => {
         .setTitle("Server Information")
         .setColor(0x00bdf2)
         .setThumbnail(sicon)
-        .addField("Server Name", message.guild.name, true)
-        .addField("Server Owner", message.guild.owner, true)
+        .addField("Name", message.guild.name, true)
+        .addField("Owner", message.guild.owner, true)
         .addField("Region", message.guild.region ,true)
         .addField("Time of Birth", message.guild.createdAt)
         .addField("Members", message.guild.memberCount, true)
