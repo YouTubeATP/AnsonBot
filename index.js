@@ -66,18 +66,29 @@ bot.on("guildCreate", guild => {
   let sicon = guild.iconURL;
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
-            title: "I've been invited to this server!",
+            title: "Invited by Server",
             thumbnail: {
                           url: (sicon),
                        },
             fields: [
                     {
                         name: "Name",
-                        value: (`\*\*${guild.name}\*\*`)
+                        value: (`\*\*${guild.name}\*\*`),
+                        inline: true
                     },
                     {
                         name: "Owner",
-                        value: (`\*\*${guild.owner}\*\*`)
+                        value: (`\*\*${guild.owner}\*\*`),
+                        inline: true
+                    },
+                    {
+                        name: "Region",
+                        value: (`\*\*${guild.region}\*\*`),
+                        inline: true
+                    },
+                    {
+                        name: "Time of Birth",
+                        value: (`\*\*${guild.createdAt}\*\*`),
                     },
                     {
                         name: "Members",
@@ -105,30 +116,44 @@ bot.on("guildDelete", guild => {
   let sicon = guild.iconURL;
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
-            title: "I've been removed from this server.",
+            title: "Removed by Server",
             thumbnail: {
                           url: (sicon),
                        },
             fields: [
                     {
                         name: "Name",
-                        value: (`\*\*${guild.name}\*\*`)
+                        value: (`\*\*${guild.name}\*\*`),
+                        inline: true
                     },
                     {
                         name: "Owner",
-                        value: (`\*\*${guild.owner}\*\*`)
+                        value: (`\*\*${guild.owner}\*\*`),
+                        inline: true
+                    },
+                    {
+                        name: "Region",
+                        value: (`\*\*${guild.region}\*\*`),
+                        inline: true
+                    },
+                    {
+                        name: "Time of Birth",
+                        value: (`\*\*${guild.createdAt}\*\*`),
                     },
                     {
                         name: "Members",
-                        value: (`\*\*${guild.memberCount}\*\*`)
+                        value: (`\*\*${guild.memberCount}\*\*`),
+                        inline: true
                     },
                     {
                         name: "Humans",
-                        value: (`\*\*${guild.members.filter(member => !member.user.bot).size}\*\*`)
+                        value: (`\*\*${guild.members.filter(member => !member.user.bot).size}\*\*`),
+                        inline: true
                     },
                     {
                         name: "Bots",
-                        value: (`\*\*${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}\*\*`)
+                        value: (`\*\*${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}\*\*`),
+                        inline: true
                     },
                 ],
             footer: {
