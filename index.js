@@ -38,7 +38,7 @@ const defaultSettings = {
 };
 
 bot.on("ready", () =>  {
-    console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);
+    console.log(`MusEmbed™ by Paraborg Discord Bots initiated.`);
     setInterval(() => {
     return bot.shard.broadcastEval('this.guilds.size')
     .then(results => {
@@ -63,11 +63,13 @@ bot.on("ready", () =>  {
 bot.on("guildCreate", guild => {
   // This event triggers when the bot joins a guild.
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  return bot.shard.broadcastEval('this.guilds.size')
+   .then(results => {
   let sicon = guild.iconURL;
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
             title: "I've joined a server",
-            description: `I am now in ${bot.guilds.size} servers`,
+            description: `I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`,
             thumbnail: {
                           url: (sicon),
                        },
@@ -116,16 +118,19 @@ bot.on("guildCreate", guild => {
                 text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }});
+  });
 });
 
 bot.on("guildDelete", guild => {
   // this event triggers when the bot is removed from a guild.
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+  return bot.shard.broadcastEval('this.guilds.size')
+   .then(results => {
   let sicon = guild.iconURL;
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
             title: "I've left a server",
-            description: `I am now in ${bot.guilds.size} servers`,
+            description: `I am now in \`{results.reduce((prev, val) => prev + val, 0)}\` servers`,
             thumbnail: {
                           url: (sicon),
                        },
@@ -174,6 +179,7 @@ bot.on("guildDelete", guild => {
                 text: "MusEmbed™ by Paraborg Discord Bots"
             }
   }});
+  });
 });
 
 bot.on('message', async message => {
