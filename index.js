@@ -63,9 +63,11 @@ bot.on("ready", () =>  {
 bot.on("guildCreate", guild => {
   // This event triggers when the bot joins a guild.
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  let sicon = guild.iconURL;
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
-            title: "Server Joined",
+            title: "I've been invited to this server!",
+            thumbnail: sicon),
             fields: [
                     {
                         name: "Server Name",
@@ -98,9 +100,11 @@ bot.on("guildCreate", guild => {
 bot.on("guildDelete", guild => {
   // this event triggers when the bot is removed from a guild.
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+  let sicon = guild.iconURL;
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
-            title: "Server Left",
+            title: "I've been removed from this server.",
+            thumbnail: (sicon),
             fields: [
                     {
                         name: "Server Name",
@@ -342,7 +346,7 @@ bot.on('message', async message => {
         .addField("Developer", "<@344335337889464357>", true)
         .addField("Time of Birth", bot.user.createdAt)
         .addField("Library", "discord.js", true)
-        .addField("Server Count", `${results.reduce((prev, val) => prev + val, 0)}`, true)
+        .addField("Servers", `${results.reduce((prev, val) => prev + val, 0)}`, true)
         .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
         .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
 
