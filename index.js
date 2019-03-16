@@ -67,7 +67,9 @@ bot.on("guildCreate", guild => {
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
             title: "I've been invited to this server!",
-            thumbnail: sicon),
+            thumbnail: {
+                          url: (sicon),
+                       },
             fields: [
                     {
                         name: "Server Name",
@@ -104,7 +106,9 @@ bot.on("guildDelete", guild => {
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
             title: "I've been removed from this server.",
-            thumbnail: (sicon),
+            thumbnail: {
+                          url: (sicon),
+                       },
             fields: [
                     {
                         name: "Server Name",
