@@ -66,41 +66,49 @@ bot.on("guildCreate", guild => {
   let sicon = guild.iconURL;
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
-            title: "Invited by Server",
+            title: "I've joined a server",
+            description: `I am now in ${bot.guilds.size} servers`,
             thumbnail: {
                           url: (sicon),
                        },
             fields: [
                     {
                         name: "Name",
-                        value: (`\*\*${guild.name}\*\*`),
+                        value: (`${guild.name}`),
                         inline: true
                     },
                     {
                         name: "Owner",
-                        value: (`\*\*${guild.owner}\*\*`),
+                        value: (`${guild.owner}`),
                         inline: true
                     },
                     {
                         name: "Region",
-                        value: (`\*\*${guild.region}\*\*`),
+                        value: (`${guild.region}`),
                         inline: true
                     },
                     {
                         name: "Time of Birth",
-                        value: (`\*\*${guild.createdAt}\*\*`),
+                        value: (`${guild.createdAt}`),
                     },
                     {
                         name: "Members",
-                        value: (`\*\*${guild.memberCount}\*\*`)
+                        value: (`${guild.memberCount}`),
+                        inline: true
                     },
                     {
                         name: "Humans",
-                        value: (`\*\*${guild.members.filter(member => !member.user.bot).size}\*\*`)
+                        value: (`${guild.members.filter(member => !member.user.bot).size}`),
+                        inline: true
                     },
                     {
                         name: "Bots",
-                        value: (`\*\*${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}\*\*`)
+                        value: (`${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}`),
+                        inline: true
+                    },
+                    {
+                        name: "ID",
+                        value: (`${guild.id}`),
                     },
                 ],
             footer: {
@@ -116,44 +124,49 @@ bot.on("guildDelete", guild => {
   let sicon = guild.iconURL;
   bot.channels.get(`556497757364420618`).send({embed: {
             color: 0x00bdf2,
-            title: "Removed by Server",
+            title: "I've left a server",
+            description: `I am now in ${bot.guilds.size} servers`,
             thumbnail: {
                           url: (sicon),
                        },
             fields: [
                     {
                         name: "Name",
-                        value: (`\*\*${guild.name}\*\*`),
+                        value: (`${guild.name}`),
                         inline: true
                     },
                     {
                         name: "Owner",
-                        value: (`\*\*${guild.owner}\*\*`),
+                        value: (`${guild.owner}`),
                         inline: true
                     },
                     {
                         name: "Region",
-                        value: (`\*\*${guild.region}\*\*`),
+                        value: (`${guild.region}`),
                         inline: true
                     },
                     {
                         name: "Time of Birth",
-                        value: (`\*\*${guild.createdAt}\*\*`),
+                        value: (`${guild.createdAt}`),
                     },
                     {
                         name: "Members",
-                        value: (`\*\*${guild.memberCount}\*\*`),
+                        value: (`${guild.memberCount}`),
                         inline: true
                     },
                     {
                         name: "Humans",
-                        value: (`\*\*${guild.members.filter(member => !member.user.bot).size}\*\*`),
+                        value: (`${guild.members.filter(member => !member.user.bot).size}`),
                         inline: true
                     },
                     {
                         name: "Bots",
-                        value: (`\*\*${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}\*\*`),
+                        value: (`${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}`),
                         inline: true
+                    },
+                    {
+                        name: "ID",
+                        value: (`${guild.id}`),
                     },
                 ],
             footer: {
@@ -377,6 +390,7 @@ bot.on('message', async message => {
         .addField("Library", "discord.js", true)
         .addField("Servers", `${results.reduce((prev, val) => prev + val, 0)}`, true)
         .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
+        .addField("ID", bot.user.id)
         .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
 
         message.channel.send(botembed)
@@ -412,6 +426,7 @@ bot.on('message', async message => {
         .addField("Members", message.guild.memberCount, true)
         .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)
         .addField("Bots", `${Math.round(message.guild.memberCount - message.guild.members.filter(member => !member.user.bot).size)}`, true)
+        .addField("ID", message.guild.id)
         .setFooter("MusEmbed™ by Paraborg Discord Bots", bicon)
 
         await message.channel.send(serverembed)
