@@ -269,7 +269,7 @@ bot.on('message', async message => {
         message.channel.send({embed: {
             color: 0x00bdf2,
             author: {
-                name: message.author.username,
+                name: `${message.author.username}${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
             description:(embedMessage),
@@ -287,7 +287,7 @@ bot.on('message', async message => {
         message.channel.send({embed: {
             color: 0x00bdf2,
             author: {
-                name: message.author.username,
+                name: `${message.author.username}${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
             description:(embedMessage),
@@ -359,7 +359,7 @@ bot.on('message', async message => {
           user.send({embed: {
             color: 0x00bdf2,
             author: {
-                name: `Suggestion by ${message.author.username}`,
+                name: `Suggestion by ${message.author.username}${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
             description:(embedMessage),
@@ -367,8 +367,9 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ by Paraborg Discord Bots"
             }
-  }})
-        }) return; }}
+  }})});
+      return;
+    }}
         } else {
         const embedMessage = args.join(" ");
         const senderID = args.join(" ");
@@ -386,7 +387,7 @@ bot.on('message', async message => {
           user.send({embed: {
             color: 0x00bdf2,
             author: {
-                name: `Suggestion by ${message.author.username}`,
+                name: `Suggestion by ${message.author.username}${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
             description:(embedMessage),
@@ -394,8 +395,9 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ by Paraborg Discord Bots"
             }
-  }})
-        })}};
+  }})});
+          return;
+        }};
 
     
     
