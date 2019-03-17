@@ -344,6 +344,7 @@ bot.on('message', async message => {
                 message.reply("please refrain from using such contemptable words.");
             return;
             } else if (embedMessage.length < 20) {
+              message.delete().catch(O_o=>{});
               message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Suggestion too short!",
@@ -443,7 +444,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "General Commands",
-                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`suggest [suggestion]\`: Submits a suggestion to the developer. \n"
+                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`suggest [suggestion]\`: Submits a suggestion to the developer. Suggestion must consist of 20 characters or more. \n"
                     },
                     {
                         name: "Embed Commands",
