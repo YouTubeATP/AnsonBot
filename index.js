@@ -335,6 +335,67 @@ bot.on('message', async message => {
   }})
 }};
   
+    if (msg.split(" ")[0] === prefix + "suggest" | msg.split(" ")[0] === mention + "suggest" | msg.split(" ")[0] === mention1 + "suggest") {
+        if (censors === "on") {
+            for (i=0;i<bannedwords.length;i++) {
+            if (message.content.toLowerCase().includes(bannedwords[i])) {
+                message.delete().catch(O_o=>{});
+                message.reply("please refrain from using such contemptable words.");
+            return;
+    } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
+        const embedMessage = args.join(" ");
+        const senderID = args.join(" ");
+        message.delete().catch(O_o=>{});
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            title: "Suggestion submitted!",
+            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in my changelog.",
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+        }});
+         bot.fetchUser(config.ownerID).then((user) => {
+          user.send({embed: {
+            color: 0x00bdf2,
+            author: {
+                name: `Suggestion by ${message.author.username}`,
+                icon_url: message.author.avatarURL
+            },
+            description:(embedMessage),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }})
+        }) return; }}
+        } else {
+        const embedMessage = args.join(" ");
+        const senderID = args.join(" ");
+        message.delete().catch(O_o=>{});
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            title: "Suggestion submitted!",
+            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in my changelog.",
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+        }});
+        bot.fetchUser(config.ownerID).then((user) => {
+          user.send({embed: {
+            color: 0x00bdf2,
+            author: {
+                name: `Suggestion by ${message.author.username}`,
+                icon_url: message.author.avatarURL
+            },
+            description:(embedMessage),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }})
+        })}};
 
     
     
