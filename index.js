@@ -335,7 +335,94 @@ bot.on('message', async message => {
   }})
 }};
   
-
+    if (msg.split(" ")[0] === prefix + "suggest" | msg.split(" ")[0] === mention + "suggest" | msg.split(" ")[0] === mention1 + "suggest") {
+        const embedMessage = args.join(" ");
+        if (censors === "on") {
+            for (i=0;i<bannedwords.length;i++) {
+            if (message.content.toLowerCase().includes(bannedwords[i])) {
+                message.delete().catch(O_o=>{});
+                message.reply("please refrain from using such contemptable words.");
+            return;
+            } else if (embedMessage.length < 20) {
+              message.channel.send({embed: {
+            color: 0x00bdf2,
+            title: "Suggestion too short!",
+            description: "Your suggestion must consist of 20 characters or more.",
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+          }});
+          return;
+            } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
+        const senderID = args.join(" ");
+        message.delete().catch(O_o=>{});
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            title: "Suggestion submitted!",
+            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in my changelog.",
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+        }});
+         bot.fetchUser(config.ownerID).then((user) => {
+          user.send({embed: {
+            color: 0x00bdf2,
+            title: "Suggestion",
+            author: {
+                name: `${message.author.username}#${message.author.discriminator}`,
+                icon_url: message.author.avatarURL
+            },
+            description:(embedMessage),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }})});
+      return;
+    }}
+        } else if (embedMessage.length < 20) {
+          message.delete().catch(O_o=>{});
+          message.channel.send({embed: {
+            color: 0x00bdf2,
+            title: "Suggestion too short!",
+            description: "Your suggestion must consist of 20 characters or more.",
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+          }});
+          return;
+            } else {
+        const embedMessage = args.join(" ");
+        const senderID = args.join(" ");
+        message.delete().catch(O_o=>{});
+        message.channel.send({embed: {
+            color: 0x00bdf2,
+            title: "Suggestion submitted!",
+            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in my changelog.",
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+        }});
+        bot.fetchUser(config.ownerID).then((user) => {
+          user.send({embed: {
+            color: 0x00bdf2,
+            title: "Suggestion",
+            author: {
+                name: `${message.author.username}#${message.author.discriminator}`,
+                icon_url: message.author.avatarURL
+            },
+            description:(embedMessage),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ by Paraborg Discord Bots"
+            }
+  }})});
+          return;
+        }};
 
     
     
