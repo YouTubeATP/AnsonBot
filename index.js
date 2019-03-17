@@ -269,7 +269,7 @@ bot.on('message', async message => {
         message.channel.send({embed: {
             color: 0x00bdf2,
             author: {
-                name: `${message.author.username}${message.author.discriminator}`,
+                name: `${message.author.username}#${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
             description:(embedMessage),
@@ -287,7 +287,7 @@ bot.on('message', async message => {
         message.channel.send({embed: {
             color: 0x00bdf2,
             author: {
-                name: `${message.author.username}${message.author.discriminator}`,
+                name: `${message.author.username}#${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
             description:(embedMessage),
@@ -358,8 +358,9 @@ bot.on('message', async message => {
          bot.fetchUser(config.ownerID).then((user) => {
           user.send({embed: {
             color: 0x00bdf2,
+            title: "Suggestion",
             author: {
-                name: `Suggestion by ${message.author.username}${message.author.discriminator}`,
+                name: `${message.author.username}#${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
             description:(embedMessage),
@@ -386,8 +387,9 @@ bot.on('message', async message => {
         bot.fetchUser(config.ownerID).then((user) => {
           user.send({embed: {
             color: 0x00bdf2,
+            title: "Suggestion",
             author: {
-                name: `Suggestion by ${message.author.username}${message.author.discriminator}`,
+                name: `${message.author.username}#${message.author.discriminator}`,
                 icon_url: message.author.avatarURL
             },
             description:(embedMessage),
@@ -418,7 +420,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "General Commands",
-                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n"
+                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`suggest [suggestion]\`: Submits a suggestion to the developer. \n"
                     },
                     {
                         name: "Embed Commands",
@@ -426,7 +428,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Resets the queue and stops music. Also forces bot to leave channel."
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
                     },
                     {
                         name: "Moderation Commands",
