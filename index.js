@@ -216,7 +216,8 @@ bot.on('message', async message => {
         } else if (!bot.settings.has(message.guild.id, prop)) {
             message.delete().catch(O_o=>{});
             return message.reply("this configuration is not available.")
-        } else {
+        } else if (!value.join(" ") | ! | !) return;
+        else {
             bot.settings.set(message.guild.id, value.join(" "), prop);
             message.delete().catch(O_o=>{});
             message.channel.send(`Server ${prop} has been set to: \`${value.join(" ")}\``)
