@@ -541,8 +541,8 @@ bot.on('message', async message => {
         message.delete().catch(O_o=>{});
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
         const permissions = voiceChannel.permissionsFor(bot.user)
-        if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, how do you expect me to play music?')
-        if(!permissions.has('SPEAK')) return message.channel.send('I can\'t speak here, how do you expect me to play music?')
+        if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, duh! How do you expect me to play you music?')
+        if(!permissions.has('SPEAK')) return message.channel.send('I can\'t speak here, duh! How do you expect me to play you music?')
         
     if(!args[0]) return message.reply('please provide a search term, url or playlist link!')
     if(stopping) stopping = false;
@@ -569,15 +569,15 @@ bot.on('message', async message => {
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Affiliated with Paraborg Discord Bots", bicon)
                     message.channel.send(videosEmbed)
-                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 10 seconds.")
+                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
                     try{
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
-                    time: 10000,
+                    time: 20000,
                     errors: ['time']
                 });
                     }catch(err){
-                        return message.channel.send('No value given, or value was invalid, video selection canceled.')
+                        return message.channel.send('No value given, or value was invalid. Video selection canceled.')
                     }
                 const videoIndex = parseInt(response.first().content);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
