@@ -501,7 +501,7 @@ bot.on('message', async message => {
         message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Links",
-            description: ("[MusEmbed's Website](https://Musembed.tk/) \n[Vote for MusEmbed](https://vote.Musembed.tk/) \n[Join MusEmbed's Support Server](https://invite.gg/paraborg) \n[Invite MusEmbed](https://invite.Musembed.tk/) \n[Paraborg Discord Bots](https://paraborg.xyz)"),
+            description: ("[MusEmbed's Website](https://Musembed.tk/) \n[Vote for MusEmbed](https://vote.Musembed.tk/) \n[Join MusEmbed's Support Server](https://invite.gg/paraborg) \n[Invite MusEmbed](https://invite.Musembed.tk/) \n[MusEmbed's Uptime](https://uptime.musembed.tk/) \n[Paraborg Discord Bots](https://paraborg.xyz)"),
             footer: {
                         icon_url: bot.user.avatarURL,
                         text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
