@@ -577,7 +577,6 @@ bot.on('message', async message => {
                     errors: ['time']
                 });
                     }catch(err){
-                        message.delete().catch(O_o=>{});
                         return message.channel.send('No value given, or value was invalid, video selection canceled.')
                     }
                 const videoIndex = parseInt(response.first().content);
@@ -589,59 +588,7 @@ bot.on('message', async message => {
             }
             return handleVideo(video, message, voiceChannel);
         }
-    } else if (msg === prefix + "pause" | msg === mention + "pause" | msg === mention1 + "pause") {
-      exports.run = async(bot, message, args, ops) => {
-    let fetched = ops.active.get(message.guild.id);
-
-    if (!fetched) {
-        return message.reply("There is no music currently playing.");
-    }
-    else if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) {
-        return message.reply("You're not in my voice channel, duh!");
-    }
-    else if (fetched.dispatcher.paused) {
-        return message.reply("The music is already paused.");
-    }
-
-    message.channel.send("The song has been paused. Type \`" + prefix + "resume\` to resume the music.")
-    await fetched.dispatcher.pause()
-}
-
-exports.config = {
-    aliases: [  ]
-};
-
-exports.help = {
-    name: 'pause'
-}
-    } else if (msg === prefix + "resume" | msg === mention + "resume" | msg === mention1 + "resume") {exports.run = async(bot, message, args, ops) => {
-    let fetched = ops.active.get(message.guild.id);
-
-    if (!fetched) {
-        return message.reply("There is no music currently playing.");
-    }
-    else if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) {
-        return message.reply("You're not in my voice channel, duh!");
-    }
-    else if (fetched.dispatcher.resumed) {
-        return message.reply("The music is already playing!");
-    }
-    let queue = fetched.queue;
-    let resume = queue[0];
-
-    fetched.dispatcher.resume()
-    message.channel.send(`The song has been resumed`)
-}
-
-exports.config = {
-    aliases: [  ]
-};
-
-exports.help = {
-    name: 'resume'
-}
-    }
-    else if(msg === prefix + "stop" | msg === mention + "stop" | msg === mention1 + "stop"){
+    } else if(msg === prefix + "stop" | msg === mention + "stop" | msg === mention1 + "stop"){
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
