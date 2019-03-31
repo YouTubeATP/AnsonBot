@@ -260,8 +260,7 @@ bot.on('message', async message => {
             for (i=0;i<bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(bannedwords[i])) {
                 message.delete().catch(O_o=>{});
-                message.reply("please refrain from using such contemptable words.");
-            return;
+                return message.reply("please refrain from using such contemptable words.").then(message => message.delete(10000));
     } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
         const embedMessage = args.join(" ");
         const senderID = args.join(" ");
@@ -307,7 +306,7 @@ bot.on('message', async message => {
             for (i=0;i<bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(bannedwords[i])) {
                 message.delete().catch(O_o=>{});
-                message.reply("please refrain from using such contemptable words.");
+                message.reply("please refrain from using such contemptable words.").then(message => message.delete(10000));
             return;
     } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
         const embedMessage = args.join(" ");
@@ -341,7 +340,7 @@ bot.on('message', async message => {
             for (i=0;i<bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(bannedwords[i])) {
                 message.delete().catch(O_o=>{});
-                message.reply("please refrain from using such contemptable words.");
+                message.reply("please refrain from using such contemptable words.").then(message => message.delete(10000));
             return;
             } else if (embedMessage.length < 20) {
               message.delete().catch(O_o=>{});
@@ -569,7 +568,7 @@ bot.on('message', async message => {
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Affiliated with Paraborg Discord Bots", bicon)
                     message.channel.send(videosEmbed)
-                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
+                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.").then(message => message.delete(20000))
                     try{
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
@@ -577,13 +576,13 @@ bot.on('message', async message => {
                     errors: ['time']
                 });
                     }catch(err){
-                        return message.channel.send('No value given, or value was invalid. Video selection canceled.')
+                        return message.channel.send('No value given, or value was invalid. Video selection canceled.').then(message => message.delete(10000))
                     }
                 const videoIndex = parseInt(response.first().content);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
                 }catch(err){
                     console.log(err)
-                    return await message.channel.send("No results could be found.");
+                    return await message.channel.send("No results could be found.").then(message => message.delete(10000));
                 }
             }
             return handleVideo(video, message, voiceChannel);
@@ -592,18 +591,18 @@ bot.on('message', async message => {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
-        if (!message.member.hasPermission("ADMINISTRATOR")) return await message.reply("you don't have sufficient permissions!")
+        if (!message.member.hasPermission("ADMINISTRATOR")) return await message.reply("you don't have sufficient permissions!").then(message => message.delete(10000))
     stopping = true;
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
     }else if(msg === prefix + "skip" | msg === mention + "skip" | msg === mention1 + "skip"){
         message.delete().catch(O_o=>{});
-            if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-            if(!serverQueue) return await message.channel.send("Nothing is playing!")
+            if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!").then(message => message.delete(10000))
+            if(!serverQueue) return await message.channel.send("Nothing is playing!").then(message => message.delete(10000))
         const voiceChannel = message.member.voiceChannel;
         for (var x = 0; x < playerVoted.length; x++) {
             if(sender === playerVoted[x]){
-            return message.channel.send(`${sender.username}, you think you run the place? You can\'t vote twice!`)
+            return message.channel.send(`${sender.username}, you think you run the place? You can\'t vote twice!`).then(message => message.delete(10000))
         }
         }
         voted++;
@@ -617,26 +616,26 @@ bot.on('message', async message => {
         var voteSkip = Math.floor(voteSkipPass1/2);
         if(voteSkip === 0) voteSkip = 1;
         if(voted >= voteSkip){
-        await message.channel.send('Vote skip has passed!')
+        await message.channel.send('Vote skip has passed!').then(message => message.delete(10000))
             serverQueue.connection.dispatcher.end();
         voted = 0;
         voteSkipPass = 0;
         playerVoted = [];
         }else{
-            await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!')
+            await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!').then(message => message.delete(10000))
         }
         return undefined;
     }else if(msg === prefix + "np" | msg === mention + "np" | msg === mention1 + "np"){
         message.delete().catch(O_o=>{});
-        if(!serverQueue) return await message.channel.send("Nothing is playing!")
+        if(!serverQueue) return await message.channel.send("Nothing is playing!").then(message => message.delete(10000))
         
         return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
     }else if(msg.split(" ")[0] === prefix + "volume" | msg.split(" ")[0] === mention + "volume" | msg.split(" ")[0] === mention1 + "volume"){
         let args = msg.split(" ").slice(1)
         message.delete().catch(O_o=>{});
-        if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
+        if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!").then(message => message.delete(10000))
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
-        if(!args[0]) return await message.channel.send(`The current volume is **${serverQueue.volume}**`);
+        if(!args[0]) return await message.channel.send(`The current volume is **${serverQueue.volume}**`).then(message => message.delete(10000));
     if(args[0] > 10 || args[0] < 0) return await message.channel.send('Please choose a number between 0 and 10!');
         serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 5)
         serverQueue.volume = args[0];
@@ -658,7 +657,7 @@ bot.on('message', async message => {
   for (i=0;i<bannedwords.length;i++) {
     if (message.content.toLowerCase().includes(bannedwords[i])) {
         message.delete().catch(O_o=>{})
-      message.reply("please refrain from using such contemptable words.");
+      message.reply("please refrain from using such contemptable words.").then(message => message.delete(10000));
       return;
     }
  }};
@@ -717,7 +716,7 @@ bot.on('message', async message => {
   if (msg.split(" ")[0] === prefix + "ban" | msg.split(" ")[0] === mention + "ban" | msg.split(" ")[0] === mention1 + "ban") {
     if (!message.member.hasPermission("BAN_MEMBERS")) {
         message.delete().catch(O_o=>{});
-        message.reply("you don't have sufficient permissions!");
+        message.reply("you don't have sufficient permissions!").then(message => message.delete(10000));
         return;
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("BAN_MEMBERS")) {
@@ -729,12 +728,12 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }});
+  }}).then(message => message.delete(10000));
         return;
     }
     mem.ban().then(() => {
         message.delete().catch(O_o=>{});
-        message.channel.send(mem.displayName + " has successfully been banned by " + message.author.username + "!");
+        message.channel.send(mem.displayName + " has successfully been banned by " + message.author.username + "!").then(message => message.delete(10000));
     }).catch(e => {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
@@ -744,7 +743,7 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }});
+  }}).then(message => message.delete(10000));
     });
   }};
 
@@ -763,7 +762,7 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }});
+  }}).then(message => message.delete(10000));
         return;
     }   
     if (message.guild.roles.find("name", "Muted")) {
@@ -779,7 +778,7 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }});
+  }}).then(message => message.delete(10000));
         console.log(e);
       });
 }}};
@@ -793,7 +792,7 @@ bot.on('message', async message => {
     if (message.guild.roles.find("name", "Muted")) {
         message.delete().catch(O_o=>{});
         mem.removeRole(message.guild.roles.find("name", "Muted")).then(() => {
-        message.channel.send(mem.displayName + " has successfully been unmuted!");
+        message.channel.send(mem.displayName + " has successfully been unmuted!").then(message => message.delete(10000));
       }).catch(e => {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
