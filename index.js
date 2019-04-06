@@ -619,7 +619,7 @@ bot.on('message', async message => {
         var voteSkip = Math.floor(voteSkipPass1/2);
         if(voteSkip === 0) voteSkip = 1;
         if(voted >= voteSkip){
-        await message.channel.send('Vote skip has passed!').then(message => message.delete(10000))
+        await message.channel.send('Vote skip has passed!').then
             serverQueue.connection.dispatcher.end();
         voted = 0;
         voteSkipPass = 0;
