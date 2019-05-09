@@ -44,7 +44,7 @@ bot.on("ready", () =>  {
     return bot.shard.broadcastEval('this.guilds.size')
     .then(results => {
         bot.user.setStatus('available')
-        const index = Math.floor(parseInt(Math.random() * 2) + parseInt(1));
+        const index = Math.floor(parseInt(Math.random() * 3) + parseInt(0));
         const activities_list = [
             `${results.reduce((prev, val) => prev + val, 0)} servers ask for help`,
             `${results.reduce((prev, val) => prev + val, 0)} servers use embeds`, 
