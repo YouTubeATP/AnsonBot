@@ -58,7 +58,7 @@ bot.on("ready", () =>  {
             }
         });
     });
-    }, 10000);
+    }, 20000);
 });
 
 bot.on("guildCreate", guild => {
