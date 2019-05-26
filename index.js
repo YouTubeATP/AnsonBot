@@ -60,8 +60,13 @@ bot.on("ready", () =>  {
             }
         });
     });
-              dbl.postStats(bot.guilds.size, bot.shards.Id, bot.shards.total);
     }, 20000);
+});
+
+bot.on('ready', () => {
+    setInterval(() => {
+        dbl.postStats(bot.guilds.size);
+    }, 100000);
 });
 
 dbl.on('posted', () => {
