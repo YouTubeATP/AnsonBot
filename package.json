@@ -1,6 +1,7 @@
 {
-  "name": "embedandmusicbot",
+  "name": "musembed",
   "version": "1.0.0",
+  "homepage": "https://www.musembed.tk",
   "description": "A bot that can create embeds and play music.",
   "main": "manager.js",
   "dependencies": {
@@ -11,6 +12,7 @@
     "express": "^4.16.4",
     "ffmpeg": "^0.0.4",
     "fs": "^0.0.2",
+    "hypixel-api": "^1.1.0",
     "moment": "^2.24.0",
     "ms": "^2.1.1",
     "node-opus": "^0.3.1",
@@ -31,9 +33,5 @@
     "embed"
   ],
   "author": "NikkaNC",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Just-Some-Bots/MusicBot/issues"
-  },
-  "homepage": "https://github.com/Just-Some-Bots/MusicBot#readme"
+  "license": "MIT"
 }
