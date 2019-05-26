@@ -5,10 +5,11 @@
   "description": "A bot that can create embeds and play music.",
   "main": "manager.js",
   "dependencies": {
-    "better-sqlite-pool": "^0.2.0",
-    "discord.js": "^11.4.2",
+    "better-sqlite-pool": "^0.2.2",
+    "dblapi.js": "^2.3.0",
+    "discord.js": "^11.5.0",
     "discord.js-arbitrary-ffmpeg": "^1.0.0",
-    "enmap": "^4.8.0",
+    "enmap": "^4.8.6",
     "express": "^4.16.4",
     "ffmpeg": "^0.0.4",
     "fs": "^0.0.2",
@@ -16,10 +17,10 @@
     "moment": "^2.24.0",
     "ms": "^2.1.1",
     "node-opus": "^0.3.1",
-    "nodemon": "^1.18.10",
+    "nodemon": "^1.19.1",
     "simple-youtube-api": "^5.1.1",
-    "ytdl-core": "^0.29.0",
-    "pm2": "^3.2.9"
+    "ytdl-core": "^0.29.2",
+    "pm2": "^3.5.1"
   },
   "devDependencies": {},
   "scripts": {

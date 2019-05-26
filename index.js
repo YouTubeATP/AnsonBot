@@ -9,6 +9,8 @@ const ytdl = require("ytdl-core");
 const opus = require("node-opus");
 const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
+const DBL = require("dblapi.js");
+const dbl = new DBL('Your discordbots.org token', bot);
 
 const mutedSet = new Set();
 const queue = new Map();
