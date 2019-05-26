@@ -10,7 +10,7 @@ const opus = require("node-opus");
 const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const DBL = require("dblapi.js");
-const dbl = new DBL('Your discordbots.org token', bot);
+const dbl = new DBL(config.dbltoken, bot);
 
 const mutedSet = new Set();
 const queue = new Map();
@@ -60,8 +60,17 @@ bot.on("ready", () =>  {
             }
         });
     });
+              dbl.postStats(bot.guilds.size, bot.shards.Id, bot.shards.total);
     }, 20000);
 });
+
+dbl.on('posted', () => {
+  console.log('Server count posted!');
+})
+
+dbl.on('error', e => {
+ console.log(`Oops! ${e}`);
+})
 
 bot.on("guildCreate", guild => {
   // This event triggers when the bot joins a guild.
