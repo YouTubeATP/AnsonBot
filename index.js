@@ -66,7 +66,7 @@ bot.on("ready", () =>  {
 bot.on('ready', () => {
     setInterval(() => {
         dbl.postStats(bot.guilds.size);
-    }, 100000);
+    }, 900000);
 });
 
 dbl.on('posted', () => {
