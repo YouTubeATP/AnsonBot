@@ -10,7 +10,7 @@ const opus = require("node-opus");
 const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const DBL = require("dblapi.js");
-const dbl = new DBL(config.dbltoken, { webhookPort: 5000, webhookAuth: 'NaKh26100225' }, bot);
+const dbl = new DBL(config.dbltoken, { statsInterval: 900000, }, bot);
 
 const mutedSet = new Set();
 const queue = new Map();
@@ -61,31 +61,6 @@ bot.on("ready", () =>  {
         });
     });
     }, 20000);
-});
-
-bot.on('ready', () => {
-    setInterval(() => {
-      return bot.shard.broadcastEval('this.guilds.size')
-      .then(results => {
-        
-      }           )
-        dbl.postStats(bot.guilds.size, bot.shardId, bot.shardCount);
-    }, 900000);
-});
-
-dbl.webhook.on('ready', hook => {
-  console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
-});
-
-dbl.webhook.on('vote', vote => {
-  bot.channels.get(`584591025616715786`).send({embed: {
-            color: 0x00bdf2,
-            title: `@${vote.user} just voted for us [here](https://vote.musembed.tk). Thanks, we really appreciate it!`,
-footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
-            }
-  }});
 });
 
 dbl.on('posted', () => {
