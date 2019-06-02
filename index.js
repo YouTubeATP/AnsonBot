@@ -10,7 +10,7 @@ const opus = require("node-opus");
 const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const DBL = require("dblapi.js");
-const dbl = new DBL(config.dbltoken, { statsInterval: 900000, }, bot);
+const dbl = new DBL(config.dbltoken, { statsInterval: 900000,  webhookPort: 25000, webhookAuth: 'NaKh26100225', webhookPath: '/dblwebhook', webhookServer: 'http.musembed.glitch.me' }, bot);
 
 const mutedSet = new Set();
 const queue = new Map();
@@ -65,11 +65,20 @@ bot.on("ready", () =>  {
 
 dbl.on('posted', () => {
   console.log('Server count posted!');
-})
+});
 
 dbl.on('error', e => {
  console.log(`Oops! ${e}`);
-})
+});
+
+dbl.webhook.on('ready', hook => {
+  console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+});
+
+dbl.webhook.on('vote', vote => {
+  console.log(`User with ID ${vote.user} just voted!`);
+  bot.channels.get(584591025616715786).send(`\`\`\`css\nUser with ID ${vote.user} just voted!\`\`\``);
+});
 
 bot.on("guildCreate", guild => {
   // This event triggers when the bot joins a guild.
