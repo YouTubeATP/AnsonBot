@@ -65,13 +65,18 @@ bot.on("ready", () =>  {
 
 bot.on('ready', () => {
     setInterval(() => {
-        dbl.postStats(bot.guilds.size);
+      return bot.shard.broadcastEval('this.guilds.size')
+      .then(results => {
+        
+      }           )
+        dbl.postStats(bot.guilds.size, bot.shardId, bot.shardCount);
     }, 900000);
 });
 
 dbl.webhook.on('ready', hook => {
   console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
 });
+
 dbl.webhook.on('vote', vote => {
   bot.channels.get(`584591025616715786`).send({embed: {
             color: 0x00bdf2,
