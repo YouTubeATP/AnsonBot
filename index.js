@@ -10,7 +10,7 @@ const opus = require("node-opus");
 const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const DBL = require("dblapi.js");
-const dbl = new DBL(config.dbltoken, { statsInterval: 900000,  webhookPort: 25000, webhookAuth: 'NaKh26100225', webhookPath: '/dblwebhook', webhookServer: 'http.musembed.glitch.me' }, bot);
+const dbl = new DBL(config.dbltoken, { statsInterval: 900000,  webhookPort: 25000, webhookAuth: 'NaKh26100225', webhookPath: '/dblwebhook' }, bot);
 
 const mutedSet = new Set();
 const queue = new Map();
@@ -77,7 +77,15 @@ dbl.webhook.on('ready', hook => {
 
 dbl.webhook.on('vote', vote => {
   console.log(`User with ID ${vote.user} just voted!`);
-  bot.channels.get(584591025616715786).send(`\`\`\`css\nUser with ID ${vote.user} just voted!\`\`\``);
+  bot.channels.get(584591025616715786).send({embed: {
+            color: 0x00bdf2,
+            title: "Vote Received",
+            description: `@${vote.user} has just voted for us [here](https://vote.musembed.tk/). Thanks a lot!`,
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+            }
+  }});
 });
 
 bot.on("guildCreate", guild => {
