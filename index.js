@@ -3,6 +3,9 @@ const bot = new Discord.Client();
 const config = require("./config.json");
 const fs = require('fs');
 const moment = require('moment'); // the moment package. to make this work u need to run "npm install moment --save 
+const http = require ('http');
+const app = require ('express');
+const server = http.createServer(app);
 const prefix = 'em/' // The text before commands
 const ms = require("ms"); // npm install ms -s
 const ytdl = require("ytdl-core");
@@ -86,6 +89,14 @@ dbl.webhook.on('vote', vote => {
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
   }});
+});
+
+app.get('/', (req, res) => {
+      // ...
+});
+
+server.listen(25000, () => {
+      console.log('Listening');
 });
 
 bot.on("guildCreate", guild => {
