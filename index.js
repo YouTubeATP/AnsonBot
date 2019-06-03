@@ -20,6 +20,14 @@ const youtube = new YouTube("AIzaSyDkCgN5BgLXr9qvpsKunr_x6HmJp77r_hA")
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { statsInterval: 900000 }, bot);
 
+dbl.on('posted', () => {
+  console.log('Server count posted!');
+});
+
+dbl.on('error', e => {
+ console.log(`Oops! ${e}`);
+});
+
 var stopping = false;
 var voteSkipPass = 0;
 var voted = 0;
