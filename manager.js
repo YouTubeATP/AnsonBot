@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const config = require("./config.json");
 const bot = new Discord.Client();
 const http = require ('http');
+const httpProxy = require('http-proxy');
 const express = require ('express');
 const app = express();
 const server = http.createServer(app);
@@ -9,14 +10,10 @@ const server = http.createServer(app);
 const Manager = new Discord.ShardingManager('./index.js');
 Manager.spawn(1);
 
-app.get('/', (req, res) => {
-     console.log(Date.now() + " Ping Received");
-      res.sendStatus(200);
-});
+httpProxy.createProxyServer({target:'http://localhost:9000'}).listen(3000);
 
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
-
-bot.login(config.token);
+http.createServer(function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.write('request successfully proxied!' + '\n' + JSON.stringify(req.headers, true, 2));
+  res.end();
+}).listen(9000);
