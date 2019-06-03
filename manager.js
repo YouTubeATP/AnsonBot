@@ -35,7 +35,7 @@ dbl.webhook.on('vote', vote => {
   bot.channels.get(`584591025616715786`).send({embed: {
             color: 0x00bdf2,
             title: "Vote Received",
-            description: `@${vote.user} just voted for <@414440610418786314>! Thanks a lot, we really appreciate it.`,
+            description: `<@${vote.user}> just voted for <@414440610418786314>! Thanks a lot, we really appreciate it.`,
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
