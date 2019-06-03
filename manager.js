@@ -24,14 +24,14 @@ const listener = app.listen(process.env.PORT, function() {
 })
 
 const DBL = require("dblapi.js");
-const dbl = new DBL(config.dbltoken, { webhookPort: 5000, webhookAuth: 'NaKh26100225', webhookPath: '/dblwebhook' }, bot);
+const dbl = new DBL(config.dbltoken, { webhookAuth: 'NaKh26100225', webhookServer: listener }, bot);
 
 dbl.webhook.on('ready', hook => {
   console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
 });
 
 dbl.webhook.on('vote', vote => {
-  console.log(`@${vote.user} just voted for <@414440610418786314>! Thanks a lot, we really appreciate it.`);
+  console.log(`<@${vote.user}> just voted for <@414440610418786314>! Thanks a lot, we really appreciate it.`);
   bot.channels.get(`584591025616715786`).send({embed: {
             color: 0x00bdf2,
             title: "Vote Received",
