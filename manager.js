@@ -45,10 +45,6 @@ dbl.webhook.on('vote', vote => {
           user.send({embed: {
             color: 0x00bdf2,
             title: "Thanks for voting!",
-            author: {
-                name: `${vote.user.username}#${vote.user.discriminator}`,
-                icon_url: vote.user.avatarURL
-            },
             description:(`Vote again in 12 hours [here](https://vote.musembed.tk/).`),
             footer: {
                 icon_url: bot.user.avatarURL,
