@@ -1,16 +1,17 @@
 dependencies:
   better-sqlite-pool: 0.2.2
   dblapi.js: 2.3.0
-  discord.js: 11.5.0
+  discord.js: 11.5.1
   discord.js-arbitrary-ffmpeg: 1.0.0
   enmap: 4.8.7
   express: 4.16.4
   ffmpeg: 0.0.4
   fs: 0.0.2
+  http: 0.0.0
   hypixel-api: 1.1.0
   moment: 2.24.0
   ms: 2.1.1
-  node-opus: 0.3.1
+  node-opus: 0.3.2
   nodemon: 1.19.1
   pm2: 3.5.1
   simple-youtube-api: 5.1.1
@@ -313,13 +314,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-FK1hE4EtLTfXLme0ystLtyZQXxE=
-  /bindings/1.4.0:
+  /bindings/1.5.0:
     dependencies:
       file-uri-to-path: 1.0.0
     dev: false
     optional: true
     resolution:
-      integrity: sha512-7znEVX22Djn+nYjxCWKDne0RRloa9XfYa84yk3s+HkE3LpDYZmhArYr9O9huBoHY3/oXispx5LorIX7Sl2CgSQ==
+      integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
   /blessed/0.1.81:
     dev: false
     engines:
@@ -541,10 +542,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-VlfT9F3V0v+jr4yxPc5gg9s62/fIVWsd2Bk2iD435um1NlGMYdVCq+MjcXnhYq2icNOizHr1kK+5TI6H0Hy0ag==
-  /commander/2.19.0:
+  /commander/2.20.0:
     dev: false
     resolution:
-      integrity: sha512-6tvAOO+D6OENvRAh524Dh9jcfKTYDQAqvqezbCW82xj5X0pSrcpxtvRKHLG0yBY6SD7PSDrJaj+0AiOcKVd1Xg==
+      integrity: sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
   /component-emitter/1.3.0:
     dev: false
     resolution:
@@ -738,7 +739,7 @@ packages:
     dev: false
     resolution:
       integrity: sha1-nLgmDhasrFy/6Vi8YqDHBBSt0zg=
-  /discord.js/11.5.0:
+  /discord.js/11.5.1:
     dependencies:
       long: 4.0.0
       prism-media: 0.0.3
@@ -757,7 +758,7 @@ packages:
       opusscript: ^0.0.6
       sodium: ^2.0.3
     resolution:
-      integrity: sha512-7TAyr2p1ZP9k4gaIhQWOxZpybznT6ND55HbhntUqwQqXkAjIxU3ATbwiOSuCMd4AXz7L9wk1rioRL0sOjXs5CA==
+      integrity: sha512-tGhV5xaZXE3Z+4uXJb3hYM6gQ1NmnSxp9PClcsSAYFVRzH6AJH74040mO3afPDMWEAlj8XsoPXXTJHTxesqcGw==
   /dot-prop/4.2.0:
     dependencies:
       is-obj: 1.0.1
@@ -1254,6 +1255,10 @@ packages:
       node: '>= 4.5.0'
     resolution:
       integrity: sha512-qwHbBLV7WviBl0rQsOzH6o5lwyOIvwp/BdFnvVxXORldu5TmjFfjzBcWUWS5kWAZhmv+JtiDhSuQCp4sBfbIgg==
+  /http/0.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-huYybSnF0Dnen6xYSkVon5KfT3I=
   /https-proxy-agent/2.2.1:
     dependencies:
       agent-base: 4.2.1
@@ -1813,13 +1818,8 @@ packages:
     dev: false
     resolution:
       integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
-  /nan/2.12.1:
-    dev: false
-    resolution:
-      integrity: sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
   /nan/2.14.0:
     dev: false
-    optional: true
     resolution:
       integrity: sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
   /nanomatch/1.2.13:
@@ -1869,19 +1869,19 @@ packages:
       node: 4.x || >=6.0.0
     resolution:
       integrity: sha512-MOd8pV3fxENbryESLgVIeaGKrdl+uaYhCSSVkjeOb/31/njTpcis5aWfdqgNlHIrKOLRbMnfPINPOML2CIFeXA==
-  /node-opus/0.3.1:
+  /node-opus/0.3.2:
     dependencies:
       bindings: 1.2.1
-      commander: 2.19.0
-      nan: 2.12.1
+      commander: 2.20.0
+      nan: 2.14.0
     dev: false
     engines:
       node: '>=5.10.0'
     optionalDependencies:
-      ogg-packet: 1.0.0
+      ogg-packet: 1.0.1
     requiresBuild: true
     resolution:
-      integrity: sha512-1Cb8OvHhdDspVfeKMjEgbedJabyE1Ib6OcN2BMEsRCU7FIsciuBpOErcie3y0qTf83nclPAY+kBU3Oj+U+oRlQ==
+      integrity: sha512-o7hKgNncfbgF1j25lCK7cPqs9DEMroP3LWW0BMb/Ismc33cXo7LcaLqS0+/VV+NOotIy43fb7juLg6akflzBEw==
   /nodemon/1.19.1:
     dependencies:
       chokidar: 2.1.6
@@ -1965,13 +1965,13 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-h6EKxMFpS9Lhy/U1kaZhQftd10c=
-  /ogg-packet/1.0.0:
+  /ogg-packet/1.0.1:
     dependencies:
       ref-struct: 1.1.0
     dev: false
     optional: true
     resolution:
-      integrity: sha1-RbiFchrI991c8iOR1CEGrlM6xng=
+      integrity: sha512-dW1ok3BMnMikyXGDIgVEckWnlViW8JLWQV4qj9aN/rNRVqHlDYSlcIEtSIMH7tpuUOiIxAhY3+OxNdIOm6s17A==
   /on-finished/2.3.0:
     dependencies:
       ee-first: 1.1.1
@@ -2344,9 +2344,9 @@ packages:
       integrity: sha1-XV7mWtQc78Olxf60BYcmHkee3BM=
   /ref/1.3.5:
     dependencies:
-      bindings: 1.4.0
+      bindings: 1.5.0
       debug: 2.6.9
-      nan: 2.12.1
+      nan: 2.14.0
     dev: false
     optional: true
     requiresBuild: true
@@ -3087,16 +3087,17 @@ shrinkwrapVersion: 3
 specifiers:
   better-sqlite-pool: ^0.2.2
   dblapi.js: ^2.3.0
-  discord.js: ^11.5.0
+  discord.js: ^11.5.1
   discord.js-arbitrary-ffmpeg: ^1.0.0
   enmap: ^4.8.6
   express: ^4.16.4
   ffmpeg: ^0.0.4
   fs: ^0.0.2
+  http: ^0.0.0
   hypixel-api: ^1.1.0
   moment: ^2.24.0
   ms: ^2.1.1
-  node-opus: ^0.3.1
+  node-opus: ^0.3.2
   nodemon: ^1.19.1
   pm2: ^3.5.1
   simple-youtube-api: ^5.1.1

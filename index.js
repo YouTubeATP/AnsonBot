@@ -4,7 +4,8 @@ const config = require("./config.json");
 const fs = require('fs');
 const moment = require('moment'); // the moment package. to make this work u need to run "npm install moment --save 
 const http = require ('http');
-const app = require ('express');
+const express = require ('express');
+const app = express();
 const server = http.createServer(app);
 const prefix = 'em/' // The text before commands
 const ms = require("ms"); // npm install ms -s
@@ -13,7 +14,7 @@ const opus = require("node-opus");
 const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const DBL = require("dblapi.js");
-const dbl = new DBL(config.dbltoken, { statsInterval: 900000,  webhookPort: 25000, webhookAuth: 'NaKh26100225', webhookPath: '/dblwebhook' }, bot);
+const dbl = new DBL(config.dbltoken, { statsInterval: 900000, webhookAuth: 'NaKh26100225', webhookPath: '/dblwebhook', webhookserver: server }, bot);
 
 const mutedSet = new Set();
 const queue = new Map();
@@ -66,6 +67,14 @@ bot.on("ready", () =>  {
     }, 20000);
 });
 
+app.get('/', (req, res) => {
+      // ...
+});
+
+server.listen(25000, () => {
+      console.log('Listening');
+});
+
 dbl.on('posted', () => {
   console.log('Server count posted!');
 });
@@ -89,14 +98,6 @@ dbl.webhook.on('vote', vote => {
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
   }});
-});
-
-app.get('/', (req, res) => {
-      // ...
-});
-
-server.listen(25000, () => {
-      console.log('Listening');
 });
 
 bot.on("guildCreate", guild => {
