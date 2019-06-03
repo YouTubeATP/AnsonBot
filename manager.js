@@ -12,10 +12,9 @@ Manager.spawn(1);
 
 var proxy = httpProxy.createProxyServer({});
 var server = http.createServer(function(req, res) {
-  proxy.web(req, res, { target: 'http://127.0.0.1:9000' });
+  proxy.web(req, res, { target: 'http://127.0.0.1:9000', forward: 'http://127.0.0.1:5000' });
 });
 
- 
 console.log(`Listening on port ${process.env.PORT}`)
 server.listen(process.env.PORT);
 
@@ -29,3 +28,13 @@ setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 280000);
 
+const DBL = require("dblapi.js");
+const dbl = new DBL(config.dbltoken, { webhookPort: 5000, webhookAuth: 'NaKh26100225', webhookPath: '/dblwebhook',  }, bot);
+
+dbl.webhook.on('ready', hook => {
+  console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+});
+
+dbl.webhook.on('vote', vote => {
+  console.log(`@${vote.user} just voted!`);
+});
