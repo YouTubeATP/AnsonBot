@@ -10,10 +10,18 @@ const app = express();
 const Manager = new Discord.ShardingManager('./index.js');
 Manager.spawn(1);
 
-app.listen(process.env.PORT);
-setInterval(() => {
+app.use(express.static('public'));
+
+app.get("/", function(request, response) {
+  response.sendFile(__dirname + '/views/index.html');
+  console.log(Date.now() + " Ping Received");
+});
+
+const listener = app.listen(process.env.PORT, function() {
+  setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
+}, 225000);
+})
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { webhookPort: 5000, webhookAuth: 'NaKh26100225', webhookPath: '/dblwebhook' }, bot);
