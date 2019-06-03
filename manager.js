@@ -13,7 +13,8 @@ const Manager = new Discord.ShardingManager('./index.js');
 Manager.spawn(1);
 
 app.get('/', (req, res) => {
-      // ...
+     console.log(Date.now() + " Ping Received");
+      res.sendStatus(200);
 });
 
 dbl.on('posted', () => {
@@ -40,5 +41,10 @@ dbl.webhook.on('vote', vote => {
             }
   }});
 });
+
+app.listen(5000);
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+}, 280000);
 
 bot.login(config.token);
