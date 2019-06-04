@@ -272,42 +272,6 @@ bot.on('message', async message => {
             }
   }})
 }
-  
-  if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "daily") {
-        dbl.hasvoted(sender.id).then(voted => {
-          if (voted) {
-            try {
-            console.log (sender.username + "has voted!");
-            message.delete().catch(O_o=>{});
-            message.channel.send({embed: {
-            color: 0x00bdf2,
-            title: "Thanks for voting!",
-            description:(`This command is still under testing, and no rewards are currently available. However, thanks for your help!`),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
-            }
-  }});
-    } catch (error) {
-      console.log (error)
-    }
-        } else {
-          try {
-          message.delete().catch(O_o=>{});
-          message.channel.send({embed: {
-            color: 0x00bdf2,
-            title: "You haven't voted for us yet!",
-            description:(`Vote [here](https://vote.musembed.tk/) and do this command again to claim your voting reward.`),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
-            }
-  }});
-        } catch (error) {
-          console.log (error)
-        }
-        }});
-}
 
     if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed" | msg.split(" ")[0] === mention1 + "embed") {
         if (censors === "on") {
@@ -497,7 +461,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "General Commands",
-                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`daily\`: Gives you a reward every time you vote. Shows you the link to vote to our bot if you haven't already. \n\`suggest [suggestion]\`: Submits a suggestion to MusEmbed's developer. Suggestion must consist of 20 characters or more. \n"
+                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`daily\` (work in progress): Gives you a reward every time you vote. Shows you the link to vote to our bot if you haven't already. \n\`suggest [suggestion]\`: Submits a suggestion to MusEmbed's developer. Suggestion must consist of 20 characters or more. \n"
                     },
                     {
                         name: "Embed Commands",
