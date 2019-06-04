@@ -274,20 +274,32 @@ bot.on('message', async message => {
 }
 
 if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "daily") {
-        message.delete().catch(O_o=>{});
         dbl.hasvoted(sender.id).then(voted => {
-          if (voted) message.channel.send({embed: {
+          if (voted) {
+            message.delete().catch(O_o=>{});
+            message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Thanks for voting!",
-            description:(``),
+            description:(`This command is still under testing, and no rewards are currently available. However, thanks for your help!`),
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }})
-        })
-            
-}
+  }});
+            return;
+        } else {
+          message.delete().catch(O_o=>{});
+          message.channel.send({embed: {
+            color: 0x00bdf2,
+            title: "You haven't voted for us yet!",
+            description:(`Vote [here](https://vote.musembed.tk/) and do this command again to claim your voting reward.`),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+            }
+  }});
+          return;
+        }})}
 
     if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed" | msg.split(" ")[0] === mention1 + "embed") {
         if (censors === "on") {
