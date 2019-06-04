@@ -278,7 +278,7 @@ if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "d
           if (voted) {
             console.log (sender.username + "has voted!");
             message.delete().catch(O_o=>{});
-            message.channel.send({embed: {
+            return message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Thanks for voting!",
             description:(`This command is still under testing, and no rewards are currently available. However, thanks for your help!`),
@@ -287,10 +287,9 @@ if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "d
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
   }});
-            return;
         } else {
           message.delete().catch(O_o=>{});
-          message.channel.send({embed: {
+          return message.channel.send({embed: {
             color: 0x00bdf2,
             title: "You haven't voted for us yet!",
             description:(`Vote [here](https://vote.musembed.tk/) and do this command again to claim your voting reward.`),
@@ -299,15 +298,14 @@ if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "d
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
   }});
-          return;
-        }}).catch(O_o=>{})}
+        }})}
 
     if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed" | msg.split(" ")[0] === mention1 + "embed") {
         if (censors === "on") {
             for (i=0;i<bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(bannedwords[i])) {
                 message.delete().catch(O_o=>{});
-                return message.reply("please refrain from using such contemptable words.").then(message => message.delete(10000));
+                return message.reply("please refrain from using such contemptable words.");
     } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
         const embedMessage = args.join(" ");
         const senderID = args.join(" ");
