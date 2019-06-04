@@ -200,7 +200,7 @@ bot.on("guildDelete", guild => {
 
 bot.on('message', async message => {
     // Variables
-    let sender = message.author; // The person who sent the message
+    let sender = message.author;
     let msg = message.content.toLowerCase();
     const ownerID = config.ownerID
     const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
@@ -271,6 +271,22 @@ bot.on('message', async message => {
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
   }})
+}
+
+if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "daily") {
+        message.delete().catch(O_o=>{});
+        dbl.hasvoted(sender.id).then(voted => {
+          if (voted) message.channel.send({embed: {
+            color: 0x00bdf2,
+            title: "Thanks for voting!",
+            description:(``),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+            }
+  }})
+        })
+            
 }
 
     if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed" | msg.split(" ")[0] === mention1 + "embed") {
@@ -461,7 +477,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "General Commands",
-                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`suggest [suggestion]\`: Submits a suggestion to MusEm ed's developer. Suggestion must consist of 20 characters or more. \n"
+                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`daily\`: Gives you a reward every time you vote. Shows you the link to vote to our bot if you haven't already. \n\`suggest [suggestion]\`: Submits a suggestion to MusEm ed's developer. Suggestion must consist of 20 characters or more. \n"
                     },
                     {
                         name: "Embed Commands",

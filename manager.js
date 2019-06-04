@@ -54,5 +54,4 @@ dbl.webhook.on('vote', vote => {
       return;
 });
   
-
 bot.login(config.token);
