@@ -199,7 +199,7 @@ bot.on("guildDelete", guild => {
 });
 
 bot.on('message', async message => {
-    // Variables
+    
     let sender = message.author;
     let msg = message.content.toLowerCase();
     const ownerID = config.ownerID
@@ -216,8 +216,6 @@ bot.on('message', async message => {
 
  const args = message.content.slice(prefix.length).trim().split(/ +/g);
  const command = args.shift().toLowerCase();
-
-    // commands
   
     if (message.guild === null) return;
     if (message.author.bot) return;
@@ -241,7 +239,7 @@ bot.on('message', async message => {
         }
     };
 
-    if(msg === prefix + "showconf" | msg === mention + "showconf" | msg === mention1 + "showconf") {
+    if (msg === prefix + "showconf" | msg === mention + "showconf" | msg === mention1 + "showconf") {
         message.delete().catch(O_o=>{});
         let configProps = Object.keys(guildConf).map(prop => {
         return `${prop}  :  ${guildConf[prop]}\n`;
@@ -271,7 +269,7 @@ bot.on('message', async message => {
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
   }})
-}
+};
 
     if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed" | msg.split(" ")[0] === mention1 + "embed") {
         if (censors === "on") {
