@@ -272,10 +272,11 @@ bot.on('message', async message => {
             }
   }})
 }
-
-if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "daily") {
-        return dbl.hasvoted(sender.id).then(voted => {
+  
+  if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "daily") {
+        dbl.hasvoted(sender.id).then(voted => {
           if (voted) {
+            try {
             console.log (sender.username + "has voted!");
             message.delete().catch(O_o=>{});
             message.channel.send({embed: {
@@ -287,7 +288,11 @@ if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "d
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
   }});
+    } catch (error) {
+      console.log (error)
+    }
         } else {
+          try {
           message.delete().catch(O_o=>{});
           message.channel.send({embed: {
             color: 0x00bdf2,
@@ -298,6 +303,9 @@ if (msg === prefix + "daily" | msg === mention + "daily" | msg === mention1 + "d
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
   }});
+        } catch (error) {
+          console.log (error)
+        }
         }});
 }
 
