@@ -58,7 +58,19 @@ bot.on('guildMemberAdd', member => {
   let guild = member.guild;
   if (guild === config.serverID) return;
   let memberTag = member.user.id;
-    member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support Server**. Welcome, <@" + memberTag + ">.");
+  member.addRole(guild.roles.find("name", "Member")).then(() => {
+        member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support Server**. Welcome, <@" + memberTag + ">.");
+      }).catch(e => {
+        member.guild.channels.get('585811822305738772').send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+            }
+  }});
+        console.log(e);
+      });
 });
 
 bot.on('guildMemberRemove', member => {
@@ -746,7 +758,7 @@ bot.on('message', async message => {
   if (msg.split(" ")[0] === prefix + "ban" | msg.split(" ")[0] === mention + "ban" | msg.split(" ")[0] === mention1 + "ban") {
     if (!message.member.hasPermission("BAN_MEMBERS")) {
         message.delete().catch(O_o=>{});
-        message.reply("you don't have sufficient permissions!").then(message => message.delete(10000));
+        message.reply("you don't have sufficient permissions!");
         return;
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("BAN_MEMBERS")) {
@@ -758,7 +770,7 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }}).then(message => message.delete(10000));
+  }});
         return;
     }
     mem.ban().then(() => {
@@ -773,7 +785,7 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }}).then(message => message.delete(10000));
+  }});
     });
   }};
 
@@ -792,7 +804,7 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }}).then(message => message.delete(10000));
+  }})
         return;
     }   
     if (message.guild.roles.find("name", "Muted")) {
@@ -808,7 +820,7 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }}).then(message => message.delete(10000));
+  }})
         console.log(e);
       });
 }}};
@@ -822,7 +834,7 @@ bot.on('message', async message => {
     if (message.guild.roles.find("name", "Muted")) {
         message.delete().catch(O_o=>{});
         mem.removeRole(message.guild.roles.find("name", "Muted")).then(() => {
-        message.channel.send(mem.displayName + " has successfully been unmuted!").then(message => message.delete(10000));
+        message.channel.send(mem.displayName + " has successfully been unmuted!")
       }).catch(e => {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {

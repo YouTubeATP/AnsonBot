@@ -32,7 +32,7 @@ dbl.webhook.on('ready', hook => {
 
 dbl.webhook.on('vote', vote => {
   console.log(`Vote Received`);
-  bot.channels.get(`584591025616715786`).send({embed: {
+  bot.channels.get(`585811949963444244`).send({embed: {
             color: 0x00bdf2,
             title: "Vote Received",
             description: `<@${vote.user}> just voted for <@414440610418786314>! We really appreciate it. Vote [here](https://vote.musembed.tk) every 12 hours. Voting perks are coming soon!`,
