@@ -76,6 +76,7 @@ bot.on('guildMemberAdd', member => {
 bot.on('guildMemberRemove', member => {
   if(member.user.bot) return;
   let guild = member.guild;
+  if (guild === config.serverID) return;
   let memberTag = member.user.id;
     member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support Server**. Farewell, <@" + memberTag + ">.");
 });
