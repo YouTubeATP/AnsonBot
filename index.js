@@ -459,7 +459,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "General Commands",
-                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`daily\` (work in progress): Gives you a reward every time you vote. Shows you the link to vote to our bot if you haven't already. \n\`suggest [suggestion]\`: Submits a suggestion to MusEmbed's developer. Suggestion must consist of 20 characters or more. \n"
+                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`suggest [suggestion]\`: Submits a suggestion to MusEmbed's developer. Suggestion must consist of 20 characters or more. \n"
                     },
                     {
                         name: "Embed Commands",
