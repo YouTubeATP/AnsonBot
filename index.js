@@ -53,6 +53,21 @@ const defaultSettings = {
   censor: "on"
 };
 
+bot.on('guildMemberAdd', member => {
+  if (member.user.bot) return;
+  let guild = member.guild;
+  if (guild) = config.supportServer return;
+  let memberTag = member.user.id;
+    member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support Server**. Welcome, <@" + memberTag + ">.");
+});
+
+bot.on('guildMemberRemove', member => {
+  if(member.user.bot) return;
+  let guild = member.guild;
+  let memberTag = member.user.id;
+    member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support Server**. Farewell, <@" + memberTag + ">.");
+});
+
 bot.on("ready", () =>  {
     console.log(`MusEmbed™ initiated. Commands may now be used in all channels.`);
     setInterval(() => {
