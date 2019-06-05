@@ -97,7 +97,7 @@ bot.on("guildCreate", guild => {
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
   let sicon = guild.iconURL;
-  bot.channels.get(`556497757364420618`).send({embed: {
+  bot.channels.get(`585811927565860865`).send({embed: {
             color: 0x00bdf2,
             title: "I've joined a server",
             description: `I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`,
@@ -158,7 +158,7 @@ bot.on("guildDelete", guild => {
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
   let sicon = guild.iconURL;
-  bot.channels.get(`556497757364420618`).send({embed: {
+  bot.channels.get(`585811927565860865`).send({embed: {
             color: 0x00bdf2,
             title: "I've left a server",
             description: `I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`,
@@ -397,7 +397,7 @@ bot.on('message', async message => {
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
         }});
-          user.send({embed: {
+          bot.channels.get(`585814273020788736`).send({embed: {
             color: 0x00bdf2,
             title: "Suggestion",
             author: {
