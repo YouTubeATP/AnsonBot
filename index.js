@@ -56,7 +56,7 @@ const defaultSettings = {
 bot.on('guildMemberAdd', member => {
   if (member.user.bot) return;
   let guild = member.guild;
-  if (guild) = config.supportServer return;
+  if (guild === config.serverID) return;
   let memberTag = member.user.id;
     member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support Server**. Welcome, <@" + memberTag + ">.");
 });
@@ -397,7 +397,6 @@ bot.on('message', async message => {
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
         }});
-         bot.fetchUser(config.ownerID).then((user) => {
           user.send({embed: {
             color: 0x00bdf2,
             title: "Suggestion",
@@ -410,7 +409,7 @@ bot.on('message', async message => {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
             }
-  }})});
+  }});
       return;
     }}
         } else if (embedMessage.length < 20) {
