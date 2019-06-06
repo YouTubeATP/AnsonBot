@@ -66,7 +66,7 @@ bot.on('guildMemberAdd', member => {
             description:("An error occured!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
         console.log(e);
@@ -159,7 +159,7 @@ bot.on("guildCreate", guild => {
                 ],
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
   });
@@ -220,7 +220,7 @@ bot.on("guildDelete", guild => {
                 ],
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
   });
@@ -278,7 +278,7 @@ bot.on('message', async message => {
         description:("The following are this server's current configurations: \n\nPrefix: \`" + prefix + "\`\nCensors: \`" + censor + "\`"),
         footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
     }});
         };
@@ -294,7 +294,7 @@ bot.on('message', async message => {
             description:(pingMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }})
 };
@@ -318,7 +318,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
         return;
@@ -336,7 +336,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }})
 }};
@@ -360,7 +360,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
         return;
@@ -373,7 +373,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }})
 }};
@@ -394,7 +394,7 @@ bot.on('message', async message => {
             description: "Your suggestion must consist of 20 characters or more.",
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
           }});
           return;
@@ -407,7 +407,7 @@ bot.on('message', async message => {
             description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in <@414440610418786314>'s changelog.",
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
         }});
           bot.channels.get(`585814273020788736`).send({embed: {
@@ -420,7 +420,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
       return;
@@ -433,7 +433,7 @@ bot.on('message', async message => {
             description: "Your suggestion must consist of 20 characters or more.",
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
           }});
           return;
@@ -447,7 +447,7 @@ bot.on('message', async message => {
             description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in <@414440610418786314>'s changelog.",
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
         }});
         bot.fetchUser(config.ownerID).then((user) => {
@@ -461,7 +461,7 @@ bot.on('message', async message => {
             description:(embedMessage),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }})});
           return;
@@ -507,7 +507,7 @@ bot.on('message', async message => {
                 ],
         footer: {
                     icon_url: bot.user.avatarURL,
-                    text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                    text: "MusEmbed™ | Clean Embeds, Crisp Music"
                 }
   }})
 };
@@ -531,7 +531,7 @@ bot.on('message', async message => {
         .addField("Servers", `${results.reduce((prev, val) => prev + val, 0)}`, true)
         .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
         .addField("ID", bot.user.id)
-        .setFooter("MusEmbed™ | Affiliated with Paraborg Discord Bots", bicon)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
         message.channel.send(botembed)
     })};
@@ -544,7 +544,7 @@ bot.on('message', async message => {
             description: ("[MusEmbed's Website](https://www.musembed.tk/) \n[Vote for MusEmbed](https://vote.Musembed.tk/) \n[Join MusEmbed's Support Server](https://invite.gg/paraborg) \n[Invite MusEmbed](https://invite.Musembed.tk/) \n[MusEmbed's Uptime](https://uptime.musembed.tk/) \n[Paraborg Discord Bots](https://paraborg.xyz)"),
             footer: {
                         icon_url: bot.user.avatarURL,
-                        text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                        text: "MusEmbed™ | Clean Embeds, Crisp Music"
                     }
   }})
 };
@@ -567,7 +567,7 @@ bot.on('message', async message => {
         .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)
         .addField("Bots", `${Math.round(message.guild.memberCount - message.guild.members.filter(member => !member.user.bot).size)}`, true)
         .addField("ID", message.guild.id)
-        .setFooter("MusEmbed™ | Affiliated with Paraborg Discord Bots", bicon)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
         await message.channel.send(serverembed)
 
@@ -609,7 +609,7 @@ bot.on('message', async message => {
                     .setTitle("Song Selection")
                     .setColor(0x00bdf2)
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
-                    .setFooter("MusEmbed™ | Affiliated with Paraborg Discord Bots", bicon)
+                    .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     message.channel.send(videosEmbed)
                     message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
                     try{
@@ -692,7 +692,7 @@ bot.on('message', async message => {
         .setColor(0x00bdf2)
         .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
         .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
-        .setFooter("MusEmbed™ | Affiliated with Paraborg Discord Bots", bicon)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
     };
 
@@ -728,7 +728,7 @@ bot.on('message', async message => {
             description:("An error occured!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
         return;
@@ -740,7 +740,7 @@ bot.on('message', async message => {
             description:(mem.displayName + " has successfully been kicked by " + message.author.username + "!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
     }).catch(e => {
@@ -750,7 +750,7 @@ bot.on('message', async message => {
             description:("An error occured!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
     });
@@ -769,7 +769,7 @@ bot.on('message', async message => {
             description:("An error occured!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
         return;
@@ -784,7 +784,7 @@ bot.on('message', async message => {
             description:("An error occured!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
     });
@@ -803,7 +803,7 @@ bot.on('message', async message => {
             description:("An error occured!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }})
         return;
@@ -819,7 +819,7 @@ bot.on('message', async message => {
             description:("An error occured!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }})
         console.log(e);
@@ -843,7 +843,7 @@ bot.on('message', async message => {
             description:("An error occured!"),
             footer: {
                 icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
   }});
         console.log(e);
