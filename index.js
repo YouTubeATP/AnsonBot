@@ -54,9 +54,9 @@ const defaultSettings = {
 };
 
 bot.on('guildMemberAdd', member => {
-  if (member.user.bot) return;
   let guild = member.guild;
-  if (guild === config.serverID) return;
+  if (!guild === config.serverID) return;
+  if (member.user.bot) return;
   let memberTag = member.user.id;
   member.addRole(guild.roles.find("name", "Member")).then(() => {
         member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support Server**. Welcome, <@" + memberTag + ">.");
@@ -74,9 +74,9 @@ bot.on('guildMemberAdd', member => {
 });
 
 bot.on('guildMemberRemove', member => {
-  if(member.user.bot) return;
   let guild = member.guild;
   if (guild === config.serverID) return;
+  if(member.user.bot) return;
   let memberTag = member.user.id;
     member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support Server**. Farewell, <@" + memberTag + ">.");
 });
