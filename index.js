@@ -59,7 +59,7 @@ bot.on('guildMemberAdd', member => {
   if (member.user.bot) return;
   let memberTag = member.user.id;
   member.addRole(guild.roles.find("name", "Member")).then(() => {
-        member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support Server**. Welcome, <@" + memberTag + ">.");
+        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support Server**. Welcome, <@" + memberTag + ">.");
       }).catch(e => {
         console.log(e);
       });
@@ -70,7 +70,11 @@ bot.on('guildMemberRemove', member => {
   if (!guild.id === config.serverID) return;
   if(member.user.bot) return;
   let memberTag = member.user.id;
-    bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support Server**. Farewell, <@" + memberTag + ">.");
+  member.removeRole(guild.roles.find("name", "Member")).then(() => {
+        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support Server**. Farewell, <@" + memberTag + ">.");
+      }).catch(e => {
+        console.log(e);
+      });
 });
 
 bot.on("ready", () =>  {
