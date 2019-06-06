@@ -641,7 +641,7 @@ bot.on('message', async message => {
         const voiceChannel = message.member.voiceChannel;
         for (var x = 0; x < playerVoted.length; x++) {
             if(sender === playerVoted[x]){
-            return message.channel.send(`${sender.username}, you think you run the place? You can\'t vote twice!`)
+            return message.reply(` you think you run the place? You can\'t vote twice!`)
         }
         }
         voted++;
