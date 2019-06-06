@@ -15,7 +15,7 @@ const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const mutedSet = new Set();
 const queue = new Map();
-const youtube = new YouTube("AIzaSyDkCgN5BgLXr9qvpsKunr_x6HmJp77r_hA")
+const youtube = new YouTube(config.youtube)
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { statsInterval: 900000 }, bot);
@@ -404,7 +404,7 @@ bot.on('message', async message => {
         message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Suggestion submitted!",
-            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in my changelog.",
+            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in <@414440610418786314>'s changelog.",
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
@@ -444,7 +444,7 @@ bot.on('message', async message => {
         message.channel.send({embed: {
             color: 0x00bdf2,
             title: "Suggestion submitted!",
-            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in my changelog.",
+            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in <@414440610418786314>'s changelog.",
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
@@ -486,7 +486,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "General Commands",
-                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`suggest [suggestion]\`: Submits a suggestion to MusEmbed's developer. Suggestion must consist of 20 characters or more. \n"
+                        value: "\`help\`: Shows this help message. \n\`botinfo\`: Retrieves information about the bot. \n\`serverinfo\`: Retrieves information about the server. \n\`ping\`: Shows latency of the bot and the API. \n\`links\`: Shows all our links. \n\`suggest [suggestion]\`: Submits a suggestion to MusEmbed's support server. Suggestion must consist of 20 characters or more. \n"
                     },
                     {
                         name: "Embed Commands",
