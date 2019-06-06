@@ -55,30 +55,22 @@ const defaultSettings = {
 
 bot.on('guildMemberAdd', member => {
   let guild = member.guild;
-  if (!guild === config.serverID) return;
+  if (!guild.id === config.serverID) return;
   if (member.user.bot) return;
   let memberTag = member.user.id;
   member.addRole(guild.roles.find("name", "Member")).then(() => {
         member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support Server**. Welcome, <@" + memberTag + ">.");
       }).catch(e => {
-        member.guild.channels.get('585811822305738772').send({embed: {
-            color: 0x00bdf2,
-            description:("An error occured!"),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
         console.log(e);
       });
 });
 
 bot.on('guildMemberRemove', member => {
   let guild = member.guild;
-  if (guild === config.serverID) return;
+  if (!guild.id === config.serverID) return;
   if(member.user.bot) return;
   let memberTag = member.user.id;
-    member.guild.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support Server**. Farewell, <@" + memberTag + ">.");
+    bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support Server**. Farewell, <@" + memberTag + ">.");
 });
 
 bot.on("ready", () =>  {
