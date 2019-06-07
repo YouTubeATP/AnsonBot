@@ -490,7 +490,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
                     },
                     {
                         name: "Moderation Commands",
@@ -628,13 +628,15 @@ bot.on('message', async message => {
             return handleVideo(video, message, voiceChannel);
         }
     } else if (msg === prefix + "pause" || msg === mention + "pause" || msg === mention1 + "pause") {
-		if (serverQueue && serverQueue.playing) {
+      message.delete().catch(O_o=>{});
+		  if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
 			return message.channel.send('Paused the music for you!');
 		}
 		return message.channel.send('Nothing is playing!');
 	} else if (msg === prefix + "resume" || msg === mention + "resume" || msg === mention1 + "resume") {
+    message.delete().catch(O_o=>{});
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
