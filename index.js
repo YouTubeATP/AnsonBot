@@ -867,7 +867,7 @@ bot.on('message', async message => {
   
     if (links.some(link =>bannedlinks.includes(link))) {
         message.delete();
-        return message.reply("please refrain from using such contemptable words.");
+        return message.reply("please refrain from advertising in this server.");
     }
 });
 
