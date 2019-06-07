@@ -485,7 +485,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`loop\`: Selects loop mode. Loops a single song when used once. Loops the whole queue when used twice. Disables loop when used thrice. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
                     },
                     {
                         name: "Moderation Commands",
@@ -703,8 +703,7 @@ bot.on('message', async message => {
   for (i=0;i<bannedwords.length;i++) {
     if (message.content.toLowerCase().includes(bannedwords[i])) {
         message.delete().catch(O_o=>{})
-      message.reply("please refrain from using such contemptable words.").then(message => message.delete(10000));
-      return;
+      return message.reply("please refrain from using such contemptable words.");
     }
  }};
 
@@ -853,19 +852,24 @@ bot.on('message', async message => {
       });
 }}};
   
-}); //the end of bot.on ------------------------------
+});
 
-
-/*one time event function
-  function onetime(node, type, callback) {
-    //create event
-    node.addEventListener(type, function(e) {
-      //remove event
-      e.target.removeEventListener(e, type, arguments.callee)
-        //call gandler
-        return callback(e)
-    })
-  } draaaaaft*/
+bot.on('message', async message => {
+    if (message.author.bot) return;
+    const perms = message.member.permissions;
+    const admin = perms.has("ADMINISTRATOR", true);
+    if (admin) return;
+    if (message.guild.id !== config.serverID) return;
+    const links = ["DISCORD.ME", "DISCORD.GG", "DISCORDAPP.COM", "INVITE.GG", "DISCORDBOTS.ORG"];
+    const author = message.author;
+    const bannedlink = message.content;
+    const bannedlinks = message.content.toUpperCase();
+  
+    if (links.some(link =>bannedlinks.includes(link))) {
+        message.delete();
+        return message.reply("please refrain from using such contemptable words.");
+    }
+});
 
 function clean(text) {
   if (typeof(text) === "string")
