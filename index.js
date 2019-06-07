@@ -642,22 +642,25 @@ bot.on('message', async message => {
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
 	} else if (message.content.split(" ")[0] === prefix + "seek" || message.content.split(" ")[0] === mention + "seek" || message.content.split(" ")[0] === mention1 + "seek") {
-        let args = message.content.split(" ").slice(1)
         message.delete().catch(O_o=>{});
-             try {
-                this.bot.music.seek(msg.guild, args.time.total.seconds, args.time.text, msg.channel);
-                return message.channel.send('Seeked to \`' + args + '\`.');
-        } catch (e) {
-            console.log(e);
-            return message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("An error occured!"),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-        }
+        if (!musicbot.queues.has(msg.guild.id)) return msg.channel.send(musicbot.note('fail', `No queue for this server found!`));
+      if (musicbot.queues.get(msg.guild.id).loop == "none" || musicbot.queues.get(msg.guild.id).loop == null) {
+        musicbot.queues.get(msg.guild.id).loop = "song";
+        msg.channel.send(musicbot.note('note', 'Looping single enabled! :repeat_one:'));
+      } else if (musicbot.queues.get(msg.guild.id).loop == "song") {
+        musicbot.queues.get(msg.guild.id).loop = "queue";
+        msg.channel.send(musicbot.note('note', 'Looping queue enabled! :repeat:'));
+      } else if (musicbot.queues.get(msg.guild.id).loop == "queue") {
+        musicbot.queues.get(msg.guild.id).loop = "none";
+        msg.channel.send(musicbot.note('note', 'Looping disabled! :arrow_forward:'));
+        const voiceConnection = client.voiceConnections.find(val => val.channel.guild.id == msg.guild.id);
+        const dispatcher = voiceConnection.player.dispatcher;
+        let wasPaused = dispatcher.paused;
+        if (wasPaused) dispatcher.pause();
+        let newq = musicbot.queues.get(msg.guild.id).songs.slice(musicbot.queues.get(msg.guild.id).last.position - 1);
+        if (newq !== musicbot.queues.get(msg.guild.id).songs) musicbot.updatePositions(newq, msg.guild.id).then(res => { musicbot.queues.get(msg.guild.id).songs = res; })
+        if (wasPaused) dispatcher.resume();
+      }
              } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
