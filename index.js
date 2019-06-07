@@ -29,7 +29,6 @@ dbl.on('error', e => {
 });
 
 var stopping = false;
-var pausing = false;
 var voteSkipPass = 0;
 var voted = 0;
 var playerVoted = [];
@@ -462,9 +461,6 @@ bot.on('message', async message => {
           return;
         }};
 
-    
-    
-    // Help
     if (msg === prefix + "help" || msg === mention + "help" || msg === mention1 + "help") {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
@@ -507,7 +503,6 @@ bot.on('message', async message => {
   }})
 };
 
-    //bot info command
     if (msg === prefix + "botinfo" || msg === mention + "botinfo" || msg === mention1 + "botinfo") {
         message.delete().catch(O_o=>{});
         return bot.shard.broadcastEval('this.guilds.size')
@@ -544,7 +539,6 @@ bot.on('message', async message => {
   }})
 };
 
-    //serverinfo command
     if (msg === prefix + "serverinfo" || msg === mention + "serverinfo" || msg === mention1 + "serverinfo") {
         message.delete().catch(O_o=>{});
         let bicon = bot.user.displayAvatarURL
@@ -568,9 +562,8 @@ bot.on('message', async message => {
 
     };
 
-    // MUSIC STUFF
-
     const serverQueue = queue.get(message.guild.id);
+  
     if (message.content.split(" ")[0] === prefix + "play" || message.content.split(" ")[0] === mention + "play" || message.content.split(" ")[0] === mention1 + "play") {
         let args = message.content.split(" ").slice(1)
         const searchString = args.join(' ')
@@ -583,9 +576,8 @@ bot.on('message', async message => {
         
     if(!args[0]) return message.reply('please provide a search term, url or playlist link!')
     if(stopping) stopping = false;
-    if(pausing) pausing = false;
-        
-        if(args[0].match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
+      
+    if(args[0].match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
             const playlist = await youtube.getPlaylist(args[0]);
             var videos = await playlist.getVideos();
             for(const video of Object.values(videos)){
@@ -641,28 +633,7 @@ bot.on('message', async message => {
 			return message.channel.send('Music resumed.');
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
-	} else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
-        message.delete().catch(O_o=>{});
-        if (!queue.has(message.guild.id)) {
-          return message.channel.send('Nothing is playing!')
-        } else if (serverQueue.loop === "none" || serverQueue.loop === null) {
-        serverQueue.loop = "song";
-        message.channel.send("Now looping \`single\`. Do this command again to loop the whole queue.");
-      } else if (serverQueue.loop === "song") {
-        serverQueue.loop = "queue";
-        message.channel.send("Now looping \`queue\`. Do this command again to stop looping.");
-      } else if (serverQueue.loop === "queue") {
-        serverQueue.loop = "none";
-        message.channel.send("Looping disabled.");
-        const voiceConnection = bot.voiceConnections.find(val => val.channel.guild.id == message.guild.id);
-        const dispatcher = voiceConnection.player.dispatcher;
-        let wasPaused = dispatcher.paused;
-        if (wasPaused) dispatcher.pause();
-        let newq = serverQueue.songs.slice(serverQueue.last.position - 1);
-        if (newq !== serverQueue.songs) bot.updatePositions(newq, message.guild.id).then(res => { serverQueue.songs = res; })
-        if (wasPaused) dispatcher.resume();
-      }
-             } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
+	} else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
