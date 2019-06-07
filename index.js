@@ -631,7 +631,7 @@ bot.on('message', async message => {
 		  if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
-			return message.channel.send('Paused the music for you!');
+			return message.channel.send('Music paused. Use the command \`' + prefix + 'resume\` to resume playing.');
 		}
 		return message.channel.send('Nothing is playing!');
 	} else if (msg === prefix + "resume" || msg === mention + "resume" || msg === mention1 + "resume") {
@@ -639,7 +639,7 @@ bot.on('message', async message => {
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
-			return message.channel.send('Resumed the music for you!');
+			return message.channel.send('Music resumed.');
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
 	} else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
