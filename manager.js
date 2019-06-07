@@ -45,7 +45,7 @@ dbl.webhook.on('vote', vote => {
           user.send({embed: {
             color: 0x00bdf2,
             title: "Thanks for voting!",
-            description:(`Vote again in 12 hours [here](https://vote.musembed.tk/). Voting perks are coming soon.`),
+            description:(`Vote again in 12 hours [here](https://vote.musembed.tk/). Perks for voting are coming soon!`),
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
