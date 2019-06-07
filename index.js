@@ -628,18 +628,20 @@ bot.on('message', async message => {
             return handleVideo(video, message, voiceChannel);
         }
     } else if (msg === prefix + "pause" || msg === mention + "pause" || msg === mention1 + "pause") {
-                  message.delete().catch(O_o=>{});
-                  if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-                  if(!serverQueue) return await message.channel.send("Nothing is playing!")         
-                  pausing = true
-                  return serverQueue.textChannel.send('The music has been paused.');
-    } else if (msg === prefix + "unpause" || msg === mention + "unpause" || msg === mention1 + "unpause") {
-                  message.delete().catch(O_o=>{});
-                  if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-                  if(!serverQueue) return await message.channel.send("Nothing is playing!")
-                  pausing = false
-                  return serverQueue.textChannel.send('The music has been resumed.');
-    } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
+		if (serverQueue && serverQueue.playing) {
+			serverQueue.playing = false;
+			serverQueue.connection.dispatcher.pause();
+			return message.channel.send('Paused the music for you!');
+		}
+		return message.channel.send('Nothing is playing!');
+	} else if (msg === prefix + "resume" || msg === mention + "resume" || msg === mention1 + "resume") {
+		if (serverQueue && !serverQueue.playing) {
+			serverQueue.playing = true;
+			serverQueue.connection.dispatcher.resume();
+			return message.channel.send('Resumed the music for you!');
+		}
+		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
+	} else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
@@ -922,11 +924,6 @@ function play(guild, song){
     if(stopping){
        queue.delete(guild.id);
        return;
-    }
-  
-    if (pausing) {
-      queue.pause(guild.id);
-      return;
     }
     
     if(!song){
