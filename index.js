@@ -242,15 +242,8 @@ bot.on('message', async message => {
   
     if (message.guild === null) return;
     if (message.author.bot) return;
-  
-    if (message.guild.id === config.serverID) {
-      if (!message.member.hasPermission("ADMINISTRATOR") | !message.member.id === owner) {
-        for (i=0;i<invites.length;i++) {
-            if (message.content.toLowerCase().includes(invites[i])) {
-                message.delete().catch(O_o=>{})
-                message.reply(" advertising is disallowed here.");
-                return;
-    }}}
+
+      
 
     if (msg.split(" ")[0] === prefix + "setconf" | msg.split(" ")[0] === mention + "setconf" | msg.split(" ")[0] === mention1 + "setconf") {
         const [prop, ...value] = args;
