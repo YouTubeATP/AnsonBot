@@ -37,7 +37,6 @@ var totalCost = 1680.37;
 var currentlyHave = 22;
 var perMonth = 120;
 var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kys,fuc,pu$$y,xvideo,xvideos,porn,asshole,a$$hole,kunt,knut,d.1.c.k".split(",");
-var invites = "discord.gg,discord.me,discordlisting.me,discordbots.org,invite.gg";
 
 var userData = 0
 
