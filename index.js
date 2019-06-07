@@ -489,7 +489,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`loop\`: Selects loop mode. Loops a single song when used once. Loops the whole queue when used twice. Disables loop when used thrice. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
                     },
                     {
                         name: "Moderation Commands",
@@ -644,22 +644,23 @@ bot.on('message', async message => {
 	} else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
         let args = message.content.split(" ").slice(1)
         message.delete().catch(O_o=>{});
-        if (!queue.has(msg.guild.id)) return message.channel.send(bot.note('fail', `No queue for this server found!`));
-      if (queue.get(msg.guild.id).loop == "none" || queue.get(msg.guild.id).loop == null) {
-        queue.get(msg.guild.id).loop = "song";
-        message.channel.send(bot.note('note', 'Looping single enabled! :repeat_one:'));
-      } else if (queue.get(msg.guild.id).loop == "song") {
-        queue.get(msg.guild.id).loop = "queue";
-        message.channel.send(bot.note('note', 'Looping queue enabled! :repeat:'));
-      } else if (queue.get(msg.guild.id).loop == "queue") {
-        queue.get(msg.guild.id).loop = "none";
-        message.channel.send(bot.note('note', 'Looping disabled! :arrow_forward:'));
-        const voiceConnection = bot.voiceConnections.find(val => val.channel.guild.id == msg.guild.id);
+        if (!queue.has(message.guild.id)) {
+          return message.channel.send('Nothing is playing!')
+        } else if (serverQueue.loop === "none" || serverQueue.loop === null) {
+        serverQueue.loop = "song";
+        message.channel.send("Now looping \`single\`. Do this command again to loop the whole queue.");
+      } else if (serverQueue.loop === "song") {
+        serverQueue.loop = "queue";
+        message.channel.send("Now looping \`queue\`. Do this command again to stop looping.");
+      } else if (serverQueue.loop === "queue") {
+        serverQueue.loop = "none";
+        message.channel.send("Looping disabled.");
+        const voiceConnection = bot.voiceConnections.find(val => val.channel.guild.id == message.guild.id);
         const dispatcher = voiceConnection.player.dispatcher;
         let wasPaused = dispatcher.paused;
         if (wasPaused) dispatcher.pause();
-        let newq = queue.get(message.guild.id).songs.slice(queue.get(message.guild.id).last.position - 1);
-        if (newq !== queue.get(message.guild.id).songs) bot.updatePositions(newq, message.guild.id).then(res => { queue.get(message.guild.id).songs = res; })
+        let newq = serverQueue.songs.slice(serverQueue.last.position - 1);
+        if (newq !== serverQueue.songs) bot.updatePositions(newq, message.guild.id).then(res => { queue.get(message.guild.id).songs = res; })
         if (wasPaused) dispatcher.resume();
       }
              } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
