@@ -641,9 +641,12 @@ bot.on('message', async message => {
 			return message.channel.send('Music resumed.');
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
-	} else if (msg === prefix + "seek" || msg === mention + "seek" || msg === mention1 + "seek") {
+	} else if (message.content.split(" ")[0] === prefix + "seek" || message.content.split(" ")[0] === mention + "seek" || message.content.split(" ")[0] === mention1 + "seek") {
+        let args = message.content.split(" ").slice(1)
+        message.delete().catch(O_o=>{});
              try {
-            this.client.music.seek(msg.guild, args.time.total.seconds, args.time.text, msg.channel)
+                this.bot.music.seek(msg.guild, args.time.total.seconds, args.time.text, msg.channel);
+                return message.channel.send('Seeked to \`' + args + '\`.');
         } catch (e) {
             console.log(e);
             return message.channel.send({embed: {
