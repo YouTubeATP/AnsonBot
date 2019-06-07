@@ -844,6 +844,14 @@ bot.on('message', async message => {
         console.log(e);
       });
 }}};
+  
+  if (message.guild.id === config.serverID) {
+      for (i=0;i<invites.length;i++) {
+              if (message.content.toLowerCase().includes(invites[i])) {
+                message.delete().catch(O_o=>{})
+                message.reply("advertising is disallowed here.");
+                return;
+    }}};
 
 }); //the end of bot.on ------------------------------
 
