@@ -612,8 +612,7 @@ bot.on('message', async message => {
                     try{
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
-                    time: 20000,
-                    errors: ['time']
+                    time: 20000, errors: ['time']
                 });
                     }catch(err){
                         return message.channel.send('No value given, or value was invalid. Video selection canceled.')
