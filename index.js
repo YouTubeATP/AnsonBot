@@ -627,7 +627,19 @@ bot.on('message', async message => {
             }
             return handleVideo(video, message, voiceChannel);
         }
-    } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop"){
+    } else if (msg === prefix + "pause" || msg === mention + "pause" || msg === mention1 + "pause") {
+                  message.delete().catch(O_o=>{});
+                  if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
+                  if(!serverQueue) return await message.channel.send("Nothing is playing!")         
+                  pausing = true
+                  return serverQueue.textChannel.send('The music has been paused.');
+    } else if (msg === prefix + "unpause" || msg === mention + "unpause" || msg === mention1 + "unpause") {
+                  message.delete().catch(O_o=>{});
+                  if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
+                  if(!serverQueue) return await message.channel.send("Nothing is playing!")
+                  pausing = false
+                  return serverQueue.textChannel.send('The music has been resumed.');
+    } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
@@ -913,6 +925,7 @@ function play(guild, song){
     }
   
     if (pausing) {
+      queue.pause(guild.id);
       return;
     }
     
