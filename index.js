@@ -641,7 +641,21 @@ bot.on('message', async message => {
 			return message.channel.send('Music resumed.');
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
-	} else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
+	} else if (msg === prefix + "seek" || msg === mention + "seek" || msg === mention1 + "seek") {
+             try {
+            this.client.music.seek(msg.guild, args.time.total.seconds, args.time.text, msg.channel)
+        } catch (e) {
+            console.log(e);
+            return message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
+            }
+  }});
+        }
+             } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
@@ -909,7 +923,14 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         } catch (error) {
             console.error(error)
             queue.delete(message.guild.id)
-            return message.channel.send('An error occured.')
+            return message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
+            }
+  }})
         }
     } else {
         serverQueue.songs.push(song);
