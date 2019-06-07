@@ -243,8 +243,6 @@ bot.on('message', async message => {
     if (message.guild === null) return;
     if (message.author.bot) return;
 
-      
-
     if (msg.split(" ")[0] === prefix + "setconf" | msg.split(" ")[0] === mention + "setconf" | msg.split(" ")[0] === mention1 + "setconf") {
         const [prop, ...value] = args;
         if (!message.member.hasPermission("ADMINISTRATOR" | !message.member.id === owner)) {
