@@ -642,7 +642,6 @@ bot.on('message', async message => {
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
 	} else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
-        let args = message.content.split(" ").slice(1)
         message.delete().catch(O_o=>{});
         if (!queue.has(message.guild.id)) {
           return message.channel.send('Nothing is playing!')
@@ -660,7 +659,7 @@ bot.on('message', async message => {
         let wasPaused = dispatcher.paused;
         if (wasPaused) dispatcher.pause();
         let newq = serverQueue.songs.slice(serverQueue.last.position - 1);
-        if (newq !== serverQueue.songs) bot.updatePositions(newq, message.guild.id).then(res => { queue.get(message.guild.id).songs = res; })
+        if (newq !== serverQueue.songs) bot.updatePositions(newq, message.guild.id).then(res => { serverQueue.songs = res; })
         if (wasPaused) dispatcher.resume();
       }
              } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
