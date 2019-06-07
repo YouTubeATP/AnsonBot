@@ -243,7 +243,7 @@ bot.on('message', async message => {
     if (message.guild === null) return;
     if (message.author.bot) return;
 
-    if (msg.split(" ")[0] === prefix + "setconf" | msg.split(" ")[0] === mention + "setconf" | msg.split(" ")[0] === mention1 + "setconf") {
+    if (msg.split(" ")[0] === prefix + "setconf" || msg.split(" ")[0] === mention + "setconf" || msg.split(" ")[0] === mention1 + "setconf") {
         const [prop, ...value] = args;
         if (!message.member.hasPermission("ADMINISTRATOR" | !message.member.id === owner)) {
             message.delete().catch(O_o=>{});
@@ -262,7 +262,7 @@ bot.on('message', async message => {
         }
     };
 
-    if (msg === prefix + "showconf" | msg === mention + "showconf" | msg === mention1 + "showconf") {
+    if (msg === prefix + "showconf" || msg === mention + "showconf" || msg === mention1 + "showconf") {
         message.delete().catch(O_o=>{});
         let configProps = Object.keys(guildConf).map(prop => {
         return `${prop}  :  ${guildConf[prop]}\n`;
@@ -278,7 +278,7 @@ bot.on('message', async message => {
     }});
         };
 
-    if (msg === prefix + "ping" | msg === mention + "ping" | msg === mention1 + "ping") {
+    if (msg === prefix + "ping" || msg === mention + "ping" || msg === mention1 + "ping") {
         const m = await message.channel.send("Pinging...");
         const pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`);
         message.delete().catch(O_o=>{});
@@ -294,7 +294,7 @@ bot.on('message', async message => {
   }})
 };
 
-    if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed" | msg.split(" ")[0] === mention1 + "embed") {
+    if (msg.split(" ")[0] === prefix + "embed" || msg.split(" ")[0] === mention + "embed" || msg.split(" ")[0] === mention1 + "embed") {
         if (censors === "on") {
             for (i=0;i<bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(bannedwords[i])) {
@@ -336,7 +336,7 @@ bot.on('message', async message => {
   }})
 }};
 
-    if (msg.split(" ")[0] === prefix + "rawembed" | msg.split(" ")[0] === mention + "rawembed" | msg.split(" ")[0] === mention1 + "rawembed") {
+    if (msg.split(" ")[0] === prefix + "rawembed" || msg.split(" ")[0] === mention + "rawembed" || msg.split(" ")[0] === mention1 + "rawembed") {
         if (!message.member.hasPermission("ADMINISTRATOR")) {
             message.delete().catch(O_o=>{});
             message.reply("you do not have the permissions to send a raw embed.")
@@ -373,7 +373,7 @@ bot.on('message', async message => {
   }})
 }};
   
-    if (msg.split(" ")[0] === prefix + "suggest" | msg.split(" ")[0] === mention + "suggest" | msg.split(" ")[0] === mention1 + "suggest") {
+    if (msg.split(" ")[0] === prefix + "suggest" || msg.split(" ")[0] === mention + "suggest" || msg.split(" ")[0] === mention1 + "suggest") {
         const embedMessage = args.join(" ");
         if (censors === "on") {
             for (i=0;i<bannedwords.length;i++) {
@@ -845,11 +845,10 @@ bot.on('message', async message => {
       });
 }}};
   
-  if (message.guild.id === config.serverID && message.member.hasPermission("ADMINISTRATOR")) {
-    return;
-  } else if (message.guild.id === config.serverID) {
+  if (message.guild.id === config.serverID) {
       for (i=0;i<invites.length;i++) {
             if (message.content.toLowerCase().includes(invites[i])) {
+              if (message.member.roles.has("585814830120960016")) return console.log('Permission Granted for Advertisement');
                   message.delete().catch(O_o=>{})
                   message.reply("advertising is disallowed here.");
                   return;
