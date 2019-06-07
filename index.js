@@ -641,24 +641,25 @@ bot.on('message', async message => {
 			return message.channel.send('Music resumed.');
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
-	} else if (message.content.split(" ")[0] === prefix + "seek" || message.content.split(" ")[0] === mention + "seek" || message.content.split(" ")[0] === mention1 + "seek") {
+	} else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
+        let args = message.content.split(" ").slice(1)
         message.delete().catch(O_o=>{});
-        if (!musicbot.queues.has(msg.guild.id)) return msg.channel.send(musicbot.note('fail', `No queue for this server found!`));
-      if (musicbot.queues.get(msg.guild.id).loop == "none" || musicbot.queues.get(msg.guild.id).loop == null) {
-        musicbot.queues.get(msg.guild.id).loop = "song";
-        msg.channel.send(musicbot.note('note', 'Looping single enabled! :repeat_one:'));
-      } else if (musicbot.queues.get(msg.guild.id).loop == "song") {
-        musicbot.queues.get(msg.guild.id).loop = "queue";
-        msg.channel.send(musicbot.note('note', 'Looping queue enabled! :repeat:'));
-      } else if (musicbot.queues.get(msg.guild.id).loop == "queue") {
-        musicbot.queues.get(msg.guild.id).loop = "none";
-        msg.channel.send(musicbot.note('note', 'Looping disabled! :arrow_forward:'));
-        const voiceConnection = client.voiceConnections.find(val => val.channel.guild.id == msg.guild.id);
+        if (!queue.has(msg.guild.id)) return message.channel.send(bot.note('fail', `No queue for this server found!`));
+      if (queue.get(msg.guild.id).loop == "none" || queue.get(msg.guild.id).loop == null) {
+        queue.get(msg.guild.id).loop = "song";
+        message.channel.send(bot.note('note', 'Looping single enabled! :repeat_one:'));
+      } else if (queue.get(msg.guild.id).loop == "song") {
+        queue.get(msg.guild.id).loop = "queue";
+        message.channel.send(bot.note('note', 'Looping queue enabled! :repeat:'));
+      } else if (queue.get(msg.guild.id).loop == "queue") {
+        queue.get(msg.guild.id).loop = "none";
+        message.channel.send(bot.note('note', 'Looping disabled! :arrow_forward:'));
+        const voiceConnection = bot.voiceConnections.find(val => val.channel.guild.id == msg.guild.id);
         const dispatcher = voiceConnection.player.dispatcher;
         let wasPaused = dispatcher.paused;
         if (wasPaused) dispatcher.pause();
-        let newq = musicbot.queues.get(msg.guild.id).songs.slice(musicbot.queues.get(msg.guild.id).last.position - 1);
-        if (newq !== musicbot.queues.get(msg.guild.id).songs) musicbot.updatePositions(newq, msg.guild.id).then(res => { musicbot.queues.get(msg.guild.id).songs = res; })
+        let newq = queue.get(message.guild.id).songs.slice(queue.get(message.guild.id).last.position - 1);
+        if (newq !== queue.get(message.guild.id).songs) bot.updatePositions(newq, message.guild.id).then(res => { queue.get(message.guild.id).songs = res; })
         if (wasPaused) dispatcher.resume();
       }
              } else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
