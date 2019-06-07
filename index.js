@@ -29,6 +29,7 @@ dbl.on('error', e => {
 });
 
 var stopping = false;
+var pausing = false;
 var voteSkipPass = 0;
 var voted = 0;
 var playerVoted = [];
@@ -583,6 +584,7 @@ bot.on('message', async message => {
         
     if(!args[0]) return message.reply('please provide a search term, url or playlist link!')
     if(stopping) stopping = false;
+    if(pausing) pausing = false;
         
         if(args[0].match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
             const playlist = await youtube.getPlaylist(args[0]);
@@ -908,6 +910,10 @@ function play(guild, song){
     if(stopping){
        queue.delete(guild.id);
        return;
+    }
+  
+    if (pausing) {
+      return;
     }
     
     if(!song){
