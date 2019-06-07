@@ -241,6 +241,8 @@ bot.on('message', async message => {
   
     if (message.guild === null) return;
     if (message.author.bot) return;
+  
+    if (message.guild.id === config.serverID)
 
     if (msg.split(" ")[0] === prefix + "setconf" | msg.split(" ")[0] === mention + "setconf" | msg.split(" ")[0] === mention1 + "setconf") {
         const [prop, ...value] = args;
