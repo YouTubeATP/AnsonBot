@@ -55,27 +55,25 @@ const defaultSettings = {
 
 bot.on('guildMemberAdd', member => {
   let guild = member.guild;
-  if (!guild.id === config.serverID) return;
+  if (guild.id === config.serverID)
   if (member.user.bot) return;
   let memberTag = member.user.id;
+  if (guild.id === config.serverID) {
   member.addRole(guild.roles.find("name", "Member")).then(() => {
         bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support**. Welcome, <@" + memberTag + ">.");
       }).catch(e => {
         console.log(e);
       });
-});
+}});
 
 bot.on('guildMemberRemove', member => {
   let guild = member.guild;
-  if (!guild.id === config.serverID) return;
+  if (guild.id === config.serverID)
   if(member.user.bot) return;
   let memberTag = member.user.id;
-  member.removeRole(guild.roles.find("name", "Member")).then(() => {
+  if (guild.id === config.serverID) {
         bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support**. Farewell, <@" + memberTag + ">.");
-      }).catch(e => {
-        console.log(e);
-      });
-});
+}});
 
 bot.on("ready", () =>  {
     console.log(`MusEmbed™ initiated. Commands may now be used in all channels.`);
