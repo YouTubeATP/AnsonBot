@@ -998,9 +998,8 @@ function play(guild, song){
                 return undefined;
         }
         
+        if (serverQueue.loop === "off") serverQueue.songs.shift();
         if (serverQueue.loop === "all") serverQueue.songs.push(serverQueue.songs.shift());
-          
-        serverQueue.songs.shift();
           
         voted = 0;
         voteSkipPass = 0;
