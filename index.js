@@ -584,15 +584,7 @@ bot.on('message', async message => {
                 var video2 = await youtube.getVideoByID(video.id);
                 await handleVideo(video2, message, voiceChannel, true)
             }
-            let bicon = bot.user.avatar.url
-        let queueemb = new Discord.RichEmbed()
-          .setAuthor('Playlist added to queue!', bicon)
-          .setTitle(`**Playlist**`)
-          .setColor(`#0x00bdf2`)
-          .setDescription(`**[${playlist.name}](https://www.youtube.com/watch?v=${playlist.id}})**`)
-          .setFooter(`MusEmbed™ | Clean Embeds, Crisp Music`, bicon)
-          .setColor(`0x00bdf2`)
-        return message.channel.send (queueemb)
+            return message.reply ("directly playing a playlist is not supported.")
         } else {
             try {
                 var video = await youtube.getVideo(args[0])
@@ -713,9 +705,9 @@ bot.on('message', async message => {
           if(!serverQueue) return message.channel.send("Nothing is playing!");
           serverQueue.loop = !serverQueue.loop;
           if (serverQueue.loop) {
-              return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to enable loop.");
+              return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to enable loop.");
           }
-          return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to disable loop.");
+          return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to disable loop.");
     };
 
   if (censors === "on") {
@@ -927,9 +919,9 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
 
         queueConstruct.songs.push(song);
 
-        let bicon = bot.user.avatar.url
+        let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
-          .setAuthor('Song added to queue!', bicon)
+          .setAuthor("Song added to queue!")
           .setTitle(`**Video**`)
           .setColor(`#0x00bdf2`)
           .addField(`**Uploader**`, `${song.channel}`, true)
@@ -937,7 +929,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`**Date Published**`, `${song.publishedAt}`, true)
           .addField(`**Duration**`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\`** Minutes and **\`${song.durations}\`** Seconds`, true)
           .setDescription(`**[${song.title}](https://www.youtube.com/watch?v=${song.id}})**`)
-          .setFooter(`MusEmbed™ | Clean Embeds, Crisp Music`, bicon)
+          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
           .setColor(`0x00bdf2`)
         message.channel.send (queueemb)
       
@@ -961,9 +953,9 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         serverQueue.songs.push(song);
         if(playlist) return undefined;
         
-        let bicon = bot.user.avatar.url
+        let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
-          .setAuthor('Song added to queue!', bicon)
+          .setAuthor("Song added to queue!")
           .setTitle(`**Video**`)
           .setColor(`#0x00bdf2`)
           .addField(`**Uploader**`, `${song.channel}`, true)
@@ -971,7 +963,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`**Date Published**`, `${song.publishedAt}`, true)
           .addField(`**Duration**`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\`** Minutes and **\`${song.durations}\`** Seconds`, true)
           .setDescription(`**[${song.title}](https://www.youtube.com/watch?v=${song.id}})**`)
-          .setFooter(`MusEmbed™ | Clean Embeds, Crisp Music`, bicon)
+          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
           .setColor(`0x00bdf2`)
         return message.channel.send (queueemb)
     }
