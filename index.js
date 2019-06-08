@@ -485,15 +485,15 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Votes to skip the playing song. Song automatically skips if half/over half of people vote to skip. \n\`np\`: Shows the name of the currently playing song. \n\`volume ([number])\`: Shows current volume if arguments are not provided. Changes volume to the provided number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Votes to skip the playing song. Song automatically skips if half/over half of people vote to skip. \n\`np\`: Shows the name of the currently playing song. \n\`volume ([number])\`: Shows current volume if arguments are not provided. Changes volume to the provided number. \n\`queue\`: Shows the current queue of songs. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave the voice channel."
                     },
                     {
                         name: "Moderation Commands",
-                        value: "\`kick [user]\`: Kicks a user from the guild. \n\`ban [user]\`: Bans a user from the guild. \n\`purge [number]\`: Deletes a number of messages in a channel. \n\`mute [user]\`: Mutes a user in the guild. A 'Muted' role must first be set up for this to work. \n\`unmute [user]\`: Unmutes a user in the guild. \n"
+                        value: "\`kick [user]\`: Kicks a user from the guild. \n\`ban [user]\`: Bans a user from the guild. \n\`purge [number]\`: Deletes a number of messages in a channel. \n\`mute [user]\`: Mutes a user in the guild. A 'Muted' role must first be set up for this to work. \n\`unmute [user]\`: Unmutes a user in the guild. A 'Muted' role must first be set up for this to work. \n"
                     },
                     {
                         name: "Server Configurations",
-                        value: "\`showconf\`: Shows the configurations for your server. \n\`setconf [item] [new value]\`: Sets a new value for your server's configuration. \n(Available configurations: \`prefix\`, \`censor\` \`on/off\`) \n" 
+                        value: "\`showconf\`: Shows the configurations for your server. \n\`setconf [item] [new value]\`: Sets a new value for your server's configuration. \n(Available configurations: \`prefix (new prefix)\`, \`censor (on/off)\`) \n" 
                     },
                 ],
         footer: {
