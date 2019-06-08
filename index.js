@@ -563,6 +563,7 @@ bot.on('message', async message => {
     };
 
     const serverQueue = queue.get(message.guild.id);
+    serverQueue.loop = false;
   
     if (message.content.split(" ")[0] === prefix + "play" || message.content.split(" ")[0] === mention + "play" || message.content.split(" ")[0] === mention1 + "play") {
         let args = message.content.split(" ").slice(1)
@@ -702,13 +703,12 @@ bot.on('message', async message => {
     } else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
           if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
           if(!serverQueue) return message.channel.send("Nothing is playing!");
-          if (serverQueue.loop === false) {
-              serverQueue.loop === true;
-              return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to disable loop.");
-          } else {
+          if (serverQueue.loop === true) {
               serverQueue.loop === false;
               return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to enable loop.");
           }
+          serverQueue.loop === true;
+          return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to disable loop.");
     };
 
   if (censors === "on") {
@@ -898,22 +898,29 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
     const song = {
                 id: video.id,
                 title: video.title,
-                url: `https://www.youtube.com/watch?v=${video.id}`
+                url: `https://www.youtube.com/watch?v=${video.id}`,
+                channel: video.channel.title,
+                durationm: video.duration.minutes,
+                durations: video.duration.seconds,
+                durationh: video.duration.hours,
+                publishedAt: video.publishedAt,
             }
         
-    if(!serverQueue) {
-        const queueConstruct = {
-            textChannel: message.channel,
-            voiceChannel: voiceChannel,
-            connection: null,
-            songs: [],
-            volume: 5,
-            playing: true,
-            loop: false
-        };
-        queue.set(message.guild.id, queueConstruct);
+    if (!serverQueue) {
+    var queueConstruct = {
+      textChannel: message.channel,
+      voiceChannel: voiceChannel,
+      connection: null,
+      songs: [],
+      volume: 5,
+      playing: true,
+      loop: true
+    };
+    queue.set(message.guild.id, queueConstruct);
+
         queueConstruct.songs.push(song);
         message.channel.send(`${song.title} has been added to the queue.`)
+      
         try {
             var connection = await voiceChannel.join();
             queueConstruct.connection = connection;
@@ -932,24 +939,36 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         }
     } else {
         serverQueue.songs.push(song);
-        if(playlist) return undefined
-        return message.channel.send(`${song.title} has been added to the queue.`)
+        if(playlist) return undefined;
+        let queueemb = new Discord.RichEmbed()
+          .setAuthor('Music 🎵', 'https://i.imgur.com/s6OpKNC.jpg')
+          .setTitle(`**Song Successfully Queued!**`)
+          .setColor(`#0xd677ff`)
+          .addField(`**Uploader**`, `${song.channel}`, true)
+          .addField(`**Video ID**`, song.id , true)
+          .setFooter(`Published » ${song.publishedAt}`)
+          .addField(`**Duration**`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\`** Minutes and **\`${song.durations}\`** Seconds`, true)
+          .setDescription(`[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
+          .setThumbnail(`https://i.ytimg.com/vi/${song.id}/sddefault.jpg`)
+          .setColor(`0xd677ff`)
+        return message.channel.send(queueemb)
     }
     return undefined;
 }
 
 function play(guild, song){
     const serverQueue = queue.get(guild.id)
-    if(stopping){
+    if (stopping) {
        queue.delete(guild.id);
        return;
     }
     
-    if(!song){
+    if (!song) {
         serverQueue.voiceChannel.leave();
         queue.delete(guild.id);
         return undefined;
     }
+  
     const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 384000 /* 384kbps */})
         .on('end', () =>{
         if(!serverQueue.songs){
@@ -969,7 +988,7 @@ function play(guild, song){
             })
         .on('error', error => console.error(error));
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-    if(song){
+    if (song) {
         serverQueue.textChannel.send(`Now playing: **${song.title}**`)
     }
 }
