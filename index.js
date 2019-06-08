@@ -856,10 +856,14 @@ bot.on('message', async message => {
 
 bot.on('message', async message => {
     if (message.author.bot) return;
+    
     const perms = message.member.permissions;
     const admin = perms.has("ADMINISTRATOR", true);
+    
     if (admin) return;
     if (message.guild.id !== config.serverID) return;
+    if (message.channel.id === "586801954567618571"||"586802137040683028") return;
+    
     const links = ["DISCORD.ME", "DISCORD.GG", "DISCORDAPP.COM", "INVITE.GG", "DISCORDBOTS.ORG"];
     const author = message.author;
     const bannedlink = message.content;
