@@ -485,7 +485,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Skips the current song. \n\`np\`: Tells you what song is playing. \n\`volume ([number])\`: Sets the volume. Checks the volume if you don't provide a number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Votes to skip the playing song. Song automatically skips if half/over half of people vote to skip. \n\`np\`: Shows the name of the currently playing song. \n\`volume ([number])\`: Shows current volume if arguments are not provided. Changes volume to the provided number. \n\`queue\`: Lists the queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave channel."
                     },
                     {
                         name: "Moderation Commands",
