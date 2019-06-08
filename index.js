@@ -862,7 +862,7 @@ bot.on('message', async message => {
     
     if (admin) return;
     if (message.guild.id !== config.serverID) return;
-    if (message.channel.id === "586801954567618571"||"586802137040683028") return;
+    if (message.channel.id === "586801954567618571" || message.channel.id === "586802137040683028") return;
     
     const links = ["DISCORD.ME", "DISCORD.GG", "DISCORDAPP.COM", "INVITE.GG", "DISCORDBOTS.ORG"];
     const author = message.author;
