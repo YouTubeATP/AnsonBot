@@ -703,10 +703,14 @@ bot.on('message', async message => {
           message.delete().catch(O_o=>{});
           if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
           if(!serverQueue) return message.channel.send("Nothing is playing!");
-          serverQueue.loop = !serverQueue.loop;
-          if (serverQueue.loop) {
-              return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to enable loop.");
-          }
+          if (serverQueue.loop === "off") {
+            serverQueue.loop = "single"
+              return message.channel.send ("Loop for the current queue has been toggled to `single`. Use this command again to enable loop.");
+          } else if (serverQueue.loop === "single") {
+            serverQueue.loop = "all"
+          return message.channel.send ("Loop for the current queue has been toggled `all`. Use this command again to disable loop.");
+    }
+          serverQueue.loop = "off"
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to disable loop.");
     };
 
@@ -913,7 +917,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
       songs: [],
       volume: 5,
       playing: true,
-      loop: false
+      loop: "off"
     };
     queue.set(message.guild.id, queueConstruct);
 
@@ -993,8 +997,11 @@ function play(guild, song){
             playerVoted = [];
                 return undefined;
         }
-        if (serverQueue.loop === true) serverQueue.songs.push(serverQueue.songs.shift());
-        else serverQueue.songs.shift();
+        
+        if (serverQueue.loop === "all") serverQueue.songs.push(serverQueue.songs.shift());
+          
+        serverQueue.songs.shift();
+          
         voted = 0;
         voteSkipPass = 0;
         playerVoted = [];
