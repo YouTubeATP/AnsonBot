@@ -485,7 +485,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Votes to skip the playing song. Song automatically skips if half/over half of people vote to skip. \n\`np\`: Shows the name of the currently playing song. \n\`volume ([number])\`: Shows current volume if arguments are not provided. Changes volume to the provided number. \n\`queue\`: Shows the current queue of songs. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave the voice channel."
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Votes to skip the playing song. Song automatically skips if half/over half of people vote to skip. \n\`np\`: Shows the name of the currently playing song. \n\`volume ([number])\`: Shows current volume if arguments are not provided. Changes volume to the provided number. \n\`queue\`: Shows the current queue of songs. \n\`loop\`: Toggles loop for the current queue. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave the voice channel."
                     },
                     {
                         name: "Moderation Commands",
@@ -698,7 +698,15 @@ bot.on('message', async message => {
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
     } else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
-               
+          if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel!');
+          if(!serverQueue) return msg.channel.send("Nothing is playing!");
+          if (serverQueue.loop === false) {
+              serverQueue.loop === true;
+              return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to disable loop.");
+          } else {
+              serverQueue.loop === false;
+              return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to enable loop.");
+          }
     };
 
   if (censors === "on") {
