@@ -711,13 +711,12 @@ bot.on('message', async message => {
           message.delete().catch(O_o=>{});
           if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
           if(!serverQueue) return message.channel.send("Nothing is playing!");
-          if (serverQueue.loop === true) {
-              serverQueue.loop === false;
+          serverQueue.loop = !serverQueue.loop;
+          if (serverQueue.loop) {
               return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to enable loop.");
-          } else {
-          serverQueue.loop === true;
+          }
           return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to disable loop.");
-    }};
+    };
 
   if (censors === "on") {
   for (i=0;i<bannedwords.length;i++) {
