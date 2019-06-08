@@ -925,7 +925,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
 
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
-          .setTitle(`**Song added to queue!** \n\n**Video**`)
+          .setTitle(`**Song added to queue!** \n**Video**`)
           .setColor(`#0x00bdf2`)
           .addField(`**Uploader**`, `${song.channel}`, true)
           .addField(`**Video ID**`, song.id , true)
@@ -958,13 +958,13 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
-          .setTitle(`**Song added to queue!** \n\n**Video**`)
+          .setTitle(`Song added to queue! \nVideo`)
           .setColor(`#0x00bdf2`)
-          .addField(`**Uploader**`, `${song.channel}`, true)
-          .addField(`**Video ID**`, song.id , true)
-          .addField(`**Date Published**`, `${song.publishedAt}`, true)
-          .addField(`**Duration**`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\`** Minutes and **\`${song.durations}\`** Seconds`, true)
-          .setDescription(`**[${song.title}](https://www.youtube.com/watch?v=${song.id}})**`)
+          .addField(`Uploader`, `${song.channel}`, true)
+          .addField(`Video ID`, song.id , true)
+          .addField(`Date Published`, `${song.publishedAt}`, true)
+          .addField(`Duration`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\` Minutes and **\`${song.durations}\`** Seconds`, true)
+          .setDescription(`[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
           .setColor(`0x00bdf2`)
         return message.channel.send (queueemb)
