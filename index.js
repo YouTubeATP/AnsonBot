@@ -696,6 +696,7 @@ bot.on('message', async message => {
         .setTitle("Queue")
         .setColor(0x00bdf2)
         .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
+        .addField("Loop:")
         .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
