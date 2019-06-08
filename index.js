@@ -619,6 +619,7 @@ bot.on('message', async message => {
         }
     } else if (msg === prefix + "pause" || msg === mention + "pause" || msg === mention1 + "pause") {
       message.delete().catch(O_o=>{});
+      if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!");
 		  if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
@@ -627,6 +628,7 @@ bot.on('message', async message => {
 		return message.channel.send('Nothing is playing!');
 	} else if (msg === prefix + "resume" || msg === mention + "resume" || msg === mention1 + "resume") {
     message.delete().catch(O_o=>{});
+    if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!");
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
@@ -643,8 +645,8 @@ bot.on('message', async message => {
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
     } else if (msg === prefix + "skip" || msg === mention + "skip" || msg === mention1 + "skip"){
         message.delete().catch(O_o=>{});
-            if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-            if(!serverQueue) return await message.channel.send("Nothing is playing!")
+            if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
+            if (!serverQueue) return await message.channel.send("Nothing is playing!")
         const voiceChannel = message.member.voiceChannel;
         for (var x = 0; x < playerVoted.length; x++) {
             if(sender === playerVoted[x]){
@@ -698,8 +700,8 @@ bot.on('message', async message => {
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
     } else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
-          if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel!');
-          if(!serverQueue) return msg.channel.send("Nothing is playing!");
+          if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
+          if(!serverQueue) return message.channel.send("Nothing is playing!");
           if (serverQueue.loop === false) {
               serverQueue.loop === true;
               return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to disable loop.");
@@ -864,15 +866,14 @@ bot.on('message', async message => {
   
 });
 
-bot.on('message', async message => {
+bot.on('message', message => {
     if (message.author.bot) return;
+    if (message.guild.id !== config.serverID) return;
+    if (message.channel.id === "586801954567618571" || message.channel.id === "586802137040683028") return;
     
     const perms = message.member.permissions;
     const admin = perms.has("ADMINISTRATOR", true);
-    
     if (admin) return;
-    if (message.guild.id !== config.serverID) return;
-    if (message.channel.id === "586801954567618571" || message.channel.id === "586802137040683028") return;
     
     const links = ["DISCORD.ME", "DISCORD.GG", "DISCORDAPP.COM", "INVITE.GG", "DISCORDBOTS.ORG", "DISC.GG", "DISCORD.CHAT", "DISCSERVS.CO", "DISCORD.BOTS.GG"];
     const author = message.author;
@@ -907,7 +908,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
             connection: null,
             songs: [],
             volume: 5,
-            playing: true
+            playing: true,
+            loop: false
         };
         queue.set(message.guild.id, queueConstruct);
         queueConstruct.songs.push(song);
