@@ -584,7 +584,15 @@ bot.on('message', async message => {
                 var video2 = await youtube.getVideoByID(video.id);
                 await handleVideo(video2, message, voiceChannel, true)
             }
-            return await message.channel.send(`Playlist: **${playlist.title}** has been added to the queue!`);
+            let bicon = bot.user.avatar.url
+        let queueemb = new Discord.RichEmbed()
+          .setAuthor('Playlist added to queue!', bicon)
+          .setTitle(`**Playlist**`)
+          .setColor(`#0x00bdf2`)
+          .setDescription(`**[${playlist.name}](https://www.youtube.com/watch?v=${playlist.id}})**`)
+          .setFooter(`MusEmbed™ | Clean Embeds, Crisp Music`, bicon)
+          .setColor(`0x00bdf2`)
+        return message.channel.send (queueemb)
         } else {
             try {
                 var video = await youtube.getVideo(args[0])
@@ -706,10 +714,10 @@ bot.on('message', async message => {
           if (serverQueue.loop === true) {
               serverQueue.loop === false;
               return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to enable loop.");
-          }
+          } else {
           serverQueue.loop === true;
           return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to disable loop.");
-    };
+    }};
 
   if (censors === "on") {
   for (i=0;i<bannedwords.length;i++) {
@@ -919,7 +927,20 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
     queue.set(message.guild.id, queueConstruct);
 
         queueConstruct.songs.push(song);
-        message.channel.send(`${song.title} has been added to the queue.`)
+
+        let bicon = bot.user.avatar.url
+        let queueemb = new Discord.RichEmbed()
+          .setAuthor('Song added to queue!', bicon)
+          .setTitle(`**Video**`)
+          .setColor(`#0x00bdf2`)
+          .addField(`**Uploader**`, `${song.channel}`, true)
+          .addField(`**Video ID**`, song.id , true)
+          .addField(`**Date Published**`, `${song.publishedAt}`, true)
+          .addField(`**Duration**`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\`** Minutes and **\`${song.durations}\`** Seconds`, true)
+          .setDescription(`**[${song.title}](https://www.youtube.com/watch?v=${song.id}})**`)
+          .setFooter(`MusEmbed™ | Clean Embeds, Crisp Music`, bicon)
+          .setColor(`0x00bdf2`)
+        message.channel.send (queueemb)
       
         try {
             var connection = await voiceChannel.join();
