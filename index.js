@@ -677,14 +677,7 @@ bot.on('message', async message => {
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!").then(message => message.delete(10000))
         
-        let queueEmbed = new Discord.RichEmbed()
-        .setTitle("Queue")
-        .setColor(0x00bdf2)
-        .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
-        .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatar.url)
-        return serverQueue.textchannel.send(queueEmbed)
-      
+        return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
     } else if (msg.split(" ")[0] === prefix + "volume" || msg.split(" ")[0] === mention + "volume" || msg.split(" ")[0] === mention1 + "volume"){
         let args = msg.split(" ").slice(1)
         message.delete().catch(O_o=>{});
@@ -707,14 +700,15 @@ bot.on('message', async message => {
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
     } else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
+          message.delete().catch(O_o=>{});
           if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
           if(!serverQueue) return message.channel.send("Nothing is playing!");
           if (serverQueue.loop === true) {
               serverQueue.loop === false;
-              return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to enable loop.");
+              return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to enable loop.");
           }
           serverQueue.loop === true;
-          return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to disable loop.");
+          return message.channel.send ("Loop for the current queue has been toggled `on`. Use this command again to disable loop.");
     };
 
   if (censors === "on") {
@@ -920,7 +914,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
       songs: [],
       volume: 5,
       playing: true,
-      loop: true
+      loop: false
     };
     queue.set(message.guild.id, queueConstruct);
 
@@ -947,13 +941,19 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         serverQueue.songs.push(song);
         if(playlist) return undefined;
         
-        let queueEmbed = new Discord.RichEmbed()
-        .setTitle("Queue")
-        .setColor(0x00bdf2)
-        .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
-        .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatar.url)
-        return serverQueue.textchannel.send(queueEmbed)
+        let bicon = bot.user.avatar.url
+        let queueemb = new Discord.RichEmbed()
+          .setAuthor('Song added to queue!', bicon)
+          .setTitle(`**Video**`)
+          .setColor(`#0x00bdf2`)
+          .addField(`**Uploader**`, `${song.channel}`, true)
+          .addField(`**Video ID**`, song.id , true)
+          .addField(`**Date Published**`, `${song.publishedAt}`, true)
+          .addField(`**Duration**`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\`** Minutes and **\`${song.durations}\`** Seconds`, true)
+          .setDescription(`**[${song.title}](https://www.youtube.com/watch?v=${song.id}})**`)
+          .setFooter(`MusEmbed™ | Clean Embeds, Crisp Music`, bicon)
+          .setColor(`0x00bdf2`)
+        return message.channel.send (queueemb)
     }
     return undefined;
 }
@@ -991,13 +991,7 @@ function play(guild, song){
         .on('error', error => console.error(error));
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
     if (song) {
-        let queueEmbed = new Discord.RichEmbed()
-        .setTitle("Queue")
-        .setColor(0x00bdf2)
-        .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
-        .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatar.url)
-        return serverQueue.textchannel.send(queueEmbed)
+        serverQueue.textChannel.send(`Now playing: **${song.title}**`)
     }
 }
 
