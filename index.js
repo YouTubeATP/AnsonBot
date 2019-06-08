@@ -697,6 +697,8 @@ bot.on('message', async message => {
         .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
+    } else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
+               
     };
 
   if (censors === "on") {
@@ -948,7 +950,8 @@ function play(guild, song){
             playerVoted = [];
                 return undefined;
         }
-        serverQueue.songs.shift();
+        if (serverQueue.loop === true) serverQueue.songs.push(serverQueue.songs.shift());
+        else serverQueue.songs.shift();
         voted = 0;
         voteSkipPass = 0;
         playerVoted = [];
