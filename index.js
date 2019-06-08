@@ -925,15 +925,14 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
 
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
-          .setTitle(`**Song added to queue!** \n**Video**`)
+          .setTitle(`Song added to queue!`)
           .setColor(`#0x00bdf2`)
-          .addField(`**Uploader**`, `${song.channel}`, true)
-          .addField(`**Video ID**`, song.id , true)
-          .addField(`**Date Published**`, `${song.publishedAt}`, true)
-          .addField(`**Duration**`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\`** Minutes and **\`${song.durations}\`** Seconds`, true)
-          .setDescription(`**[${song.title}](https://www.youtube.com/watch?v=${song.id}})**`)
+          .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
+          .addField(`Uploader`, `${song.channel}`, true)
+          .addField(`Video ID`, song.id , true)
+          .addField(`Date Published`, `${song.publishedAt}`, true)
+          .addField(`Duration`, `\`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-          .setColor(`0x00bdf2`)
         message.channel.send (queueemb)
       
         try {
@@ -958,15 +957,14 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
-          .setTitle(`Song added to queue! \nVideo`)
+          .setTitle(`Song added to queue!`)
           .setColor(`#0x00bdf2`)
+          .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
           .addField(`Uploader`, `${song.channel}`, true)
           .addField(`Video ID`, song.id , true)
           .addField(`Date Published`, `${song.publishedAt}`, true)
-          .addField(`Duration`, `**\`${song.durationh}\`** Hours, **\`${song.durationm}\` Minutes and **\`${song.durations}\`** Seconds`, true)
-          .setDescription(`[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
+          .addField(`Duration`, `\`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-          .setColor(`0x00bdf2`)
         return message.channel.send (queueemb)
     }
     return undefined;
