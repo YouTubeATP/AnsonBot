@@ -1005,7 +1005,7 @@ function play(guild, song){
         .on('error', error => console.error(error));
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
     if (song) {
-        return serverQueue.textChannel.send(`Now playing: **${song.title}**`)
+        serverQueue.textChannel.send(`Now playing: **${song.title}**`)
     }
 }
 
