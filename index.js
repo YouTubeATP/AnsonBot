@@ -695,8 +695,7 @@ bot.on('message', async message => {
         let queueEmbed = new Discord.RichEmbed()
         .setTitle("Queue")
         .setColor(0x00bdf2)
-        .addField("Now playing:", `**${serverQueue.songs[0].title}**`)
-        .addField("Loop:")
+        .addField(`Now playing: **${serverQueue.songs[0].title}**`, `Loop: \`${serverQueue.loop}\``)
         .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
@@ -926,7 +925,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
 
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
-          .setAuthor("Song added to queue!")
+          .setAuthor("Song added to queue! \n_ _")
           .setTitle(`**Video**`)
           .setColor(`#0x00bdf2`)
           .addField(`**Uploader**`, `${song.channel}`, true)
@@ -960,7 +959,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
-          .setAuthor("Song added to queue!")
+          .setAuthor("Song added to queue! \n_ _")
           .setTitle(`**Video**`)
           .setColor(`#0x00bdf2`)
           .addField(`**Uploader**`, `${song.channel}`, true)
