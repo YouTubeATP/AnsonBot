@@ -984,8 +984,11 @@ function play(guild, song){
     }
   
     const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 384000 /* 384kbps */})
-        .on('end', () => {
-        if(!serverQueue.songs){
+        .on('end', reason => {
+			    if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
+			    else console.log(reason);
+        
+          if(!serverQueue.songs){
                 serverQueue.voiceChannel.leave();
                 queue.delete(guild.id);
                 voted = 0;
@@ -994,8 +997,8 @@ function play(guild, song){
                 return undefined;
         }
         
-        if (serverQueue.loop === "off") serverQueue.songs.shift();
-        if (serverQueue.loop === "all") serverQueue.songs.push(serverQueue.songs.shift());
+          if (serverQueue.loop === "off") serverQueue.songs.shift();
+          if (serverQueue.loop === "all") serverQueue.songs.push(serverQueue.songs.shift());
           
         voted = 0;
         voteSkipPass = 0;
@@ -1003,8 +1006,8 @@ function play(guild, song){
                 play(guild, serverQueue.songs[0]);
             })
         .on('error', error => console.error(error));
-    dispatcher.setVolumeLogarithmic(serverQueue.volume / 10);
-    if (song) {
+      dispatcher.setVolumeLogarithmic(serverQueue.volume / 10);
+      if (song) {
         serverQueue.textChannel.send(`Now playing: **${song.title}**`)
     }
 }
