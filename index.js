@@ -984,7 +984,7 @@ function play(guild, song){
     }
   
     const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 384000 /* 384kbps */})
-        .on('end', () =>{
+        .on('end', () => {
         if(!serverQueue.songs){
                 serverQueue.voiceChannel.leave();
                 queue.delete(guild.id);
