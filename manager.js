@@ -21,7 +21,7 @@ const listener = app.listen(process.env.PORT, function() {
   setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 225000);
-})
+});
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { webhookAuth: 'NaKh26100225', webhookServer: listener }, bot);
