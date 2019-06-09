@@ -712,6 +712,10 @@ bot.on('message', async message => {
     }
           serverQueue.loop = "off"
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to disable loop.");
+    } else if (message.content.split(" ")[0] === prefix + "play" || message.content.split(" ")[0] === mention + "play" || message.content.split(" ")[0] === mention1 + "play") {
+        let args = message.content.split(" ").slice(1)
+        message.delete().catch(O_o=>{});
+        
     };
 
   if (censors === "on") {
