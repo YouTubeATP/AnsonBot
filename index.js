@@ -939,7 +939,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
             var connection = await voiceChannel.join();
             queueConstruct.connection = connection;
             play(message.guild, queueConstruct.songs[0]);
-            serverQueue.connection.dispatcher.setVolumeLogarithmic(1)
         } catch (error) {
             console.error(error)
             queue.delete(message.guild.id)
@@ -1004,7 +1003,7 @@ function play(guild, song){
                 play(guild, serverQueue.songs[0]);
             })
         .on('error', error => console.error(error));
-    dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+    dispatcher.setVolumeLogarithmic(serverQueue.volume / 10);
     if (song) {
         serverQueue.textChannel.send(`Now playing: **${song.title}**`)
     }
