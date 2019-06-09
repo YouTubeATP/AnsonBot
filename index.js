@@ -20,6 +20,27 @@ const youtube = new YouTube(config.youtube)
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { statsInterval: 900000 }, bot);
 
+function secondsToString(seconds) {
+	var days = Math.floor(seconds / 86400);
+	var hours = Math.floor((seconds % 86400) / 3600);
+	var minutes = Math.floor((seconds % 3600) / 60);
+	var seconds = Math.floor(seconds % 60);
+
+	var str = "";
+
+	if (days > 0) {
+		str += days + ":";
+	}
+	if (hours < 24) {
+		hours = "0" + hours;
+	}
+	if (minutes < 60) {
+		minutes = "0" + minutes;
+	}
+	if (seconds < 60) {
+		seconds = "0" + seconds;
+	}
+
 dbl.on('posted', () => {
   console.log('Server count posted!');
 });
@@ -712,7 +733,7 @@ bot.on('message', async message => {
     }
           serverQueue.loop = "off"
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to disable loop.");
-    } else if (message.content.split(" ")[0] === prefix + "play" || message.content.split(" ")[0] === mention + "play" || message.content.split(" ")[0] === mention1 + "play") {
+    } else if (message.content.split(" ")[0] === prefix + "seek" || message.content.split(" ")[0] === mention + "seek" || message.content.split(" ")[0] === mention1 + "seek") {
         let args = message.content.split(" ").slice(1)
         message.delete().catch(O_o=>{});
         
