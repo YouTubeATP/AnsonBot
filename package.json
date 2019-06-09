@@ -29,10 +29,6 @@
   "scripts": {
     "start": "node manager.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Just-Some-Bots/MusicBot.git"
-  },
   "keywords": [
     "embed"
   ],
