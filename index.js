@@ -670,7 +670,7 @@ bot.on('message', async message => {
         voteSkipPass = 0;
         playerVoted = [];
         }else{
-            await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!').then(message => message.delete(10000))
+            await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!')
         }
         return undefined;
     } else if (msg === prefix + "np" || msg === mention + "np" || msg === mention1 + "np"){
@@ -683,11 +683,11 @@ bot.on('message', async message => {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
-        if(!args[0]) return await message.channel.send(`The current volume is **${serverQueue.volume}**`).then(message => message.delete(10000));
-    if (args[0] > 10 || args[0] < 0) return await message.channel.send('Please choose a number between 0 and 10!');
-        serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 5)
-        serverQueue.volume = args[0]/2;
-        return await message.channel.send(`I set the volume to: **${args[0]}/2**`);
+        if(!args[0]) return await message.channel.send(`The current volume is **${serverQueue.volume}**`)
+    if (args[0] > 10 || args[0] < 0) return await message.reply('please choose a number between 0 and 10!');
+        serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 10)
+        serverQueue.volume = args[0];
+        return await message.channel.send(`I set the volume to: **${args[0]}**`);
     } else if (msg === prefix + "queue" || msg === mention + "queue" || msg === mention1 + "queue") {
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
@@ -915,7 +915,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
       voiceChannel: voiceChannel,
       connection: null,
       songs: [],
-      volume: 5,
+      volume: 10,
       playing: true,
       loop: "off"
     };
@@ -939,6 +939,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
             var connection = await voiceChannel.join();
             queueConstruct.connection = connection;
             play(message.guild, queueConstruct.songs[0]);
+            serverQueue.connection.dispatcher.setVolumeLogarithmic(1)
         } catch (error) {
             console.error(error)
             queue.delete(message.guild.id)
