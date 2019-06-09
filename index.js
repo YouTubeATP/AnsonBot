@@ -485,7 +485,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Music Commands",
-                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Votes to skip the playing song. Song automatically skips if half/over half of people vote to skip. \n\`np\`: Shows the name of the currently playing song. \n\`volume ([number])\`: Shows current volume if arguments are not provided. Changes volume to the provided number. \n\`queue\`: Shows the current queue of songs. \n\`loop\`: Toggles loop to \`single\` when used once. Toggles to \`all\` when used twice. Toggles \`off\` when used thrice. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave the voice channel."
+                        value: "\`play [name of music]\`: Searches for the song you requested. \n\`pause\`: Pauses the current song. \n\`resume\`: Resumes a paused song. \n\`skip\`: Votes to skip the playing song. Song automatically skips if half/over half of people vote to skip. \n\`np\`: Shows the name of the currently playing song. \n\`volume ([number])\`: Changes volume to the provided number. Shows current volume if arguments are not provided. \n\`queue\`: Shows the current queue of songs. \n\`loop\`: Toggles loop to \`single\` when used once. Toggles to \`all\` when used twice. Toggles \`off\` when used thrice. \n\`stop\`: Moderator-only command. Resets the queue and stops music. Also forces bot to leave the voice channel."
                     },
                     {
                         name: "Moderation Commands",
@@ -675,19 +675,19 @@ bot.on('message', async message => {
         return undefined;
     } else if (msg === prefix + "np" || msg === mention + "np" || msg === mention1 + "np"){
         message.delete().catch(O_o=>{});
-        if(!serverQueue) return await message.channel.send("Nothing is playing!").then(message => message.delete(10000))
+        if(!serverQueue) return await message.channel.send("Nothing is playing!")
         
         return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
     } else if (msg.split(" ")[0] === prefix + "volume" || msg.split(" ")[0] === mention + "volume" || msg.split(" ")[0] === mention1 + "volume"){
         let args = msg.split(" ").slice(1)
         message.delete().catch(O_o=>{});
-        if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!").then(message => message.delete(10000))
+        if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
         if(!args[0]) return await message.channel.send(`The current volume is **${serverQueue.volume}**`).then(message => message.delete(10000));
     if (args[0] > 10 || args[0] < 0) return await message.channel.send('Please choose a number between 0 and 10!');
         serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 5)
-        serverQueue.volume = args[0];
-        return await message.channel.send(`I set the volume to: **${args[0]}**`);
+        serverQueue.volume = args[0]/2;
+        return await message.channel.send(`I set the volume to: **${args[0]}/2**`);
     } else if (msg === prefix + "queue" || msg === mention + "queue" || msg === mention1 + "queue") {
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
