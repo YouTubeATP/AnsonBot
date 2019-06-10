@@ -377,6 +377,10 @@ bot.on('message', async message => {
   }
   
   if (msg.split(" ")[0] === prefix + "rawembed" | msg.split(" ")[0] === mention + "rawembed" | msg.split(" ")[0] === mention1 + "rawembed") {
+    if (!message.member.hasPermission("ADMINISTRATOR")) {
+            message.delete().catch(O_o=>{});
+            return message.reply("you do not have the permissions to send a raw embed.")
+        }
     if (censors === "on") {
       
       for (i=0;i<bannedwords.length;i++) {
@@ -504,7 +508,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Embed Commands",
-                        value: "\`embed [message]\`: Embeds your message. \n\`rawembed [message]\`: Administrator-only command that embeds your message without your name. \n"
+                        value: "\`embed [(hex code]) [message]\`: Embeds your message. \n\`rawembed ([hex code]) [message]\`: Administrator-only command that embeds your message without your name. \n"
                     },
                     {
                         name: "Music Commands",
