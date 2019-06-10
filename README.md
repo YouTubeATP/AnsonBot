@@ -5,6 +5,12 @@ Welcome to MusEmbed's Script
 
 Invite MusEmbed to your Discord server [now](https://invite.musembed.tk).
 
+[Vote for MusEmbed](https://vote.musembed.tk)
+
+[Commands](https://www.musembed.tk/commands)
+
+[Support Server](https://invite.gg/musembed)
+
 
 Contents
 --------
