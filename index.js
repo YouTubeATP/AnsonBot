@@ -346,11 +346,11 @@ bot.on('message', async message => {
     }};
 
   function sayRawEmbed(message, args) {
-    var color = args.shift().toLowerCase()
+    var color = args.shift()
     var content = args.join(" ")
 
     if ( color.length == 6 &&
-      ( (color[0] >= "0" && color[0] <= "9") || (color[0] >= "a" && color[0] <= "f") ) &&
+      ( (color[0] >= "0" && color[0] <= "9") || (color[0] >= "a" && color[0] <= "f") || (color[0] >= "A" && color[0] <= "F") ) &&
       ( (color[1] >= "0" && color[1] <= "9") || (color[1] >= "a" && color[1] <= "f") ) &&
       ( (color[2] >= "0" && color[2] <= "9") || (color[2] >= "a" && color[2] <= "f") ) &&
       ( (color[3] >= "0" && color[3] <= "9") || (color[3] >= "a" && color[3] <= "f") ) &&
