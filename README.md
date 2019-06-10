@@ -20,5 +20,5 @@ Contents
 - global constants at `config.json`
 
 
-Made by [MusEmbed](https://www.musembed.tk)
--------------------------------------------
+[MusEmbed | Clean Embeds, Crisp Music](https://www.musembed.tk)
+---------------------------------------------------------------
