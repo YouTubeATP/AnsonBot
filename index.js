@@ -293,84 +293,107 @@ bot.on('message', async message => {
   }})
 };
 
-    if (msg.split(" ")[0] === prefix + "embed" || msg.split(" ")[0] === mention + "embed" || msg.split(" ")[0] === mention1 + "embed") {
-        if (censors === "on") {
-            for (i=0;i<bannedwords.length;i++) {
-            if (message.content.toLowerCase().includes(bannedwords[i])) {
-                message.delete().catch(O_o=>{});
-                return message.reply("please refrain from using such contemptable words.");
-    } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
-        const embedMessage = args.join(" ");
-        const senderID = args.join(" ");
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            author: {
-                name: `${message.author.username}#${message.author.discriminator}`,
-                icon_url: message.author.avatarURL
-            },
-            description:(embedMessage),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-        return;
-}}
-        } else {
-        const embedMessage = args.join(" ");
-        const senderID = args.join(" ");
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            author: {
-                name: `${message.author.username}#${message.author.discriminator}`,
-                icon_url: message.author.avatarURL
-            },
-            description:(embedMessage),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }})
-}};
+  function sayEmbed(message, args) {
+    var color = args.shift().toLowerCase()
+    var content = args.join(" ")
 
-    if (msg.split(" ")[0] === prefix + "rawembed" || msg.split(" ")[0] === mention + "rawembed" || msg.split(" ")[0] === mention1 + "rawembed") {
-        if (!message.member.hasPermission("ADMINISTRATOR")) {
-            message.delete().catch(O_o=>{});
-            message.reply("you do not have the permissions to send a raw embed.")
-            return;
-        } else if (censors === "on") {
-            for (i=0;i<bannedwords.length;i++) {
-            if (message.content.toLowerCase().includes(bannedwords[i])) {
-                message.delete().catch(O_o=>{});
-                message.reply("please refrain from using such contemptable words.").then(message => message.delete(10000));
-            return;
-    } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
-        const embedMessage = args.join(" ");
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:(embedMessage),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-        return;
-}}
-        } else {
-        const embedMessage = args.join(" ");
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:(embedMessage),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }})
-}};
+    if ( color.length == 6 &&
+      ( (color[0] >= "0" && color[0] <= "9") || (color[0] >= "a" && color[0] <= "f") ) &&
+      ( (color[1] >= "0" && color[1] <= "9") || (color[1] >= "a" && color[1] <= "f") ) &&
+      ( (color[2] >= "0" && color[2] <= "9") || (color[2] >= "a" && color[2] <= "f") ) &&
+      ( (color[3] >= "0" && color[3] <= "9") || (color[3] >= "a" && color[3] <= "f") ) &&
+      ( (color[4] >= "0" && color[4] <= "9") || (color[4] >= "a" && color[4] <= "f") ) &&
+      ( (color[5] >= "0" && color[5] <= "9") || (color[5] >= "a" && color[5] <= "f") ) ) {
+
+      color = parseInt(`0x${color}`)
+      var embed = new Discord.RichEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setColor(color)
+        .setDescription(content)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+      message.channel.send(embed)
+        .then(message.delete())
+        .catch(console.error)
+
+    } else {
+      var embed = new Discord.RichEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setDescription(`${color} ${content}`)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+      message.channel.send(embed)
+        .then(message.delete())
+        .catch(console.error)
+    }
+  }
+  
+  if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed" | msg.split(" ")[0] === mention1 + "embed") {
+    if (censors === "on") {
+      
+      for (i=0;i<bannedwords.length;i++) {
+        if (message.content.toLowerCase().includes(bannedwords[i])) {
+          message.delete().catch(O_o=>{});
+          message.reply("please refrain from using such contemptable words.");
+          return;
+        }
+      }
+    
+      sayEmbed(message, args)
+      
+    } else {
+      
+      sayEmbed(message, args)
+      
+    }};
+
+  function sayRawEmbed(message, args) {
+    var color = args.shift().toLowerCase()
+    var content = args.join(" ")
+
+    if ( color.length == 6 &&
+      ( (color[0] >= "0" && color[0] <= "9") || (color[0] >= "a" && color[0] <= "f") ) &&
+      ( (color[1] >= "0" && color[1] <= "9") || (color[1] >= "a" && color[1] <= "f") ) &&
+      ( (color[2] >= "0" && color[2] <= "9") || (color[2] >= "a" && color[2] <= "f") ) &&
+      ( (color[3] >= "0" && color[3] <= "9") || (color[3] >= "a" && color[3] <= "f") ) &&
+      ( (color[4] >= "0" && color[4] <= "9") || (color[4] >= "a" && color[4] <= "f") ) &&
+      ( (color[5] >= "0" && color[5] <= "9") || (color[5] >= "a" && color[5] <= "f") ) ) {
+
+      color = parseInt(`0x${color}`)
+      var embed = new Discord.RichEmbed()
+        .setColor(color)
+        .setDescription(content)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+      message.channel.send(embed)
+        .then(message.delete())
+        .catch(console.error)
+
+    } else {
+      var embed = new Discord.RichEmbed()
+        .setDescription(`${color} ${content}`)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+      message.channel.send(embed)
+        .then(message.delete())
+        .catch(console.error)
+    }
+  }
+  
+  if (msg.split(" ")[0] === prefix + "rawembed" | msg.split(" ")[0] === mention + "rawembed" | msg.split(" ")[0] === mention1 + "rawembed") {
+    if (censors === "on") {
+      
+      for (i=0;i<bannedwords.length;i++) {
+        if (message.content.toLowerCase().includes(bannedwords[i])) {
+          message.delete().catch(O_o=>{});
+          message.reply("please refrain from using such contemptable words.");
+          return;
+        }
+      }
+    
+      sayRawEmbed(message, args)
+      
+    } else {
+      
+      sayRawEmbed(message, args)
+      
+    }};
   
     if (msg.split(" ")[0] === prefix + "suggest" || msg.split(" ")[0] === mention + "suggest" || msg.split(" ")[0] === mention1 + "suggest") {
         const embedMessage = args.join(" ");
