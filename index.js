@@ -882,7 +882,7 @@ bot.on('message', message => {
     const admin = perms.has("ADMINISTRATOR", true);
     if (admin) return;
     
-    const links = ["DISCORD.ME", "DISCORD.GG", "DISCORDAPP.COM", "INVITE.GG", "DISCORDBOTS.ORG", "DISC.GG", "DISCORD.CHAT", "DISCSERVS.CO", "DISCORD.BOTS.GG"];
+    const links = ["DISCORD.ME", "DISCORD.GG", "DISCORDAPP.COM", "INVITE.GG", "DISCORDBOTS.ORG", "DISC.GG", "DISCORD.CHAT", "DISCSERVS.CO", "DISCORD.BOTS.GG", "DISCORD.IO"];
     const author = message.author;
     const bannedlink = message.content;
     const bannedlinks = message.content.toUpperCase();
