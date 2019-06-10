@@ -50,7 +50,7 @@ bot.settings = new Enmap({
 
 const defaultSettings = {   
   prefix: "em/",    
-  censor: "on"
+  censor: "off"
 };
 
 bot.on('guildMemberAdd', member => {
