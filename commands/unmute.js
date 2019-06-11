@@ -55,7 +55,11 @@ module.exports = {
       })
     }
     
-    if (!mem.roles.has(muteRole)) {
+    if (muteRole) {
+      
+      unmute(message, mem, muteRole)
+      
+    } if (!mem.roles.has(muteRole)) {
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
         .setTitle(`I can't exactly unmute someone who's not muted, duh!`)
@@ -64,13 +68,7 @@ module.exports = {
       return message.channel.send(embed)
         .then(message.delete())
         .catch(console.error)
-    } 
-    
-    if (muteRole) {
-      
-      unmute(message, mem, muteRole)
-      
-    } else {
+    }  else {
     
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
