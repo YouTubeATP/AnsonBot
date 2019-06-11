@@ -247,6 +247,10 @@ bot.on('message', async message => {
             message.delete().catch(O_o=>{});
             return message.reply("you do not have the permissions to change the server's configurations.")
         }
+        if (message.isMemberMentioned(bot.user)) {
+          message.delete().catch(O_o=>{});
+          return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+        }
         var conf = args.shift()
         var value = args.join(" ")
         if (conf === "censor" && value === "on" || conf === "censor" && value === "off" || conf === "prefix" && !value.includes(" ")) {
@@ -258,9 +262,6 @@ bot.on('message', async message => {
     }
 
     if (msg.split(" ")[0] === prefix + "setconf" || message.isMemberMentioned(bot.user) && msg.includes("setconf")) {
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
         if (censors === "on") {
         for (i=0;i<bannedwords.length;i++) {
         if (message.content.toLowerCase().includes(bannedwords[i])) {
@@ -398,7 +399,10 @@ bot.on('message', async message => {
   }
   
   if (msg.split(" ")[0] === prefix + "rawembed" || message.isMemberMentioned(bot.user) && msg.includes("rawembed")) {
-    if (message.isMemberMentioned(bot.user)) return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    }
     if (!message.member.hasPermission("ADMINISTRATOR")) {
             message.delete().catch(O_o=>{});
             return message.reply("you do not have the permissions to send a raw embed.")
@@ -422,7 +426,10 @@ bot.on('message', async message => {
     }};
   
     if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
-        if (message.isMemberMentioned(bot.user)) return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    }
         const embedMessage = args.join(" ");
         if (censors === "on") {
             for (i=0;i<bannedwords.length;i++) {
@@ -552,7 +559,7 @@ bot.on('message', async message => {
   }})
 };
 
-    if (msg === prefix + "botinfo" || msg === mention + "botinfo" || msg === mention1 + "botinfo") {
+    if (msg === prefix + "botinfo" || message.isMemberMentioned(bot.user) && msg.includes("botinfo")) {
         message.delete().catch(O_o=>{});
         return bot.shard.broadcastEval('this.guilds.size')
         .then(results => {
@@ -575,7 +582,7 @@ bot.on('message', async message => {
         message.channel.send(botembed)
     })};
 
-    if (msg === prefix + "links" || msg === mention + "links" || msg === mention1 + "links") {
+    if (msg === prefix + "links" || message.isMemberMentioned(bot.user) && msg.includes("links")) {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
@@ -588,7 +595,7 @@ bot.on('message', async message => {
   }})
 };
 
-    if (msg === prefix + "serverinfo" || msg === mention + "serverinfo" || msg === mention1 + "serverinfo") {
+    if (msg === prefix + "serverinfo" || message.isMemberMentioned(bot.user) && msg.includes("serverinfo")) {
         message.delete().catch(O_o=>{});
         let bicon = bot.user.displayAvatarURL
         let sicon = message.guild.iconURL
@@ -613,7 +620,11 @@ bot.on('message', async message => {
 
     const serverQueue = queue.get(message.guild.id);
   
-    if (msg.split(" ")[0] === prefix + "play" || msg.split(" ")[0] === mention + "play" || msg.split(" ")[0] === mention1 + "play") {
+    if (msg.split(" ")[0] === prefix + "play" || message.isMemberMentioned(bot.user) && msg.includes("play")) {
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    }
         let args = message.content.split(" ").slice(1)
         const searchString = args.join(' ')
         const voiceChannel = message.member.voiceChannel;
@@ -666,7 +677,7 @@ bot.on('message', async message => {
             }
             return handleVideo(video, message, voiceChannel);
         }
-    } else if (msg === prefix + "pause" || msg === mention + "pause" || msg === mention1 + "pause") {
+    } else if (msg === prefix + "pause" || message.isMemberMentioned(bot.user) && msg.includes("pause")) {
       message.delete().catch(O_o=>{});
       if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!");
 		  if (serverQueue && serverQueue.playing) {
@@ -675,7 +686,7 @@ bot.on('message', async message => {
 			return message.channel.send('Music paused. Use the command \`' + prefix + 'resume\` to resume playing.');
 		}
 		return message.channel.send('Nothing is playing!');
-	} else if (msg === prefix + "resume" || msg === mention + "resume" || msg === mention1 + "resume") {
+	} else if (msg === prefix + "resume" || message.isMemberMentioned(bot.user) && msg.includes("resume")) {
     message.delete().catch(O_o=>{});
     if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!");
 		if (serverQueue && !serverQueue.playing) {
@@ -684,7 +695,7 @@ bot.on('message', async message => {
 			return message.channel.send('Music resumed.');
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
-	} else if (msg === prefix + "stop" || msg === mention + "stop" || msg === mention1 + "stop") {
+	} else if (msg === prefix + "stop" || message.isMemberMentioned(bot.user) && msg.includes("stop")) {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
@@ -692,7 +703,7 @@ bot.on('message', async message => {
     stopping = true;
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
-    } else if (msg === prefix + "skip" || msg === mention + "skip" || msg === mention1 + "skip"){
+    } else if (msg === prefix + "skip" || message.isMemberMentioned(bot.user) && msg.includes("skip")) {
         message.delete().catch(O_o=>{});
             if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
             if (!serverQueue) return await message.channel.send("Nothing is playing!")
@@ -722,12 +733,16 @@ bot.on('message', async message => {
             await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!')
         }
         return undefined;
-    } else if (msg === prefix + "np" || msg === mention + "np" || msg === mention1 + "np"){
+    } else if (msg === prefix + "np" || message.isMemberMentioned(bot.user) && msg.includes("np")) {
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
         
         return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
-    } else if (msg.split(" ")[0] === prefix + "volume" || msg.split(" ")[0] === mention + "volume" || msg.split(" ")[0] === mention1 + "volume"){
+    } else if (msg.split(" ")[0] === prefix + "volume" || message.isMemberMentioned(bot.user) && msg.includes("volume")) {
+        if (message.isMemberMentioned(bot.user)) {
+            message.delete().catch(O_o=>{});
+            return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+        }
         let args = msg.split(" ").slice(1)
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
@@ -737,7 +752,7 @@ bot.on('message', async message => {
         serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 10)
         serverQueue.volume = args[0];
         return await message.channel.send(`I set the volume to: **${args[0]}**`);
-    } else if (msg === prefix + "queue" || msg === mention + "queue" || msg === mention1 + "queue") {
+    } else if (msg === prefix + "queue" || message.isMemberMentioned(bot.user) && msg.includes("queue")) {
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
         let bicon = bot.user.displayAvatarURL
@@ -748,7 +763,7 @@ bot.on('message', async message => {
         .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
-    } else if (msg === prefix + "loop" || msg === mention + "loop" || msg === mention1 + "loop") {
+    } else if (msg === prefix + "loop" || message.isMemberMentioned(bot.user) && msg.includes("loop")) {
           message.delete().catch(O_o=>{});
           if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
           if(!serverQueue) return message.channel.send("Nothing is playing!");
@@ -775,21 +790,30 @@ bot.on('message', async message => {
     }
  }};
 
-  if (msg.split(" ")[0] === prefix + "purge" || msg.split(" ")[0] === mention + "purge" || msg.split(" ")[0] === mention1 + "purge") {
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) {
+  if (msg.split(" ")[0] === prefix + "purge" || message.isMemberMentioned(bot.user) && msg.includes("purge")) {
+    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
     }
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    }
+    
     let messagesClear = args.join(" ")
     message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
   }
 
-  if (msg.split(" ")[0] === prefix + "kick" || msg.split(" ")[0] === mention + "kick" || msg.split(" ")[0] === mention1 + "kick") {
-    if (!message.member.hasPermission("KICK_MEMBERS")) {
+  if (msg.split(" ")[0] === prefix + "kick" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
+    if (!message.member.hasPermission("KICK_MEMBERS") || !message.member.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
+    }
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
     } else {var mem = message.mentions.members.first();
     if (mem.hasPermission("KICK_MEMBERS")) {
         message.delete().catch(O_o=>{});
@@ -826,12 +850,17 @@ bot.on('message', async message => {
     });
   }};
 
-  if (msg.split(" ")[0] === prefix + "ban" || msg.split(" ")[0] === mention + "ban" || msg.split(" ")[0] === mention1 + "ban") {
+  if (msg.split(" ")[0] === prefix + "ban" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
     if (!message.member.hasPermission("BAN_MEMBERS")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
-    } else {var mem = message.mentions.members.first();
+    }
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    }
+     else {var mem = message.mentions.members.first();
     if (mem.hasPermission("BAN_MEMBERS")) {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
