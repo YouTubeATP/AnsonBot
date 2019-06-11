@@ -252,43 +252,6 @@ bot.on('message', async message => {
   
     if (message.guild === null) return;
     if (message.author.bot) return;
-  
-    function setConf(message, args) {
-        if (!message.member.hasPermission("ADMINISTRATOR" || !message.member.id === owner)) {
-            message.delete().catch(O_o=>{});
-            return message.reply("you do not have the permissions to change the server's configurations.")
-        }
-        if (message.isMemberMentioned(bot.user)) {
-          message.delete().catch(O_o=>{});
-          return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-        }
-        var conf = args.shift()
-        var value = args.join(" ")
-        if (conf === "censor" && value === "on" || conf === "censor" && value === "off" || conf === "prefix" && !value.includes(" ")) {
-            bot.settings.set(message.guild.id, value, conf);
-            message.delete().catch(O_o=>{});
-            return message.channel.send(`Server ${conf} has been set to: \`${value}\``)
-        }
-        return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
-    }
-
-    if (msg.split(" ")[0] === prefix + "setconf" || msg.split(" ")[0] === "em/setconf" || message.isMemberMentioned(bot.user) && msg.includes("setconf")) {
-        if (censors === "on") {
-        for (i=0;i<bannedwords.length;i++) {
-        if (message.content.toLowerCase().includes(bannedwords[i])) {
-            message.delete().catch(O_o=>{});
-            message.reply("please refrain from using such contemptable words.");
-          return;
-          }
-        }
-    
-            setConf(message, args)
-      
-        } else {
-      
-            setConf(message, args)
-          
-        }};
 
     if (msg === prefix + "showconf" || message.isMemberMentioned(bot.user) && msg.includes("showconf")) {
         message.delete().catch(O_o=>{});
