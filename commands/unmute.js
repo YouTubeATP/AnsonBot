@@ -65,7 +65,13 @@ module.exports = {
         .then(message.delete())
         .catch(console.error)
     } 
-    if (!muteRole) {
+    
+    if (muteRole) {
+      
+      unmute(message, mem, muteRole)
+      
+    } else {
+    
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
         .setTitle(`There isn't even a role for people who're muted yet, duh!`)
@@ -74,7 +80,7 @@ module.exports = {
       return message.channel.send(embed)
         .then(message.delete())
         .catch(console.error)
+    
     }
-    unmute(message, mem, muteRole)
   }
 }
