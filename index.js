@@ -933,16 +933,13 @@ bot.on('message', async message => {
       message.delete().catch(O_o=>{});
       return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
     } else {var mem = message.mentions.members.first();
-    if (!mem.roles.has("name", "Muted")) {
-        message.delete().catch(O_o=>{});
-        return message.reply("this user was not muted.")
-    }
+    if (mem.roles.some(role => role.name === 'Muted')) {
         message.delete().catch(O_o=>{});
         mem.removeRole(message.guild.roles.find("name", "Muted")).then(() => {
-        message.channel.send(mem.displayName + " has successfully been unmuted!")
+        return message.channel.send(mem.displayName + " has successfully been unmuted!")
       }).catch(e => {
         message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
+        return message.channel.send({embed: {
             color: 0x00bdf2,
             description:("An error occured!"),
             footer: {
@@ -951,8 +948,9 @@ bot.on('message', async message => {
             }
   }});
         console.log(e);
-      });
-}};
+      })}
+        message.delete().catch(O_o=>{});
+        return message.reply("this user was not muted.")}};
   
 });
 
