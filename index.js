@@ -239,6 +239,8 @@ bot.on('message', async message => {
     const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
     let prefix = guildConf.prefix
     let censor = guildConf.censor
+    let mention = "<@414440610418786314>"
+    let mention1 = "<@!414440610418786314>"
     let censors = censor
     if (bot.user.id === sender.id) { return }
     let nick = sender.username
@@ -892,48 +894,6 @@ bot.on('message', async message => {
   }});
     });
   }};
-  
-  if (msg.split(" ")[0] === prefix + "unmute" || message.isMemberMentioned(bot.user) && msg.includes("unmute")) {
-    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
-        message.delete().catch(O_o=>{});
-        message.reply("you don't have sufficient permissions!");
-        return;
-    }
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    } else {var mem = message.mentions.members.first();
-    if (mem.hasPermission("MANAGE_MESSAGES") || mem.hasPermission("ADMINISTRATOR")) {
-        message.delete().catch(O_o=>{});
-        return message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("That user could not be muted."),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }})}
-    if (!message.guild.roles.find("name", "Muted")) {
-        message.guild.createRole({
-          name: "Muted"
-        })
-    }
-      mem.addRole(message.guild.roles.find("name", "Muted")).then(() => {
-        message.delete().catch(O_o=>{});
-        message.channel.send(mem.displayName + " has successfully been muted!");
-      }).catch(e => {
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("An error occured!"),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }})
-        console.log(e);
-      });
-           }};
   
 });
 
