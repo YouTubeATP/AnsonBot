@@ -252,38 +252,6 @@ bot.on('message', async message => {
   
     if (message.guild === null) return;
     if (message.author.bot) return;
-
-    if (msg === prefix + "showconf" || message.isMemberMentioned(bot.user) && msg.includes("showconf")) {
-        message.delete().catch(O_o=>{});
-        let configProps = Object.keys(guildConf).map(prop => {
-        return `${prop}  :  ${guildConf[prop]}\n`;
-    });
-    message.channel.send({embed: {
-        color: 0x00bdf2,
-        title: "Server Configurations",
-        description:("The following are this server's current configurations: \n\nPrefix: \`" + prefix + "\`\nCensor: \`" + censor + "\`"),
-        footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-    }});
-        };
-
-    if (msg === prefix + "ping" || message.isMemberMentioned(bot.user) && msg.includes("ping")) {
-        const m = await message.channel.send("Pinging...");
-        const pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`);
-        message.delete().catch(O_o=>{});
-        message.channel.bulkDelete(1)
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            title: "Ping Received",
-            description:(pingMessage),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }})
-};
   
     if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
     if (message.isMemberMentioned(bot.user)) {

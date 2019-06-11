@@ -37,9 +37,10 @@ module.exports = {
         var embed = new Discord.RichEmbed()
           .setColor("0x00bdf2")
           .setAuthor(`${mem.user.tag} has been successfully unmuted!`, mem.user.avatarURL)
-          .addField(`Unmuted by ${message.member.user.tag}`)
-          .addField("Reason", reason)
+          .addField(`Unmuted by`, `${message.member.user.tag}`)
           .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+        
+            if (reason) embed.addField("Reason", reason)
 
         return message.channel.send(embed)
           .then(message.delete())
