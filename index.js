@@ -243,26 +243,35 @@ bot.on('message', async message => {
     if (message.author.bot) return;
   
     function setConf(message, args) {
-
-    if (msg.split(" ")[0] === prefix + "setconf" || msg.split(" ")[0] === mention + "setconf" || msg.split(" ")[0] === mention1 + "setconf") {
-        const [prop, ...value] = args;
-
         if (!message.member.hasPermission("ADMINISTRATOR" | !message.member.id === owner)) {
             message.delete().catch(O_o=>{});
             return message.reply("you do not have the permissions to change the server's configurations.")
         }
-        if (!bot.settings.has(message.guild.id, prop)) {
-            message.delete().catch(O_o=>{});
-            return message.reply("this configuration is not available.")
-        } 
-        if (!value.join(" ") === "censor on" | !value.join(" ") === "censor off" | !value === "prefix") {
-            message.delete().catch(O_o=>{});
-            return message.reply("this configuration is not available.")
+        var conf = args.shift()
+        var value = args.join(" ")
+        if (conf === "censor" || conf === "prefix") {
+          
         }
-          bot.settings.set(message.guild.id, value.join(" "), prop);
-          message.delete().catch(O_o=>{});
-          message.channel.send(`Server ${prop} has been set to: \`${value.join(" ")}\``)
-    };
+        return message.reply("this configuration is not available.")
+    }
+
+    if (msg.split(" ")[0] === prefix + "setconf" || msg.split(" ")[0] === mention + "setconf" || msg.split(" ")[0] === mention1 + "setconf") {
+        if (censors === "on") {
+        for (i=0;i<bannedwords.length;i++) {
+        if (message.content.toLowerCase().includes(bannedwords[i])) {
+            message.delete().catch(O_o=>{});
+            message.reply("please refrain from using such contemptable words.");
+          return;
+          }
+        }
+    
+            setConf(message, args)
+      
+        } else {
+      
+            setConf(message, args)
+          
+        }};
 
     if (msg === prefix + "showconf" || msg === mention + "showconf" || msg === mention1 + "showconf") {
         message.delete().catch(O_o=>{});
