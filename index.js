@@ -249,8 +249,10 @@ bot.on('message', async message => {
         }
         var conf = args.shift()
         var value = args.join(" ")
-        if (conf === "censor" || conf === "prefix") {
-          
+        if (conf === "censor" && value === "on" || conf === "censor" && value === "off" || conf === "prefix" && !value.includes(" ")) {
+            bot.settings.set(message.guild.id, value, conf);
+            message.delete().catch(O_o=>{});
+            return message.channel.send(`Server ${conf} has been set to: \`${value}\``)
         }
         return message.reply("this configuration is not available.")
     }
