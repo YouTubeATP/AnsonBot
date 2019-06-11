@@ -99,7 +99,7 @@ bot.on("ready", () =>  {
 });
 
 bot.on("guildCreate", guild => {
-  // This event triggers when the bot joins a guild.
+  bot.settings.set(`491659679336759299`, "em/", prefix);
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
@@ -221,8 +221,6 @@ bot.on("guildDelete", guild => {
 });
 
 bot.on('message', async message => {
-  
-    bot.settings.set(message.guild.id, "em/", prefix);
     
     let sender = message.author;
     let msg = message.content.toLowerCase();
