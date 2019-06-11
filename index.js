@@ -241,24 +241,27 @@ bot.on('message', async message => {
   
     if (message.guild === null) return;
     if (message.author.bot) return;
+  
+    function setConf(message, args) {
 
     if (msg.split(" ")[0] === prefix + "setconf" || msg.split(" ")[0] === mention + "setconf" || msg.split(" ")[0] === mention1 + "setconf") {
         const [prop, ...value] = args;
+
         if (!message.member.hasPermission("ADMINISTRATOR" | !message.member.id === owner)) {
             message.delete().catch(O_o=>{});
-            message.reply("you do not have the permissions to change the server's configurations.")
-            return;
-        } else if (!bot.settings.has(message.guild.id, prop)) {
-            message.delete().catch(O_o=>{});
-            return message.reply("this configuration is not available.")
-        } else if (!value.join(" ") === "censor on" | !value.join(" ") === "censor off" | !value === "prefix") {
-            message.delete().catch(O_o=>{});
-            return message.reply("this configuration is not available.")
-        } else {
-            bot.settings.set(message.guild.id, value.join(" "), prop);
-            message.delete().catch(O_o=>{});
-            message.channel.send(`Server ${prop} has been set to: \`${value.join(" ")}\``)
+            return message.reply("you do not have the permissions to change the server's configurations.")
         }
+        if (!bot.settings.has(message.guild.id, prop)) {
+            message.delete().catch(O_o=>{});
+            return message.reply("this configuration is not available.")
+        } 
+        if (!value.join(" ") === "censor on" | !value.join(" ") === "censor off" | !value === "prefix") {
+            message.delete().catch(O_o=>{});
+            return message.reply("this configuration is not available.")
+        }
+          bot.settings.set(message.guild.id, value.join(" "), prop);
+          message.delete().catch(O_o=>{});
+          message.channel.send(`Server ${prop} has been set to: \`${value.join(" ")}\``)
     };
 
     if (msg === prefix + "showconf" || msg === mention + "showconf" || msg === mention1 + "showconf") {
