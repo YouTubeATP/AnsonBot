@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: "setconf",
 	usage: "setconf <config> <value>",
-  aliases: ["setconfig", "set"]
+  aliases: ["setconfig", "set"],
 	description: "Ban users!",
 	run: async (bot, message, args, shared) => {
     

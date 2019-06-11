@@ -253,6 +253,8 @@ bot.on('message', async message => {
     if (message.guild === null) return;
     if (message.author.bot) return;
   
+  // add censor filter before everything else to save space
+  
     if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
     if (message.isMemberMentioned(bot.user)) {
       message.delete().catch(O_o=>{});
