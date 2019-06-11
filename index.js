@@ -650,7 +650,7 @@ bot.on('message', async message => {
 		try {
 			await command.run(bot, message, argsNEW, shared)
 		} catch (error) {
-			msg.channel.send(JSON.stringify(error))
+			console.log(error)
 		}
 	}
   
