@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: "embed",
-	usage: "embed [color] <message>",
+	usage: "embed <color> [message]",
 	description: "Say out messages in embeds!",
 	run: async (bot, message, args, shared) => {
     

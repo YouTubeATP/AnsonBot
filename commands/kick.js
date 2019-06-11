@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
   name: "kick",
-  usage: "kick <user> [reason]",
+  usage: "kick [user] <reason>",
   description: "Kick users!",
   run: async (bot, message, args, shared) => {
     

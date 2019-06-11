@@ -239,8 +239,8 @@ bot.on('message', async message => {
     const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
     let prefix = guildConf.prefix
     let censor = guildConf.censor
-    let mention = "<@414440610418786314>"
-    let mention1 = "<@!414440610418786314>"
+    let mention = "<@414440610418786314> "
+    let mention1 = "<@!414440610418786314> "
     let censors = censor
     if (bot.user.id === sender.id) { return }
     let nick = sender.username
@@ -321,120 +321,6 @@ bot.on('message', async message => {
             }
   }})
 };
-
-  function sayEmbed(message, args) {
-    var color = args.shift()
-    var content = args.join(" ")
-
-    if ( color.length == 6 &&
-      ( (color[0] >= "0" && color[0] <= "9") || (color[0] >= "a" && color[0] <= "f") || (color[0] >= "A" && color[0] <= "F") ) &&
-      ( (color[1] >= "0" && color[1] <= "9") || (color[1] >= "a" && color[1] <= "f") || (color[1] >= "A" && color[1] <= "F") )&&
-      ( (color[2] >= "0" && color[2] <= "9") || (color[2] >= "a" && color[2] <= "f") || (color[2] >= "A" && color[2] <= "F") ) &&
-      ( (color[3] >= "0" && color[3] <= "9") || (color[3] >= "a" && color[3] <= "f") || (color[3] >= "A" && color[3] <= "F") ) &&
-      ( (color[4] >= "0" && color[4] <= "9") || (color[4] >= "a" && color[4] <= "f") || (color[4] >= "A" && color[4] <= "F") ) &&
-      ( (color[5] >= "0" && color[5] <= "9") || (color[5] >= "a" && color[5] <= "f") || (color[5] >= "A" && color[5] <= "F") ) ) {
-
-      color = parseInt(`0x${color}`)
-      var embed = new Discord.RichEmbed()
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setColor(color)
-        .setDescription(content)
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-      message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
-
-    } else {
-      var embed = new Discord.RichEmbed()
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setDescription(`${color} ${content}`)
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-      message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
-    }
-  }
-  
-  if (msg.split(" ")[0] === prefix + "embed" || message.isMemberMentioned(bot.user) && msg.includes("embed")) {
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    }
-    if (censors === "on") {
-      
-      for (i=0;i<bannedwords.length;i++) {
-        if (message.content.toLowerCase().includes(bannedwords[i])) {
-          message.delete().catch(O_o=>{});
-          message.reply("please refrain from using such contemptable words.");
-          return;
-        }
-      }
-    
-      sayEmbed(message, args)
-      
-    } else {
-      
-      sayEmbed(message, args)
-      
-    }};
-
-  function sayRawEmbed(message, args) {
-    var color = args.shift()
-    var content = args.join(" ")
-
-    if ( color.length == 6 &&
-      ( (color[0] >= "0" && color[0] <= "9") || (color[0] >= "a" && color[0] <= "f") || (color[0] >= "A" && color[0] <= "F") ) &&
-      ( (color[1] >= "0" && color[1] <= "9") || (color[1] >= "a" && color[1] <= "f") || (color[1] >= "A" && color[1] <= "F") )&&
-      ( (color[2] >= "0" && color[2] <= "9") || (color[2] >= "a" && color[2] <= "f") || (color[2] >= "A" && color[2] <= "F") ) &&
-      ( (color[3] >= "0" && color[3] <= "9") || (color[3] >= "a" && color[3] <= "f") || (color[3] >= "A" && color[3] <= "F") ) &&
-      ( (color[4] >= "0" && color[4] <= "9") || (color[4] >= "a" && color[4] <= "f") || (color [4] >= "A" && color[4] <= "F") ) &&
-      ( (color[5] >= "0" && color[5] <= "9") || (color[5] >= "a" && color[5] <= "f") || (color[5] >= "A" && color[5] <= "F") ) ) {
-
-      color = parseInt(`0x${color}`)
-      var embed = new Discord.RichEmbed()
-        .setColor(color)
-        .setDescription(content)
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-      message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
-
-    } else {
-      var embed = new Discord.RichEmbed()
-        .setDescription(`${color} ${content}`)
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-      message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
-    }
-  }
-  
-  if (msg.split(" ")[0] === prefix + "rawembed" || message.isMemberMentioned(bot.user) && msg.includes("rawembed")) {
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    }
-    if (!message.member.hasPermission("ADMINISTRATOR")) {
-            message.delete().catch(O_o=>{});
-            return message.reply("you do not have the permissions to send a raw embed.")
-        }
-    if (censors === "on") {
-      
-      for (i=0;i<bannedwords.length;i++) {
-        if (message.content.toLowerCase().includes(bannedwords[i])) {
-          message.delete().catch(O_o=>{});
-          message.reply("please refrain from using such contemptable words.");
-          return;
-        }
-      }
-    
-      sayRawEmbed(message, args)
-      
-    } else {
-      
-      sayRawEmbed(message, args)
-      
-    }};
   
     if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
     if (message.isMemberMentioned(bot.user)) {
@@ -811,89 +697,29 @@ bot.on('message', async message => {
     let messagesClear = args.join(" ")
     message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
   }
+  
+  if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
+    
+    var argsNEW
+    
+    if (msg.startsWith(prefix)) argsNEW = message.content.slice(prefix.length).split(/\s+/u)
+    else if (msg.startsWith(mention)) argsNEW = message.content.slice(mention.length).split(/\s+/u)
+    else if (msg.startsWith(mention1)) argsNEW = message.content.slice(mention1.length).split(/\s+/u)
+    
+    console.log(argsNEW)
+    
+		const commandName = argsNEW.shift().toLowerCase()
+		shared.commandName = commandName
+		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
-  if (msg.split(" ")[0] === prefix + "kick" || message.isMemberMentioned(bot.user) && msg.includes("kick")) {
-    if (!message.member.hasPermission("KICK_MEMBERS") || !message.member.hasPermission("ADMINISTRATOR")) {
-        message.delete().catch(O_o=>{});
-        message.reply("you don't have sufficient permissions!");
-        return;
-    }
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    } else {var mem = message.mentions.members.first();
-    if (mem.hasPermission("KICK_MEMBERS") || mem.hasPermission("ADMINISTRATOR")) {
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("This user could not be kicked."),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-        return;
-    }
-    mem.kick().then(() => {
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:(mem.displayName + " has successfully been kicked by " + message.author.username + "!"),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-    }).catch(e => {
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("An error occured!"),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-    });
-  }};
-
-  if (msg.split(" ")[0] === prefix + "ban" || message.isMemberMentioned(bot.user) && msg.includes("ban")) {
-    if (!message.member.hasPermission("BAN_MEMBERS") || !message.member.hasPermission("ADMINISTRATOR")) {
-        message.delete().catch(O_o=>{});
-        message.reply("you don't have sufficient permissions!");
-        return;
-    }
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    } else {var mem = message.mentions.members.first();
-    if (mem.hasPermission("BAN_MEMBERS") || mem.hasPermission("ADMINISTRATOR")) {
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("This user could not be banned."),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-        return;
-    }
-    mem.ban().then(() => {
-        message.delete().catch(O_o=>{});
-        message.channel.send(mem.displayName + " has successfully been banned by " + message.author.username + "!").then(message => message.delete(10000));
-    }).catch(e => {
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("An error occured!"),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-    });
-  }};
+		if (!command) return;
+		
+		try {
+			await command.run(bot, message, argsNEW, shared)
+		} catch (error) {
+			msg.channel.send(JSON.stringify(error))
+		}
+	}
   
 });
 

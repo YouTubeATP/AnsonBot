@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: "mute",
-	usage: "mute [user] ([reason])",
+	usage: "mute [user] <reason>",
 	description: "Mutes a user in the guild.",
 	run: async (bot, message, args, shared) => {
       
