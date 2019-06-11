@@ -254,7 +254,7 @@ bot.on('message', async message => {
             message.delete().catch(O_o=>{});
             return message.channel.send(`Server ${conf} has been set to: \`${value}\``)
         }
-        return message.reply("this configuration is not available.")
+        return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
     }
 
     if (msg.split(" ")[0] === prefix + "setconf" || msg.split(" ")[0] === mention + "setconf" || msg.split(" ")[0] === mention1 + "setconf") {
@@ -413,7 +413,7 @@ bot.on('message', async message => {
       
     }};
   
-    if (msg.split(" ")[0] === prefix + "suggest" || msg.split(" ")[0] === mention + "suggest" || msg.split(" ")[0] === mention1 + "suggest") {
+    if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.split(" ")[0].includes("suggest")) {
         const embedMessage = args.join(" ");
         if (censors === "on") {
             for (i=0;i<bannedwords.length;i++) {
@@ -605,7 +605,7 @@ bot.on('message', async message => {
 
     const serverQueue = queue.get(message.guild.id);
   
-    if (message.content.split(" ")[0] === prefix + "play" || message.content.split(" ")[0] === mention + "play" || message.content.split(" ")[0] === mention1 + "play") {
+    if (msg.split(" ")[0] === prefix + "play" || msg.split(" ")[0] === mention + "play" || msg.split(" ")[0] === mention1 + "play") {
         let args = message.content.split(" ").slice(1)
         const searchString = args.join(' ')
         const voiceChannel = message.member.voiceChannel;
