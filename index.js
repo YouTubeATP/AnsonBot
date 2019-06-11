@@ -221,6 +221,8 @@ bot.on("guildDelete", guild => {
 });
 
 bot.on('message', async message => {
+  
+    bot.settings.set(message.guild.id, "em/", prefix);
     
     let sender = message.author;
     let msg = message.content.toLowerCase();
