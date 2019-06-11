@@ -934,7 +934,8 @@ bot.on('message', async message => {
       return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
     } else {var mem = message.mentions.members.first();
     if (!mem.roles.has("name", "Muted")) {
-        message.reply("this user was not muted.")
+        message.delete().catch(O_o=>{});
+        return message.reply("this user was not muted.")
     }
         message.delete().catch(O_o=>{});
         mem.removeRole(message.guild.roles.find("name", "Muted")).then(() => {
