@@ -48,7 +48,7 @@ module.exports = {
         .catch(console.error)
     }
     
-    var muteRole = message.guild.roles.find(r => r.name.toLowerCase().startsWith("mute"))
+    var muteRole = message.guild.roles.find("name", "Muted")
     
     function mute(message, mem, muteRole, reason) {
       mem.addRole(muteRole, reason).then(() => {

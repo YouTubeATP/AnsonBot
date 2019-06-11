@@ -29,7 +29,7 @@ module.exports = {
         .catch(console.error)
     }
     
-    var muteRole = message.guild.roles.find(r => r.name.toLowerCase().startsWith("mute"))
+    var muteRole = message.guild.roles.find("name", "Muted")
     
     function unmute(message, mem, muteRole) {
       mem.removeRole(muteRole).then(() => {
@@ -55,11 +55,12 @@ module.exports = {
       })
     }
     
-    if (muteRole) {
+    if (muteRole && mem.roles.some(muteRole)) {
       
       unmute(message, mem, muteRole)
       
-    } if (!mem.roles.has(muteRole)) {
+    } else if (!mem.roles.has(muteRole)) {
+      
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
         .setTitle(`I can't exactly unmute someone who's not muted, duh!`)
@@ -68,7 +69,8 @@ module.exports = {
       return message.channel.send(embed)
         .then(message.delete())
         .catch(console.error)
-    }  else {
+      
+    } else if (!muteRole) {
     
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
