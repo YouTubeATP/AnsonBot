@@ -241,7 +241,7 @@ bot.on('message', async message => {
     if (message.author.bot) return;
   
     function setConf(message, args) {
-        if (!message.member.hasPermission("ADMINISTRATOR" | !message.member.id === owner)) {
+        if (!message.member.hasPermission("ADMINISTRATOR" || !message.member.id === owner)) {
             message.delete().catch(O_o=>{});
             return message.reply("you do not have the permissions to change the server's configurations.")
         }
@@ -259,7 +259,7 @@ bot.on('message', async message => {
         return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
     }
 
-    if (msg.split(" ")[0] === prefix + "setconf" || message.isMemberMentioned(bot.user) && msg.includes("setconf")) {
+    if (msg.split(" ")[0] === prefix + "setconf" || msg.split(" ")[0] === "em/setconf" || message.isMemberMentioned(bot.user) && msg.includes("setconf")) {
         if (censors === "on") {
         for (i=0;i<bannedwords.length;i++) {
         if (message.content.toLowerCase().includes(bannedwords[i])) {
@@ -547,7 +547,7 @@ bot.on('message', async message => {
                     },
                     {
                         name: "Server Configurations",
-                        value: "\`showconf\`: Shows the configurations for your server. \n\`setconf [item] [new value]\`: Sets a new value for your server's configuration. \n(Available configurations: \`prefix (new prefix)\`, \`censor (on/off)\`) \n" 
+                        value: "\`showconf\`: Shows the configurations for your server. \n\`setconf [item] [new value]\`: Administrator-only command. Sets a new value for your server's configuration. For this command, \`em/\` is a permanent prefix. \n(Available configurations: \`prefix (new prefix)\`, \`censor (on/off)\`) \n" 
                     },
                 ],
         footer: {
