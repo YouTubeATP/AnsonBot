@@ -646,11 +646,13 @@ bot.on('message', async message => {
 		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
 		if (!command) return;
+    
+    console.log(argsNEW)
 		
 		try {
 			await command.run(bot, message, argsNEW, shared)
 		} catch (error) {
-			console.log(error)
+			message.channel.send(error)
 		}
 	}
   
