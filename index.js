@@ -805,7 +805,7 @@ bot.on('message', async message => {
     message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
   }
 
-  if (msg.split(" ")[0] === prefix + "kick" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
+  if (msg.split(" ")[0] === prefix + "kick" || message.isMemberMentioned(bot.user) && msg.includes("kick")) {
     if (!message.member.hasPermission("KICK_MEMBERS") || !message.member.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
@@ -815,11 +815,11 @@ bot.on('message', async message => {
       message.delete().catch(O_o=>{});
       return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
     } else {var mem = message.mentions.members.first();
-    if (mem.hasPermission("KICK_MEMBERS")) {
+    if (mem.hasPermission("KICK_MEMBERS") || mem.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
-            description:("An error occured!"),
+            description:("This user could not be kicked."),
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Clean Embeds, Crisp Music"
@@ -850,8 +850,8 @@ bot.on('message', async message => {
     });
   }};
 
-  if (msg.split(" ")[0] === prefix + "ban" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
-    if (!message.member.hasPermission("BAN_MEMBERS")) {
+  if (msg.split(" ")[0] === prefix + "ban" || message.isMemberMentioned(bot.user) && msg.includes("ban")) {
+    if (!message.member.hasPermission("BAN_MEMBERS") || !message.member.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
@@ -859,13 +859,12 @@ bot.on('message', async message => {
     if (message.isMemberMentioned(bot.user)) {
       message.delete().catch(O_o=>{});
       return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    }
-     else {var mem = message.mentions.members.first();
-    if (mem.hasPermission("BAN_MEMBERS")) {
+    } else {var mem = message.mentions.members.first();
+    if (mem.hasPermission("BAN_MEMBERS") || mem.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
-            description:("An error occured!"),
+            description:("This user could not be banned."),
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Clean Embeds, Crisp Music"
@@ -889,25 +888,29 @@ bot.on('message', async message => {
     });
   }};
 
-  if (msg.split(" ")[0] === prefix + "mute" || msg.split(" ")[0] === mention + "mute" || msg.split(" ")[0] === mention1 + "mute") {
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) {
+  if (msg.split(" ")[0] === prefix + "mute" || message.isMemberMentioned(bot.user) && msg.includes("mute")) {
+    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
+    }
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
     } else {var mem = message.mentions.members.first();
-    if (mem.hasPermission("MANAGE_MESSAGES")) {
+    if (mem.hasPermission("MANAGE_MESSAGES") || mem.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
+        return message.channel.send({embed: {
             color: 0x00bdf2,
-            description:("An error occured!"),
+            description:("That user could not be muted."),
             footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
-  }})
-        return;
-    }   
-    if (message.guild.roles.find("name", "Muted")) {
+  }})}
+    if (!message.guild.roles.find("name", "Muted")) {
+        message.guild.createRole("name", "Muted")
+    }
       mem.addRole(message.guild.roles.find("name", "Muted")).then(() => {
         message.delete().catch(O_o=>{});
         message.channel.send(mem.displayName + " has successfully been muted!");
@@ -923,15 +926,21 @@ bot.on('message', async message => {
   }})
         console.log(e);
       });
-}}};
+           }};
 
-  if (msg.split(" ")[0] === prefix + "unmute" || msg.split(" ")[0] === mention + "unmute" || msg.split(" ")[0] === mention1 + "unmute") {
-    if (!message.member.hasPermission("ADMINISTRATOR")) {
+  if (msg.split(" ")[0] === prefix + "unmute" || message.isMemberMentioned(bot.user) && msg.includes("unmute")) {
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    }
+    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
         message.delete().catch(O_o=>{});
         message.reply("you don't have sufficient permissions!");
         return;
     } else {var mem = message.mentions.members.first();
-    if (message.guild.roles.find("name", "Muted")) {
+    if (!mem.roles.has("name", "Muted")) {
+        message.reply("this user was not muted.")
+    }
         message.delete().catch(O_o=>{});
         mem.removeRole(message.guild.roles.find("name", "Muted")).then(() => {
         message.channel.send(mem.displayName + " has successfully been unmuted!")
@@ -947,7 +956,7 @@ bot.on('message', async message => {
   }});
         console.log(e);
       });
-}}};
+}};
   
 });
 
