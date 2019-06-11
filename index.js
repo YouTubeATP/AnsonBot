@@ -257,7 +257,10 @@ bot.on('message', async message => {
         return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
     }
 
-    if (msg.split(" ")[0] === prefix + "setconf" || msg.split(" ")[0] === mention + "setconf" || msg.split(" ")[0] === mention1 + "setconf") {
+    if (msg.split(" ")[0] === prefix + "setconf" || message.isMemberMentioned(bot.user) && msg.includes("setconf")) {
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
         if (censors === "on") {
         for (i=0;i<bannedwords.length;i++) {
         if (message.content.toLowerCase().includes(bannedwords[i])) {
@@ -275,7 +278,7 @@ bot.on('message', async message => {
           
         }};
 
-    if (msg === prefix + "showconf" || msg === mention + "showconf" || msg === mention1 + "showconf") {
+    if (msg === prefix + "showconf" || message.isMemberMentioned(bot.user) && msg.includes("showconf")) {
         message.delete().catch(O_o=>{});
         let configProps = Object.keys(guildConf).map(prop => {
         return `${prop}  :  ${guildConf[prop]}\n`;
@@ -291,7 +294,7 @@ bot.on('message', async message => {
     }});
         };
 
-    if (msg === prefix + "ping" || msg === mention + "ping" || msg === mention1 + "ping") {
+    if (msg === prefix + "ping" || message.isMemberMentioned(bot.user) && msg.includes("ping")) {
         const m = await message.channel.send("Pinging...");
         const pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`);
         message.delete().catch(O_o=>{});
@@ -340,7 +343,11 @@ bot.on('message', async message => {
     }
   }
   
-  if (msg.split(" ")[0] === prefix + "embed" | msg.split(" ")[0] === mention + "embed" | msg.split(" ")[0] === mention1 + "embed") {
+  if (msg.split(" ")[0] === prefix + "embed" || message.isMemberMentioned(bot.user) && msg.includes("embed")) {
+    if (message.isMemberMentioned(bot.user)) {
+      message.delete().catch(O_o=>{});
+      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
+    }
     if (censors === "on") {
       
       for (i=0;i<bannedwords.length;i++) {
@@ -390,7 +397,8 @@ bot.on('message', async message => {
     }
   }
   
-  if (msg.split(" ")[0] === prefix + "rawembed" | msg.split(" ")[0] === mention + "rawembed" | msg.split(" ")[0] === mention1 + "rawembed") {
+  if (msg.split(" ")[0] === prefix + "rawembed" || message.isMemberMentioned(bot.user) && msg.includes("rawembed")) {
+    if (message.isMemberMentioned(bot.user)) return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
     if (!message.member.hasPermission("ADMINISTRATOR")) {
             message.delete().catch(O_o=>{});
             return message.reply("you do not have the permissions to send a raw embed.")
@@ -413,14 +421,14 @@ bot.on('message', async message => {
       
     }};
   
-    if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.split(" ")[0].includes("suggest")) {
+    if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
+        if (message.isMemberMentioned(bot.user)) return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
         const embedMessage = args.join(" ");
         if (censors === "on") {
             for (i=0;i<bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(bannedwords[i])) {
                 message.delete().catch(O_o=>{});
-                message.reply("please refrain from using such contemptable words.").then(message => message.delete(10000));
-            return;
+                return message.reply("please refrain from using such contemptable words.")
             } else if (embedMessage.length < 20) {
               message.delete().catch(O_o=>{});
               message.channel.send({embed: {
@@ -502,7 +510,7 @@ bot.on('message', async message => {
           return;
         }};
 
-    if (msg === prefix + "help" || msg === mention + "help" || msg === mention1 + "help") {
+    if (msg === prefix + "help" || message.isMemberMentioned(bot.user) && msg.includes("help")) {
         message.delete().catch(O_o=>{});
         message.channel.send({embed: {
             color: 0x00bdf2,
