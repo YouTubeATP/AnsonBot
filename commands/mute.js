@@ -48,14 +48,16 @@ module.exports = {
         .catch(console.error)
     }
     
-    var muteRole = message.guild.roles.find("name", "Muted")
+    var muteRole = message.guild.roles.find(r => r.name === "Muted")
+    var hasMuteRole = mem.roles.find(r => r.name === "Muted")
     
     function mute(message, mem, muteRole, reason) {
       mem.addRole(muteRole, reason).then(() => {
         var embed = new Discord.RichEmbed()
           .setColor("0x00bdf2")
           .setAuthor(`${mem.user.tag} has been successfully muted!`, mem.user.avatarURL)
-          .addField(`Muted by ${mem.user.tag}`)
+          .addField(`Muted by ${message.member.user.tag}`)
+          .addField("Reason", reason)
           .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
         
         if (reason) embed.addField("Reason", reason)
@@ -77,9 +79,9 @@ module.exports = {
       })
     }
     
-    if (muteRole && !mem.roles.has(muteRole)) {
+    if (muteRole && !hasMuteRole) {
       mute(message, mem, muteRole, reason)
-    } else if (mem.roles.has(muteRole)) {
+    } else if (hasMuteRole) {
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
         .setTitle(`${mem.user.tag} is already muted!`)

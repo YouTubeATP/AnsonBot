@@ -8,7 +8,7 @@ module.exports = {
   description: "Unmutes a user in the guild.",
   run: async (bot, message, args, shared) => {
     
-    if (!message.member.hasPermission("KICK_MEMBERS")) {
+    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
       
       return message.reply("you don't have sufficient permissions!")
         .then(message.delete())
@@ -29,13 +29,16 @@ module.exports = {
         .catch(console.error)
     }
     
-    var muteRole = message.guild.roles.find("name", "Muted")
+    var muteRole = message.guild.roles.find(r => r.name === "Muted")
+    var hasMuteRole = mem.roles.find(r => r.name === "Muted")
     
-    function unmute(message, mem, muteRole) {
+    function unmute(message, mem, muteRole, reason) {
       mem.removeRole(muteRole).then(() => {
         var embed = new Discord.RichEmbed()
           .setColor("0x00bdf2")
           .setAuthor(`${mem.user.tag} has been successfully unmuted!`, mem.user.avatarURL)
+          .addField(`Unmuted by ${message.member.user.tag}`)
+          .addField("Reason", reason)
           .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
         return message.channel.send(embed)
@@ -55,20 +58,9 @@ module.exports = {
       })
     }
     
-    if (muteRole && mem.roles.some(muteRole)) {
+    if (muteRole && hasMuteRole) {
       
       unmute(message, mem, muteRole)
-      
-    } else if (!mem.roles.has(muteRole)) {
-      
-      var embed = new Discord.RichEmbed()
-        .setColor("0x00bdf2")
-        .setTitle(`I can't exactly unmute someone who's not muted, duh!`)
-        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
-
-      return message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
       
     } else if (!muteRole) {
     
@@ -81,6 +73,17 @@ module.exports = {
         .then(message.delete())
         .catch(console.error)
     
+    } else if (!hasMuteRole) {
+      
+      var embed = new Discord.RichEmbed()
+        .setColor("0x00bdf2")
+        .setTitle(`I can't exactly unmute someone who's not muted, duh!`)
+        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+
+      return message.channel.send(embed)
+        .then(message.delete())
+        .catch(console.error)
+      
     }
   }
 }
