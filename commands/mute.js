@@ -56,7 +56,7 @@ module.exports = {
         var embed = new Discord.RichEmbed()
           .setColor("0x00bdf2")
           .setAuthor(`${mem.user.tag} has been successfully muted!`, mem.user.avatarURL)
-          .addField("Muted by", `${message.member.user.tag}`)
+          .addField("Muted by", `${message.author.tag}`)
           .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
         
         if (reason) embed.addField("Reason", reason)
