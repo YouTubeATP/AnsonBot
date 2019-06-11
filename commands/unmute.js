@@ -4,9 +4,9 @@ const Discord = require('discord.js');
 
 module.exports = {
   name: "unmute",
-  usage: "unmute <user> [reason]",
-  description: "ADMIN ONLY: Say out messages in embeds, without your names!",
-  run: async (bot, message, args, sha0x00bdf2) => {
+  usage: "unmute [user] <reason>",
+  description: "Unmutes a user in the guild.",
+  run: async (bot, message, args, shared) => {
     
     if (!message.member.hasPermission("KICK_MEMBERS")) {
       
@@ -21,7 +21,7 @@ module.exports = {
     if (!mem) {
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
-        .setTitle("Hmm... Who am I supposed to mute?")
+        .setTitle("Please mention the user you want me to unmute.")
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
       return message.channel.send(embed)
@@ -45,7 +45,7 @@ module.exports = {
       }).catch(e => {
         var embed = new Discord.RichEmbed()
           .setColor("0x00bdf2")
-          .setTitle(`Hmm... I can't seem to unmute ${mem.user.tag}!`)
+          .setTitle(`I could not unmute ${mem.user.tag}.`)
           .addField("Error message", e)
           .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
@@ -60,7 +60,7 @@ module.exports = {
     } else if (!mem.roles.has(muteRole)) {
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
-        .setTitle(`How do I unmute someone who is not muted?`)
+        .setTitle(`I can't exactly unmute someone who's not muted, duh!`)
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
       return message.channel.send(embed)
@@ -69,7 +69,7 @@ module.exports = {
     } else {
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
-        .setTitle(`There isn't even a Mute role yet!`)
+        .setTitle(`There isn't even a role for people who're muted yet, duh!`)
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
       return message.channel.send(embed)

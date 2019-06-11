@@ -37,7 +37,7 @@ module.exports = {
     }
     
     if (mem.hasPermission("MANAGE_MESSAGES") || mem.hasPermission("ADMINISTRATOR")) {
-      
+      // actually mutes should require kick perms
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
         .setTitle("This is a moderator, so I can't actually mute him.")
