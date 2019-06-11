@@ -226,8 +226,6 @@ bot.on('message', async message => {
     let msg = message.content.toLowerCase();
     const ownerID = config.ownerID
     const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
-    let mention = "<@!414440610418786314> "
-    let mention1 = "<@414440610418786314> "
     let prefix = guildConf.prefix
     let censor = guildConf.censor
     let censors = censor
@@ -776,11 +774,7 @@ bot.on('message', async message => {
     }
           serverQueue.loop = "off"
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to disable loop.");
-    } else if (message.content.split(" ")[0] === prefix + "seek" || message.content.split(" ")[0] === mention + "seek" || message.content.split(" ")[0] === mention1 + "seek") {
-        let args = message.content.split(" ").slice(1)
-        message.delete().catch(O_o=>{});
-        
-    };
+    }
 
   if (censors === "on") {
   for (i=0;i<bannedwords.length;i++) {
@@ -909,7 +903,9 @@ bot.on('message', async message => {
             }
   }})}
     if (!message.guild.roles.find("name", "Muted")) {
-        message.guild.createRole("name", "Muted")
+        message.guild.createRole({
+          name: "Muted"
+        })
     }
       mem.addRole(message.guild.roles.find("name", "Muted")).then(() => {
         message.delete().catch(O_o=>{});
@@ -929,14 +925,13 @@ bot.on('message', async message => {
            }};
 
   if (msg.split(" ")[0] === prefix + "unmute" || message.isMemberMentioned(bot.user) && msg.includes("unmute")) {
+    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
+        message.delete().catch(O_o=>{});
+        return message.reply("you don't have sufficient permissions!");
+    }
     if (message.isMemberMentioned(bot.user)) {
       message.delete().catch(O_o=>{});
       return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    }
-    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
-        message.delete().catch(O_o=>{});
-        message.reply("you don't have sufficient permissions!");
-        return;
     } else {var mem = message.mentions.members.first();
     if (!mem.roles.has("name", "Muted")) {
         message.reply("this user was not muted.")
