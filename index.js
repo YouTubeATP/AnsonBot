@@ -767,13 +767,13 @@ bot.on('message', async message => {
           if(!serverQueue) return message.channel.send("Nothing is playing!");
           if (serverQueue.loop === "off") {
             serverQueue.loop = "single"
-              return message.channel.send ("Loop for the current queue has been toggled to `single`. Use this command again to enable loop.");
+              return message.channel.send ("Loop for the current queue has been toggled to `single`. Use this command again to toggle loop to `all`.");
           } else if (serverQueue.loop === "single") {
             serverQueue.loop = "all"
           return message.channel.send ("Loop for the current queue has been toggled `all`. Use this command again to disable loop.");
     }
           serverQueue.loop = "off"
-          return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to disable loop.");
+          return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`.");
     }
 
   if (censors === "on") {
