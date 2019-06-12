@@ -22,7 +22,7 @@ module.exports = {
         .addField("Music Commands", "`play`: Searches for the song you requested.\n`pause`: Pauses the current song.\n`resume`: Resumes a paused song.\n`skip`: Votes to skip the playing song.\n`np`: Shows the name of the currently playing song.\n`volume`: Shows or changes volume to the provided number.\n`queue`: Shows the current queue of songs.\n`loop`: Toggles loop.\n`stop`: Stops all music.")
         .addField("Moderation Commands", "`kick`: Kicks a user from the guild.\n`ban`: Bans a user from the guild.\n`purge`: Deletes a number of messages in a channel.\n`mute`: Mutes a user in the guild.\n`unmute`: Unmutes a user in the guild.")
         .addField("Server Configuration Commands", "`showconf`: Shows the configurations of the server.\n`setconf`: Sets new value for the server's configuration.")
-        .addField("Key", `\nYou can do \`${shared.prefix}help [command]\` to get detailed information on how to use the specified command.`)
+        .addField("Detailed Help", `\nYou can do \`${shared.prefix}help [command]\` to get detailed information on how to use the specified command.`)
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
       message.channel.send(embed)
