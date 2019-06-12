@@ -9,12 +9,9 @@ module.exports = {
   aliases: ["showconfig"],
   run: async (bot, message, shared) => {
     
-    function showConf(bot, message, shared) {
+    function showConf(message) {
     
     message.delete().catch(O_o=>{});
-        let configProps = Object.keys(shared.guildConf).map(prop => {
-        return `${prop}  :  ${shared.guildConf[prop]}\n`;
-    });
     message.channel.send({embed: {
         color: 0x00bdf2,
         title: "Server Configurations",
@@ -27,7 +24,7 @@ module.exports = {
     
     }
     
-    showConf(bot, message, shared)
+    showConf(message)
     
   }
 }

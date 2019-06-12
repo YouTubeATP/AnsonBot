@@ -19,6 +19,7 @@ module.exports = {
         .setDescription(pingMessage)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
+      message.channel.bulkDelete(parseInt(1));
       message.channel.send(embed)
         .then(message.delete())
         .catch(console.error)

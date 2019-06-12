@@ -237,11 +237,11 @@ bot.on('message', async message => {
     let msg = message.content.toLowerCase();
     const ownerID = config.ownerID
     const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
-    let prefix = guildConf.prefix
-    let censor = guildConf.censor
-    let mention = "<@414440610418786314> "
-    let mention1 = "<@!414440610418786314> "
-    let censors = censor
+    const prefix = guildConf.prefix
+    const censor = guildConf.censor
+    const mention = "<@414440610418786314> "
+    const mention1 = "<@!414440610418786314> "
+    const censors = censor
     if (bot.user.id === sender.id) { return }
     let nick = sender.username
     let Owner = message.guild.roles.find("name", "Owner")
@@ -251,8 +251,6 @@ bot.on('message', async message => {
   
     if (message.guild === null) return;
     if (message.author.bot) return;
-  
-  // add censor filter before everything else to save space
   
     if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
     if (message.isMemberMentioned(bot.user)) {
