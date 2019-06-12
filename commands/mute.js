@@ -6,11 +6,12 @@ module.exports = {
 	name: "mute",
 	usage: "mute <user> [reason]",
 	description: "Mutes a user in the guild.",
+  requirements: "Kick Members",
 	run: async (bot, message, args, shared) => {
       
     var reason = args.slice(1).join(" ")
     
-    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
+    if (!message.member.hasPermission("KICK_MEMBERS")) {
       
       return message.reply("you don't have sufficient permissions!")
         .then(message.delete())

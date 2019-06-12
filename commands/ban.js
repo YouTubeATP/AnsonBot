@@ -6,6 +6,7 @@ module.exports = {
   name: "ban",
   usage: "ban <user> [reason]",
   description: "Ban users!",
+  requirements: "Ban Members",
   run: async (bot, message, args, shared) => {
     
     var reason = args.slice(1).join(" ")

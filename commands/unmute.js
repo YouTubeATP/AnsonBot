@@ -6,9 +6,10 @@ module.exports = {
   name: "unmute",
   usage: "unmute <user> [reason]",
   description: "Unmutes a user in the guild.",
+  requirements: "Kick Members",
   run: async (bot, message, args, shared) => {
     
-    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
+    if (!message.member.hasPermission("KICK_MEMBERS")) {
       
       return message.reply("you don't have sufficient permissions!")
         .then(message.delete())

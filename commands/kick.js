@@ -6,6 +6,7 @@ module.exports = {
   name: "kick",
   usage: "kick <user> [reason]",
   description: "Kick users!",
+  requirements: "Kick Members",
   run: async (bot, message, args, shared) => {
     
     var reason = args.slice(1).join(" ")

@@ -6,8 +6,8 @@ module.exports = {
 	name: "setconf",
 	usage: "setconf <config> <value>",
   aliases: ["setconfig"],
-	description: "Ban users!",
-  requirements: "Ban",
+	description: "Sets a new value for your server's configuration.\nAvailable configurations: `setconf prefix <new prefix>`, `censor <on|off>`",
+  requirements: "Administrator",
 	run: async (bot, message, args, shared) => {
 
     if (shared.censors === "on") {

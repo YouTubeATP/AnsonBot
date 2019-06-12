@@ -6,7 +6,7 @@ module.exports = {
 	name: "rawembed",
 	usage: "rawembed [color] <message>",
 	description: "Embeds your message without your name.",
-  permissions: 8,
+  requirements: "Administrator",
 	run: async (bot, message, args, shared) => {
     
     if (!message.member.hasPermission(8)) {
