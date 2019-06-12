@@ -6,8 +6,8 @@ module.exports = {
   name: "links",
   usage: "links",
   description: "Shows all of MusEmbed's links",
-  aliases: ["vote", "invite", "support"],
-  run: async (bot, message, args, shared) => {
+  aliases: ["link", "vote", "invite", "support"],
+  run: async (bot, message, shared) => {
     
     var embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
