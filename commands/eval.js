@@ -14,17 +14,19 @@ module.exports = {
 			var out = eval(args.join(' '))
 			out = JSON.stringify(out)
       
-      var embed = new Discord.RichEmbed
+      var embed = new Discord.RichEmbed()
+        .setColor("GREEN")
         .setAuthor(msg.author.tag, msg.author.avatarURL)
-        .addField(`Evaluation Success!`, '```'+out+'```')
+        .addField(`Evaluation Success!`, '```js\n'+out+'```')
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 			msg.channel.send(embed)
 		} catch (e) {
 			e = JSON.stringify(e)
       
-      var embed = new Discord.RichEmbed
+      var embed = new Discord.RichEmbed()
+        .setColor("RED")
         .setAuthor(msg.author.tag, msg.author.avatarURL)
-        .addField(`Evaluation Failed!`, '```'+e+'```')
+        .addField(`Evaluation Failed!`, '```js\n'+e+'```')
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 			msg.channel.send(embed)
 		}
