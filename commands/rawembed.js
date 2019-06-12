@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: "rawembed",
 	usage: "rawembed [color] <message>",
-	description: "Say out messages in embeds, without your name!",
+	description: "Embeds your message without your name.",
   permissions: 8,
 	run: async (bot, message, args, shared) => {
     

@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: "embed",
 	usage: "embed [color] <message>",
-	description: "Say out messages in embeds!",
+	description: "Embeds your message.",
 	run: async (bot, message, args, shared) => {
     
     function sayEmbed(message, args) {

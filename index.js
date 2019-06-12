@@ -256,6 +256,7 @@ bot.on('message', async message => {
   const ownerID = config.ownerID
   const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
   const prefix = guildConf.prefix
+  shared.prefix = prefix
   const censor = guildConf.censor
   const mention = "<@414440610418786314> "
   const mention1 = "<@!414440610418786314> "
