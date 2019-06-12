@@ -390,9 +390,16 @@ bot.on('message', async message => {
     
     var argsNEW
     
-    if (msg.startsWith(prefix)) argsNEW = message.content.slice(prefix.length).split(/\s+/u)
-    else if (msg.startsWith(mention)) argsNEW = message.content.slice(mention.length).split(/\s+/u)
-    else if (msg.startsWith(mention1)) argsNEW = message.content.slice(mention1.length).split(/\s+/u)
+    if (msg.startsWith(prefix)) {
+      argsNEW = message.content.slice(prefix.length).split(/\s+/u)
+      shared.prefix = prefix
+    } else if (msg.startsWith(mention)) {
+      argsNEW = message.content.slice(mention.length).split(/\s+/u)
+      shared.prefix = mention
+    } else if (msg.startsWith(mention1)) {
+      argsNEW = message.content.slice(mention1.length).split(/\s+/u)
+      shared.prefix = mention1
+    }
     
     console.log(argsNEW)
     
