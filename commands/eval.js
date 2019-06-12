@@ -6,29 +6,27 @@ module.exports = {
 	name: "eval",
 	usage: "eval <code>",
 	description: "Evaluate JavaScript code!",
-	run: async (bot, msg, args, shared) => {
+	run: async (bot, message, args, shared) => {
     
-    if (msg.author.id != "336389636878368770" && !msg.author.id == "344335337889464357") return;
+    if (message.author.id != "336389636878368770" && !message.author.id == "344335337889464357") return;
 
 		try {
 			var out = eval(args.join(' '))
-			out = JSON.stringify(out)
+			// out = JSON.stringify(out)
       
       var embed = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setAuthor(msg.author.tag, msg.author.avatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL)
         .addField(`Evaluation Success!`, '```js\n'+out+'```')
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-			msg.channel.send(embed)
+			message.channel.send(embed)
 		} catch (e) {
-			e = JSON.stringify(e)
-      
       var embed = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(msg.author.tag, msg.author.avatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL)
         .addField(`Evaluation Failed!`, '```js\n'+e+'```')
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-			msg.channel.send(embed)
+			message.channel.send(embed)
 		}
     
 	}

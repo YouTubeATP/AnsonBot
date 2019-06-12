@@ -16,7 +16,7 @@ module.exports = {
         
     }
     
-    var mem = message.mentions.members.first();
+    var mem = message.mentions.members.first()
     
     if (!mem) {
       var embed = new Discord.RichEmbed()
@@ -30,6 +30,7 @@ module.exports = {
     }
     
     var muteRole = await message.guild.roles.find(r => r.name.toLowerCase().startsWith("mute"))
+    console.log(muteRole)
     var hasMuteRole = await mem.roles.has(muteRole)
     
     if (muteRole && hasMuteRole) {
