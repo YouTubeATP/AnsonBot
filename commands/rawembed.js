@@ -19,8 +19,8 @@ module.exports = {
     
     function sayRawEmbed(message, args) {
       var color = args.shift()
-      var content = message.content.slice(shared.prefix.length + 12).trim()
-      var rawcontent = message.content.slice(shared.prefix.length + 5).trim()
+      var content = message.content.slice(shared.prefix.length + 15).trim()
+      var rawcontent = message.content.slice(shared.prefix.length + 8).trim()
 
       if ( color.length == 6 &&
         ( (color[0] >= "0" && color[0] <= "9") || (color[0] >= "a" && color[0] <= "f") || (color[0] >= "A" && color[0] <= "F") ) &&
