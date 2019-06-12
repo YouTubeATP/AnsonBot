@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: "help",
 	usage: "help [command]",
-	description: "Get help information!",
+	description: "Shows help message.",
 	run: async (bot, message, args, shared) => {
     
     const commands = bot.commands
@@ -45,6 +45,8 @@ module.exports = {
 			if (command.usage) embed.addField(`Usage`,`\`${command.usage}\``)
 
 			message.channel.send(embed)
+        .then(message.delete())
+        .catch(console.error)
       
     } else {
       shared.printError(message, "Too many arguments", "You inputted too many arguments!")
