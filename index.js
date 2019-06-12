@@ -65,8 +65,6 @@ var shared = {}
 shared.bannedwords = bannedwords
 shared.config = config
 
-// printError is for printing user error, i.e. misconfiguration of server permissions
-
 function printError(message, error, title) {
   var embed = new Discord.RichEmbed()
     .setColor(0x00bdf2)
@@ -152,7 +150,7 @@ bot.on("guildCreate", guild => {
 })
 
 bot.on("guildDelete", guild => {
-  // this event triggers when the bot is removed from a guild.
+  bot.settings.delete(guild.id);
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
