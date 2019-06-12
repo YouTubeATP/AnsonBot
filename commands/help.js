@@ -33,7 +33,7 @@ module.exports = {
       
       const name = args[0].toLowerCase();
       
-      if (name == "eval" && message.author.id != "336389636878368770" && message.author.id != "344335337889464357") return;
+      if ((name == "eval" || name == "changelog") && message.author.id != "336389636878368770" && message.author.id != "344335337889464357") return;
       
 			const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
