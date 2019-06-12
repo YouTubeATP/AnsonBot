@@ -63,6 +63,7 @@ for (const file of commandFiles) {
 var shared = {}
 
 shared.bannedwords = bannedwords
+shared.defaultSettings = defaultSettings
 
 bot.on('guildMemberAdd', member => {
   let guild = member.guild;
