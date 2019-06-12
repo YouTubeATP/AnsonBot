@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
   name: "unmute",
-  usage: "unmute <user> <reason>",
+  usage: "unmute <user> [reason]",
   description: "Unmutes a user in the guild.",
   run: async (bot, message, args, shared) => {
     
@@ -29,8 +29,8 @@ module.exports = {
         .catch(console.error)
     }
     
-    var muteRole = message.guild.roles.find(r => r.name === "Muted")
-    var hasMuteRole = mem.roles.find(r => r.name === "Muted")
+    var muteRole = message.guild.roles.find(r => r.name.toLowerCase().startsWith("mute"))
+    var hasMuteRole = mem.roles.find(muteRole)
     
     if (muteRole && hasMuteRole) {
       

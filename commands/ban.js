@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
   name: "ban",
-  usage: "ban <user> <reason>",
+  usage: "ban <user> [reason]",
   description: "Ban users!",
   run: async (bot, message, args, shared) => {
     
@@ -56,7 +56,7 @@ module.exports = {
         .catch(console.error)
 
     }).catch(e => {
-      shared.printError(message, e, `I could not ban ${mem.user.tag}!`)
+      shared.printError(message, e, `I couldn't ban ${mem.user.tag}!`)
     })
     
   }

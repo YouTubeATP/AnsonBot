@@ -18,7 +18,9 @@ module.exports = {
     
     return message.channel.send(embed)
       .then(message.delete())
-      .catch(console.error)
+      .catch(e => {
+        shared.printError(message, e, `I couldn't fetch you the links!`)
+      })
       
   }
 }

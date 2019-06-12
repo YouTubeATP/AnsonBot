@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
   name: "kick",
-  usage: "kick [user] <reason>",
+  usage: "kick <user> [reason]",
   description: "Kick users!",
   run: async (bot, message, args, shared) => {
     
@@ -56,7 +56,7 @@ module.exports = {
         .catch(console.error)
 
     }).catch(e => {
-      shared.printError(message, e, `I could not kick ${mem.user.tag}!`)
+      shared.printError(message, e, `I couldn't kick ${mem.user.tag}!`)
     })
     
   }

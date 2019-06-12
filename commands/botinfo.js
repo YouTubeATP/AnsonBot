@@ -12,10 +12,9 @@ module.exports = {
     const defaultSettings = {
         prefix: "em/",    
         censor: "off"
-    };
+    }
     
-    message.delete().catch(O_o=>{});
-    const guildConf = bot.settings.ensure(message.guild.id, defaultSettings);
+    const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
     
     return bot.shard.broadcastEval('this.guilds.size')
       .then(results => {
@@ -36,6 +35,10 @@ module.exports = {
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
         message.channel.send(embed)
+          .then(message.delete())
+          .catch(e => {
+            shared.printError(message, e, `I couldn't fetch the information of MusEmbed™!`)
+          })
       })
     
   }

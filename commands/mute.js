@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: "mute",
-	usage: "mute <user> <reason>",
+	usage: "mute <user> [reason]",
 	description: "Mutes a user in the guild.",
 	run: async (bot, message, args, shared) => {
       
@@ -43,11 +43,7 @@ module.exports = {
         .catch(console.error)
     }
     
-    var muteRole = message.guild.roles.find(r => r.name === "Muted")
-    var hasMuteRole = mem.roles.find(r => r.name === "Muted")
-    
-    if (muteRole && !hasMuteRole) {
-      
+    function mute(message, mem, role, reason) {
       mem.addRole(muteRole, reason).then(() => {
         var embed = new Discord.RichEmbed()
           .setColor(0x00bdf2)
@@ -65,6 +61,14 @@ module.exports = {
       .catch(e => {
         shared.printError(message, e, `I could not mute ${mem.user.tag}!`)
       })
+    }
+    
+    var muteRole = message.guild.roles.find(r => r.name.toLowerCase().startsWith("mute"))
+    var hasMuteRole = mem.roles.find(muteRole)
+    
+    if (muteRole && !hasMuteRole) {
+      
+      mute(message, mem, role, reason)
       
     } else if (hasMuteRole) {
       var embed = new Discord.RichEmbed()
