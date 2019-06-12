@@ -16,11 +16,18 @@ module.exports = {
         }
         var conf = args.shift()
         var value = args.join(" ")
-        if (conf === "censor" && value === "on" || conf === "censor" && value === "off" || conf === "prefix" && !value = false || conf === "prefix" && !value.includes(" ")) {
+        
+        if (value == false) {
+            message.delete().catch(O_o=>{});
+            return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
+        }
+        
+        if (conf === "censor" && value === "on" || conf === "censor" && value === "off" || conf === "prefix" && !value.includes(" ")) {
             bot.settings.set(message.guild.id, value, conf);
             message.delete().catch(O_o=>{});
             return message.channel.send(`Server ${conf} has been set to: \`${value}\``)
         }
+        message.delete().catch(O_o=>{});
         return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
     }
 

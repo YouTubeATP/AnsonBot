@@ -3,9 +3,9 @@ const fs = require('fs');
 const Discord = require('discord.js');
 
 module.exports = {
-  name: "ping",
-  usage: "ping",
-  description: "Pings the bot and shows its latency.",
+  name: "showconf",
+  usage: "showconf",
+  description: "Shows the server's configurations.",
   aliases: ["showconfig"],
   run: async (bot, message, shared) => {
     

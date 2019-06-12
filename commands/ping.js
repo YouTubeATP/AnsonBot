@@ -11,7 +11,7 @@ module.exports = {
     function ping(message) {
     console.log(1)
     message.channel.send("Pinging...").then(m => {
-      const pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`)
+      var pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`)
       
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
