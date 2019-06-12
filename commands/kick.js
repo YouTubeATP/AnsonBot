@@ -22,7 +22,7 @@ module.exports = {
     
     if (!mem) {
       var embed = new Discord.RichEmbed()
-        .setColor("0x00bdf2")
+        .setColor(0x00bdf2)
         .setTitle("Hmm... Who am I supposed to kick?")
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
@@ -34,7 +34,7 @@ module.exports = {
     if (mem.hasPermission("BAN_MEMBERS") || mem.hasPermission("KICK_MEMBERS")) {
       
       var embed = new Discord.RichEmbed()
-        .setColor("0x00bdf2")
+        .setColor(0x00bdf2)
         .setTitle("Hmm... You are not supposed to kick another moderator!")
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
@@ -45,7 +45,7 @@ module.exports = {
     
     mem.kick(reason).then(() => {
       var embed = new Discord.RichEmbed()
-        .setColor("0x00bdf2")
+        .setColor(0x00bdf2)
         .setAuthor(`${mem.user.tag} has been successfully kicked!`, mem.user.avatarURL)
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
@@ -57,7 +57,7 @@ module.exports = {
 
     }).catch(e => {
       var embed = new Discord.RichEmbed()
-        .setColor("0x00bdf2")
+        .setColor(0x00bdf2)
         .setTitle(`Hmm... I can't seem to mute ${mem.user.tag}!`)
         .addField("Error message", e)
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)

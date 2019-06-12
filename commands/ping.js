@@ -6,7 +6,7 @@ module.exports = {
   name: "ping",
   usage: "ping",
   description: "Pings the bot and shows its latency.",
-  run: async (bot, message, shared) => {
+  run: async (bot, message, args, shared) => {
     
     message.channel.send("Pinging...").then(m => {
       var pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`)

@@ -8,7 +8,7 @@ module.exports = {
   usage: "showconf",
   description: "Shows the server's configurations.",
   aliases: ["showconfig"],
-  run: async (bot, message, shared) => {
+  run: async (bot, message, args, shared) => {
     
     function showConf(bot, message, shared) {
 

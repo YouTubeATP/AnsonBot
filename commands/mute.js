@@ -27,7 +27,7 @@ module.exports = {
     
     if (!mem) {
       var embed = new Discord.RichEmbed()
-        .setColor("0x00bdf2")
+        .setColor(0x00bdf2)
         .setTitle("Please mention the user you want me to mute.")
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
@@ -39,7 +39,7 @@ module.exports = {
     if (mem.hasPermission("MANAGE_MESSAGES") || mem.hasPermission("ADMINISTRATOR")) {
       // actually mutes should require kick perms
       var embed = new Discord.RichEmbed()
-        .setColor("0x00bdf2")
+        .setColor(0x00bdf2)
         .setTitle("This is a moderator, so I can't actually mute him.")
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
@@ -54,7 +54,7 @@ module.exports = {
     function mute(message, mem, muteRole, reason) {
       mem.addRole(muteRole, reason).then(() => {
         var embed = new Discord.RichEmbed()
-          .setColor("0x00bdf2")
+          .setColor(0x00bdf2)
           .setAuthor(`${mem.user.tag} has been successfully muted!`, mem.user.avatarURL)
           .addField("Muted by", `${message.author.tag}`)
           .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
@@ -67,7 +67,7 @@ module.exports = {
         
       }).catch(e => {
         var embed = new Discord.RichEmbed()
-          .setColor("0x00bdf2")
+          .setColor(0x00bdf2)
           .setTitle(`I could not mute ${mem.user.tag}.`)
           .addField("Error:", e)
           .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
