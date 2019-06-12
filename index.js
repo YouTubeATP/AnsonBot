@@ -63,6 +63,7 @@ for (const file of commandFiles) {
 var shared = {}
 
 shared.bannedwords = bannedwords
+shared.config = config
 
 // printError is for printing user error, i.e. misconfiguration of server permissions
 

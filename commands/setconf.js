@@ -20,7 +20,7 @@ module.exports = {
       }
     }
     
-    if (!message.member.hasPermission("ADMINISTRATOR" || !message.member.id === shared.owner)) {
+    if (!message.member.hasPermission("ADMINISTRATOR" || !message.member.id === shared.config.ownerID)) {
       message.delete().catch(O_o=>{});
       return message.reply("you do not have the permissions to change the server's configurations.")
     }
