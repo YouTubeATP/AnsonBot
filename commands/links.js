@@ -7,13 +7,12 @@ module.exports = {
   usage: "links",
   description: "Shows all of MusEmbed's links",
   aliases: ["link", "vote", "invite", "support"],
-  run: async (bot, message, shared) => {
+  run: async (bot, message, args, shared) => {
     
     var embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
       .setTitle("Links")
       .setDescription("[MusEmbed's Website](https://www.musembed.tk) \n[Vote for MusEmbed](https://vote.musembed.tk) \n[Join MusEmbed Support](https://invite.gg/musembed) \n[Invite MusEmbed](https://invite.musembed.tk) \n[MusEmbed's Uptime](https://uptime.musembed.tk)")
-      .setFooter
       .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
     return message.channel.send(embed)
