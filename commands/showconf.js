@@ -13,19 +13,23 @@ module.exports = {
     const defaultSettings = {   
         prefix: "em/",    
         censor: "off"
-    };
+    }
     
-    message.delete().catch(O_o=>{});
-    const guildConf = bot.settings.ensure(message.guild.id, defaultSettings);
-    message.channel.send({embed: {
-        color: 0x00bdf2,
-        title: "Server Configurations",
-        description:("The following are this server's current configurations: \n\nPrefix: \`" + guildConf.prefix + "\`\nCensor: \`" + guildConf.censor + "\`"),
-        footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-    }})
+    const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
+    
+    var embed = new Discord.RichEmbed()
+      .setColor(0x00bdf2)
+      .setTitle("Server Configurations")
+      .setDescription("The following are this server's current configurations.")
+      .addField("Prefix", guildConf.prefix, true)
+      .addField("Censor", guildConf.censor, true)
+      .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+    message.channel.send(embed)
+      .then(message.delete())
+      .catch(e => {
+        shared.printError(message, e, `I couldn't fetch this server's configurations!`, true)
+      })
     
   }
 }

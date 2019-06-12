@@ -8,29 +8,6 @@ module.exports = {
   aliases: ["setconfig"],
 	description: "Ban users!",
 	run: async (bot, message, args, shared) => {
-    
-    function setConf(message, args) {
-      if (!message.member.hasPermission("ADMINISTRATOR" || !message.member.id === shared.owner)) {
-        message.delete().catch(O_o=>{});
-        return message.reply("you do not have the permissions to change the server's configurations.")
-      }
-      var conf = args.shift()
-      var value = args.join(" ")
-      
-      if (value == false) {
-        message.delete().catch(O_o=>{});
-        return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
-      }
-        
-      if ((conf === "censor" && value === "on") || (conf === "censor" && value === "off") || (conf === "prefix" && !value.includes(" "))) {
-        bot.settings.set(message.guild.id, value, conf)
-        return message.channel.send(`Server ${conf} has been set to: \`${value}\``)
-          .then(message.delete())
-          .catch()
-      }
-      message.delete().catch(O_o=>{});
-      return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
-    }
 
     if (shared.censors === "on") {
       for (i=0;i<bannedwords.length;i++) {
@@ -40,11 +17,28 @@ module.exports = {
           return;
         }
       }
-
-      setConf(message, args)
-
-    } else {
-      setConf(message, args)
     }
+    
+    if (!message.member.hasPermission("ADMINISTRATOR" || !message.member.id === shared.owner)) {
+      message.delete().catch(O_o=>{});
+      return message.reply("you do not have the permissions to change the server's configurations.")
+    }
+    var conf = args.shift()
+    var value = args.join(" ")
+
+    if (value == false) {
+      message.delete().catch(O_o=>{});
+      return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
+    }
+
+    if ((conf === "censor" && value === "on") || (conf === "censor" && value === "off") || (conf === "prefix" && !value.includes(" "))) {
+      bot.settings.set(message.guild.id, value, conf)
+      return message.channel.send(`Server ${conf} has been set to: \`${value}\``)
+        .then(message.delete())
+        .catch()
+    }
+    message.delete().catch(O_o=>{});
+    return message.reply("either this configuration is unavailable, or the value you provided was invalid.")
+    
   }
 }
