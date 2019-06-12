@@ -38,9 +38,6 @@ module.exports = {
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
         return message.channel.send(serverembed)
-    }
-    
-    serverinfo(bot, message, shared)
     
   }
 }
