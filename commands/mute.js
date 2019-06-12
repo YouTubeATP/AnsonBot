@@ -43,7 +43,7 @@ module.exports = {
         .catch(console.error)
     }
     
-    function mute(message, mem, role, reason) {
+    function mute(message, mem, muteRole, reason) {
       mem.addRole(muteRole, reason).then(() => {
         var embed = new Discord.RichEmbed()
           .setColor(0x00bdf2)
@@ -68,7 +68,7 @@ module.exports = {
     
     if (muteRole && !hasMuteRole) {
       
-      mute(message, mem, role, reason)
+      mute(message, mem, muteRole, reason)
       
     } else if (hasMuteRole) {
       var embed = new Discord.RichEmbed()

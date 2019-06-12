@@ -249,24 +249,33 @@ bot.on("guildDelete", guild => {
 
 bot.on('message', async message => {
     
-    let sender = message.author;
-    let msg = message.content.toLowerCase();
-    const ownerID = config.ownerID
-    const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
-    const prefix = guildConf.prefix
-    const censor = guildConf.censor
-    const mention = "<@414440610418786314> "
-    const mention1 = "<@!414440610418786314> "
-    const censors = censor
-    if (bot.user.id === sender.id) { return }
-    let nick = sender.username
-    let Owner = message.guild.roles.find("name", "Owner")
+  let sender = message.author;
+  let msg = message.content.toLowerCase();
+  const ownerID = config.ownerID
+  const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
+  const prefix = guildConf.prefix
+  const censor = guildConf.censor
+  const mention = "<@414440610418786314> "
+  const mention1 = "<@!414440610418786314> "
+  const censors = censor
+  if (bot.user.id === sender.id) { return }
+  let nick = sender.username
+  let Owner = message.guild.roles.find("name", "Owner")
 
- const args = message.content.slice(prefix.length).trim().split(/ +/g);
- const command = args.shift().toLowerCase();
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
   
-    if (message.guild === null) return;
-    if (message.author.bot) return;
+  if (message.guild === null) return;
+  if (message.author.bot) return;
+  
+  if (censors === "on") {
+    for (i=0;i<bannedwords.length;i++) {
+      if (message.content.toLowerCase().includes(bannedwords[i])) {
+        message.delete().catch(O_o=>{})
+        return message.reply("please refrain from using such contemptable words.");
+      }  
+    }
+  }
 
     if (msg === prefix + "help" || message.isMemberMentioned(bot.user) && msg.includes("help")) {
         message.delete().catch(O_o=>{});
@@ -492,6 +501,13 @@ bot.on('message', async message => {
     let messagesClear = args.join(" ")
     message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
   }
+  
+  
+})
+
+bot.on('message', message => {
+  
+  var msg = message.content.toLowerCase()
   
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
