@@ -503,11 +503,7 @@ bot.on('message', async message => {
   }
   
   
-})
-
-bot.on('message', message => {
   
-  var msg = message.content.toLowerCase()
   
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
