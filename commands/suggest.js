@@ -11,7 +11,7 @@ module.exports = {
     
             const embedMessage = args.join(" ");
     
-            for (i=0;i<bannedwords.length;i++) {
+            for (i=0;i<shared.bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(shared.bannedwords[i])) {
                 message.delete().catch(O_o=>{});
                 return message.reply("chill! Suggestions must be made in a calm and collected manner.")

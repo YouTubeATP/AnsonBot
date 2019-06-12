@@ -317,19 +317,6 @@ bot.on('message', async message => {
         message.channel.send(botembed)
     })};
 
-    if (msg === prefix + "links" || message.isMemberMentioned(bot.user) && msg.includes("links")) {
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            title: "Links",
-            description: ("[MusEmbed's Website](https://www.musembed.tk) \n[Vote for MusEmbed](https://vote.musembed.tk) \n[Join MusEmbed Support](https://invite.gg/musembed) \n[Invite MusEmbed](https://invite.musembed.tk) \n[MusEmbed's Uptime](https://uptime.musembed.tk)"),
-            footer: {
-                        icon_url: bot.user.avatarURL,
-                        text: "MusEmbed™ | Clean Embeds, Crisp Music"
-                    }
-  }})
-};
-
     if (msg === prefix + "serverinfo" || message.isMemberMentioned(bot.user) && msg.includes("serverinfo")) {
         message.delete().catch(O_o=>{});
         let bicon = bot.user.displayAvatarURL
