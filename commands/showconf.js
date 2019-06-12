@@ -9,8 +9,6 @@ module.exports = {
   description: "Shows the server's configurations.",
   aliases: ["showconfig"],
   run: async (bot, message, args, shared) => {
-    
-    function showConf(bot, message, shared) {
 
     const defaultSettings = {   
         prefix: "em/",    
@@ -27,11 +25,7 @@ module.exports = {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
-    }});
-    
-    }
-    
-    showConf(bot, message, shared)
+    }})
     
   }
 }

@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
   name: "ban",
-  usage: "ban [user] <reason>",
+  usage: "ban <user> <reason>",
   description: "Ban users!",
   run: async (bot, message, args, shared) => {
     

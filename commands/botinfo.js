@@ -36,8 +36,7 @@ module.exports = {
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
         message.channel.send(embed)
-    
-    })
+      })
     
   }
 }

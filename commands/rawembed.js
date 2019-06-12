@@ -36,7 +36,9 @@ module.exports = {
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       message.channel.send(embed)
         .then(message.delete())
-        .catch(console.error)
+        .catch(e => {
+          shared.printError(message, e, `I was unable to make an embed!`)
+        })
 
     } else {
       var embed = new Discord.RichEmbed()
@@ -44,7 +46,9 @@ module.exports = {
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       message.channel.send(embed)
         .then(message.delete())
-        .catch(console.error)
+        .catch(e => {
+          shared.printError(message, e, `I was unable to make an embed!`)
+        })
     }
   }
 

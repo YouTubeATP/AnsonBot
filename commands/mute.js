@@ -4,14 +4,9 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: "mute",
-	usage: "mute [user] <reason>",
+	usage: "mute <user> <reason>",
 	description: "Mutes a user in the guild.",
 	run: async (bot, message, args, shared) => {
-      
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${index.prefix}.\``)
-    }
       
     var reason = args.slice(1).join(" ")
     
@@ -51,7 +46,8 @@ module.exports = {
     var muteRole = message.guild.roles.find(r => r.name === "Muted")
     var hasMuteRole = mem.roles.find(r => r.name === "Muted")
     
-    function mute(message, mem, muteRole, reason) {
+    if (muteRole && !hasMuteRole) {
+      
       mem.addRole(muteRole, reason).then(() => {
         var embed = new Discord.RichEmbed()
           .setColor(0x00bdf2)
@@ -66,11 +62,10 @@ module.exports = {
           .catch(console.error)
         
       })
-      .catch(e => shared.printError(message, e, `I could not mute ${mem.user.tag}!`))
-    }
-    
-    if (muteRole && !hasMuteRole) {
-      mute(message, mem, muteRole, reason)
+      .catch(e => {
+        shared.printError(message, e, `I could not mute ${mem.user.tag}!`)
+      })
+      
     } else if (hasMuteRole) {
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
@@ -93,7 +88,9 @@ module.exports = {
         
           mute(message, mem, role, reason)
         })
-        .catch(e => shared.printError(message, e, `I could not mute ${mem.user.tag} because there is no mute role and I could not make one.`))
+        .catch(e => {
+          shared.printError(message, e, `I could not mute ${mem.user.tag} because there is no mute role and I could not make one.`)
+        })
       
     }
 	}

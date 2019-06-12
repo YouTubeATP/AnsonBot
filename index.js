@@ -64,6 +64,8 @@ var shared = {}
 
 shared.bannedwords = bannedwords
 
+// printError is for printing user error, i.e. misconfiguration of server permissions
+
 function printError(message, error, title) {
   var embed = new Discord.RichEmbed()
     .setColor(0x00bdf2)
