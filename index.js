@@ -66,16 +66,12 @@ shared.bannedwords = bannedwords
 
 // printError is for printing user error, i.e. misconfiguration of server permissions
 
-function printError(message, error, title, contact = false) {
+function printError(message, error, title) {
   var embed = new Discord.RichEmbed()
     .setColor(0x00bdf2)
     .setTitle(title)
     .addField("Error:", error)
     .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
-  
-  if (contact) {
-    embed.setDescription("Please contact MusicSounds#0059 or LuciferianThomas#3320.")
-  }
 
   return message.channel.send(embed)
     .then(message.delete())
