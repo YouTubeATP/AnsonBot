@@ -70,7 +70,7 @@ function printError(message, error, title) {
   var embed = new Discord.RichEmbed()
     .setColor(0x00bdf2)
     .setTitle(title)
-    .addField("Error:", error)
+    .addField("Error Message", error)
     .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
   return message.channel.send(embed)
@@ -130,122 +130,50 @@ bot.on("guildCreate", guild => {
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
-  let sicon = guild.iconURL;
-  bot.channels.get(`585811927565860865`).send({embed: {
-            color: 0x00bdf2,
-            title: "I've joined a server",
-            description: `I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`,
-            thumbnail: {
-                          url: (sicon),
-                       },
-            fields: [
-                    {
-                        name: "Name",
-                        value: (`${guild.name}`),
-                        inline: true
-                    },
-                    {
-                        name: "Owner",
-                        value: (`${guild.owner}`),
-                        inline: true
-                    },
-                    {
-                        name: "Region",
-                        value: (`${guild.region}`),
-                        inline: true
-                    },
-                    {
-                        name: "Time of Birth",
-                        value: (`${guild.createdAt}`),
-                    },
-                    {
-                        name: "Members",
-                        value: (`${guild.memberCount}`),
-                        inline: true
-                    },
-                    {
-                        name: "Humans",
-                        value: (`${guild.members.filter(member => !member.user.bot).size}`),
-                        inline: true
-                    },
-                    {
-                        name: "Bots",
-                        value: (`${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}`),
-                        inline: true
-                    },
-                    {
-                        name: "ID",
-                        value: (`${guild.id}`),
-                    },
-                ],
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-  });
-});
+  let sicon = guild.iconURL
+  var embed = new Discord.RichEmbed()
+    .setColor(0x00bdf2)
+    .setTitle("I've joined a server!")
+    .setDescription(`I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`)
+    .setThumbnail(sicon)
+    .addField("Name", guild.name, true)
+    .addField("Owner", guild.owner, true)
+    .addField("Region", guild.region, true)
+    .addField("Created At", guild.createdAt)
+    .addField("Members", guild.memberCount, true)
+    .addField("Humans", guild.members.filter(member => !member.user.bot).size, true)
+    .addField("Bots", Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size), true)
+    .addField("ID", guild.id)
+    .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+  
+  bot.channels.get(`585811927565860865`).send(embed)
+  })
+})
 
 bot.on("guildDelete", guild => {
   // this event triggers when the bot is removed from a guild.
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
-  let sicon = guild.iconURL;
-  bot.channels.get(`585811927565860865`).send({embed: {
-            color: 0x00bdf2,
-            title: "I've left a server",
-            description: `I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`,
-            thumbnail: {
-                          url: (sicon),
-                       },
-            fields: [
-                    {
-                        name: "Name",
-                        value: (`${guild.name}`),
-                        inline: true
-                    },
-                    {
-                        name: "Owner",
-                        value: (`${guild.owner}`),
-                        inline: true
-                    },
-                    {
-                        name: "Region",
-                        value: (`${guild.region}`),
-                        inline: true
-                    },
-                    {
-                        name: "Time of Birth",
-                        value: (`${guild.createdAt}`),
-                    },
-                    {
-                        name: "Members",
-                        value: (`${guild.memberCount}`),
-                        inline: true
-                    },
-                    {
-                        name: "Humans",
-                        value: (`${guild.members.filter(member => !member.user.bot).size}`),
-                        inline: true
-                    },
-                    {
-                        name: "Bots",
-                        value: (`${Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size)}`),
-                        inline: true
-                    },
-                    {
-                        name: "ID",
-                        value: (`${guild.id}`),
-                    },
-                ],
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-  });
-});
+  let sicon = guild.iconURL
+  var embed = new Discord.RichEmbed()
+    .setColor(0x00bdf2)
+    .setTitle("I've left a server!")
+    .setDescription(`I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`)
+    .setThumbnail(sicon)
+    .addField("Name", guild.name, true)
+    .addField("Owner", guild.owner, true)
+    .addField("Region", guild.region, true)
+    .addField("Created At", guild.createdAt)
+    .addField("Members", guild.memberCount, true)
+    .addField("Humans", guild.members.filter(member => !member.user.bot).size, true)
+    .addField("Bots", Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size), true)
+    .addField("ID", guild.id)
+    .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+  
+  bot.channels.get(`585811927565860865`).send(embed)
+  })
+})
 
 bot.on('message', async message => {
   
