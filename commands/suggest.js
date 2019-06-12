@@ -6,7 +6,6 @@ module.exports = {
 	name: "suggest",
 	usage: "suggest <suggestion>",
 	description: "Submits a suggestion to our support server.",
-  permissions: 8,
 	run: async (bot, message, args, shared) => {
     
             const embedMessage = args.join(" ");

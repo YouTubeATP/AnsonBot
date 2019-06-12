@@ -7,6 +7,7 @@ module.exports = {
 	usage: "setconf <config> <value>",
   aliases: ["setconfig"],
 	description: "Ban users!",
+  requirements: "Ban",
 	run: async (bot, message, args, shared) => {
 
     if (shared.censors === "on") {
