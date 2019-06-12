@@ -6,7 +6,10 @@ module.exports = {
   name: "ping",
   usage: "ping",
   description: "Pings the bot and shows its latency.",
-  run: async (bot, message, args, shared) => {
+  aliases: ["showconfig"],
+  run: async (bot, message, shared) => {
+    
+    function showConf(bot, message, shared) {
     
     message.delete().catch(O_o=>{});
         let configProps = Object.keys(shared.guildConf).map(prop => {
@@ -21,6 +24,10 @@ module.exports = {
                 text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
     }});
+    
+    }
+    
+    showConf(bot, message, shared)
     
   }
 }

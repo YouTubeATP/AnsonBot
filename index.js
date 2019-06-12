@@ -245,7 +245,6 @@ bot.on('message', async message => {
     if (bot.user.id === sender.id) { return }
     let nick = sender.username
     let Owner = message.guild.roles.find("name", "Owner")
-    let i = 0
 
  const args = message.content.slice(prefix.length).trim().split(/ +/g);
  const command = args.shift().toLowerCase();

@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: "setconf",
 	usage: "setconf <config> <value>",
-  aliases: ["setconfig", "set"],
+  aliases: ["setconfig"],
 	description: "Ban users!",
 	run: async (bot, message, args, shared) => {
     
@@ -16,7 +16,7 @@ module.exports = {
         }
         var conf = args.shift()
         var value = args.join(" ")
-        if (conf === "censor" && value === "on" || conf === "censor" && value === "off" || conf === "prefix" && !value.includes(" ")) {
+        if (conf === "censor" && value === "on" || conf === "censor" && value === "off" || conf === "prefix" && !value = false || conf === "prefix" && !value.includes(" ")) {
             bot.settings.set(message.guild.id, value, conf);
             message.delete().catch(O_o=>{});
             return message.channel.send(`Server ${conf} has been set to: \`${value}\``)
