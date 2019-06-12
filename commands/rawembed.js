@@ -20,6 +20,7 @@ module.exports = {
     function sayRawEmbed(message, args) {
     var color = args.shift()
     var content = args.join(" ")
+      content.replace("|", "\n")
 
     if ( color.length == 6 &&
       ( (color[0] >= "0" && color[0] <= "9") || (color[0] >= "a" && color[0] <= "f") || (color[0] >= "A" && color[0] <= "F") ) &&
