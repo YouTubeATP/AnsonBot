@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: "ping",
   usage: "ping",
+  aliases: ["pong"],
   description: "Pings the bot and shows its latency.",
   run: async (bot, message, args, shared) => {
     

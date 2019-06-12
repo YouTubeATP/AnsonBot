@@ -64,7 +64,7 @@ module.exports = {
     }
     
     var muteRole = await message.guild.roles.find(r => r.name.toLowerCase().startsWith("mute"))
-    var hasMuteRole = await mem.roles.has(muteRole)
+    var hasMuteRole = await mem.roles.find(r => r.id == muteRole.id)
     
     if (muteRole && !hasMuteRole) {
       
