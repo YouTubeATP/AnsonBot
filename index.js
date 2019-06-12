@@ -63,7 +63,6 @@ for (const file of commandFiles) {
 var shared = {}
 
 shared.bannedwords = bannedwords
-shared.defaultSettings = defaultSettings
 
 bot.on('guildMemberAdd', member => {
   let guild = member.guild;
@@ -252,98 +251,6 @@ bot.on('message', async message => {
   
     if (message.guild === null) return;
     if (message.author.bot) return;
-  
-    if (msg.split(" ")[0] === prefix + "suggest" || message.isMemberMentioned(bot.user) && msg.includes("suggest")) {
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    }
-        const embedMessage = args.join(" ");
-        if (censors === "on") {
-            for (i=0;i<bannedwords.length;i++) {
-            if (message.content.toLowerCase().includes(bannedwords[i])) {
-                message.delete().catch(O_o=>{});
-                return message.reply("please refrain from using such contemptable words.")
-            } else if (embedMessage.length < 20) {
-              message.delete().catch(O_o=>{});
-              message.channel.send({embed: {
-            color: 0x00bdf2,
-            title: "Suggestion too short!",
-            description: "Your suggestion must consist of 20 characters or more.",
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-          }});
-          return;
-            } else if (!message.content.toLowerCase().includes(bannedwords[i])) {
-        const senderID = args.join(" ");
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            title: "Suggestion submitted!",
-            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in <@414440610418786314>'s changelog.",
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-        }});
-          bot.channels.get(`585814273020788736`).send({embed: {
-            color: 0x00bdf2,
-            title: "Suggestion",
-            author: {
-                name: `${message.author.username}#${message.author.discriminator}`,
-                icon_url: message.author.avatarURL
-            },
-            description:(embedMessage),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }});
-      return;
-    }}
-        } else if (embedMessage.length < 20) {
-          message.delete().catch(O_o=>{});
-          message.channel.send({embed: {
-            color: 0x00bdf2,
-            title: "Suggestion too short!",
-            description: "Your suggestion must consist of 20 characters or more.",
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-          }});
-          return;
-            } else {
-        const embedMessage = args.join(" ");
-        const senderID = args.join(" ");
-        message.delete().catch(O_o=>{});
-        message.channel.send({embed: {
-            color: 0x00bdf2,
-            title: "Suggestion submitted!",
-            description: "Your suggestion will be reviewed in short time. If your suggestion is accepted, you will be credited in <@414440610418786314>'s changelog.",
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-        }});
-        bot.fetchUser(config.ownerID).then((user) => {
-          user.send({embed: {
-            color: 0x00bdf2,
-            title: "Suggestion",
-            author: {
-                name: `${message.author.username}#${message.author.discriminator}`,
-                icon_url: message.author.avatarURL
-            },
-            description:(embedMessage),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }})});
-          return;
-        }};
 
     if (msg === prefix + "help" || message.isMemberMentioned(bot.user) && msg.includes("help")) {
         message.delete().catch(O_o=>{});

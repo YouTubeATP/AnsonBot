@@ -11,15 +11,18 @@ module.exports = {
   run: async (bot, message, shared) => {
     
     function showConf(bot, message, shared) {
+
+    const defaultSettings = {   
+        prefix: "em/",    
+        censor: "off"
+    };
     
     message.delete().catch(O_o=>{});
-        let configProps = Object.keys(shared.guildConf).map(prop => {
-        return `${prop}  :  ${shared.guildConf[prop]}\n`;
-    });
+    const guildConf = bot.settings.ensure(message.guild.id, defaultSettings);
     message.channel.send({embed: {
         color: 0x00bdf2,
         title: "Server Configurations",
-        description:("The following are this server's current configurations: \n\nPrefix: \`" + configProps. + "\`\nCensor: \`" + shared.censor + "\`"),
+        description:("The following are this server's current configurations: \n\nPrefix: \`" + guildConf.prefix + "\`\nCensor: \`" + guildConf.censor + "\`"),
         footer: {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Clean Embeds, Crisp Music"
