@@ -10,8 +10,6 @@ module.exports = {
       
     var reason = args.slice(1).join(" ")
     
-    console.log(1)
-    
     if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
       
       return message.reply("you don't have sufficient permissions!")
@@ -20,11 +18,7 @@ module.exports = {
         
     }
     
-    console.log(2)
-    
-    var mem = message.mentions.members.first();
-    
-    console.log(3)
+    var mem = message.mentions.members.first()
     
     if (!mem) {
       var embed = new Discord.RichEmbed()
@@ -37,8 +31,6 @@ module.exports = {
         .catch(console.error)
     }
     
-    console.log(4)
-    
     if (mem.hasPermission("MANAGE_MESSAGES") || mem.hasPermission("ADMINISTRATOR")) {
       // actually mutes should require kick perms
       var embed = new Discord.RichEmbed()
@@ -50,8 +42,6 @@ module.exports = {
         .then(message.delete())
         .catch(console.error)
     }
-    
-    console.log(5)
     
     function mute(message, mem, muteRole, reason) {
       mem.addRole(muteRole, reason).then(() => {
@@ -73,20 +63,12 @@ module.exports = {
       })
     }
     
-    console.log(6)
-    
     var muteRole = await message.guild.roles.find(r => r.name.toLowerCase().startsWith("mute"))
-    console.log(mem.roles.has(muteRole))
     var hasMuteRole = await mem.roles.has(muteRole)
-    console.log(6.2)
-    
-    console.log(7)
     
     if (muteRole && !hasMuteRole) {
       
       mute(message, mem, muteRole, reason)
-      
-      console.log(8)
       
     } else if (hasMuteRole) {
       var embed = new Discord.RichEmbed()

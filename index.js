@@ -248,6 +248,8 @@ bot.on("guildDelete", guild => {
 });
 
 bot.on('message', async message => {
+  
+  console.log(message.guild.name, '|', message.author.tag, '|', message.content)
     
   let sender = message.author;
   let msg = message.content.toLowerCase();
