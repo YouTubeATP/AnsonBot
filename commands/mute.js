@@ -65,17 +65,8 @@ module.exports = {
           .then(message.delete())
           .catch(console.error)
         
-      }).catch(e => {
-        var embed = new Discord.RichEmbed()
-          .setColor(0x00bdf2)
-          .setTitle(`I could not mute ${mem.user.tag}.`)
-          .addField("Error:", e)
-          .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
-
-        return message.channel.send(embed)
-          .then(message.delete())
-          .catch(console.error)
       })
+      .catch(e => shared.printError(message, e, `I could not mute ${mem.user.tag}!`))
     }
     
     if (muteRole && !hasMuteRole) {
@@ -102,6 +93,7 @@ module.exports = {
         
           mute(message, mem, role, reason)
         })
+        .catch(e => shared.printError(message, e, `I could not mute ${mem.user.tag} because there is no mute role and I could not make one.`))
       
     }
 	}

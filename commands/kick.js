@@ -56,15 +56,7 @@ module.exports = {
         .catch(console.error)
 
     }).catch(e => {
-      var embed = new Discord.RichEmbed()
-        .setColor(0x00bdf2)
-        .setTitle(`Hmm... I can't seem to mute ${mem.user.tag}!`)
-        .addField("Error message", e)
-        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
-
-      return message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
+      shared.printError(message, e, `I could not kick ${mem.user.tag}!`)
     })
     
   }

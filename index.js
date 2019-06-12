@@ -64,6 +64,20 @@ var shared = {}
 
 shared.bannedwords = bannedwords
 
+function printError(message, error, title) {
+  var embed = new Discord.RichEmbed()
+    .setColor(0x00bdf2)
+    .setTitle(title)
+    .addField("Error:", error)
+    .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+
+  return message.channel.send(embed)
+    .then(message.delete())
+    .catch(console.error)
+}
+
+shared.printError = printError
+
 bot.on('guildMemberAdd', member => {
   let guild = member.guild;
   if (guild.id === config.serverID)
