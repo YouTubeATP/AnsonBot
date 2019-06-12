@@ -293,52 +293,14 @@ bot.on('message', async message => {
                 }
   }})
 };
-
-    if (msg === prefix + "botinfo" || message.isMemberMentioned(bot.user) && msg.includes("botinfo")) {
-        message.delete().catch(O_o=>{});
-        return bot.shard.broadcastEval('this.guilds.size')
-        .then(results => {
-        let bicon = bot.user.displayAvatarURL
-        const used = process.memoryUsage().heapUsed / 1024 / 1024
-        let botembed = new Discord.RichEmbed()
-        .setTitle("Bot Information")
-        .setColor(0x00bdf2)
-        .setThumbnail(bicon)
-        .addField("Name", bot.user.username, true)
-        .addField("Prefix for this Server", "\`" + prefix + "\`", true)
-        .addField("Developer", "<@344335337889464357>", true)
-        .addField("Time of Birth", bot.user.createdAt)
-        .addField("Library", "discord.js", true)
-        .addField("Servers", `${results.reduce((prev, val) => prev + val, 0)}`, true)
-        .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
-        .addField("ID", bot.user.id)
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-
-        message.channel.send(botembed)
-    })};
-
-    if (msg === prefix + "serverinfo" || message.isMemberMentioned(bot.user) && msg.includes("serverinfo")) {
-        message.delete().catch(O_o=>{});
-        let bicon = bot.user.displayAvatarURL
-        let sicon = message.guild.iconURL
-        
-        let serverembed = new Discord.RichEmbed()
-        .setTitle("Server Information")
-        .setColor(0x00bdf2)
-        .setThumbnail(sicon)
-        .addField("Name", message.guild.name, true)
-        .addField("Owner", message.guild.owner, true)
-        .addField("Region", message.guild.region ,true)
-        .addField("Time of Birth", message.guild.createdAt)
-        .addField("Members", message.guild.memberCount, true)
-        .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)
-        .addField("Bots", `${Math.round(message.guild.memberCount - message.guild.members.filter(member => !member.user.bot).size)}`, true)
-        .addField("ID", message.guild.id)
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-
-        await message.channel.send(serverembed)
-
-    };
+  
+    if (censors === "on") {
+      for (i=0;i<bannedwords.length;i++) {
+        if (message.content.toLowerCase().includes(bannedwords[i])) {
+            message.delete().catch(O_o=>{})
+          return message.reply("please refrain from using such contemptable words.");
+    }
+ }};
 
     const serverQueue = queue.get(message.guild.id);
   
@@ -499,14 +461,6 @@ bot.on('message', async message => {
           serverQueue.loop = "off"
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`.");
     }
-
-  if (censors === "on") {
-  for (i=0;i<bannedwords.length;i++) {
-    if (message.content.toLowerCase().includes(bannedwords[i])) {
-        message.delete().catch(O_o=>{})
-      return message.reply("please refrain from using such contemptable words.");
-    }
- }};
 
   if (msg.split(" ")[0] === prefix + "purge" || message.isMemberMentioned(bot.user) && msg.includes("purge")) {
     if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
