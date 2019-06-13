@@ -368,21 +368,6 @@ bot.on('message', async message => {
           serverQueue.loop = "off"
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`.");
     }
-
-  if (msg.split(" ")[0] === prefix + "purge" || message.isMemberMentioned(bot.user) && msg.includes("purge")) {
-    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
-        message.delete().catch(O_o=>{});
-        message.reply("you don't have sufficient permissions!");
-        return;
-    }
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    }
-    
-    let messagesClear = args.join(" ")
-    message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
-  }
   
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     

@@ -8,7 +8,14 @@ module.exports = {
 	description: "Deletes a number of messages in a channel.",
 	run: async (bot, message, args, shared) => {
     
-    return;
+    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) {
+        message.delete().catch(O_o=>{});
+        message.reply("you don't have sufficient permissions!");
+        return;
+    }
+    
+    let messagesClear = args.join(" ")
+    message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
     
 	}
 }
