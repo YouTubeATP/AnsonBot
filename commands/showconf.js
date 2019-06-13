@@ -21,14 +21,14 @@ module.exports = {
       .setColor(0x00bdf2)
       .setTitle("Server Configurations")
       .setDescription("The following are this server's current configurations.")
-      .addField("Prefix", guildConf.prefix, true)
-      .addField("Censor", guildConf.censor, true)
+      .addField("Prefix", `\`${guildConf.prefix}\``, true)
+      .addField("Censor", `\`${guildConf.censor}\``, true)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
     message.channel.send(embed)
       .then(message.delete())
       .catch(e => {
-        // shared.printError(message, e, `I couldn't fetch this server's configurations!`, true)
+        shared.printError(message, e, `I couldn't fetch this server's configurations!`, true)
       })
     
   }

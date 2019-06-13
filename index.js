@@ -125,7 +125,6 @@ bot.on("ready", () =>  {
 });
 
 bot.on("guildCreate", guild => {
-  bot.settings.set(`491659679336759299`, "em/", prefix);
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
