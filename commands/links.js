@@ -6,7 +6,7 @@ module.exports = {
   name: "links",
   usage: "links",
   description: "Shows all of MusEmbed's links",
-  aliases: ["link", "vote", "invite", "support"],
+  aliases: ["link", "vote", "invite", "support", "uptime"],
   run: async (bot, message, args, shared) => {
     
     var embed = new Discord.RichEmbed()
