@@ -369,6 +369,8 @@ bot.on('message', async message => {
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`.");
     }
   
+  // NEW COMMAND READER
+  
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
     var argsNEW
