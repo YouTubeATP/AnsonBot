@@ -33,23 +33,23 @@ dbl.webhook.on('ready', hook => {
 dbl.webhook.on('vote', vote => {
   console.log(`Vote Received`);
   bot.channels.get(`585811949963444244`).send({embed: {
-            color: 0x00bdf2,
-            title: "Vote Received",
-            description: `<@${vote.user}> just voted for <@414440610418786314>! We really appreciate it. Vote [here](https://vote.musembed.tk) every 12 hours. Voting perks are coming soon!`,
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
-            }
+    color: 0x00bdf2,
+    title: "Vote Received",
+    description: `<@${vote.user}> just voted for <@414440610418786314>! We really appreciate it. Vote [here](https://vote.musembed.tk) every 12 hours. Voting perks are coming soon!`,
+    footer: {
+        icon_url: bot.user.avatarURL,
+        text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+    }
   }});
   bot.fetchUser(vote.user).then((user) => {
-          user.send({embed: {
-            color: 0x00bdf2,
-            title: "Thanks for voting!",
-            description:(`Vote again in 12 hours [here](https://vote.musembed.tk/). Perks for voting are coming soon!`),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
-            }
+    user.send({embed: {
+      color: 0x00bdf2,
+      title: "Thanks for voting!",
+      description:(`Vote again in 12 hours [here](https://vote.musembed.tk/). Perks for voting are coming soon!`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
   }})});
       return;
 });
