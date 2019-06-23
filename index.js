@@ -385,8 +385,6 @@ bot.on('message', async message => {
       shared.prefix = mention1
     }
     
-    console.log(argsNEW)
-    
 		const commandName = argsNEW.shift().toLowerCase()
 		shared.commandName = commandName
 		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
