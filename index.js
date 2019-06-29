@@ -210,7 +210,27 @@ bot.on('message', async message => {
 
     const serverQueue = queue.get(message.guild.id);
   
-    if (msg.split(" ")[0] === prefix + "play" || message.isMemberMentioned(bot.user) && msg.includes("play")) {
+  if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
+    
+    var argsNEW
+    
+    if (msg.startsWith(prefix)) {
+      argsNEW = message.content.slice(prefix.length).split(/\s+/u)
+      shared.prefix = prefix
+    } else if (msg.startsWith(mention)) {
+      argsNEW = message.content.slice(mention.length).split(/\s+/u)
+      shared.prefix = mention
+    } else if (msg.startsWith(mention1)) {
+      argsNEW = message.content.slice(mention1.length).split(/\s+/u)
+      shared.prefix = mention1
+    }
+    
+		const commandName = argsNEW.shift().toLowerCase()
+		shared.commandName = commandName
+    
+    const musicCMD = shared.prefix + (commandName)
+    
+    if (commandName === "play") {
     if (message.isMemberMentioned(bot.user)) {
       message.delete().catch(O_o=>{});
       return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
@@ -367,26 +387,9 @@ bot.on('message', async message => {
           serverQueue.loop = "off"
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`.");
     }
-  
-  // NEW COMMAND READER
-  
-  if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
-    var argsNEW
+    if(!musicCMD) return;
     
-    if (msg.startsWith(prefix)) {
-      argsNEW = message.content.slice(prefix.length).split(/\s+/u)
-      shared.prefix = prefix
-    } else if (msg.startsWith(mention)) {
-      argsNEW = message.content.slice(mention.length).split(/\s+/u)
-      shared.prefix = mention
-    } else if (msg.startsWith(mention1)) {
-      argsNEW = message.content.slice(mention1.length).split(/\s+/u)
-      shared.prefix = mention1
-    }
-    
-		const commandName = argsNEW.shift().toLowerCase()
-		shared.commandName = commandName
 		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
 		if (!command) return;
