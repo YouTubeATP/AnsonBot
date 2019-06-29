@@ -18,7 +18,7 @@ Contents
 - sharding manager, vote detector and web server at `manager.js`
 - main bot script at `index.js`
 - global constants at `config.json`
-
+- commands in different files, all located in `commands` folder
 
 [MusEmbed | Clean Embeds, Crisp Music](https://www.musembed.tk)
 ---------------------------------------------------------------
