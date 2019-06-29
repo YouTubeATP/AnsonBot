@@ -12,7 +12,7 @@ dependencies:
   http-proxy: 1.17.0
   hypixel-api: 1.1.0
   moment: 2.24.0
-  ms: 2.1.1
+  ms: 2.1.2
   node-opus: 0.3.2
   nodemon: 1.19.1
   pm2: 3.5.1
@@ -1834,6 +1834,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
+  /ms/2.1.2:
+    dev: false
+    resolution:
+      integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
   /mute-stream/0.0.8:
     dev: false
     resolution:
@@ -3122,7 +3126,7 @@ specifiers:
   http-proxy: ^1.17.0
   hypixel-api: ^1.1.0
   moment: ^2.24.0
-  ms: ^2.1.1
+  ms: ^2.1.2
   node-opus: ^0.3.2
   nodemon: ^1.19.1
   pm2: ^3.5.1
