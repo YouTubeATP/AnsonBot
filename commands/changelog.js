@@ -16,7 +16,7 @@ module.exports = {
     var content = message.content.slice(shared.prefix.length + 10 + args[0].length).trim()
     
     var embed = new Discord.RichEmbed()
-      .setTitle(`Changelogs for MusEmbed™ V${version}`)
+      .setTitle(`Changelog for MusEmbed™ V${version}`)
       .setDescription(content)
       .setColor(0x00bdf2)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
