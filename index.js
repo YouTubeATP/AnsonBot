@@ -256,35 +256,14 @@ bot.on('message', async message => {
                 try{
                     var videos = await youtube.searchVideos(searchString, 10);
                     let index = 0;
-                  
-                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
-                  
                     let bicon = bot.user.displayAvatarURL
                     let videosEmbed = new Discord.RichEmbed()
                     .setTitle("Song Selection")
                     .setColor(0x00bdf2)
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-                    
-                    let sent = await message.channel.send(videosEmbed);
-                    let id = sent.id;
-                  
-                    message.channel.send(videosEmbed).then(function (message) {
-                          
-                          message.react('1️⃣')
-			                        .then(() => message.react('2️⃣'))
-			                        .then(() => message.react('3️⃣'))
-                              .then(() => message.react('4️⃣'))
-                              .then(() => message.react('5️⃣'))
-                              .then(() => message.react('6️⃣'))
-                              .then(() => message.react('7️⃣'))
-                              .then(() => message.react('8️⃣'))
-                              .then(() => message.react('9️⃣'))
-                              .then(() => message.react('🔟'))
-		                        	.catch(() => console.error('One or more of the emojis failed to react.'));
-                      
-                    })
-                    
+                    message.channel.send(videosEmbed)
+                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
                     try{
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
