@@ -262,8 +262,21 @@ bot.on('message', async message => {
                     .setColor(0x00bdf2)
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-                    message.channel.send(videosEmbed)
+                    
+                    let sent = await message.channel.send(videosEmbed);
+                    let id = sent.id;
+                    
                     message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
+                    message.channel.send(videosEmbed).then(sent => {
+                          
+                          let id = sent.id;
+                          message.channel.fetchMessage(id).react('1️⃣')
+			                        .then(() => message.react(''))
+			                        .then(() => message.react('🍇'))
+		                        	.catch(() => console.error('One of the emojis failed to react.'));
+                      
+                    })
+                    
                     try{
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
