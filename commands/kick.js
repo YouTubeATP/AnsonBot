@@ -32,7 +32,7 @@ module.exports = {
         .catch(console.error)
     }
     
-    if (mem.hasPermission("BAN_MEMBERS") || mem.hasPermission("KICK_MEMBERS")) {
+    if (mem.hasPermission("MANAGE_MESSAGES") || mem.hasPermission("BAN_MEMBERS") || mem.hasPermission("KICK_MEMBERS") || mem.hasPermission("ADMINISTRATOR")) {
       
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
