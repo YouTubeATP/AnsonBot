@@ -256,6 +256,9 @@ bot.on('message', async message => {
                 try{
                     var videos = await youtube.searchVideos(searchString, 10);
                     let index = 0;
+                  
+                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
+                  
                     let bicon = bot.user.displayAvatarURL
                     let videosEmbed = new Discord.RichEmbed()
                     .setTitle("Song Selection")
@@ -265,15 +268,20 @@ bot.on('message', async message => {
                     
                     let sent = await message.channel.send(videosEmbed);
                     let id = sent.id;
-                    
-                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
-                    message.channel.send(videosEmbed).then(sent => {
+                  
+                    message.channel.send(videosEmbed).then(function (message) {
                           
-                          let id = sent.id;
-                          message.channel.fetchMessage(id).react('1️⃣')
-			                        .then(() => message.react(''))
-			                        .then(() => message.react('🍇'))
-		                        	.catch(() => console.error('One of the emojis failed to react.'));
+                          message.react('1️⃣')
+			                        .then(() => message.react('2️⃣'))
+			                        .then(() => message.react('3️⃣'))
+                              .then(() => message.react('4️⃣'))
+                              .then(() => message.react('5️⃣'))
+                              .then(() => message.react('6️⃣'))
+                              .then(() => message.react('7️⃣'))
+                              .then(() => message.react('8️⃣'))
+                              .then(() => message.react('9️⃣'))
+                              .then(() => message.react('🔟'))
+		                        	.catch(() => console.error('One or more of the emojis failed to react.'));
                       
                     })
                     
