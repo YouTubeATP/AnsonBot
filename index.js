@@ -228,16 +228,12 @@ bot.on('message', async message => {
 		const commandName = argsNEW.shift().toLowerCase()
 		shared.commandName = commandName
     
-    const musicCMD = shared.prefix + (commandName)
-    
     if (commandName === "play") {
-    if (message.isMemberMentioned(bot.user)) {
-      message.delete().catch(O_o=>{});
-      return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-    }
-        let args = message.content.split(" ").slice(1)
-        const searchString = args.join(' ')
+      
+        let args = message.content.slice(shared.prefix.length + 5).trim()
+        const searchString = args
         const voiceChannel = message.member.voiceChannel;
+        
         message.delete().catch(O_o=>{});
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
         const permissions = voiceChannel.permissionsFor(bot.user)
@@ -248,16 +244,14 @@ bot.on('message', async message => {
     if(stopping) stopping = false;
       
     if(args[0].match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
-            const playlist = await youtube.getPlaylist(args[0]);
-            var videos = await playlist.getVideos();
-            for(const video of Object.values(videos)){
-                var video2 = await youtube.getVideoByID(video.id);
-                await handleVideo(video2, message, voiceChannel, true)
-            }
+      
             return message.reply ("directly playing a playlist is not supported.")
+      
         } else {
             try {
+              
                 var video = await youtube.getVideo(args[0])
+                
             } catch(error){
                 try{
                     var videos = await youtube.searchVideos(searchString, 10);
@@ -287,7 +281,7 @@ bot.on('message', async message => {
             }
             return handleVideo(video, message, voiceChannel);
         }
-    } else if (msg === prefix + "pause" || message.isMemberMentioned(bot.user) && msg.includes("pause")) {
+    } else if (commandName === "pause") {
       message.delete().catch(O_o=>{});
       if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!");
 		  if (serverQueue && serverQueue.playing) {
@@ -296,7 +290,7 @@ bot.on('message', async message => {
 			return message.channel.send('Music paused. Use the command \`' + prefix + 'resume\` to resume playing.');
 		}
 		return message.channel.send('Nothing is playing!');
-	} else if (msg === prefix + "resume" || message.isMemberMentioned(bot.user) && msg.includes("resume")) {
+	} else if (commandName === "resume") {
     message.delete().catch(O_o=>{});
     if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!");
 		if (serverQueue && !serverQueue.playing) {
@@ -305,7 +299,7 @@ bot.on('message', async message => {
 			return message.channel.send('Music resumed.');
 		}
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
-	} else if (msg === prefix + "stop" || message.isMemberMentioned(bot.user) && msg.includes("stop")) {
+	} else if (commandName === "stop") {
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
@@ -313,7 +307,7 @@ bot.on('message', async message => {
     stopping = true;
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
-    } else if (msg === prefix + "skip" || message.isMemberMentioned(bot.user) && msg.includes("skip")) {
+    } else if (commandName === "skip") {
         message.delete().catch(O_o=>{});
             if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
             if (!serverQueue) return await message.channel.send("Nothing is playing!")
@@ -343,17 +337,13 @@ bot.on('message', async message => {
             await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!')
         }
         return undefined;
-    } else if (msg === prefix + "np" || message.isMemberMentioned(bot.user) && msg.includes("np")) {
+    } else if (commandName === "np") {
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!")
         
         return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
-    } else if (msg.split(" ")[0] === prefix + "volume" || message.isMemberMentioned(bot.user) && msg.includes("volume")) {
-        if (message.isMemberMentioned(bot.user)) {
-            message.delete().catch(O_o=>{});
-            return message.reply (`this command is only available when using this server's prefix, \`${prefix}.\``)
-        }
-        let args = msg.split(" ").slice(1)
+    } else if (commandName === "volume") {
+        let args = message.content.slice(shared.prefix.length + 7).trim()
         message.delete().catch(O_o=>{});
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
@@ -362,7 +352,7 @@ bot.on('message', async message => {
         serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 10)
         serverQueue.volume = args[0];
         return await message.channel.send(`I set the volume to: **${args[0]}**`);
-    } else if (msg === prefix + "queue" || message.isMemberMentioned(bot.user) && msg.includes("queue")) {
+    } else if (commandName === "queue") {
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
         let bicon = bot.user.displayAvatarURL
@@ -373,7 +363,7 @@ bot.on('message', async message => {
         .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title}`))
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
-    } else if (msg === prefix + "loop" || message.isMemberMentioned(bot.user) && msg.includes("loop")) {
+    } else if (commandName === "loop") {
           message.delete().catch(O_o=>{});
           if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
           if(!serverQueue) return message.channel.send("Nothing is playing!");
@@ -387,8 +377,6 @@ bot.on('message', async message => {
           serverQueue.loop = "off"
           return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`.");
     }
-    
-    if(!musicCMD) return;
     
 		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
