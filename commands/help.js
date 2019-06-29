@@ -51,7 +51,7 @@ module.exports = {
 
 			var embed = new Discord.RichEmbed()
         .setColor(0x42b3f4)
-        .setAuthor(`${shared.prefix}${command.name}`, bot.user.avatarURL)
+        .setAuthor(`${guildConf.prefix}${command.name}`, bot.user.avatarURL)
         .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
 			if (command.aliases) embed.addField(`Aliases`, "`" + command.aliases.join('`, `') + "`")
