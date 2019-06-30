@@ -19,7 +19,7 @@ module.exports = {
     
     if (!message.guild.me.hasPermission("MANAGE_ROLES")) {
       
-      message.delete;
+      message.delete();
       return message.channel.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
