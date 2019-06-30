@@ -8,6 +8,21 @@ module.exports = {
 	description: "Deletes a number of messages in a channel.",
 	run: async (bot, message, args, shared) => {
     
+    if (!bot.hasPermission("MANAGE_MESSAGES")) {
+      
+      message.delete;
+      return message.channel.send({embed: {
+      color: 0x00bdf2,
+      title: "I do not have sufficient permissions!",
+      description:(`I cannot manage messages in this guild, so I cannot carry out this command.`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
+  }})
+      
+    };
+    
     if (message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
         let messagesClear = args.join(" ")
         return message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));

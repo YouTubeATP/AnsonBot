@@ -11,13 +11,28 @@ module.exports = {
       
     var reason = args.slice(1).join(" ")
     
-    if (!message.member.hasPermission("KICK_MEMBERS")) {
+    if (!message.member.hasPermission("MANAGE_MESSAGES")) {
       
       return message.reply("you don't have sufficient permissions!")
         .then(message.delete())
         .catch(console.error)
         
-    }
+    };
+    
+    if (!bot.hasPermission("MANAGE_MESSAGES")) {
+      
+      message.delete;
+      return message.channel.send({embed: {
+      color: 0x00bdf2,
+      title: "I do not have sufficient permissions!",
+      description:(`I cannot manage messages in this guild, so I cannot carry out this command.`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
+  }})
+      
+    };
     
     var mem = message.mentions.members.first()
     

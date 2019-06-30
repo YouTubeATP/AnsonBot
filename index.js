@@ -212,7 +212,10 @@ bot.on('message', async message => {
   
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
-    if (!bot.hasPermission("SEND_MESSAGES")) return bot.fetchUser(message.user).then((user) => {
+    if (!bot.hasPermission("SEND_MESSAGES")) {
+      
+      message.delete;
+      return bot.fetchUser(message.user).then((user) => {
     user.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
@@ -221,9 +224,25 @@ bot.on('message', async message => {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
       }
-  }})});
+  }})})
     
-    if (!bot.hasPermission("SEND_MESSAGES")) return 
+    };
+    
+    if (!bot.hasPermission("EMBED_LINKS")) {
+      
+      message.delete;
+      return bot.fetchUser(message.user).then((user) => {
+    user.send({embed: {
+      color: 0x00bdf2,
+      title: "I do not have sufficient permissions!",
+      description:(`I cannot embed messages in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
+  }})})
+      
+    };
     
     var argsNEW
     

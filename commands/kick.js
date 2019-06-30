@@ -17,7 +17,22 @@ module.exports = {
         .then(message.delete())
         .catch(console.error)
         
-    }
+    };
+    
+    if (!bot.hasPermission("KICK_MEMBERS")) {
+      
+      message.delete;
+      return message.channel.send({embed: {
+      color: 0x00bdf2,
+      title: "I do not have sufficient permissions!",
+      description:(`I cannot kick members in this guild, so I cannot carry out this command.`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
+  }})
+      
+    };
     
     var mem = message.mentions.members.first();
     
