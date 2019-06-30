@@ -19,7 +19,7 @@
     "ms": "^2.1.2",
     "node-opus": "^0.3.2",
     "nodemon": "^1.19.1",
-    "simple-youtube-api": "^5.1.1",
+    "simple-youtube-api": "^5.2.1",
     "ytdl-core": "^0.29.2",
     "pm2": "^3.5.1",
     "http-proxy": "^1.17.0",

@@ -16,7 +16,7 @@ dependencies:
   node-opus: 0.3.2
   nodemon: 1.19.1
   pm2: 3.5.1
-  simple-youtube-api: 5.1.1
+  simple-youtube-api: 5.2.1
   ytdl-core: 0.29.2
 packages:
   /@opencensus/core/0.0.8:
@@ -1556,10 +1556,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
-  /iso8601-duration/1.1.7:
+  /iso8601-duration/1.2.0:
     dev: false
     resolution:
-      integrity: sha512-vH8UmELp9cRY3RGPM/E7x8d2uY5/1yMzuphia7YbRBrQFN7HiQll/2syPV23wD/7J2hVZVHHpI+Vi49LjiLYUA==
+      integrity: sha512-ErTBd++b17E8nmWII1K1uZtBgD1E8RjyvwmxlCjPHNqHMD7gmcMHOw0E8Ro/6+QT4PhHRSnnMo7bxa1vFPkwhg==
   /isobject/2.1.0:
     dependencies:
       isarray: 1.0.0
@@ -1887,12 +1887,12 @@ packages:
       node: '>= 0.4.0'
     resolution:
       integrity: sha1-ICl+idhvb2QA8lDZ9Pa0wZRfzTU=
-  /node-fetch/2.3.0:
+  /node-fetch/2.6.0:
     dev: false
     engines:
       node: 4.x || >=6.0.0
     resolution:
-      integrity: sha512-MOd8pV3fxENbryESLgVIeaGKrdl+uaYhCSSVkjeOb/31/njTpcis5aWfdqgNlHIrKOLRbMnfPINPOML2CIFeXA==
+      integrity: sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
   /node-opus/0.3.2:
     dependencies:
       bindings: 1.2.1
@@ -2574,13 +2574,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
-  /simple-youtube-api/5.1.1:
+  /simple-youtube-api/5.2.1:
     dependencies:
-      iso8601-duration: 1.1.7
-      node-fetch: 2.3.0
+      iso8601-duration: 1.2.0
+      node-fetch: 2.6.0
     dev: false
     resolution:
-      integrity: sha512-cbWRGTDjWDrC+8LR3gpLaXeRb0+e/eiX/bKYIS0tQ4gBUimhXVhsWWhzWJ49aTBnAA0vChrD3U0ZDL8/CUWNcA==
+      integrity: sha512-vmndP9Bkh35tifn2OwY+th2imSsfYtmDqczgdOW5yEARFzvSoR8VSQFsivJnctfV5QHQUL6VrOpNdbmDRLh9Bg==
   /smart-buffer/4.0.2:
     dev: false
     engines:
@@ -3130,5 +3130,5 @@ specifiers:
   node-opus: ^0.3.2
   nodemon: ^1.19.1
   pm2: ^3.5.1
-  simple-youtube-api: ^5.1.1
+  simple-youtube-api: ^5.2.1
   ytdl-core: ^0.29.2
