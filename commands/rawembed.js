@@ -9,6 +9,8 @@ module.exports = {
   requirements: "Administrator",
 	run: async (bot, message, args, shared) => {
     
+    if (!args) return message.reply ("you cannot embed an empty message.")
+    
     if (!message.member.hasPermission(8)) {
       
       return message.reply("you don't have sufficient permissions!")

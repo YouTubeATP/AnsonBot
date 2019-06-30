@@ -8,6 +8,8 @@ module.exports = {
 	description: "Embeds your message.",
 	run: async (bot, message, args, shared) => {
     
+    if (!args) return message.reply ("you cannot embed an empty message.")
+    
     function sayEmbed(message, args) {
       var color = args.shift()
       var content = message.content.slice(shared.prefix.length + 12).trim()

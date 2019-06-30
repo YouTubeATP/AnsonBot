@@ -212,6 +212,19 @@ bot.on('message', async message => {
   
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
+    if (!bot.hasPermission("SEND_MESSAGES")) return bot.fetchUser(message.user).then((user) => {
+    user.send({embed: {
+      color: 0x00bdf2,
+      title: "I do not have sufficient permissions!",
+      description:(`I cannot talk in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
+  }})});
+    
+    if (!bot.hasPermission("SEND_MESSAGES")) return 
+    
     var argsNEW
     
     if (msg.startsWith(prefix)) {
@@ -430,7 +443,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 durationm: video.duration.minutes,
                 durations: video.duration.seconds,
                 durationh: video.duration.hours,
-                durationd: video,
+                durationd: video.duration.days,
                 publishedAt: video.publishedAt,
             }
         
@@ -456,7 +469,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`Uploader`, `${song.channel}`, true)
           .addField(`Video ID`, song.id , true)
           .addField(`Date Published`, `${song.publishedAt}`, true)
-          .addField(`Duration`, `\`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+          .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         message.channel.send (queueemb)
       
@@ -488,7 +501,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`Uploader`, `${song.channel}`, true)
           .addField(`Video ID`, song.id , true)
           .addField(`Date Published`, `${song.publishedAt}`, true)
-          .addField(`Duration`, `\`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+          .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return message.channel.send (queueemb)
     }
