@@ -70,7 +70,7 @@ function printError(message, error, title) {
     .setColor(0x00bdf2)
     .setTitle(title)
     .addField("Error Message", error)
-    .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
   return message.channel.send(embed)
     .then(message.delete())
@@ -142,7 +142,7 @@ bot.on("guildCreate", guild => {
     .addField("Humans", guild.members.filter(member => !member.user.bot).size, true)
     .addField("Bots", Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size), true)
     .addField("ID", guild.id)
-    .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
   
   bot.channels.get(`585811927565860865`).send(embed)
   })
@@ -167,7 +167,7 @@ bot.on("guildDelete", guild => {
     .addField("Humans", guild.members.filter(member => !member.user.bot).size, true)
     .addField("Bots", Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size), true)
     .addField("ID", guild.id)
-    .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
   
   bot.channels.get(`585811927565860865`).send(embed)
   })
