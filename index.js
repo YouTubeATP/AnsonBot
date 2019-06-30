@@ -348,7 +348,7 @@ bot.on('message', async message => {
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
         if(!args[0]) return await message.channel.send(`The current volume is **${serverQueue.volume}**`)
-    if (args[0] > 10 || args[0] < 0) return await message.reply('please choose a number between 0 and 10!');
+    if (!args[0] === 0 || !args[0] === 1 || !args[0] === 2 || !args[0] === 3 || !args[0] === 4 || !args[0] === 5 || !args[0] === 6 || !args[0] === 7 || !args[0] === 8 || !args[0] === 9 || !args[0] === 10) return await message.reply('please choose an integer between 0 and 10!');
         serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 10)
         serverQueue.volume = args[0];
         return await message.channel.send(`I set the volume to: **${args[0]}**`);
