@@ -214,8 +214,7 @@ bot.on('message', async message => {
     
     if (!message.guild.me.hasPermission("SEND_MESSAGES")) {
       
-      message.delete;
-      return bot.fetchUser(message.user).then((user) => {
+      return bot.fetchUser(message.member).then((user) => {
     user.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
@@ -224,14 +223,14 @@ bot.on('message', async message => {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
       }
-  }})})
+  }})}).then(message.delete());
     
     };
     
     if (!message.guild.me.hasPermission("EMBED_LINKS")) {
       
-      message.delete;
-      return bot.fetchUser(message.user).then((user) => {
+      message.delete();
+      return bot.fetchUser(message.member).then((user) => {
     user.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
@@ -240,7 +239,7 @@ bot.on('message', async message => {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
       }
-  }})})
+  }})}).then(message.delete());
       
     };
     
@@ -262,8 +261,7 @@ bot.on('message', async message => {
     
     if (commandName === "play" && !message.guild.me.hasPermission("CONNECT")) {
       
-      message.delete;
-      return bot.fetchUser(message.user).then((user) => {
+      return bot.fetchUser(message.member).then((user) => {
     user.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
@@ -272,12 +270,11 @@ bot.on('message', async message => {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
       }
-  }})})
+  }})}).then(message.delete());
       
     } else if (commandName === "play" && !message.guild.me.hasPermission("SPEAK")) {
       
-      message.delete;
-      return bot.fetchUser(message.user).then((user) => {
+      return bot.fetchUser(message.member).then((user) => {
     user.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
@@ -286,7 +283,7 @@ bot.on('message', async message => {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
       }
-  }})})
+  }})}).then(message.delete());
       
     } else if (commandName === "play") {
       
