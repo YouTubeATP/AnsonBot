@@ -212,7 +212,7 @@ bot.on('message', async message => {
   
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
-    if (!bot.hasPermission("SEND_MESSAGES")) {
+    if (!message.guild.me.hasPermission("SEND_MESSAGES")) {
       
       message.delete;
       return bot.fetchUser(message.user).then((user) => {
@@ -228,7 +228,7 @@ bot.on('message', async message => {
     
     };
     
-    if (!bot.hasPermission("EMBED_LINKS")) {
+    if (!message.guild.me.hasPermission("EMBED_LINKS")) {
       
       message.delete;
       return bot.fetchUser(message.user).then((user) => {

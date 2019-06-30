@@ -8,7 +8,7 @@ module.exports = {
 	description: "Deletes a number of messages in a channel.",
 	run: async (bot, message, args, shared) => {
     
-    if (!bot.hasPermission("MANAGE_MESSAGES")) {
+    if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
       
       message.delete;
       return message.channel.send({embed: {

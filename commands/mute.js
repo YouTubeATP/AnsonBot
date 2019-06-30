@@ -19,7 +19,7 @@ module.exports = {
         
     };
     
-    if (!bot.hasPermission("MANAGE_MESSAGES")) {
+    if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
       
       message.delete;
       return message.channel.send({embed: {

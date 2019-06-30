@@ -19,7 +19,7 @@ module.exports = {
         
     };
     
-    if (!bot.hasPermission("BAN_MEMBERS")) {
+    if (!message.guild.me.hasPermission("BAN_MEMBERS")) {
       
       message.delete;
       return message.channel.send({embed: {

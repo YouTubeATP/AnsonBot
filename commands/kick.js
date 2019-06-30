@@ -19,7 +19,7 @@ module.exports = {
         
     };
     
-    if (!bot.hasPermission("KICK_MEMBERS")) {
+    if (!message.guild.me.hasPermission("KICK_MEMBERS")) {
       
       message.delete;
       return message.channel.send({embed: {
