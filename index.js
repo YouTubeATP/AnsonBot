@@ -260,7 +260,35 @@ bot.on('message', async message => {
 		const commandName = argsNEW.shift().toLowerCase()
 		shared.commandName = commandName
     
-    if (commandName === "play") {
+    if (commandName === "play" && !message.guild.me.hasPermission("CONNECT")) {
+      
+      message.delete;
+      return bot.fetchUser(message.user).then((user) => {
+    user.send({embed: {
+      color: 0x00bdf2,
+      title: "I do not have sufficient permissions!",
+      description:(`I cannot connect to voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
+  }})})
+      
+    } else if (commandName === "play" && !message.guild.me.hasPermission("SPEAK")) {
+      
+      message.delete;
+      return bot.fetchUser(message.user).then((user) => {
+    user.send({embed: {
+      color: 0x00bdf2,
+      title: "I do not have sufficient permissions!",
+      description:(`I cannot talk in voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
+  }})})
+      
+    } else if (commandName === "play") {
       
         let args = message.content.slice(shared.prefix.length + 5).trim()
         const searchString = args
@@ -380,10 +408,15 @@ bot.on('message', async message => {
         if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
         if(!args) return await message.channel.send(`The current volume is **${serverQueue.volume}**`)
-    if ( args !== "0" || args !== "1" || args !== "2" || args !== "3" || args !== "4" || args !== "5" || !args === "6" || !args === "7" || !args === "8" || !args === "9" || !args === "10" ) return await message.reply('please choose an integer between 0 and 10!');
+    if ( args === "0" || args === "1" || args === "2" || args === "3" || args === "4" || args === "5" || args === "6" || args === "7" || args === "8" || args === "9" || args === "10" ) {
+      
         serverQueue.connection.dispatcher.setVolumeLogarithmic(args / 10)
         serverQueue.volume = args;
         return await message.channel.send(`I set the volume to: **${args}**`);
+    }
+      
+      return await message.reply('please choose an integer between 0 and 10!');
+    
     } else if (commandName === "queue") {
         message.delete().catch(O_o=>{});
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
