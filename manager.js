@@ -7,9 +7,10 @@ const httpProxy = require('http-proxy');
 const express = require ('express');
 const app = express();
 
-const Manager = new Discord.ShardingManager('./index.js');
-Manager.spawn();
-Manager.on('launch', shard => console.log(`MusEmbed™ shard ${shard.id} initiated. Commands can now be used.`));
+const { ShardingManager } = require('discord.js');
+const manager = new ShardingManager('./index.js', { token: config.token });
+manager.spawn();
+manager.on('launch', shard => console.log(`MusEmbed™ shard ${shard.id} initiated. Commands can now be used.`));
 
 app.use(express.static('public'));
 
@@ -22,18 +23,6 @@ const listener = app.listen(process.env.PORT, function() {
   setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 225000);
-});
-
-const blapi = require('blapi')
-blapi.setLogging(true);
-
-bot.on("ready", () =>  {
-
-    blapi.handle(bot, {
-        'botsfordiscord.com': 'b034d05d7563f445f0675af50fcd9dc9f037916e9df587a913087adec6494f0b06151d4ef4c0e5ca34308be569c79bbb26ccdc6710054bca06f6700f49ae2998',
-        'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22',
-}, 30)
-  
 });
 
 const DBL = require("dblapi.js");
