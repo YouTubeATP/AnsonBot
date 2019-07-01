@@ -352,44 +352,44 @@ bot.on('message', async message => {
                     let videosChoice = new RC.Menu(
                                   videosEmbed,
                                   [
-                                      { emoji: ':one:',
+                                      { emoji: '1⃣',
                                           run: (user, message) => {
 
                                                   }
                                       },
-                                      { emoji: ':two:',
+                                      { emoji: '2⃣',
                                           run: (user, message) => {
                                                   }
                                       },
-                                      { emoji: ':three:',
+                                      { emoji: '3⃣',
                                           run: (user, message) => {
                                                   }
                                       },
-                                      { emoji: ':four:',
+                                      { emoji: '4⃣',
                                           run: (user, message) => {
                                                   }
                                       },
-                                      { emoji: ':five:',
+                                      { emoji: '5⃣',
                                           run: (user, message) => {
                                                   }
                                       },
-                                      { emoji: ':six:',
+                                      { emoji: '6⃣',
                                           run: (user, message) => {
                                                   }
                                       },
-                                      { emoji: ':seven:',
+                                      { emoji: '7⃣',
                                           run: (user, message) => {
                                                   }
                                       },
-                                      { emoji: ':eight:',
+                                      { emoji: '8⃣',
                                           run: (user, message) => {
                                                   }
                                       },
-                                      { emoji: ':nine:',
+                                      { emoji: '9⃣',
                                           run: (user, message) => {
                                                   }
                                       },
-                                      { emoji: ':keycap_ten:',
+                                      { emoji: '🔟',
                                           run: (user, message) => {
                                                   }
                                       },
@@ -401,13 +401,13 @@ bot.on('message', async message => {
                   
                     handler.addMenus(videosChoice)
                     
-                    message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
+                    message.channel.send("Please select the number corresponding to your video! You have 30 seconds.")
                         .then(() => message.channel.sendMenu(videosChoice))
                   
                     try {
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
-                    time: 20000, errors: ['time']
+                    time: 30000, errors: ['time']
                 });
                     } catch(err) {
                         return message.channel.send('No value given, or value was invalid. Video selection canceled.')
