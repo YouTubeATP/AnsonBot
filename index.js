@@ -319,6 +319,8 @@ bot.on('message', async message => {
         let args = message.content.slice(shared.prefix.length + 5).trim()
         const searchString = args
         const voiceChannel = message.member.voiceChannel;
+      
+        let index = 0
         
         message.delete().catch(O_o=>{});
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
@@ -354,58 +356,68 @@ bot.on('message', async message => {
                                   [
                                       { emoji: '1⃣',
                                           run: (user, message) => {
-
+                                              index = 1
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '2⃣',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '3⃣',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '4⃣',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '5⃣',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '6⃣',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '7⃣',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '8⃣',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '9⃣',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '🔟',
                                           run: (user, message) => {
-                                            
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                       { emoji: '❌',
                                           run: (user, message) => {
-                                              return message.channel.send('Video selection canceled.')
-                                              
+                                              message.channel.send('Video selection canceled.')
+                                              return message.delete()
                                                   }
                                       },
                                   ],
@@ -423,9 +435,10 @@ bot.on('message', async message => {
                       
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
-                    time: 60000, errors: ['time', 'cancel']
-                          
-                });
+                    time: 60000, errors: ['time']
+                }
+                                                                          
+                            );
                     } catch(err) {
                         return message.channel.send('Video selection timed out.')
                     }
