@@ -339,7 +339,7 @@ bot.on('message', async message => {
                 var video = await youtube.getVideo(args[0])
                 
             } catch(error){
-                try{
+                try {
                     var videos = await youtube.searchVideos(searchString, 10);
                     let index = 0;
                     let bicon = bot.user.displayAvatarURL
@@ -348,29 +348,21 @@ bot.on('message', async message => {
                     .setColor(0x00bdf2)
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+                    
+                    let videosChoice = new RC.Menu(
+                                  videosEmbed,
+                                  ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'],
+                                  {
+                                        owner: message.member.id
+                                  }
+                            )
+                  
+                    handler.addMenus(videosChoice)
+                    
                     message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
-                        .then(() => message.channel.send(videosEmbed)
-                              .then(m => m.react('1️⃣'))
-                              .then(m => m.react('2️⃣'))
-                              .then(m => m.react('3️⃣'))
-                              .then(m => m.react('4️⃣'))
-                              .then(m => m.react('5️⃣'))
-                              .then(m => m.react('6️⃣'))
-                              .then(m => m.react('7️⃣'))
-                              .then(m => m.react('8️⃣'))
-                              .then(m => m.react('9️⃣'))
-                              .then(m => m.react('🔟'))
-                             )
+                        .then(() => message.channel.sendMenu(videosChoice))
                   
-                  let changeColour = new RC.Menu(
-                                                      videosEmbed,
-                                                      ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'],
-                                                  {
-                                                            owner: '216399535390326794'
-                                                  }
-                                                )
-                  
-                    try{
+                    try {
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
                     time: 20000, errors: ['time']
