@@ -343,8 +343,9 @@ bot.on('message', async message => {
                     .setColor(0x00bdf2)
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-                    message.channel.send(videosEmbed)
                     message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
+                        
+                        .then(() => message.channel.send(videosEmbed))
                     try{
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
