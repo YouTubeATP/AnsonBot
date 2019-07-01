@@ -25,7 +25,8 @@ bot.on("ready", () =>  {
     blapi.handle(bot, {
         'botlist.space': '8b4fbad11dbb49beb56f65fdc3f5e2793d7603a76e6f47d70a321e7200610933d73cac410c6f2e5ac8d355da5efea837',
         'discordsbestbots.xyz': 'acdd0cffdbfe3846452608f20c8315f9043dc4de',
-        'discordbotlist.com': '0606baba137ac54f706c06a1ce91407c8b345e7b705adc4b23f57a5e8be62af3'
+        'discordbotlist.com': '0606baba137ac54f706c06a1ce91407c8b345e7b705adc4b23f57a5e8be62af3',
+        'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237'
 }, 30)
   
 });
