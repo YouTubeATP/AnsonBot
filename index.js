@@ -347,6 +347,9 @@ bot.on('message', async message => {
                         a: 0,
                         set b(x) {
                             this.a = x
+                        },
+                        get c() {
+                            return this.a
                         }
                     }
                     let bicon = bot.user.displayAvatarURL
@@ -439,14 +442,14 @@ bot.on('message', async message => {
                   
                 try {
                   
-                  var response = await vindex.a !== 0
-
-                if (response === 11) return;
+                  var response = await vindex.c !== vindex.a (m => m >= 1 && m <= 11, {maxMatches: 1, time: 60000, errors: ['time']});
                   
-                if 
+                if (response >= 1 && response <= 10) {
 
                 const videoIndex = parseInt(response);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+                  
+                } else if (response === 11) return;
                   
                 } catch(err) {
                   
