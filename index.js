@@ -17,6 +17,11 @@ const mutedSet = new Set();
 const queue = new Map();
 const youtube = new YouTube(config.youtube)
 
+const blapi = require('blapi')
+blapi.handle(bot, {
+    'discordsbestbots.xyz': 'YOURAPIKEY'
+}, 30)
+
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { statsInterval: 900000 }, bot);
 

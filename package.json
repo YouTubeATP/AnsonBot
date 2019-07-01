@@ -23,7 +23,8 @@
     "ytdl-core": "^0.29.2",
     "pm2": "^3.5.1",
     "http-proxy": "^1.17.0",
-    "child_process": "^1.0.2"
+    "child_process": "^1.0.2",
+    "blapi": "^1.1.0"
   },
   "devDependencies": {},
   "scripts": {
