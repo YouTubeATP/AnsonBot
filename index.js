@@ -343,15 +343,7 @@ bot.on('message', async message => {
             } catch(error){
                 try {
                     var videos = await youtube.searchVideos(searchString, 10);
-                    var vindex = {
-                        a: 0,
-                        set b(x) {
-                            this.a = x
-                        },
-                        get c() {
-                            return this.a
-                        }
-                    }
+                    var vindex = 0;
                     let bicon = bot.user.displayAvatarURL
                     let videosEmbed = new Discord.RichEmbed()
                     .setTitle("Song Selection")
@@ -359,74 +351,80 @@ bot.on('message', async message => {
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     
+                    async function detectSelection () {
+                        const videoIndex = parseInt(vindex);
+                        var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+                        return handleVideo(video, message, voiceChannel);
+                    }
+                    
                     let videosChoice = new RC.Menu(
                                   videosEmbed,
                                   [
                                       { emoji: '1⃣',
                                           run: (user, message) => {
-                                              vindex.b = 1
+                                              vindex = 1
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '2⃣',
                                           run: (user, message) => {
-                                              vindex.b = 2
+                                              vindex = 2
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '3⃣',
                                           run: (user, message) => {
-                                              vindex.b = 3
+                                              vindex = 3
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '4⃣',
                                           run: (user, message) => {
-                                              vindex.b = 4
+                                              vindex = 4
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '5⃣',
                                           run: (user, message) => {
-                                              vindex.b = 5
+                                              vindex = 5
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '6⃣',
                                           run: (user, message) => {
-                                              vindex.b = 6
+                                              vindex = 6
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '7⃣',
                                           run: (user, message) => {
-                                              vindex.b = 7
+                                              vindex = 7
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '8⃣',
                                           run: (user, message) => {
-                                              vindex.b = 8
+                                              vindex = 8
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '9⃣',
                                           run: (user, message) => {
-                                              vindex.b = 9
+                                              vindex = 9
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '🔟',
                                           run: (user, message) => {
-                                              vindex.b = 10
+                                              vindex = 10
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '❌',
                                           run: (user, message) => {
-                                              vindex.b = 11
+                                              vindex = 11
                                               message.channel.send('Video selection canceled.')
-                                              message.delete()
+                                              return message.delete()
                                                   }
                                       },
                                   ],
@@ -440,28 +438,11 @@ bot.on('message', async message => {
                       await message.channel.send("Please select the number corresponding to your video! Please wait for all the options to load before choosing.")
                         .then(() => message.channel.sendMenu(videosChoice))
                   
-                try {
-                  
-                  var response = await vindex.c !== vindex.a (m => m >= 1 && m <= 11, {maxMatches: 1, time: 60000, errors: ['time']});
-                  
-                if (response >= 1 && response <= 10) {
-
-                const videoIndex = parseInt(response);
-                        var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-                  
-                } else if (response === 11) return;
-                  
-                } catch(err) {
-                  
-                  return message.channel.send("Video selection timed out.")
-                }
-                  
                 } catch(err) {
                     console.log(err)
                     return await message.channel.send("No results could be found.")
                 }
             }
-            return handleVideo(video, message, voiceChannel);
         }
     } else if (commandName === "pause") {
       message.delete().catch(O_o=>{});
