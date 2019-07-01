@@ -195,7 +195,11 @@ bot.on("guildDelete", guild => {
   
   bot.channels.get(`585811927565860865`).send(embed)
   })
-})
+});
+
+bot.on('raw', event => {
+	console.log('\nRaw event data:\n', event);
+});
 
 bot.on('message', async message => {
   
@@ -344,19 +348,29 @@ bot.on('message', async message => {
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     message.channel.send("Please provide a value from 1 to 10 to select a video! You have 20 seconds.")
-                        
-                        .then(() => message.channel.send(videosEmbed))
+                        .then(() => message.channel.send(videosEmbed)
+                              .then(m => m.react('1️⃣'))
+                              .then(m => m.react('2️⃣'))
+                              .then(m => m.react('3️⃣'))
+                              .then(m => m.react('4️⃣'))
+                              .then(m => m.react('5️⃣'))
+                              .then(m => m.react('6️⃣'))
+                              .then(m => m.react('7️⃣'))
+                              .then(m => m.react('8️⃣'))
+                              .then(m => m.react('9️⃣'))
+                              .then(m => m.react('🔟'))
+                             )
                     try{
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
                     time: 20000, errors: ['time']
                 });
-                    }catch(err){
+                    } catch(err) {
                         return message.channel.send('No value given, or value was invalid. Video selection canceled.')
                     }
                 const videoIndex = parseInt(response.first().content);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-                }catch(err){
+                } catch(err) {
                     console.log(err)
                     return await message.channel.send("No results could be found.")
                 }
