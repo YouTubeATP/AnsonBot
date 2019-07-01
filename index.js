@@ -351,7 +351,49 @@ bot.on('message', async message => {
                     
                     let videosChoice = new RC.Menu(
                                   videosEmbed,
-                                  ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'],
+                                  [
+                                      { emoji: ':one:',
+                                          run: (user, message) => {
+
+                                                  }
+                                      },
+                                      { emoji: ':two:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                      { emoji: ':three:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                      { emoji: ':four:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                      { emoji: ':five:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                      { emoji: ':six:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                      { emoji: ':seven:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                      { emoji: ':eight:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                      { emoji: ':nine:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                      { emoji: ':keycap_ten:',
+                                          run: (user, message) => {
+                                                  }
+                                      },
+                                  ],
                                   {
                                         owner: message.member.id
                                   }
