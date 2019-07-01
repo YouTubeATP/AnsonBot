@@ -24,7 +24,8 @@
     "pm2": "^3.5.1",
     "http-proxy": "^1.17.0",
     "child_process": "^1.0.2",
-    "blapi": "^1.1.0"
+    "blapi": "^1.1.0",
+    "reaction-core": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {

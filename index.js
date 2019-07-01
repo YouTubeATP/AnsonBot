@@ -17,6 +17,9 @@ const mutedSet = new Set();
 const queue = new Map();
 const youtube = new YouTube(config.youtube)
 
+const RC = require('reaction-core')
+const handler = new RC.Handler()
+
 const blapi = require('blapi')
 blapi.setLogging(true);
 
@@ -197,9 +200,7 @@ bot.on("guildDelete", guild => {
   })
 });
 
-bot.on('raw', event => {
-	console.log('\nRaw event data:\n', event);
-});
+bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageReaction, user));
 
 bot.on('message', async message => {
   
@@ -360,6 +361,15 @@ bot.on('message', async message => {
                               .then(m => m.react('9️⃣'))
                               .then(m => m.react('🔟'))
                              )
+                  
+                  let changeColour = new RC.Menu(
+                                                      videosEmbed,
+                                                      ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'],
+                                                  {
+                                                            owner: '216399535390326794'
+                                                  }
+                                                )
+                  
                     try{
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
