@@ -38,7 +38,7 @@ module.exports = {
         message.channel.send(embed)
           .then(message.delete())
           .catch(e => {
-            shared.printError(message, e, `I couldn't fetch the information of MusEmbed™!`)
+            shared.printError(message, e, `I couldn't fetch the bot's info!`)
           })
       })
     

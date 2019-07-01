@@ -37,7 +37,7 @@ module.exports = {
     return message.channel.send(embed)
       .then(message.delete())
       .catch(e => {
-        shared.printError(message, e, `I cannot fetch this guild's information!`)
+        shared.printError(message, e, `I cannot fetch this server's information!`)
       })
     
   }
