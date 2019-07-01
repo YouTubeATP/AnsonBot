@@ -432,13 +432,16 @@ bot.on('message', async message => {
                       await message.channel.send("Please select the number corresponding to your video! Please wait for all the options to load before choosing.")
                         .then(() => message.channel.sendMenu(videosChoice))
                   
-                  if (vindex === "null") vindex = "null"
-                  
-                  if (vindex === "cancel") return;
-                  
-                  if (vindex === "1" || vindex === "2" || vindex === "3" || vindex === "4" || vindex === "5" || vindex === "6" || vindex === "7" || vindex === "8" || vindex === "9" || vindex === "10") {
+                try {
+
+                if (vindex = "cancel") return;
+
                 const videoIndex = parseInt(vindex);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+                  
+                } catch(err) {
+                  
+                  return message.channel.send("Video selection timed out.")
                 }
                   
                 } catch(err) {
