@@ -351,7 +351,7 @@ bot.on('message', async message => {
                     .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     
-                    async function detectSelection () {
+                    async function detectSelection() {
                         const videoIndex = parseInt(vindex);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
                         return handleVideo(video, message, voiceChannel);
@@ -363,66 +363,75 @@ bot.on('message', async message => {
                                       { emoji: '1⃣',
                                           run: (user, message) => {
                                               vindex = 1
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '2⃣',
                                           run: (user, message) => {
                                               vindex = 2
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '3⃣',
                                           run: (user, message) => {
                                               vindex = 3
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '4⃣',
                                           run: (user, message) => {
                                               vindex = 4
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '5⃣',
                                           run: (user, message) => {
                                               vindex = 5
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '6⃣',
                                           run: (user, message) => {
                                               vindex = 6
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '7⃣',
                                           run: (user, message) => {
                                               vindex = 7
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '8⃣',
                                           run: (user, message) => {
                                               vindex = 8
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '9⃣',
                                           run: (user, message) => {
                                               vindex = 9
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '🔟',
                                           run: (user, message) => {
                                               vindex = 10
+                                              detectSelection()
                                               message.delete()
                                                   }
                                       },
                                       { emoji: '❌',
                                           run: (user, message) => {
-                                              vindex = 11
                                               message.channel.send('Video selection canceled.')
                                               return message.delete()
                                                   }
