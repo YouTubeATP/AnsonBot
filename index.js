@@ -359,38 +359,53 @@ bot.on('message', async message => {
                                       },
                                       { emoji: '2⃣',
                                           run: (user, message) => {
+                                            
                                                   }
                                       },
                                       { emoji: '3⃣',
                                           run: (user, message) => {
+                                            
                                                   }
                                       },
                                       { emoji: '4⃣',
                                           run: (user, message) => {
+                                            
                                                   }
                                       },
                                       { emoji: '5⃣',
                                           run: (user, message) => {
+                                            
                                                   }
                                       },
                                       { emoji: '6⃣',
                                           run: (user, message) => {
+                                            
                                                   }
                                       },
                                       { emoji: '7⃣',
                                           run: (user, message) => {
+                                            
                                                   }
                                       },
                                       { emoji: '8⃣',
                                           run: (user, message) => {
+                                            
                                                   }
                                       },
                                       { emoji: '9⃣',
                                           run: (user, message) => {
+                                            
                                                   }
                                       },
                                       { emoji: '🔟',
                                           run: (user, message) => {
+                                            
+                                                  }
+                                      },
+                                      { emoji: '❌',
+                                          run: (user, message) => {
+                                              return message.channel.send('Video selection canceled.')
+                                              
                                                   }
                                       },
                                   ],
@@ -400,17 +415,19 @@ bot.on('message', async message => {
                             )
                   
                     handler.addMenus(videosChoice)
-                    
-                    message.channel.send("Please select the number corresponding to your video! You have 30 seconds.")
-                        .then(() => message.channel.sendMenu(videosChoice))
                   
                     try {
+                      
+                      message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
+                        .then(() => message.channel.sendMenu(videosChoice))
+                      
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                                     maxMatches: 1,
-                    time: 30000, errors: ['time']
+                    time: 60000, errors: ['time', 'cancel']
+                          
                 });
                     } catch(err) {
-                        return message.channel.send('No value given, or value was invalid. Video selection canceled.')
+                        return message.channel.send('Video selection timed out.')
                     }
                 const videoIndex = parseInt(response.first().content);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
