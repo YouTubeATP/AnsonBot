@@ -432,6 +432,8 @@ bot.on('message', async message => {
                       await message.channel.send("Please select the number corresponding to your video! Please wait for all the options to load before choosing.")
                         .then(() => message.channel.sendMenu(videosChoice))
                   
+                  let timerID = setInterval(async () => {
+                  
                   if (vindex === "null") vindex = "null"
                   
                   if (vindex === "cancel") return;
@@ -440,6 +442,10 @@ bot.on('message', async message => {
                 const videoIndex = parseInt(vindex);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
                 }
+                    
+                  }, 500)
+                  
+                  setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
                   
                 } catch(err) {
                     console.log(err)
