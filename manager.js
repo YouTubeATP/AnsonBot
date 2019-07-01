@@ -8,7 +8,8 @@ const express = require ('express');
 const app = express();
 
 const Manager = new Discord.ShardingManager('./index.js');
-Manager.spawn(1);
+Manager.spawn();
+Manager.on('launch', shard => console.log(`MusEmbed™ shard ${shard.id} initiated. Commands can now be used.`));
 
 app.use(express.static('public'));
 

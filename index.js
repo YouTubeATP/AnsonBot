@@ -116,7 +116,6 @@ bot.on('guildMemberRemove', member => {
 }});
 
 bot.on("ready", () =>  {
-    console.log(`MusEmbed™ initiated. Commands may now be used in all channels.`);
     setInterval(() => {
     return bot.shard.broadcastEval('this.guilds.size')
     .then(results => {
