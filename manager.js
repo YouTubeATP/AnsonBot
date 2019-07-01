@@ -23,6 +23,12 @@ const listener = app.listen(process.env.PORT, function() {
 }, 225000);
 });
 
+const blapi = require('blapi')
+blapi.handle(bot, {
+    'botsfordiscord.com': 'b034d05d7563f445f0675af50fcd9dc9f037916e9df587a913087adec6494f0b06151d4ef4c0e5ca34308be569c79bbb26ccdc6710054bca06f6700f49ae2998',
+    'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22',
+}, 30)
+
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { webhookAuth: 'NaKh26100225', webhookServer: listener }, bot);
 

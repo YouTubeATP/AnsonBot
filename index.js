@@ -20,9 +20,7 @@ const youtube = new YouTube(config.youtube)
 const blapi = require('blapi')
 blapi.handle(bot, {
     'botlist.space': '8b4fbad11dbb49beb56f65fdc3f5e2793d7603a76e6f47d70a321e7200610933d73cac410c6f2e5ac8d355da5efea837',
-    'botsfordiscord.com': 'b034d05d7563f445f0675af50fcd9dc9f037916e9df587a913087adec6494f0b06151d4ef4c0e5ca34308be569c79bbb26ccdc6710054bca06f6700f49ae2998',
-    'discordsbestbots.xyz': 'acdd0cffdbfe3846452608f20c8315f9043dc4de',
-    'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22'
+    'discordsbestbots.xyz': 'acdd0cffdbfe3846452608f20c8315f9043dc4de'
 }, 30)
 
 const DBL = require("dblapi.js");

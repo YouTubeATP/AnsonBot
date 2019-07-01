@@ -1,5 +1,6 @@
 dependencies:
   better-sqlite-pool: 0.2.2
+  blapi: 1.1.0
   child_process: 1.0.2
   dblapi.js: 2.3.0
   discord.js: 11.5.1
@@ -323,6 +324,10 @@ packages:
     optional: true
     resolution:
       integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
+  /blapi/1.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-IaLTwh8ARaDRfa/CF1Rm0zr3q+Z3Jl6bJwvPkRaTlLVJiiuhYQ8RgJI1Itz5cVw5AKkp25TdtQKpwGNI8820sw==
   /blessed/0.1.81:
     dev: false
     engines:
@@ -3114,6 +3119,7 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   better-sqlite-pool: ^0.2.2
+  blapi: ^1.1.0
   child_process: ^1.0.2
   dblapi.js: ^2.3.0
   discord.js: ^11.5.1
