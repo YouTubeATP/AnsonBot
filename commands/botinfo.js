@@ -17,8 +17,16 @@ module.exports = {
     
     const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
     
-    return bot.shard.broadcastEval('this.guilds.size')
-      .then(results => {
+    const promises = [
+	      bot.shard.broadcastEval('this.guilds.size'),
+	      bot.shard.broadcastEval('this.guilds.reduce((prev, guild) => prev + guild.memberCount, 0)'),
+];
+    return Promise.all(promises)
+    .then(results => {
+      
+        const totalGuilds = results[0].reduce((prev, guildCount) => prev + guildCount, 0);
+		    const totalMembers = results[1].reduce((prev, memberCount) => prev + memberCount, 0);
+      
         let bicon = bot.user.displayAvatarURL
         const used = process.memoryUsage().heapUsed / 1024 / 1024
         let embed = new Discord.RichEmbed()
@@ -29,9 +37,10 @@ module.exports = {
           .addField("Prefix for this Server", "\`" + guildConf.prefix + "\`", true)
           .addField("Developer", "<@344335337889464357>", true)
           .addField("Time of Birth", bot.user.createdAt)
-          .addField("Library", "discord.js", true)
-          .addField("Servers", `${results.reduce((prev, val) => prev + val, 0)}`, true)
+          .addField("Servers", `${totalGuilds}`, true)
+          .addField("Users", `${totalMembers}`, true)
           .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
+          .addField("Library", "discord.js", true)
           .addField("ID", bot.user.id)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
