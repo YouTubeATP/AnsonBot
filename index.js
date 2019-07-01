@@ -357,68 +357,68 @@ bot.on('message', async message => {
                                       { emoji: '1⃣',
                                           run: (user, message) => {
                                               vindex = "1"
-                                              return message.delete()
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '2⃣',
                                           run: (user, message) => {
                                               vindex = "2"
-                                              return message.delete()
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '3⃣',
                                           run: (user, message) => {
                                               vindex = "3"
-                                              return message.delete()
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '4⃣',
                                           run: (user, message) => {
                                               vindex = "4"
-                                              return message.delete()
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '5⃣',
                                           run: (user, message) => {
-                                              vindex = 5
-                                              return message.delete()
+                                              vindex = "5"
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '6⃣',
                                           run: (user, message) => {
-                                              vindex = 6
-                                              return message.delete()
+                                              vindex = "6"
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '7⃣',
                                           run: (user, message) => {
-                                              vindex = 7
-                                              return message.delete()
+                                              vindex = "7"
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '8⃣',
                                           run: (user, message) => {
-                                              vindex = 8
-                                              return message.delete()
+                                              vindex = "8"
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '9⃣',
                                           run: (user, message) => {
-                                              vindex = 9
-                                              return message.delete()
+                                              vindex = "9"
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '🔟',
                                           run: (user, message) => {
-                                              vindex = 10
-                                              return message.delete()
+                                              vindex = "10"
+                                              message.delete()
                                                   }
                                       },
                                       { emoji: '❌',
                                           run: (user, message) => {
-                                              vindex = 0
+                                              vindex = "cancel"
                                               message.channel.send('Video selection canceled.')
-                                              return message.delete()
+                                              message.delete()
                                                   }
                                       },
                                   ],
@@ -432,9 +432,11 @@ bot.on('message', async message => {
                       await message.channel.send("Please select the number corresponding to your video! Please wait for all the options to load before choosing.")
                         .then(() => message.channel.sendMenu(videosChoice))
                   
-                  if (vindex = 0) return;
+                  if (vindex === "null") vindex = "null"
                   
-                  if (vindex >= 1 && vindex <= 10) {
+                  if (vindex === "cancel") return;
+                  
+                  if (vindex === "1" || vindex === "2" || vindex === "3" || vindex === "4" || vindex === "5" || vindex === "6" || vindex === "7" || vindex === "8" || vindex === "9" || vindex === "10") {
                 const videoIndex = parseInt(vindex);
                         var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
                 }
