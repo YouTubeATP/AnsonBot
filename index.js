@@ -362,55 +362,55 @@ bot.on('message', async message => {
                                       },
                                       { emoji: '2⃣',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 2
                                               return message.delete()
                                                   }
                                       },
                                       { emoji: '3⃣',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 3
                                               return message.delete()
                                                   }
                                       },
                                       { emoji: '4⃣',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 4
                                               return message.delete()
                                                   }
                                       },
                                       { emoji: '5⃣',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 5
                                               return message.delete()
                                                   }
                                       },
                                       { emoji: '6⃣',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 6
                                               return message.delete()
                                                   }
                                       },
                                       { emoji: '7⃣',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 7
                                               return message.delete()
                                                   }
                                       },
                                       { emoji: '8⃣',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 8
                                               return message.delete()
                                                   }
                                       },
                                       { emoji: '9⃣',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 9
                                               return message.delete()
                                                   }
                                       },
                                       { emoji: '🔟',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              index = 10
                                               return message.delete()
                                                   }
                                       },
