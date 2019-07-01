@@ -26,7 +26,7 @@ bot.on("ready", () =>  {
         'botsfordiscord.com': 'b034d05d7563f445f0675af50fcd9dc9f037916e9df587a913087adec6494f0b06151d4ef4c0e5ca34308be569c79bbb26ccdc6710054bca06f6700f49ae2998',
         'botlist.space': '8b4fbad11dbb49beb56f65fdc3f5e2793d7603a76e6f47d70a321e7200610933d73cac410c6f2e5ac8d355da5efea837',
         'discordsbestbots.xyz': 'acdd0cffdbfe3846452608f20c8315f9043dc4de',
-        'discordbotlist.com': 'a8afb8c79f65cdedd3183b01fbc042b17dfcc49894f124a29f196c5e6c253027',
+        'discordbotlist.com': '4adcdd46491a0c7a081fb231da85f4638d6ff7530f699f174eceb0fb332dd815',
         'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22',
         'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237'
 }, 30)
@@ -119,15 +119,27 @@ bot.on('guildMemberRemove', member => {
 
 bot.on("ready", () =>  {
     setInterval(() => {
-    return bot.shard.broadcastEval('this.guilds.size')
+    const promises = [
+	      bot.shard.broadcastEval('this.guilds.size'),
+	      bot.shard.broadcastEval('this.guilds.reduce((prev, guild) => prev + guild.memberCount, 0)'),
+];
+    return Promise.all(promises)
     .then(results => {
+      
+        const totalGuilds = results[0].reduce((prev, guildCount) => prev + guildCount, 0);
+		const totalMembers = results[1].reduce((prev, memberCount) => prev + memberCount, 0);
+      
         bot.user.setStatus('available')
         const index = Math.floor(parseInt(Math.random() * 3) + parseInt(0));
         const activities_list = [
-            `${results.reduce((prev, val) => prev + val, 0)} servers ask for help`,
-            `${results.reduce((prev, val) => prev + val, 0)} servers use embeds`, 
-            `${results.reduce((prev, val) => prev + val, 0)} servers play music`,
+            `${totalGuilds} servers ask for help`,
+            `${totalGuilds} servers use embeds`, 
+            `${totalGuilds} servers play music`,
+            `${totalMembers} users ask for help`,
+            `${totalMembers} servers use embeds`, 
+            `${totalMembers} servers play music`,
         ];
+      
         bot.user.setPresence({
             game: {
                 name: (activities_list[index]),
@@ -135,6 +147,7 @@ bot.on("ready", () =>  {
                 url: "https://discordbots.org/bot/414440610418786314"
             }
         });
+      
     });
     }, 20000);
 });
