@@ -667,6 +667,7 @@ function clean(text) {
 async function handleVideo(video, message, voiceChannel, playlist = false) {
   
     const botVoiceConnection = message.guild.voiceConnection;
+    const altBotVoiceConnection = message.guild.voiceConnection;
     
     const serverQueue = queue.get(message.guild.id)
     const altServerQueue = altQueue.get(message.guild.id)
@@ -683,7 +684,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
                 requested: message.author.tag,
             }
         
-    if (!serverQueue && !altServerQueue || !serverQueue && altServerQueue && botVoiceConnection === voiceChannel) {
+    if (!serverQueue && !altServerQueue || !serverQueue && altServerQueue && altBotVoiceConnection.channel !== voiceChannel) {
       
     var queueConstruct = {
       textChannel: message.channel,
@@ -715,9 +716,60 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
   }})
         }
       
-    } else if (serverQueue && botVoiceConnection === voiceChannel) {
+    } else if (serverQueue && !altServerQueue && botVoiceConnection.channel !== voiceChannel) {
+               
+     var altQueueConstruct = {
+      textChannel: message.channel,
+      voiceChannel: voiceChannel,
+      connection: null,
+      songs: [],
+      volume: 10,
+      playing: true,
+      loop: "off"
+    };
+    altQueue.set(message.guild.id, altQueueConstruct);
+
+        altQueueConstruct.songs.push(song);
+      
+        try {
+            var connection = await voiceChannel.join();
+            altQueueConstruct.connection = connection;
+            play(message.guild, altQueueConstruct.songs[0]);
+        } catch (error) {
+            console.error(error)
+            altQueue.delete(message.guild.id)
+            return message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
+            }
+  }})
+        }
+               
+    } else if (serverQueue && botVoiceConnection.channel === voiceChannel) {
       
         serverQueue.songs.push(song);
+        if(playlist) return undefined;
+        
+        let bicon = bot.user.displayAvatarURL
+        let queueemb = new Discord.RichEmbed()
+          .setTitle(`Song added to queue!`)
+          .setColor(`#0x00bdf2`)
+          .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
+          .addField(`Uploader`, `${song.channel}`, true)
+          .addField(`Video ID`, song.id , true)
+          .addField(`Time Published`, `${song.publishedAt}`, true)
+          .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+          .addField(`Requester`, song.requested)
+          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+        
+        return message.channel.send (queueemb)
+      
+    } else if (altServerQueue && altBotVoiceConnection.channel === voiceChannel) {
+      
+        altServerQueue.songs.push(song);
         if(playlist) return undefined;
         
         let bicon = bot.user.displayAvatarURL
@@ -759,7 +811,8 @@ function np(serverQueue) {
 }
 
 function play(guild, song){
-    const serverQueue = queue.get(guild.id)
+    
+  const serverQueue = queue.get(guild.id)
     if (stopping) {
        queue.delete(guild.id);
        return;
@@ -798,6 +851,7 @@ function play(guild, song){
       if (song) {
         np(serverQueue)
     }
+  
 }
 
 function sortObject() {
