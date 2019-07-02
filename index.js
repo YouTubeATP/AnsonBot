@@ -340,7 +340,7 @@ bot.on('message', async message => {
               
                 var video = await youtube.getVideo(args[0])
                 
-            } catch(error){
+            } catch(error) {
                 try {
                     var videos = await youtube.searchVideos(searchString, 10);
                     var vindex = 0;
@@ -524,9 +524,7 @@ bot.on('message', async message => {
       .addField(`Time Published`, `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
       .addField("Requester", song.requested)
-      .setThumbnail(song.thumbnailURL)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-
       return message.channel.send(embed).then(message.delete())
       
     } else if (commandName === "volume") {
@@ -625,7 +623,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 durationd: video.duration.days,
                 publishedAt: video.publishedAt,
                 requested: message.author.tag,
-                thumbnailURL: video.thumbnails.maxres.url
             }
         
     if (!serverQueue) {
@@ -652,8 +649,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`Time Published`, `${song.publishedAt}`, true)
           .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .addField(`Requester`, song.requested)
-          .setThumbnail(song.thumbnailURL)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+        
         message.channel.send (queueemb)
       
         try {
@@ -686,8 +683,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`Time Published`, `${song.publishedAt}`, true)
           .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .addField(`Requester`, song.requested)
-          .setThumbnail(song.thumbnailURL)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+        
         return message.channel.send (queueemb)
     }
     return undefined;
@@ -706,7 +703,6 @@ function np(serverQueue) {
       .addField(`Time Published`, `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
       .addField("Requester", song.requested)
-      .setThumbnail(song.thumbnailURL)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
     serverQueue.textChannel.send(embed)
