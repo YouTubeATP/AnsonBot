@@ -638,20 +638,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
     queue.set(message.guild.id, queueConstruct);
 
         queueConstruct.songs.push(song);
-
-        let bicon = bot.user.displayAvatarURL
-        let queueemb = new Discord.RichEmbed()
-          .setTitle(`Song added to queue!`)
-          .setColor(`#0x00bdf2`)
-          .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
-          .addField(`Uploader`, `${song.channel}`, true)
-          .addField(`Video ID`, song.id , true)
-          .addField(`Time Published`, `${song.publishedAt}`, true)
-          .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
-          .addField(`Requester`, song.requested)
-          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-        
-        message.channel.send (queueemb)
       
         try {
             var connection = await voiceChannel.join();
