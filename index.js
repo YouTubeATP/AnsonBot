@@ -718,8 +718,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
         }
       
     } else if (serverQueue && !altServerQueue && botVoiceConnection.channel !== voiceChannel) {
-      
-    module.exports.handleVideo = { run: async (video, message, voiceChannel, playlist = false) => {
                
      var altQueueConstruct = {
       textChannel: message.channel,
@@ -750,8 +748,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
             }
   }})
         }
-      
-    }}
                
     } else if (serverQueue && botVoiceConnection.channel === voiceChannel) {
       
@@ -774,8 +770,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
       
     } else if (altServerQueue && altBotVoiceConnection.channel === voiceChannel) {
       
-      module.exports.handleVideo = { run: async (video, message, voiceChannel, playlist = false) => {
-      
         altServerQueue.songs.push(song);
         if(playlist) return undefined;
         
@@ -792,8 +786,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         
         return message.channel.send (queueemb)
-        
-      }}
       
     }
   
