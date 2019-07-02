@@ -300,7 +300,7 @@ bot.on('message', async message => {
         
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
       
-        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to play music!')
+        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
       
         const permissions = voiceChannel.permissionsFor(bot.user)
         if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, duh! How do you expect me to play you music?')
@@ -311,7 +311,7 @@ bot.on('message', async message => {
       
     if(args[0].match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
       
-            return message.reply ("directly playing a playlist is not supported.")
+            return message.reply ("directly playing a playlist is not currently supported.")
       
         } else {
             try {
@@ -434,16 +434,36 @@ bot.on('message', async message => {
         }
     } else if (commandName === "pause") {
       message.delete().catch(O_o=>{});
-      if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!");
+      
+      const voiceChannel = message.member.voiceChannel;
+      const botVoiceConnection = message.guild.voiceConnection;
+        
+      if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
+      
+      if (!serverQueue) return message.channel.send("Nothing is playing right now!")
+      
+      if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
+      
 		  if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
 			return message.channel.send('Music paused. Use the command \`' + prefix + 'resume\` to resume playing.');
 		}
 		return message.channel.send('Nothing is playing!');
+      
 	} else if (commandName === "resume") {
+    
     message.delete().catch(O_o=>{});
-    if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!");
+    
+    const voiceChannel = message.member.voiceChannel;
+    const botVoiceConnection = message.guild.voiceConnection;
+        
+    if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
+    
+    if (!serverQueue) return message.channel.send("Nothing is playing right now!").then(message.delete())
+      
+    if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
+    
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
@@ -452,17 +472,33 @@ bot.on('message', async message => {
 		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
 	} else if (commandName === "stop") {
         message.delete().catch(O_o=>{});
-        if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-        if(!serverQueue) return await message.channel.send("Nothing is playing!")
+        
+        const voiceChannel = message.member.voiceChannel;
+        const botVoiceConnection = message.guild.voiceConnection;
+          
+        if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
+    
+        if (!serverQueue) return message.channel.send("Nothing is playing right now!").then(message.delete())
+      
+        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
+    
         if (!message.member.hasPermission("MOVE_MEMBERS")) return await message.reply("you don't have sufficient permissions!")
     stopping = true;
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
+    
     } else if (commandName === "skip") {
+      
         message.delete().catch(O_o=>{});
-            if (!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
-            if (!serverQueue) return await message.channel.send("Nothing is playing!")
         const voiceChannel = message.member.voiceChannel;
+        const botVoiceConnection = message.guild.voiceConnection;
+        
+        if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
+    
+        if (!serverQueue) return message.channel.send("Nothing is playing right now!")
+      
+    if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
+
         for (var x = 0; x < playerVoted.length; x++) {
             if(sender === playerVoted[x]){
             return message.reply(` you think you run the place? You can\'t vote twice!`)
@@ -491,6 +527,13 @@ bot.on('message', async message => {
     } else if (commandName === "np") {
       
       if (!serverQueue) return message.channel.send("Nothing is playing right now!").then(message.delete())
+      
+      const voiceChannel = message.member.voiceChannel;
+      const botVoiceConnection = message.guild.voiceConnection;
+        
+      if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!').then(message.delete())
+      
+      if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to play music!').then(message.delete())
 
       let song = serverQueue.songs[0]
       let bicon = bot.user.displayAvatarURL
@@ -509,8 +552,17 @@ bot.on('message', async message => {
     } else if (commandName === "volume") {
         let args = message.content.slice(shared.prefix.length + 7).trim()
         message.delete().catch(O_o=>{});
-        if(!message.member.voiceChannel) return await message.channel.send("You aren't in a voice channel!")
+        
+      
+        const voiceChannel = message.member.voiceChannel;
+        const botVoiceConnection = message.guild.voiceConnection;
+        
+        if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
+        
         if(!serverQueue) return await message.channel.send("Nothing is playing!");
+        
+        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
+      
         if(!args) return await message.channel.send(`The current volume is **${serverQueue.volume}**`)
     if ( args === "0" || args === "1" || args === "2" || args === "3" || args === "4" || args === "5" || args === "6" || args === "7" || args === "8" || args === "9" || args === "10" ) {
       
