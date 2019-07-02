@@ -14,18 +14,17 @@
     "ffmpeg": "^0.0.4",
     "fs": "^0.0.2",
     "http": "^0.0.0",
-    "hypixel-api": "^1.1.0",
     "moment": "^2.24.0",
     "ms": "^2.1.2",
     "node-opus": "^0.3.2",
-    "nodemon": "^1.19.1",
     "simple-youtube-api": "^5.2.1",
     "ytdl-core": "^0.29.2",
     "pm2": "^3.5.1",
     "http-proxy": "^1.17.0",
     "child_process": "^1.0.2",
     "blapi": "^1.1.0",
-    "reaction-core": "^2.2.0"
+    "reaction-core": "^2.2.0",
+    "better-sqlite3": "^5.4.0"
   },
   "devDependencies": {},
   "scripts": {
