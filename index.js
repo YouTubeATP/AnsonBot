@@ -734,7 +734,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
         try {
             var connection = await voiceChannel.join();
             altQueueConstruct.connection = connection;
-            play(message.guild, altQueueConstruct.songs[0]);
+            playalt(message.guild, altQueueConstruct.songs[0]);
         } catch (error) {
             console.error(error)
             altQueue.delete(message.guild.id)
@@ -810,7 +810,7 @@ function np(serverQueue) {
     serverQueue.textChannel.send(embed)
 }
 
-function play(guild, song){
+function play(guild, song) {
     
   const serverQueue = queue.get(guild.id)
     if (stopping) {
@@ -852,6 +852,53 @@ function play(guild, song){
         np(serverQueue)
     }
   
+}
+
+function playalt(guild, song) {
+  
+  module.exports = { run: (guild, song) => {
+    
+  const altServerQueue = altQueue.get(guild.id)
+    if (stopping) {
+       altQueue.delete(guild.id);
+       return;
+    }
+    
+    if (!song) {
+        altServerQueue.voiceChannel.leave();
+        altQueue.delete(guild.id);
+        return undefined;
+    }
+  
+    const dispatcher = altServerQueue.connection.playStream(ytdl(song.url), {bitrate: 384000 /* 384kbps */})
+        .on('end', reason => {
+			    if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
+			    else console.log(reason);
+        
+          if(!altServerQueue.songs){
+                altServerQueue.voiceChannel.leave();
+                queue.delete(guild.id);
+                voted = 0;
+            voteSkipPass = 0;
+            playerVoted = [];
+                return undefined;
+        }
+        
+          if (altServerQueue.loop === "off") altServerQueue.songs.shift();
+          if (altServerQueue.loop === "all") altServerQueue.songs.push(altServerQueue.songs.shift());
+          
+        voted = 0;
+        voteSkipPass = 0;
+        playerVoted = [];
+                play(guild, altServerQueue.songs[0]);
+            })
+        .on('error', error => console.error(error));
+      dispatcher.setVolumeLogarithmic(altServerQueue.volume / 10);
+      if (song) {
+        np(altServerQueue)
+    }
+    } 
+  }
 }
 
 function sortObject() {
