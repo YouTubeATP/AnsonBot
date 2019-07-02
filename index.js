@@ -54,7 +54,7 @@ var playerVoted = [];
 var totalCost = 1680.37;
 var currentlyHave = 22;
 var perMonth = 120;
-var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kys,fuc,pu$$y,xvideo,porn,asshole,a$$hole,kunt,anal,d.1.c.k".split(",");
+var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kys,fuc,pu$$y,xvideo,porn,asshole,a$$hole,kunt,anal,d.1.c.k,diu".split(",");
 
 var userData = 0
 
