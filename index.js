@@ -673,6 +673,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 durations: video.duration.seconds,
                 durationh: video.duration.hours,
                 durationd: video.duration.days,
+                requested: message.author.tag,
                 publishedAt: video.publishedAt,
             }
         
@@ -689,18 +690,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
     queue.set(message.guild.id, queueConstruct);
 
         queueConstruct.songs.push(song);
-
-        let bicon = bot.user.displayAvatarURL
-        let queueemb = new Discord.RichEmbed()
-          .setTitle(`Song added to queue!`)
-          .setColor(`#0x00bdf2`)
-          .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
-          .addField(`Uploader`, `${song.channel}`, true)
-          .addField(`Video ID`, song.id , true)
-          .addField(`Date Published`, `${song.publishedAt}`, true)
-          .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
-          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-        message.channel.send (queueemb)
       
         try {
             var connection = await voiceChannel.join();
@@ -735,6 +724,24 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         return message.channel.send (queueemb)
     }
     return undefined;
+}
+
+function np(serverQueue) {
+
+      let song = serverQueue.songs[0]
+      let bicon = bot.user.displayAvatarURL
+      let embed = new Discord.RichEmbed()
+      .setColor(0x00bdf2)
+      .setTitle(`Now Playing`)
+      .setDescription(`[${song.title}](${song.url})`)
+      .addField("Uploader", song.channel, true)
+      .addField(`Video ID`, song.id , true)
+      .addField(`Time Published`, `${song.publishedAt}`, true)
+      .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+      .addField("Requester", song.requested)
+      .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+      
+      serverQueue.textChannel.send(embed)
 }
 
 function play(guild, song){
@@ -775,7 +782,7 @@ function play(guild, song){
         .on('error', error => console.error(error));
       dispatcher.setVolumeLogarithmic(serverQueue.volume / 10);
       if (song) {
-        serverQueue.textChannel.send(`Now playing: **${song.title}**`)
+        np(serverQueue)
     }
 }
 
