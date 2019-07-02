@@ -28,7 +28,7 @@ module.exports = {
       .addField("Owner", message.guild.owner, true)
       .addField("Region", message.guild.region ,true)
       .addField("Time of Birth", message.guild.createdAt)
-      .addField("Members", message.guild.memberCount, true)
+      .addField("Members", message.guild.memberCount)
       .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)
       .addField("Bots", `${Math.round(message.guild.memberCount - message.guild.members.filter(member => !member.user.bot).size)}`, true)
       .addField("ID", message.guild.id)
