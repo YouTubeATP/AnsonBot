@@ -672,6 +672,24 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
     return undefined;
 }
 
+function np(serverQueue) {
+    // if (!serverQueue) msg.channel.send("Nothing is playing right now!")
+
+    let song = serverQueue.songs[0]
+    let embed = new Discord.RichEmbed()
+      .setColor(0x00bdf2)
+      .setTitle(`Now Playing: ${song.title}`)
+      .setURL(song.url)
+      .addField("Duration:", `${song.durationh > 0 ? `${song.durationh} hour${song.durationh == 1 ? "" : "s"} ` : ""}${song.durationm > 0 ? `${song.durationm} minute${song.durationm == 1 ? "" : "s"} ` : ""}${song.durations > 0 ? `${song.durations} second${song.durations == 1 ? "" : "s"}` : ""}`, true)
+      .addField("Youtube Uploader:", song.channel, true)
+      .addField("Uploaded By:", song.publishedAt, true)
+      .addField("Requested By:", song.requested, true)
+      .setThumbnail(song.thumbnailURL)
+      .setFooter('Exo | HD Music Player')
+
+    serverQueue.textChannel.send(embed)
+}
+
 function play(guild, song){
     const serverQueue = queue.get(guild.id)
     if (stopping) {
