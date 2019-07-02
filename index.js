@@ -511,24 +511,23 @@ bot.on('message', async message => {
         return undefined;
     } else if (commandName === "np") {
       
-        if (!serverQueue) return message.channel.send("Nothing is playing right now!")
-        .then(message.delete())
+      if (!serverQueue) return message.channel.send("Nothing is playing right now!").then(message.delete())
 
-        let song = serverQueue.songs[0]
-        let bicon = bot.user.displayAvatarURL
-        let embed = new Discord.RichEmbed()
-        .setColor(0x00bdf2)
-        .setTitle(`Now Playing: ${song.title}`)
-        .setURL(song.url)
-        .addField("Duration:", `${song.durationh > 0 ? `${song.durationh} hour${song.durationh == 1 ? "" : "s"} ` : ""}${song.durationm > 0 ? `${song.durationm} minute${song.durationm == 1 ? "" : "s"} ` : ""}${song.durations > 0 ? `${song.durations} second${song.durations == 1 ? "" : "s"}` : ""}`, true)
-        .addField("Uploader:", song.channel, true)
-        .addField("Uploaded By:", song.publishedAt, true)
-        .addField("Requested By:", song.requested, true)
-        .setThumbnail(song.thumbnailURL)
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+      let song = serverQueue.songs[0]
+      let bicon = bot.user.displayAvatarURL
+      let embed = new Discord.RichEmbed()
+      .setColor(0x00bdf2)
+      .setTitle(`Now Playing`)
+      .setDescription(`[${song.title}](${song.url})`)
+      .addField("Uploader", song.channel, true)
+      .addField(`Video ID`, song.id , true)
+      .addField(`Time Published`, `${song.publishedAt}`, true)
+      .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+      .addField("Requester", song.requested, true)
+      .setThumbnail(song.thumbnailURL)
+      .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
-        return serverQueue.textChannel.send(embed)
-        .then(message.delete())
+      return message.channel.send(embed).then(message.delete())
       
     } else if (commandName === "volume") {
         let args = message.content.slice(shared.prefix.length + 7).trim()
@@ -623,8 +622,9 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 durationm: video.duration.minutes,
                 durations: video.duration.seconds,
                 durationh: video.duration.hours,
-                durationd: video.duration.days,
                 publishedAt: video.publishedAt,
+                requested: message.author.tag,
+                thumbnailURL: video.thumbnails.maxres.url
             }
         
     if (!serverQueue) {
@@ -651,6 +651,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`Time Published`, `${song.publishedAt}`, true)
           .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .addField(`Requester`, song.requested)
+          .setThumbnail(song.thumbnailURL)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         message.channel.send (queueemb)
       
@@ -684,6 +685,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`Time Published`, `${song.publishedAt}`, true)
           .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .addField(`Requester`, song.requested)
+          .setThumbnail(song.thumbnailURL)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return message.channel.send (queueemb)
     }
@@ -691,19 +693,18 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
 }
 
 function np(serverQueue) {
-    if (!serverQueue) serverQueue.textChennel.send("Nothing is playing right now!")
 
     let song = serverQueue.songs[0]
     let bicon = bot.user.displayAvatarURL
     let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
-      .setTitle(`Now Playing: ${song.title}`)
-      .setDescription()
-      .setURL(song.url)
-      .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+      .setTitle(`Now Playing`)
+      .setDescription(`[${song.title}](${song.url})`)
       .addField("Uploader", song.channel, true)
-      .addField("Time Published", song.publishedAt, true)
-      .addField("Requester", song.requested, true)
+      .addField(`Video ID`, song.id , true)
+      .addField(`Time Published`, `${song.publishedAt}`, true)
+      .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+      .addField("Requester", song.requested)
       .setThumbnail(song.thumbnailURL)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
@@ -748,7 +749,7 @@ function play(guild, song){
         .on('error', error => console.error(error));
       dispatcher.setVolumeLogarithmic(serverQueue.volume / 10);
       if (song) {
-        serverQueue.textChannel.send(`Now playing: **${song.title}**`)
+        np(serverQueue)
     }
 }
 
