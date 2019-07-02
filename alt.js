@@ -26,8 +26,10 @@ bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageRe
 
 bot.on('message', async message => {
   
-  
+  return;
   
 });
+
+module.exports.connection = message.guild.voiceConnection
 
 bot.login('NTYwNzkwNTczMzY4MjEzNTA0.XRsktQ.9_P9SXXkOVba4h6dbQWrl59rIBI');

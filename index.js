@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./config.json");
+const alt = require("./alt.js");
 const fs = require('fs');
 const moment = require('moment'); // the moment package. to make this work u need to run "npm install moment --save 
 const http = require ('http');
@@ -667,7 +668,7 @@ function clean(text) {
 async function handleVideo(video, message, voiceChannel, playlist = false) {
   
     const botVoiceConnection = message.guild.voiceConnection;
-    const altBotVoiceConnection = false;
+    const altBotVoiceConnection = alt.connection;
     
     const serverQueue = queue.get(message.guild.id)
     const altServerQueue = altQueue.get(message.guild.id)
@@ -717,6 +718,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
         }
       
     } else if (serverQueue && !altServerQueue && botVoiceConnection.channel !== voiceChannel) {
+      
+    module.exports.handleVideo = { run: async (video, message, voiceChannel, playlist = false) => {
                
      var altQueueConstruct = {
       textChannel: message.channel,
@@ -747,6 +750,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
             }
   }})
         }
+      
+    }}
                
     } else if (serverQueue && botVoiceConnection.channel === voiceChannel) {
       
@@ -769,6 +774,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
       
     } else if (altServerQueue && altBotVoiceConnection.channel === voiceChannel) {
       
+      module.exports.handleVideo = { run: async (video, message, voiceChannel, playlist = false) => {
+      
         altServerQueue.songs.push(song);
         if(playlist) return undefined;
         
@@ -785,6 +792,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         
         return message.channel.send (queueemb)
+        
+      }}
       
     }
   
@@ -854,7 +863,9 @@ function play(guild, song) {
   
 }
 
-module.exports = { run: (guild, song) => {
+function playalt(guild, song) {
+
+module.exports.playalt = { run: (guild, song) => {
   
   function playalt(guild, song) {
     
@@ -899,6 +910,7 @@ module.exports = { run: (guild, song) => {
     }
   } 
 }}
+}
 
 function sortObject() {
     var arr = [];
