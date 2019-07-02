@@ -667,7 +667,7 @@ function clean(text) {
 async function handleVideo(video, message, voiceChannel, playlist = false) {
   
     const botVoiceConnection = message.guild.voiceConnection;
-    const altBotVoiceConnection = message.guild.voiceConnection;
+    const altBotVoiceConnection = false;
     
     const serverQueue = queue.get(message.guild.id)
     const altServerQueue = altQueue.get(message.guild.id)
@@ -854,9 +854,9 @@ function play(guild, song) {
   
 }
 
-function playalt(guild, song) {
+module.exports = { run: (guild, song) => {
   
-  module.exports = { run: (guild, song) => {
+  function playalt(guild, song) {
     
   const altServerQueue = altQueue.get(guild.id)
     if (stopping) {
@@ -897,9 +897,8 @@ function playalt(guild, song) {
       if (song) {
         np(altServerQueue)
     }
-    } 
-  }
-}
+  } 
+}}
 
 function sortObject() {
     var arr = [];

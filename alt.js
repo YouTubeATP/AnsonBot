@@ -24,4 +24,10 @@ bot.on("ready", () =>  {bot.user.setStatus('available')});
 
 bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageReaction, user));
 
+bot.on('message', async message => {
+  
+  
+  
+});
+
 bot.login('NTYwNzkwNTczMzY4MjEzNTA0.XRsktQ.9_P9SXXkOVba4h6dbQWrl59rIBI');
