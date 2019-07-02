@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./config.json");
+const alt = require("./alt.js");
 const fs = require('fs');
 const moment = require('moment'); // the moment package. to make this work u need to run "npm install moment --save 
 const http = require ('http');
@@ -15,6 +16,7 @@ const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const mutedSet = new Set();
 const queue = new Map();
+const altQueue = new Map();
 const youtube = new YouTube(config.youtube)
 
 const RC = require('reaction-core')
@@ -238,6 +240,7 @@ bot.on('message', async message => {
   }
 
     const serverQueue = queue.get(message.guild.id);
+    const altServerQueue = altQueue.get(message.guild.id);
   
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
@@ -662,8 +665,13 @@ function clean(text) {
       return text;
 }
 
-async function handleVideo(video, message, voiceChannel, playlist = false){
+async function handleVideo(video, message, voiceChannel, playlist = false) {
+  
+    const botVoiceConnection = message.guild.voiceConnection;
+    const altBotVoiceConnection = alt.connection;
+    
     const serverQueue = queue.get(message.guild.id)
+    const altServerQueue = altQueue.get(message.guild.id)
     const song = {
                 id: video.id,
                 title: video.title,
@@ -677,7 +685,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 requested: message.author.tag,
             }
         
-    if (!serverQueue) {
+    if (!serverQueue && !altServerQueue || !serverQueue && altServerQueue && altBotVoiceConnection.channel !== voiceChannel) {
+      
     var queueConstruct = {
       textChannel: message.channel,
       voiceChannel: voiceChannel,
@@ -707,7 +716,41 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
             }
   }})
         }
-    } else {
+      
+    } else if (serverQueue && !altServerQueue && botVoiceConnection.channel !== voiceChannel) {
+               
+     var altQueueConstruct = {
+      textChannel: message.channel,
+      voiceChannel: voiceChannel,
+      connection: null,
+      songs: [],
+      volume: 10,
+      playing: true,
+      loop: "off"
+    };
+    altQueue.set(message.guild.id, altQueueConstruct);
+
+        altQueueConstruct.songs.push(song);
+      
+        try {
+            var connection = await voiceChannel.join();
+            altQueueConstruct.connection = connection;
+            playalt(message.guild, altQueueConstruct.songs[0]);
+        } catch (error) {
+            console.error(error)
+            altQueue.delete(message.guild.id)
+            return message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
+            }
+  }})
+        }
+               
+    } else if (serverQueue && botVoiceConnection.channel === voiceChannel) {
+      
         serverQueue.songs.push(song);
         if(playlist) return undefined;
         
@@ -724,8 +767,30 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         
         return message.channel.send (queueemb)
+      
+    } else if (altServerQueue && altBotVoiceConnection.channel === voiceChannel) {
+      
+        altServerQueue.songs.push(song);
+        if(playlist) return undefined;
+        
+        let bicon = bot.user.displayAvatarURL
+        let queueemb = new Discord.RichEmbed()
+          .setTitle(`Song added to queue!`)
+          .setColor(`#0x00bdf2`)
+          .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
+          .addField(`Uploader`, `${song.channel}`, true)
+          .addField(`Video ID`, song.id , true)
+          .addField(`Time Published`, `${song.publishedAt}`, true)
+          .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+          .addField(`Requester`, song.requested)
+          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+        
+        return message.channel.send (queueemb)
+      
     }
+  
     return undefined;
+  
 }
 
 function np(serverQueue) {
@@ -746,8 +811,9 @@ function np(serverQueue) {
     serverQueue.textChannel.send(embed)
 }
 
-function play(guild, song){
-    const serverQueue = queue.get(guild.id)
+function play(guild, song) {
+    
+  const serverQueue = queue.get(guild.id)
     if (stopping) {
        queue.delete(guild.id);
        return;
@@ -786,6 +852,56 @@ function play(guild, song){
       if (song) {
         np(serverQueue)
     }
+  
+}
+
+function playalt(guild, song) {
+
+module.exports.playalt = { run: (guild, song) => {
+  
+  function playalt(guild, song) {
+    
+  const altServerQueue = altQueue.get(guild.id)
+    if (stopping) {
+       altQueue.delete(guild.id);
+       return;
+    }
+    
+    if (!song) {
+        altServerQueue.voiceChannel.leave();
+        altQueue.delete(guild.id);
+        return undefined;
+    }
+  
+    const dispatcher = altServerQueue.connection.playStream(ytdl(song.url), {bitrate: 384000 /* 384kbps */})
+        .on('end', reason => {
+			    if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
+			    else console.log(reason);
+        
+          if(!altServerQueue.songs){
+                altServerQueue.voiceChannel.leave();
+                queue.delete(guild.id);
+                voted = 0;
+            voteSkipPass = 0;
+            playerVoted = [];
+                return undefined;
+        }
+        
+          if (altServerQueue.loop === "off") altServerQueue.songs.shift();
+          if (altServerQueue.loop === "all") altServerQueue.songs.push(altServerQueue.songs.shift());
+          
+        voted = 0;
+        voteSkipPass = 0;
+        playerVoted = [];
+                play(guild, altServerQueue.songs[0]);
+            })
+        .on('error', error => console.error(error));
+      dispatcher.setVolumeLogarithmic(altServerQueue.volume / 10);
+      if (song) {
+        np(altServerQueue)
+    }
+  } 
+}}
 }
 
 function sortObject() {

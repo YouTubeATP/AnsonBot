@@ -13,6 +13,10 @@ const manager = new ShardingManager('./index.js', { token: config.token });
 manager.spawn();
 manager.on('launch', shard => console.log(`MusEmbed™ shard ${shard.id} initiated. Commands can now be used.`));
 
+const altManager = new ShardingManager('./alt.js', { token: config.token });
+altManager.spawn();
+altManager.on('launch', shard => console.log(`MusEmbed™ (Alt) shard ${shard.id} initiated. Commands can now be used.`));
+
 app.use(express.static('public'));
 
 app.get("/", function(request, response) {
