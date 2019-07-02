@@ -15,6 +15,7 @@ const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const mutedSet = new Set();
 const queue = new Map();
+const altQueue = new Map();
 const youtube = new YouTube(config.youtube)
 
 const RC = require('reaction-core')
@@ -238,6 +239,7 @@ bot.on('message', async message => {
   }
 
     const serverQueue = queue.get(message.guild.id);
+    const altServerQueue = altQueue.get(message.guild.id);
   
   if (msg.startsWith(prefix) || msg.startsWith(mention) || msg.startsWith(mention1)) {
     
@@ -667,6 +669,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
     const botVoiceConnection = message.guild.voiceConnection;
     
     const serverQueue = queue.get(message.guild.id)
+    const altServerQueue = altQueue.get(message.guild.id)
     const song = {
                 id: video.id,
                 title: video.title,
@@ -680,7 +683,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
                 requested: message.author.tag,
             }
         
-    if (!serverQueue && !) {
+    if (!serverQueue && !altServerQueue) {
     var queueConstruct = {
       textChannel: message.channel,
       voiceChannel: voiceChannel,
@@ -710,7 +713,37 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
             }
   }})
         }
-    } else {
+    } else if (serverQueue && !altServerQueue && botVoiceConnection === v) {
+    var queueConstruct = {
+      textChannel: message.channel,
+      voiceChannel: voiceChannel,
+      connection: null,
+      songs: [],
+      volume: 10,
+      playing: true,
+      loop: "off"
+    };
+    queue.set(message.guild.id, queueConstruct);
+
+        queueConstruct.songs.push(song);
+      
+        try {
+            var connection = await voiceChannel.join();
+            queueConstruct.connection = connection;
+            play(message.guild, queueConstruct.songs[0]);
+        } catch (error) {
+            console.error(error)
+            queue.delete(message.guild.id)
+            return message.channel.send({embed: {
+            color: 0x00bdf2,
+            description:("An error occured!"),
+            footer: {
+                icon_url: bot.user.avatarURL,
+                text: "MusEmbed™ | Clean Embeds, Crisp Music"
+            }
+  }})
+        }
+    } else if (serverQueue && botVoiceConnection === voiceChannel) {
         serverQueue.songs.push(song);
         if(playlist) return undefined;
         
