@@ -18,7 +18,7 @@ module.exports = {
       
       var embed = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setTitle(`<:green_tick:588269976658378768> Evaluation Success!`)
+        .setTitle(`<:yes:588269976658378768> Evaluation Success!`)
         .addField(`Expression`, '```js\n'+args.join(" ")+'```')
         .addField(`Result`, '```js\n'+out+'```')
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
@@ -28,7 +28,7 @@ module.exports = {
 		} catch (e) {
       var embed = new Discord.RichEmbed()
         .setColor("RED")
-        .setTitle(`<:red_tick:588269975798808588> Evaluation Failed!`)
+        .setTitle(`<:no:588269975798808588> Evaluation Failed!`)
         .addField(`Expression`, '```js\n'+args.join(" ")+'```')
         .addField(`Error Message`, '```js\n'+e+'```')
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
