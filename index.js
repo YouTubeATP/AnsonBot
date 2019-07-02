@@ -300,8 +300,6 @@ bot.on('message', async message => {
         
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
       
-        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
-      
         const permissions = voiceChannel.permissionsFor(bot.user)
         if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, duh! How do you expect me to play you music?')
         if(!permissions.has('SPEAK')) return message.channel.send('I can\'t speak here, duh! How do you expect me to play you music?')
