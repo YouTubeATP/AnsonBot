@@ -523,7 +523,7 @@ bot.on('message', async message => {
       .addField(`Video ID`, song.id , true)
       .addField(`Time Published`, `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
-      .addField("Requester", song.requested, true)
+      .addField("Requester", song.requested)
       .setThumbnail(song.thumbnailURL)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
@@ -622,6 +622,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 durationm: video.duration.minutes,
                 durations: video.duration.seconds,
                 durationh: video.duration.hours,
+                durationd: video.duration.days,
                 publishedAt: video.publishedAt,
                 requested: message.author.tag,
                 thumbnailURL: video.thumbnails.maxres.url
