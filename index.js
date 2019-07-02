@@ -288,42 +288,20 @@ bot.on('message', async message => {
 		const commandName = argsNEW.shift().toLowerCase()
 		shared.commandName = commandName
     
-    if (commandName === "play" && !message.guild.me.hasPermission("CONNECT")) {
-      
-      return bot.fetchUser(message.member).then((user) => {
-    user.send({embed: {
-      color: 0x00bdf2,
-      title: "I do not have sufficient permissions!",
-      description:(`I cannot connect to voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
-      footer: {
-          icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
-      }
-  }})}).then(message.delete());
-      
-    } else if (commandName === "play" && !message.guild.me.hasPermission("SPEAK")) {
-      
-      return bot.fetchUser(message.member).then((user) => {
-    user.send({embed: {
-      color: 0x00bdf2,
-      title: "I do not have sufficient permissions!",
-      description:(`I cannot talk in voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
-      footer: {
-          icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
-      }
-  }})}).then(message.delete());
-      
-    } else if (commandName === "play") {
+    if (commandName === "play") {
       
         let args = message.content.slice(shared.prefix.length + 5).trim()
         const searchString = args
-        const voiceChannel = message.member.voiceChannel;
-      
-        let index = 0
         
         message.delete().catch(O_o=>{});
+        
+        const voiceChannel = message.member.voiceChannel;
+        const botVoiceConnection = message.guild.voiceConnection;
+        
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
+      
+        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to play music!')
+      
         const permissions = voiceChannel.permissionsFor(bot.user)
         if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, duh! How do you expect me to play you music?')
         if(!permissions.has('SPEAK')) return message.channel.send('I can\'t speak here, duh! How do you expect me to play you music?')
@@ -342,6 +320,7 @@ bot.on('message', async message => {
                 
             } catch(error) {
                 try {
+                    let index = 0;
                     var videos = await youtube.searchVideos(searchString, 10);
                     var vindex = 0;
                     let bicon = bot.user.displayAvatarURL
