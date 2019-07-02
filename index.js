@@ -662,7 +662,10 @@ function clean(text) {
       return text;
 }
 
-async function handleVideo(video, message, voiceChannel, playlist = false){
+async function handleVideo(video, message, voiceChannel, playlist = false) {
+  
+    const botVoiceConnection = message.guild.voiceConnection;
+    
     const serverQueue = queue.get(message.guild.id)
     const song = {
                 id: video.id,
@@ -677,7 +680,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 requested: message.author.tag,
             }
         
-    if (!serverQueue) {
+    if (!serverQueue && !) {
     var queueConstruct = {
       textChannel: message.channel,
       voiceChannel: voiceChannel,
@@ -726,6 +729,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         return message.channel.send (queueemb)
     }
     return undefined;
+  
 }
 
 function np(serverQueue) {
