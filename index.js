@@ -510,10 +510,26 @@ bot.on('message', async message => {
         }
         return undefined;
     } else if (commandName === "np") {
-        message.delete().catch(O_o=>{});
-        if(!serverQueue) return await message.channel.send("Nothing is playing!")
-        
-        return await message.channel.send(`Now playing: **${serverQueue.songs[0].title}**`)
+      
+        if (!serverQueue) return message.channel.send("Nothing is playing right now!")
+        .then(message.delete())
+
+        let song = serverQueue.songs[0]
+        let bicon = bot.user.displayAvatarURL
+        let embed = new Discord.RichEmbed()
+        .setColor(0x00bdf2)
+        .setTitle(`Now Playing: ${song.title}`)
+        .setURL(song.url)
+        .addField("Duration:", `${song.durationh > 0 ? `${song.durationh} hour${song.durationh == 1 ? "" : "s"} ` : ""}${song.durationm > 0 ? `${song.durationm} minute${song.durationm == 1 ? "" : "s"} ` : ""}${song.durations > 0 ? `${song.durations} second${song.durations == 1 ? "" : "s"}` : ""}`, true)
+        .addField("Uploader:", song.channel, true)
+        .addField("Uploaded By:", song.publishedAt, true)
+        .addField("Requested By:", song.requested, true)
+        .setThumbnail(song.thumbnailURL)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+
+        return serverQueue.textChannel.send(embed)
+        .then(message.delete())
+      
     } else if (commandName === "volume") {
         let args = message.content.slice(shared.prefix.length + 7).trim()
         message.delete().catch(O_o=>{});
@@ -632,8 +648,9 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
           .addField(`Uploader`, `${song.channel}`, true)
           .addField(`Video ID`, song.id , true)
-          .addField(`Date Published`, `${song.publishedAt}`, true)
+          .addField(`Time Published`, `${song.publishedAt}`, true)
           .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+          .addField(`Requester`, song.requested)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         message.channel.send (queueemb)
       
@@ -664,8 +681,9 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
           .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
           .addField(`Uploader`, `${song.channel}`, true)
           .addField(`Video ID`, song.id , true)
-          .addField(`Date Published`, `${song.publishedAt}`, true)
+          .addField(`Time Published`, `${song.publishedAt}`, true)
           .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+          .addField(`Requester`, song.requested)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return message.channel.send (queueemb)
     }
@@ -673,19 +691,21 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
 }
 
 function np(serverQueue) {
-    // if (!serverQueue) msg.channel.send("Nothing is playing right now!")
+    if (!serverQueue) serverQueue.textChennel.send("Nothing is playing right now!")
 
     let song = serverQueue.songs[0]
+    let bicon = bot.user.displayAvatarURL
     let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
       .setTitle(`Now Playing: ${song.title}`)
+      .setDescription()
       .setURL(song.url)
-      .addField("Duration:", `${song.durationh > 0 ? `${song.durationh} hour${song.durationh == 1 ? "" : "s"} ` : ""}${song.durationm > 0 ? `${song.durationm} minute${song.durationm == 1 ? "" : "s"} ` : ""}${song.durations > 0 ? `${song.durations} second${song.durations == 1 ? "" : "s"}` : ""}`, true)
-      .addField("Youtube Uploader:", song.channel, true)
-      .addField("Uploaded By:", song.publishedAt, true)
-      .addField("Requested By:", song.requested, true)
+      .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+      .addField("Uploader", song.channel, true)
+      .addField("Time Published", song.publishedAt, true)
+      .addField("Requester", song.requested, true)
       .setThumbnail(song.thumbnailURL)
-      .setFooter('Exo | HD Music Player')
+      .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
 
     serverQueue.textChannel.send(embed)
 }
