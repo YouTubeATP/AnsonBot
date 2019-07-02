@@ -683,7 +683,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
                 requested: message.author.tag,
             }
         
-    if (!serverQueue && !altServerQueue) {
+    if (!serverQueue && !altServerQueue || !serverQueue && altServerQueue && botVoiceConnection === voiceChannel) {
+      
     var queueConstruct = {
       textChannel: message.channel,
       voiceChannel: voiceChannel,
@@ -713,37 +714,9 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
             }
   }})
         }
-    } else if (serverQueue && !altServerQueue && botVoiceConnection === v) {
-    var queueConstruct = {
-      textChannel: message.channel,
-      voiceChannel: voiceChannel,
-      connection: null,
-      songs: [],
-      volume: 10,
-      playing: true,
-      loop: "off"
-    };
-    queue.set(message.guild.id, queueConstruct);
-
-        queueConstruct.songs.push(song);
       
-        try {
-            var connection = await voiceChannel.join();
-            queueConstruct.connection = connection;
-            play(message.guild, queueConstruct.songs[0]);
-        } catch (error) {
-            console.error(error)
-            queue.delete(message.guild.id)
-            return message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("An error occured!"),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }})
-        }
     } else if (serverQueue && botVoiceConnection === voiceChannel) {
+      
         serverQueue.songs.push(song);
         if(playlist) return undefined;
         
@@ -760,7 +733,9 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         
         return message.channel.send (queueemb)
+      
     }
+  
     return undefined;
   
 }
