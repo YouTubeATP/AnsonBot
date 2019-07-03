@@ -316,7 +316,7 @@ bot.on('message', async message => {
         } else {
             try {
               
-                var video = await youtube.getVideo(args[0])
+                var video = await youtube.getVideo(searchString)
                 return handleVideo(video, message, voiceChannel);
                 
             } catch(error) {
