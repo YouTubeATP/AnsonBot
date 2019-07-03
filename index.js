@@ -317,14 +317,13 @@ bot.on('message', async message => {
           var i;
       
           let vids = await youtube.getPlaylist(searchString)
-          await youtube.getPlaylist
-            .then(async playlist => {
+          vids.then(async playlist => {
               
                     await playlist.getVideos()
                         .then(async videos => {
                     
                       for (i = 0; i < parseInt(videos.length); i++) {
-                          var video = vids.find(x => x.id === i)
+                          var video = vids.find(x => x.id === parseInt(i))
                           return await handleVideo(video, message, voiceChannel);
                       }
                       
