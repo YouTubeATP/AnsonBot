@@ -314,6 +314,8 @@ bot.on('message', async message => {
       
           playlist = true
       
+          return message.reply("directly playing a playlist is currently not supported.")
+      
           var i;
       
           let vids = await youtube.getPlaylist(searchString)
