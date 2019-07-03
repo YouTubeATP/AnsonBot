@@ -306,12 +306,23 @@ bot.on('message', async message => {
         if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, duh! How do you expect me to play you music?')
         if(!permissions.has('SPEAK')) return message.channel.send('I can\'t speak here, duh! How do you expect me to play you music?')
         
-    if(!args[0]) return message.reply('please provide a search term, url or playlist link!')
-    if(stopping) stopping = false;
+    if (!searchString) return message.reply('please provide a search term, url or playlist link!')
+    if (stopping) stopping = false;
       
-    if(args[0].match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
+    if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
       
-            return message.reply ("directly playing a playlist is not currently supported.")
+            await youtube.getPlaylist(searchString)
+              .then(async playlist => {
+              
+                    var playlist = await playlist.getVideos()
+                    console.log(playlist)
+                    var video = playlist.find()
+                    
+                        return handleVideo(video, message, voiceChannel);
+                    
+                    return message.reply ("directly playing a playlist is not currently supported.")
+              
+            });
       
         } else {
             try {
