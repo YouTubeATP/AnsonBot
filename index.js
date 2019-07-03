@@ -100,20 +100,22 @@ shared.printError = printError
 
 bot.on('guildMemberAdd', member => {
   let guild = member.guild;
-  if (guild.id === config.serverID)
-  if (member.user.bot) return;
   let memberTag = member.user.id;
-  if (guild.id === config.serverID) {
+  if (guild.id === config.serverID && !member.user.bot) {
   member.addRole(guild.roles.find("name", "Member")).then(() => {
         bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support**. Welcome, <@" + memberTag + ">.");
       }).catch(e => {
         console.log(e);
       });
-}});
+} else if (guild.id === config.serverID && member.user.bot) {
+  member.addRole(guild.roles.find("name", "Other Bots")).catch(e => {
+        console.log(e);
+      });
+}
+});
 
 bot.on('guildMemberRemove', member => {
   let guild = member.guild;
-  if (guild.id === config.serverID)
   if(member.user.bot) return;
   let memberTag = member.user.id;
   if (guild.id === config.serverID) {
