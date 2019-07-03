@@ -54,6 +54,7 @@ var playerVoted = [];
 var totalCost = 1680.37;
 var currentlyHave = 22;
 var perMonth = 120;
+var playlist = false;
 var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kys,fuc,pu$$y,anal,xvideo,porn,asshole,a$$hole,kunt,anal,d.1.c.k,diu".split(",");
 
 var userData = 0
@@ -311,20 +312,28 @@ bot.on('message', async message => {
       
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
       
-            await youtube.getPlaylist(searchString)
+          playlist = true
+      
+          var i;
+          await youtube.getPlaylist(searchString)
               .then(async playlist => {
               
-                    var playlist = await playlist.getVideos()
-                    console.log(playlist)
-                    var video = playlist.find()
+                    await playlist.getVideos()
+                        .then(async videos => {
+                      
+                      var video = videos.find(x => x.id === i)
                     
-                        return handleVideo(video, message, voiceChannel);
-                    
-                    return message.reply ("directly playing a playlist is not currently supported.")
-              
+                      for (i = 0; i < parseInt(videos.length); i++) {
+                          return handleVideo(video, message, voiceChannel);
+                      }
+                      
+                    })          
             });
       
         } else {
+          
+            playlist = false
+          
             try {
               
                 var video = await youtube.getVideo(searchString)
@@ -705,6 +714,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
 
         queueConstruct.songs.push(song);
       
+        if (playlist) {return}
+      
         try {
             var connection = await voiceChannel.join();
             queueConstruct.connection = connection;
@@ -723,7 +734,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         }
     } else {
         serverQueue.songs.push(song);
-        if(playlist) return undefined;
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
