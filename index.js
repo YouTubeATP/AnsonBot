@@ -315,16 +315,17 @@ bot.on('message', async message => {
           playlist = true
       
           var i;
-          await youtube.getPlaylist(searchString)
-              .then(async playlist => {
+      
+          let vids = await youtube.getPlaylist(searchString)
+          await youtube.getPlaylist
+            .then(async playlist => {
               
                     await playlist.getVideos()
                         .then(async videos => {
-                      
-                      var video = videos.find(x => x.id === i)
                     
                       for (i = 0; i < parseInt(videos.length); i++) {
-                          return handleVideo(video, message, voiceChannel);
+                          var video = vids.find(x => x.id === i)
+                          return await handleVideo(video, message, voiceChannel);
                       }
                       
                     })          
@@ -714,7 +715,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
 
         queueConstruct.songs.push(song);
       
-        if (playlist) {return}
+        if (playlist) return message.channel.send("Playlist added to queue.")
       
         try {
             var connection = await voiceChannel.join();
@@ -734,6 +735,8 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         }
     } else {
         serverQueue.songs.push(song);
+      
+        if (playlist) return message.channel.send("Playlist added to queue.")
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
