@@ -651,7 +651,10 @@ bot.on('message', async message => {
 });
 
 bot.on('message', message => {
-    if (message.author.bot) return;
+    
+  
+    if (!message..id = bot.user.id && message.author.bot && message.channel.id === "") return message.delete();
+  
     if (message.guild.id !== config.serverID) return;
     if (message.channel.id === "586801954567618571" || message.channel.id === "586802137040683028") return;
     
