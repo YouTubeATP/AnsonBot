@@ -28,7 +28,9 @@ bot.on("ready", () =>  {
     blapi.handle(bot, {
         'botsfordiscord.com': 'b034d05d7563f445f0675af50fcd9dc9f037916e9df587a913087adec6494f0b06151d4ef4c0e5ca34308be569c79bbb26ccdc6710054bca06f6700f49ae2998',
         'botlist.space': '8b4fbad11dbb49beb56f65fdc3f5e2793d7603a76e6f47d70a321e7200610933d73cac410c6f2e5ac8d355da5efea837',
+        'discordapps.dev': '806277c41d92f48334e89aa7a86af7067f8463d7',
         "discord.boats": "JpMMZGs4N1iRXIHDqXpkEosM6uQpfSMITKVe82MFviz6TuKSvdHJPxRhA1vMFzP4XIwvrxu0WRF01OF3w5xZSsXtiQxvR8jaEszvuX19D7zP6vsMbtLPjoInjK4otDKFzTHcrzTcO5BL7DCKjADNWbkr5Uv",
+        'lbots.org': '85122715e6bcda2148f3984ad0bc1a38f615937e39cce516d16b5363a078db9dc291aeaa86bd639c154abc50a30f60fe93c5d141875ef07bbd65647a371fb7aa',
         'discord.bots.gg': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOnRydWUsImlkIjoiMzQ0MzM1MzM3ODg5NDY0MzU3IiwiaWF0IjoxNTYxOTcxNzYwfQ.cR49aGOlrxyQ15ibqLWTT94yKxib0TG2Oo1B1tJOfmM',
         'discordsbestbots.xyz': 'acdd0cffdbfe3846452608f20c8315f9043dc4de',
         'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22',
