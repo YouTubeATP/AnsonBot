@@ -115,7 +115,7 @@ bot.on('guildMemberAdd', member => {
         console.log(e);
       });
 } else if (guild.id === config.serverID && member.user.bot) {
-  member.addRole(guild.roles.find("name", "Other Bots")).catch(e => {
+  member.addRole(guild.roles.find("name", "Bot")).catch(e => {
         console.log(e);
       });
 }
