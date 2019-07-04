@@ -47,6 +47,7 @@ dbl.on('error', e => {
  console.log(`Oops! ${e}`);
 });
 
+var i;
 var stopping = false;
 var voteSkipPass = 0;
 var voted = 0;
@@ -315,22 +316,6 @@ bot.on('message', async message => {
           playlist = true
       
           return message.reply("directly playing a playlist is currently not supported.")
-      
-          var i;
-      
-          let vids = await youtube.getPlaylist(searchString)
-          vids.then(async playlist => {
-              
-                    await playlist.getVideos()
-                        .then(async videos => {
-                    
-                      for (i = 0; i < parseInt(videos.length); i++) {
-                          var video = vids.find(x => x.id === parseInt(i))
-                          return await handleVideo(video, message, voiceChannel);
-                      }
-                      
-                    })          
-            });
       
         } else {
           
