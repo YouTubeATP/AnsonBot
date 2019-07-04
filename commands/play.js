@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: "play",
-	usage: "play <name of music>",
+	usage: "play <song name/url>",
 	description: "Searches for the song you requested.",
 	run: async (bot, message, args, shared) => {
     
