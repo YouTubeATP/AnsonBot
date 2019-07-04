@@ -28,10 +28,13 @@ bot.on("ready", () =>  {
     blapi.handle(bot, {
         'botsfordiscord.com': 'b034d05d7563f445f0675af50fcd9dc9f037916e9df587a913087adec6494f0b06151d4ef4c0e5ca34308be569c79bbb26ccdc6710054bca06f6700f49ae2998',
         'botlist.space': '8b4fbad11dbb49beb56f65fdc3f5e2793d7603a76e6f47d70a321e7200610933d73cac410c6f2e5ac8d355da5efea837',
+        "discord.boats": "JpMMZGs4N1iRXIHDqXpkEosM6uQpfSMITKVe82MFviz6TuKSvdHJPxRhA1vMFzP4XIwvrxu0WRF01OF3w5xZSsXtiQxvR8jaEszvuX19D7zP6vsMbtLPjoInjK4otDKFzTHcrzTcO5BL7DCKjADNWbkr5Uv",
         'discord.bots.gg': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOnRydWUsImlkIjoiMzQ0MzM1MzM3ODg5NDY0MzU3IiwiaWF0IjoxNTYxOTcxNzYwfQ.cR49aGOlrxyQ15ibqLWTT94yKxib0TG2Oo1B1tJOfmM',
         'discordsbestbots.xyz': 'acdd0cffdbfe3846452608f20c8315f9043dc4de',
         'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22',
-        'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237'
+        'discordbotlist.com': '7df5a826f42d3b7ec31cce674d77add4c9853d60f6072beb2fb9afca052f516e',
+        'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237',
+        "discordbotreviews.xyz": "egUF6w5vwr2y4LVnsyvRt.iGrO5oA69ZuVBkEFZPwGNBy5CHNwBjR3T1Qe42Fam59lg8Cg4TUITlW4aL"
 }, 30)
   
 });
