@@ -214,6 +214,8 @@ bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageRe
 bot.on('message', async message => {
   
   console.log(message.guild.name, '|', message.author.tag, '|', message.content)
+  
+  if (message.guild.id === config.serverID && message.author.bot && message.channel.id !== "585812719043870780") return message.delete();
     
   let sender = message.author;
   let msg = message.content.toLowerCase();
@@ -651,9 +653,6 @@ bot.on('message', async message => {
 });
 
 bot.on('message', message => {
-    
-  
-    if (!message..id = bot.user.id && message.author.bot && message.channel.id === "") return message.delete();
   
     if (message.guild.id !== config.serverID) return;
     if (message.channel.id === "586801954567618571" || message.channel.id === "586802137040683028") return;
