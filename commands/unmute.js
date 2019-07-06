@@ -38,7 +38,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
         .setTitle("Please mention the user you want me to unmute.")
-        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
       return message.channel.send(embed)
         .then(message.delete())
@@ -55,7 +55,7 @@ module.exports = {
           .setColor(0x00bdf2)
           .setAuthor(`${mem.user.tag} has been successfully unmuted!`, mem.user.avatarURL)
           .addField(`Unmuted by`, `${message.member.user.tag}`)
-          .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
         return message.channel.send(embed)
           .then(message.delete())
@@ -69,7 +69,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
         .setTitle(`There isn't even a role for people who're muted yet, duh!`)
-        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
       return message.channel.send(embed)
         .then(message.delete())
@@ -80,7 +80,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor("0x00bdf2")
         .setTitle(`I can't exactly unmute someone who's not muted, duh!`)
-        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
       return message.channel.send(embed)
         .then(message.delete())

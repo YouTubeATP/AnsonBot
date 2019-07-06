@@ -17,7 +17,7 @@ module.exports = {
       description:(`I cannot manage messages in this guild, so I cannot carry out this command.`),
       footer: {
           icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+          text: "MusEmbed™ | Clean Embeds, Crisp Music"
       }
   }})
       

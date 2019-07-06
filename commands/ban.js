@@ -28,7 +28,7 @@ module.exports = {
       description:(`I cannot ban members in this guild, so I cannot carry out this command.`),
       footer: {
           icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+          text: "MusEmbed™ | Clean Embeds, Crisp Music"
       }
   }})
       
@@ -40,7 +40,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
         .setTitle("Hmm... Who am I supposed to ban?")
-        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
       return message.channel.send(embed)
         .then(message.delete())
@@ -52,7 +52,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
         .setTitle("Hmm... You are not supposed to ban another moderator!")
-        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
       return message.channel.send(embed)
         .then(message.delete())
@@ -63,7 +63,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
         .setAuthor(`${mem.user.tag} has been successfully banned!`, mem.user.avatarURL)
-        .setFooter("MusEmbed | Clean Embeds, Crisp Music", bot.user.avatarURL)
+        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
       if (reason) embed.addField("Reason", reason)
 

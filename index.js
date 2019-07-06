@@ -652,7 +652,7 @@ bot.on('message', async message => {
       description:(`Do ${prefix}help for a list of commands.`),
       footer: {
           icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+          text: "MusEmbed™ | Clean Embeds, Crisp Music"
       }
   }}).then(message.delete());;
     
