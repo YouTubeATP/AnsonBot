@@ -160,6 +160,9 @@ bot.on("ready", () =>  {
 });
 
 bot.on("guildCreate", guild => {
+  const guildConf = bot.settings.ensure(guild.id, defaultSettings)
+  const prefix = guildConf.prefix
+  
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   guild.owner.send({embed: {
     color: 0x00bdf2,
