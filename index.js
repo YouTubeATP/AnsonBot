@@ -167,7 +167,7 @@ bot.on("guildCreate", guild => {
   guild.owner.send({embed: {
     color: 0x00bdf2,
     title: "Thank you for choosing MusEmbed™!",
-    description: (`To get started, use the command ${guildConf.prefix}help to get started.`),
+    description: (`To get started, use the command ${guildConf.prefix}help to show a list of our commands.`),
     footer: {
       icon_url: bot.user.avatarURL,
       text: ("MusEmbed™ | Clean Embeds, Crisp Music")
