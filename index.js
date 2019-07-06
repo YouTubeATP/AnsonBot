@@ -162,6 +162,11 @@ bot.on("ready", () =>  {
 
 bot.on("guildCreate", guild => {
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  guild.owner.send({embed: {
+           color: 0x00bdf2,
+           title: "Thank you for choosing MusEmbed™!",
+    
+  }})
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
   let sicon = guild.iconURL
