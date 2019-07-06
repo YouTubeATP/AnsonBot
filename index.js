@@ -214,10 +214,7 @@ bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageRe
 bot.on('message', async message => {
   
   console.log(message.guild.name, '|', message.author.tag, '|', message.content)
-  
-  if (message.guild.id === config.serverID && message.author.bot && message.channel.id !== [ "585812719043870780", "595151500603555871" ] )
-    return message.delete();
-  if (message.guild.id === config.serverID && message.author.bot && message.channel.id !== ) return message.delete();
+  if ( (message.guild.id === config.serverID && message.author.bot && message.channel.id !== "585812719043870780") || (message.guild.id === config.serverID && message.author.bot && message.channel.id !== "595151500603555871") ) return message.delete();
     
   let sender = message.author;
   let msg = message.content.toLowerCase();
