@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+qconst Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./config.json");
 const fs = require('fs');
@@ -163,9 +163,10 @@ bot.on("ready", () =>  {
 bot.on("guildCreate", guild => {
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   guild.owner.send({embed: {
-           color: 0x00bdf2,
-           title: "Thank you for choosing MusEmbed™!",
-           description: ("")
+    color: 0x00bdf2,
+    title: "Thank you for choosing MusEmbed™!",
+    description: (`To get started, use the command ${prefix}help to get started.`),
+    footer: ("MusEmbed™ | Clean Embeds, Crisp Music")
   }})
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
