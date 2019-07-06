@@ -254,14 +254,14 @@ bot.on('message', async message => {
     if (!message.guild.me.hasPermission("SEND_MESSAGES")) {
       
       return bot.fetchUser(message.member).then((user) => {
-    user.send({embed: {
-      color: 0x00bdf2,
-      title: "I do not have sufficient permissions!",
-      description:(`I cannot talk in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
-      footer: {
+      user.send({embed: {
+        color: 0x00bdf2,
+        title: "I do not have sufficient permissions!",
+        description:(`I cannot talk in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+        footer: {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
-      }
+        }
   }})}).then(message.delete());
     
     };
@@ -638,7 +638,15 @@ bot.on('message', async message => {
     
 		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
-		if (!command) return;
+		if (!command) message.channel.send({embed: {
+      color: 0x00bdf2,
+      title: "I do not have sufficient permissions!",
+      description:(`I cannot talk in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+      footer: {
+          icon_url: bot.user.avatarURL,
+          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+      }
+  }}).then(message.delete());;
     
     console.log(argsNEW)
 		
