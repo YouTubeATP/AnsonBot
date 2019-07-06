@@ -10,14 +10,14 @@ module.exports = {
   requirements: "**Bot Administrator**",
 	run: async (bot, message, args, shared) => {
     
-    if (message.author.id != "336389636878368770" && message.author.id != "344335337889464357") return;
+    if (message.author.id != "336389636878368770" && message.author.id != "344335337889464357") return message.reply("you have insufficient permissions to reboot me!").then(message.delete());
     
     let reembed = new Discord.RichEmbed()
       .setTitle('MusEmbed™ is now rebooting.')
       .setDescription("You have initiated a reboot of MusEmbed™. Please wait patiently until it is completed.")
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       .setColor(0x00bdf2)
-    message.channel.send(reembed).then(() => {
+    message.channel.send(reembed).then(message.delete()).then(() => {
       process.exit(2)
     })
   }

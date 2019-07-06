@@ -638,10 +638,10 @@ bot.on('message', async message => {
     
 		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
-		if (!command) message.channel.send({embed: {
+		if (!command) return message.channel.send({embed: {
       color: 0x00bdf2,
-      title: "I do not have sufficient permissions!",
-      description:(`I cannot talk in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+      title: "The command you used was invalid!",
+      description:(`Do ${prefix}help for a list of commands.`),
       footer: {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
