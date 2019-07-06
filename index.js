@@ -7,7 +7,6 @@ const http = require ('http');
 const express = require ('express');
 const app = express();
 const server = http.createServer(app);
-const prefix = 'em/'
 const ms = require("ms");
 const ytdl = require("ytdl-core");
 const opus = require("node-opus");
@@ -110,7 +109,7 @@ bot.on('guildMemberAdd', member => {
   let memberTag = member.user.id;
   if (guild.id === config.serverID && !member.user.bot) {
   member.addRole(guild.roles.find("name", "Member")).then(() => {
-        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support**. Welcome, <@" + memberTag + ">.");
+        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed™ Support**. Welcome, <@" + memberTag + ">.");
       }).catch(e => {
         console.log(e);
       });
@@ -126,7 +125,7 @@ bot.on('guildMemberRemove', member => {
   if(member.user.bot) return;
   let memberTag = member.user.id;
   if (guild.id === config.serverID) {
-        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support**. Farewell, <@" + memberTag + ">.");
+        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed™ Support**. Farewell, <@" + memberTag + ">.");
 }});
 
 bot.on("ready", () =>  {
@@ -165,7 +164,7 @@ bot.on("guildCreate", guild => {
   guild.owner.send({embed: {
     color: 0x00bdf2,
     title: "Thank you for choosing MusEmbed™!",
-    description: (`To get started, use the command ${prefix}help to get started.`),
+    description: (`To get started, use the command ${guildConf.prefix}help to get started.`),
     footer: {
       icon_url: bot.user.avatarURL,
       text: ("MusEmbed™ | Clean Embeds, Crisp Music")
