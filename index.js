@@ -1,4 +1,4 @@
-qconst Discord = require('discord.js');
+const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./config.json");
 const fs = require('fs');
@@ -166,8 +166,10 @@ bot.on("guildCreate", guild => {
     color: 0x00bdf2,
     title: "Thank you for choosing MusEmbed™!",
     description: (`To get started, use the command ${prefix}help to get started.`),
-    footer: ("MusEmbed™ | Clean Embeds, Crisp Music")
-  }})
+    footer: {
+      icon_url: bot.user.avatarURL,
+      text: ("MusEmbed™ | Clean Embeds, Crisp Music")
+  }}})
   return bot.shard.broadcastEval('this.guilds.size')
    .then(results => {
   let sicon = guild.iconURL
@@ -266,7 +268,7 @@ bot.on('message', async message => {
         description:(`I cannot talk in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
         footer: {
           icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+          text: "MusEmbed™ | Clean Embeds, Crisp Music"
         }
   }})}).then(message.delete());
     
@@ -282,7 +284,7 @@ bot.on('message', async message => {
       description:(`I cannot embed messages in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
       footer: {
           icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+          text: "MusEmbed™ | Clean Embeds, Crisp Music"
       }
   }})}).then(message.delete());
       
