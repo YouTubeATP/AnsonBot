@@ -22,7 +22,7 @@ module.exports = {
       
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
-        .setTitle("MusEmbed™ Help")
+        .setTitle("MusEmbed's Help Message")
         .addField("Prefix", `The prefix for this server is \`${guildConf.prefix}\`. You may also mention me (<@414440610418786314>) as a prefix. `)
         .addField("Description", "This is a bot that can help you easily create embeds in your server. We also have music playing functionality.")
         .addField("General Commands", "`help`: Shows this help message.\n`botinfo`: Retrieves information about the bot.\n`serverinfo`: Retrieves information about the server.\n`ping`: Shows latency of the bot and the API.\n`links`: Shows all our links.\n`suggestion`: Submits a suggestion to MusEmbed's support server.")

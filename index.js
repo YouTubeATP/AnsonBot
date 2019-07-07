@@ -109,7 +109,7 @@ bot.on('guildMemberAdd', member => {
   let memberTag = member.user.id;
   if (guild.id === config.serverID && !member.user.bot) {
   member.addRole(guild.roles.find("name", "Member")).then(() => {
-        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed™ Support**. Welcome, <@" + memberTag + ">.");
+        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support**. Welcome, <@" + memberTag + ">.");
       }).catch(e => {
         console.log(e);
       });
@@ -125,7 +125,7 @@ bot.on('guildMemberRemove', member => {
   if(member.user.bot) return;
   let memberTag = member.user.id;
   if (guild.id === config.serverID) {
-        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed™ Support**. Farewell, <@" + memberTag + ">.");
+        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support**. Farewell, <@" + memberTag + ">.");
 }});
 
 bot.on("ready", () =>  {
@@ -166,7 +166,7 @@ bot.on("guildCreate", guild => {
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   guild.owner.send({embed: {
     color: 0x00bdf2,
-    title: "Thank you for choosing MusEmbed™!",
+    title: "Thank you for choosing MusEmbed!",
     description: (`To get started, use the command ${guildConf.prefix}help to show a list of our commands.`),
     footer: {
       icon_url: bot.user.avatarURL,
