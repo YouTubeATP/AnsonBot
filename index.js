@@ -35,7 +35,8 @@ bot.on("ready", () =>  {
         'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22',
         'discordbotlist.com': '7df5a826f42d3b7ec31cce674d77add4c9853d60f6072beb2fb9afca052f516e',
         'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237',
-        "discordbotreviews.xyz": "egUF6w5vwr2y4LVnsyvRt.iGrO5oA69ZuVBkEFZPwGNBy5CHNwBjR3T1Qe42Fam59lg8Cg4TUITlW4aL"
+        "discordbotreviews.xyz": "egUF6w5vwr2y4LVnsyvRt.iGrO5oA69ZuVBkEFZPwGNBy5CHNwBjR3T1Qe42Fam59lg8Cg4TUITlW4aL",
+        "discordbotslist.us.to": "ea4fc017c66245a2dcc1abc8ecf11bef"
 }, 30)
   
 });
