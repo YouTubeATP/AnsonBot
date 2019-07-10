@@ -450,7 +450,7 @@ bot.on('message', async message => {
                   
                     handler.addMenus(videosChoice)
                       
-                      await message.channel.send("Please select the number corresponding to your video! Please wait for all the options to load before choosing.")
+                      await message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
                         .then(() => message.channel.sendMenu(videosChoice))
                   
                 } catch(err) {
