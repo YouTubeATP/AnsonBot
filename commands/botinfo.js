@@ -6,7 +6,7 @@ const Enmap = require('enmap')
 module.exports = {
   name: "botinfo",
   usage: "botinfo",
-  aliases: ["status", "botstatus"],
+  aliases: ["info"],
   description: "Shows information about the bot.",
   run: async (bot, message, args, shared) => {
 

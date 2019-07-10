@@ -12,7 +12,7 @@ module.exports = {
     var embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
       .setTitle("Links")
-      .setDescription("[MusEmbed's Website](https://www.musembed.tk) \n[Vote for MusEmbed](https://vote.musembed.tk) \n[Join MusEmbed Support](https://invite.gg/musembed) \n[Invite MusEmbed™](https://invite.musembed.tk) \n[MusEmbed's Status](https://status.musembed.tk)")
+      .setDescription("[MusEmbed's Website](https://www.musembed.tk) \n[Vote for MusEmbed](https://vote.musembed.tk) \n[Join MusEmbed Support](https://invite.gg/musembed) \n[Invite MusEmbed](https://invite.musembed.tk) \n[MusEmbed's Status](https://status.musembed.tk)")
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
     return message.channel.send(embed)
