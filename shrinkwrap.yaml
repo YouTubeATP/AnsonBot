@@ -19,7 +19,7 @@ dependencies:
   pm2: 3.5.1
   reaction-core: 2.2.0
   simple-youtube-api: 5.2.1
-  ytdl-core: 0.29.2
+  ytdl-core: 0.29.3
 packages:
   /@opencensus/core/0.0.8:
     dependencies:
@@ -1685,7 +1685,7 @@ packages:
       integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==
   /m3u8stream/0.6.2:
     dependencies:
-      miniget: 1.5.1
+      miniget: 1.5.3
       sax: 1.2.4
     dev: false
     engines:
@@ -1769,12 +1769,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ==
-  /miniget/1.5.1:
+  /miniget/1.5.3:
     dev: false
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-KJ3AyIVZ76QuWAq43BWjkK+jLdhxhy3s4tsdg9Je91+cIFkeOSW2VEj2lSeKw50CPu1eCCkSbiQEBKL36mpA5w==
+      integrity: sha512-6xiJs3ZGBdrNMlPNlEWirHhY53hSW33nG1Ytub9Cg5+jLhFPn9PGe4FmPZK9WlmDE1N7/8DEL7PGr7r9kbxwgw==
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.11
@@ -3110,17 +3110,17 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-C/FsVVhht4iPQYXOInoxUM/1ELSf9EsgKH34FofQOp6hwCPrW4vG4w5++TED3xRUo8gD7l0P1J1dLlDYzODsTQ==
-  /ytdl-core/0.29.2:
+  /ytdl-core/0.29.3:
     dependencies:
       html-entities: 1.2.1
       m3u8stream: 0.6.2
-      miniget: 1.5.1
+      miniget: 1.5.3
       sax: 1.2.4
     dev: false
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-rQTxqxF09tKGgWxVtvFfi6ga1KWcHNbUGz09yTklirhqQlsIYvaDFCEhJ0K/RlzMH12FquAAMzh+Qi35fkwbFQ==
+      integrity: sha512-IqMjkTvGjB2Shu9W2HhzyquIo8Pv6AGogc7+Vv3bcxDXjYCgYUPt+LX0CqL76GTmjftnMSVpI1dO79Uzj4f5mQ==
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -3145,4 +3145,4 @@ specifiers:
   pm2: ^3.5.1
   reaction-core: ^2.2.0
   simple-youtube-api: ^5.2.1
-  ytdl-core: ^0.29.2
+  ytdl-core: ^0.29.3
