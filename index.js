@@ -33,7 +33,7 @@ bot.on("ready", () =>  {
         'discord.bots.gg': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOnRydWUsImlkIjoiMzQ0MzM1MzM3ODg5NDY0MzU3IiwiaWF0IjoxNTYxOTcxNzYwfQ.cR49aGOlrxyQ15ibqLWTT94yKxib0TG2Oo1B1tJOfmM',
         'discordsbestbots.xyz': 'acdd0cffdbfe3846452608f20c8315f9043dc4de',
         'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22',
-        'discordbotlist.com/api/bots/414440610418786314/stats': '7df5a826f42d3b7ec31cce674d77add4c9853d60f6072beb2fb9afca052f516e',
+        'discordbotlist.com': '7df5a826f42d3b7ec31cce674d77add4c9853d60f6072beb2fb9afca052f516e',
         'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237',
         "discordbotreviews.xyz": "egUF6w5vwr2y4LVnsyvRt.iGrO5oA69ZuVBkEFZPwGNBy5CHNwBjR3T1Qe42Fam59lg8Cg4TUITlW4aL",
         "discordbotslist.us.to": "ea4fc017c66245a2dcc1abc8ecf11bef",
