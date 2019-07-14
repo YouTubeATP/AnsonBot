@@ -3,7 +3,6 @@ const config = require("./config.json");
 const bot = new Discord.Client();
 const child_process = require('child_process')
 const http = require ('http');
-const httpProxy = require('http-proxy');
 const express = require ('express');
 const app = express();
 

@@ -9,7 +9,6 @@ dependencies:
   express: 4.16.4
   ffmpeg: 0.0.4
   fs: 0.0.2
-  http: 0.0.0
   http-proxy: 1.17.0
   hypixel-api: 1.1.0
   moment: 2.24.0
@@ -1281,10 +1280,6 @@ packages:
       node: '>=4.0.0'
     resolution:
       integrity: sha512-Taqn+3nNvYRfJ3bGvKfBSRwy1v6eePlm3oc/aWVxZp57DQr5Eq3xhKJi7Z4hZpS8PC3H4qI+Yly5EmFacGuA/g==
-  /http/0.0.0:
-    dev: false
-    resolution:
-      integrity: sha1-huYybSnF0Dnen6xYSkVon5KfT3I=
   /https-proxy-agent/2.2.1:
     dependencies:
       agent-base: 4.2.1
@@ -3135,7 +3130,6 @@ specifiers:
   express: ^4.16.4
   ffmpeg: ^0.0.4
   fs: ^0.0.2
-  http: ^0.0.0
   http-proxy: ^1.17.0
   hypixel-api: ^1.1.0
   moment: ^2.24.0
