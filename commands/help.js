@@ -41,7 +41,7 @@ module.exports = {
       
       const name = args[0].toLowerCase();
       
-      if ((name == "eval" || name == "changelog" || name == "restart" || name == "reload" || name == "reboot") && message.author.id != "336389636878368770" && message.author.id != "344335337889464357") return;
+      if ((name == "eval" || name == "changelog" || name == "restartmain" || name == "reloadmain" || name == "rebootmain") && message.author.id != "336389636878368770" && message.author.id != "344335337889464357") return;
       
 			const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
