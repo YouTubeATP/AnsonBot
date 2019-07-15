@@ -797,8 +797,9 @@ function play(guild, song){
   
     const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 384000 /* 384kbps */})
         .on('end', reason => {
-			    if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
-			    else console.log(reason);
+			    if (reason === 'Stream is not generating quickly enough.') {
+            console.log('Song ended.');
+          } else console.log(reason);
         
           if(!serverQueue.songs){
                 serverQueue.voiceChannel.leave();
