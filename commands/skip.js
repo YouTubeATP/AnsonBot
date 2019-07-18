@@ -2,11 +2,21 @@ const index = require('../index.js');
 const fs = require('fs');
 const Discord = require('discord.js');
 
+var i;
+var voteSkipPass = 0;
+var voted = 0;
+var playerVoted = [];
+
 module.exports = {
 	name: "skip",
 	usage: "skip",
 	description: "Votes to skip the playing song.\nSong automatically skips if half or more people voted to skip.",
 	run: async (bot, message, args, shared) => {
+    
+    let sender = message.author;
+    
+    const queue = shared.queue;
+    const serverQueue = queue.get(message.guild.id);
     
     message.delete().catch(O_o=>{});
         const voiceChannel = message.member.voiceChannel;
@@ -19,7 +29,7 @@ module.exports = {
     if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
 
         for (var x = 0; x < playerVoted.length; x++) {
-            if(sender === playerVoted[x]){
+            if (sender === playerVoted[x]){
             return message.reply(` you think you run the place? You can\'t vote twice!`)
         }
         }

@@ -11,6 +11,13 @@ module.exports = {
     const queue = shared.queue;
     const serverQueue = queue.get(message.guild.id);
     
+    const defaultSettings = {   
+        prefix: "em/",    
+        censor: "off"
+    }
+    
+    const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
+    
     message.delete().catch(O_o=>{});
     
     const voiceChannel = message.member.voiceChannel;
@@ -27,7 +34,7 @@ module.exports = {
 			serverQueue.connection.dispatcher.resume();
 			return message.channel.send('Music resumed.');
 		}
-		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
+		return message.channel.send(`Something is currently playing! Use ${guildConf.prefix}pause to pause the music.`);
     
 	}
 }
