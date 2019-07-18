@@ -12,14 +12,19 @@ const opus = require("node-opus");
 const YouTube = require("simple-youtube-api");
 const Enmap = require('enmap');
 const mutedSet = new Set();
-const queue = new Map();
-const youtube = new YouTube(config.youtube)
 
 const RC = require('reaction-core')
 const handler = new RC.Handler()
 
 const blapi = require('blapi')
 blapi.setLogging(true);
+
+var shared = {}
+
+const queue = new Map();
+const youtube = new YouTube(config.youtube)
+
+shared.queue = queue
 
 bot.on("ready", () =>  {
   
@@ -85,8 +90,6 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`)
 	bot.commands.set(command.name, command)
 }
-
-var shared = {}
 
 shared.bannedwords = bannedwords
 shared.config = config
@@ -484,46 +487,7 @@ bot.on('message', async message => {
                 }
             }
         }
-    } else if (commandName === "pause") {
-      message.delete().catch(O_o=>{});
-      
-      const voiceChannel = message.member.voiceChannel;
-      const botVoiceConnection = message.guild.voiceConnection;
-        
-      if (!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
-      
-      if (!serverQueue) return message.channel.send("Nothing is playing right now!")
-      
-      if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
-      
-		  if (serverQueue && serverQueue.playing) {
-			serverQueue.playing = false;
-			serverQueue.connection.dispatcher.pause();
-			return message.channel.send('Music paused. Use the command \`' + prefix + 'resume\` to resume playing.');
-		}
-		return message.channel.send('Nothing is playing!');
-      
-	} else if (commandName === "resume") {
-    
-    message.delete().catch(O_o=>{});
-    
-    const voiceChannel = message.member.voiceChannel;
-    const botVoiceConnection = message.guild.voiceConnection;
-        
-    if (!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
-    
-    if (!serverQueue) return message.channel.send("Nothing is playing right now!")
-      
-    if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
-    
-		if (serverQueue && !serverQueue.playing) {
-			serverQueue.playing = true;
-			serverQueue.connection.dispatcher.resume();
-			return message.channel.send('Music resumed.');
-		}
-		return message.channel.send('Either the queue is empty, or there\'s already a song playing.');
-	
-  } else if (commandName === "stop") {
+    } else if (commandName === "stop") {
         
         message.delete().catch(O_o=>{});
         const voiceChannel = message.member.voiceChannel;
@@ -542,41 +506,7 @@ bot.on('message', async message => {
     
     } else if (commandName === "skip") {
       
-        message.delete().catch(O_o=>{});
-        const voiceChannel = message.member.voiceChannel;
-        const botVoiceConnection = message.guild.voiceConnection;
         
-        if (!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
-    
-        if (!serverQueue) return message.channel.send("Nothing is playing right now!")
-      
-    if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
-
-        for (var x = 0; x < playerVoted.length; x++) {
-            if(sender === playerVoted[x]){
-            return message.reply(` you think you run the place? You can\'t vote twice!`)
-        }
-        }
-        voted++;
-        playerVoted.push(sender);
-        if(voteSkipPass === 0){
-            voiceChannel.members.forEach(function() {
-             voteSkipPass++;
-            })
-        }
-        var voteSkipPass1 = voteSkipPass - 1;
-        var voteSkip = Math.floor(voteSkipPass1/2);
-        if(voteSkip === 0) voteSkip = 1;
-        if(voted >= voteSkip){
-        await message.channel.send('Vote skip has passed!')
-            serverQueue.connection.dispatcher.end();
-        voted = 0;
-        voteSkipPass = 0;
-        playerVoted = [];
-        }else{
-            await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!')
-        }
-        return undefined;
       
     } else if (commandName === "np") {
       

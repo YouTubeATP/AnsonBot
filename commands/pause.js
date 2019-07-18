@@ -2,15 +2,19 @@ const index = require('../index.js');
 const fs = require('fs');
 const Discord = require('discord.js');
 
-const queue = new Map();
-
 module.exports = {
 	name: "pause",
 	usage: "pause",
 	description: "Pauses the current song.",
 	run: async (bot, message, args, shared) => {
     
+    const queue = shared.queue;
     const serverQueue = queue.get(message.guild.id);
+    
+    const defaultSettings = {   
+        prefix: "em/",    
+        censor: "off"
+    }
     
     const guildConf = bot.settings.ensure(message.guild.id, defaultSettings)
     
@@ -28,7 +32,7 @@ module.exports = {
 		  if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
-			return message.channel.send('Music paused. Use the command \`' + prefix + 'resume\` to resume playing.');
+			return message.channel.send('Music paused. Use the command \`' + guildConf.prefix + 'resume\` to resume playing.');
 		}
 		return message.channel.send('Nothing is playing!');
     
