@@ -58,8 +58,21 @@ dbl.on('error', e => {
 });
 
 var i;
+
 var stopping = false;
+shared.stopping = stopping
+
+var voteSkipPass = 0;
+shared.voteSkipPass = voteSkipPass
+
+var voted = 0;
+shared.voted = voted
+
+var playerVoted = [];
+shared.playerVoted = playerVoted
+
 var playlist = false;
+shared.playlist = playlist
 
 var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kys,fuc,pu$$y,anal,xvideo,porn,asshole,a$$hole,kunt,anal,d.1.c.k,diu".split(",");
 
@@ -528,31 +541,6 @@ bot.on('message', async message => {
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
       return message.channel.send(embed).then(message.delete())
       
-    } else if (commandName === "volume") {
-      
-      
-        let args = message.content.slice(shared.prefix.length + 7).trim()
-        message.delete().catch(O_o=>{});
-        
-        const voiceChannel = message.member.voiceChannel;
-        const botVoiceConnection = message.guild.voiceConnection;
-        
-        if (!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
-        
-        if (!serverQueue) return await message.channel.send("Nothing is playing!");
-        
-        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
-      
-        if(!args) return await message.channel.send(`The current volume is **${serverQueue.volume}**`)
-    if ( args === "0" || args === "1" || args === "2" || args === "3" || args === "4" || args === "5" || args === "6" || args === "7" || args === "8" || args === "9" || args === "10" ) {
-      
-        serverQueue.connection.dispatcher.setVolumeLogarithmic(args / 10)
-        serverQueue.volume = args;
-        return await message.channel.send(`I set the volume to: **${args}**`);
-    }
-      
-      return await message.reply('please choose an integer between 0 and 10!');
-    
     } else if (commandName === "queue") {
       
         message.delete().catch(O_o=>{});

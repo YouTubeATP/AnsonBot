@@ -3,9 +3,6 @@ const fs = require('fs');
 const Discord = require('discord.js');
 
 var i;
-var voteSkipPass = 0;
-var voted = 0;
-var playerVoted = [];
 
 module.exports = {
 	name: "skip",
@@ -28,29 +25,29 @@ module.exports = {
       
     if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
 
-        for (var x = 0; x < playerVoted.length; x++) {
-            if (sender === playerVoted[x]){
+        for (var x = 0; x < shared.playerVoted.length; x++) {
+            if (sender === shared.playerVoted[x]){
             return message.reply(` you think you run the place? You can\'t vote twice!`)
         }
         }
-        voted++;
-        playerVoted.push(sender);
-        if(voteSkipPass === 0){
+        shared.voted++;
+        shared.playerVoted.push(sender);
+        if(shared.voteSkipPass === 0){
             voiceChannel.members.forEach(function() {
-             voteSkipPass++;
+             shared.voteSkipPass++;
             })
         }
-        var voteSkipPass1 = voteSkipPass - 1;
-        var voteSkip = Math.floor(voteSkipPass1/2);
+        var voteSkipPass1 = shared.voteSkipPass - 1;
+        var voteSkip = Math.round(voteSkipPass1/2);
         if(voteSkip === 0) voteSkip = 1;
-        if(voted >= voteSkip){
+        if(shared.voted >= voteSkip){
         await message.channel.send('Vote skip has passed!')
             serverQueue.connection.dispatcher.end();
-        voted = 0;
-        voteSkipPass = 0;
-        playerVoted = [];
+        shared.voted = 0;
+        shared.voteSkipPass = 0;
+        shared.playerVoted = [];
         } else {
-            await message.channel.send(voted + '\/' + voteSkip + ' players voted to skip!')
+            await message.channel.send(shared.voted + '\/' + voteSkip + ' players voted to skip!')
         }
         return undefined;
     
