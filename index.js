@@ -592,13 +592,13 @@ bot.on('message', async message => {
       let bicon = bot.user.displayAvatarURL
       let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
-      .setTitle(`Current Song`)
-      .setDescription(`Now Playing: [${song.title}](${song.url})`)
-      .addField("Uploader", song.channel, true)
+      .setTitle(`Now Playing`)
+      .setDescription(`[${song.title}](${song.url})`)
+      .addField("Requested by", `<@${song.requested}>`)
+      .addField("Uploaded by", song.channel, true)
       .addField(`Video ID`, song.id , true)
-      .addField(`Time Published`, `${song.publishedAt}`, true)
+      .addField(`Time of Publication`, `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
-      .addField("Upon Request of", song.requested)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
       return message.channel.send(embed).then(message.delete())
       
@@ -734,7 +734,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 durations: video.duration.seconds,
                 durationh: video.duration.hours,
                 durationd: video.duration.days,
-                requested: message.author.tag,
+                requested: message.author.id,
                 publishedAt: video.publishedAt,
             }
         
@@ -798,11 +798,11 @@ function np(serverQueue) {
       .setColor(0x00bdf2)
       .setTitle(`Now Playing`)
       .setDescription(`[${song.title}](${song.url})`)
-      .addField("Uploader", song.channel, true)
+      .addField("Requested by", `<@${song.requested}>`)
+      .addField("Uploaded by", song.channel, true)
       .addField(`Video ID`, song.id , true)
-      .addField(`Time Published`, `${song.publishedAt}`, true)
+      .addField(`Time of Publication`, `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
-      .addField("Requester", song.requested)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
       
       serverQueue.textChannel.send(embed)
