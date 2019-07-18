@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { Util } = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./config.json");
 const fs = require('fs');
@@ -594,9 +595,9 @@ bot.on('message', async message => {
       .setColor(0x00bdf2)
       .setTitle(`Now Playing`)
       .setDescription(`[${song.title}](${song.url})`)
+      .setThumbnail(song.thumbnail)
       .addField("Requested by", `<@${song.requested}>`)
       .addField("Uploaded by", song.channel, true)
-      .addField(`Video ID`, song.id , true)
       .addField(`Time of Publication`, `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
@@ -727,7 +728,34 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
     const serverQueue = queue.get(message.guild.id)
     const song = {
                 id: video.id,
-                title: video.title,
+                title: Util.escapeMarkdown(video.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+				.replace(/&quot;/g, '"')
+				.replace(/&OElig;/g, 'Œ')
+				.replace(/&oelig;/g, 'œ')
+				.replace(/&Scaron;/g, 'Š')
+				.replace(/&scaron;/g, 'š')
+				.replace(/&Yuml;/g, 'Ÿ')
+				.replace(/&circ;/g, 'ˆ')
+				.replace(/&tilde;/g, '˜')
+				.replace(/&ndash;/g, '–')
+				.replace(/&mdash;/g, '—')
+				.replace(/&lsquo;/g, '‘')
+				.replace(/&rsquo;/g, '’')
+				.replace(/&sbquo;/g, '‚')
+				.replace(/&ldquo;/g, '“')
+				.replace(/&rdquo;/g, '”')
+				.replace(/&bdquo;/g, '„')
+				.replace(/&dagger;/g, '†')
+				.replace(/&Dagger;/g, '‡')
+				.replace(/&permil;/g, '‰')
+				.replace(/&lsaquo;/g, '‹')
+				.replace(/&rsaquo;/g, '›')
+				.replace(/&euro;/g, '€')
+				.replace(/&copy;/g, '©')
+				.replace(/&trade;/g, '™')
+				.replace(/&reg;/g, '®')
+				.replace(/&nbsp;/g, ' ')),
+                thumbnail: video.thumbnails.default.url,
                 url: `https://www.youtube.com/watch?v=${video.id}`,
                 channel: video.channel.title,
                 durationm: video.duration.minutes,
@@ -777,13 +805,15 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
+          .setColor(0x00bdf2)
           .setTitle(`Song added to queue!`)
-          .setColor(`#0x00bdf2`)
-          .addField(`Video`, `[${song.title}](https://www.youtube.com/watch?v=${song.id}})`)
-          .addField(`Uploader`, `${song.channel}`, true)
-          .addField(`Video ID`, song.id , true)
-          .addField(`Date Published`, `${song.publishedAt}`, true)
-          .addField(`Duration`, `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
+          .setDescription("Something is already playing, so I've added your song to the end of the current queue.")
+          .addField("Song Information:", `[${song.title}](${song.url})`)
+          .setThumbnail(song.thumbnail)
+          .addField("Requested by", `<@${song.requested}>`)
+          .addField("Uploaded by", song.channel, true)
+          .addField(`Time of Publication`, `${song.publishedAt}`, true)
+          .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return message.channel.send (queueemb)
     }
@@ -798,9 +828,9 @@ function np(serverQueue) {
       .setColor(0x00bdf2)
       .setTitle(`Now Playing`)
       .setDescription(`[${song.title}](${song.url})`)
+      .setThumbnail(song.thumbnail)
       .addField("Requested by", `<@${song.requested}>`)
       .addField("Uploaded by", song.channel, true)
-      .addField(`Video ID`, song.id , true)
       .addField(`Time of Publication`, `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
