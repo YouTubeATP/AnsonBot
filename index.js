@@ -475,7 +475,7 @@ bot.on('message', async message => {
                   
                     handler.addMenus(videosChoice)
                       
-                      message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
+                      await message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
                         .then(() => message.channel.sendMenu(videosChoice))
                   
                 } catch(err) {
@@ -646,8 +646,8 @@ bot.on('message', async message => {
         .setTitle("Queue")
         .setColor(0x00bdf2)
         .setThumbnail(message.guild.iconURL)
-        .setDescription(`******Now playing:** ${serverQueue.songs[0].title} \n**Loop:** \`${serverQueue.loop}\``)
-        .addField("Songs", serverQueue.songs.map(song => `**-** ${song.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+        .setDescription(`**Guild:** ${message.guild.name} \n**Now playing:** ${serverQueue.songs[0].title} \n**Loop:** \`${serverQueue.loop}\``)
+        .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -834,8 +834,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         let queueemb = new Discord.RichEmbed()
           .setColor(0x00bdf2)
           .setTitle(`Song added to queue!`)
-          .setDescription("Something is already playing, so I've added your song to the end of the current queue.")
-          .addField("Song Information:", `[${song.title}](${song.url})`)
+          .setDescription(`Something is already playing, so I've added your song to the end of the current queue. \n　\n[${song.title}](${song.url})`)
           .setThumbnail(song.thumbnail)
           .addField("Requested by", `<@${song.requested}>`)
           .addField("Uploaded by", song.channel, true)
