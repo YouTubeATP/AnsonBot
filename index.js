@@ -801,14 +801,14 @@ function play(guild, song){
             console.log('Song ended.');
           } else console.log(reason);
         
-          if(!serverQueue.songs){
+          if(!serverQueue.songs) {
                 serverQueue.voiceChannel.leave();
                 queue.delete(guild.id);
                 voted = 0;
             voteSkipPass = 0;
             playerVoted = [];
                 return undefined;
-        }
+          }
         
           if (serverQueue.loop === "off") serverQueue.songs.shift();
           if (serverQueue.loop === "all") serverQueue.songs.push(serverQueue.songs.shift());
