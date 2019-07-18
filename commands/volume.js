@@ -11,8 +11,6 @@ module.exports = {
         const queue = shared.queue;
         const serverQueue = queue.get(message.guild.id);
     
-        var vol = parseInt(args)
-    
         message.delete().catch(O_o=>{});
         
         const voiceChannel = message.member.voiceChannel;
@@ -26,11 +24,11 @@ module.exports = {
       
         if (isNaN(args)) return await message.channel.send(`The current volume is \`${serverQueue.volume}\`. To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
     
-    if ( parseInt(args) >= 1 && parseInt(args) <= 10 ) {
+    if ( args >= 0 && args <= 10 ) {
       
-        serverQueue.connection.dispatcher.setVolumeLogarithmic(parseInt(args) / 10)
-        serverQueue.volume = parseInt(args);
-        return await message.channel.send(`Volume has been set to \`${parseInt(args)}\`.`);
+        serverQueue.connection.dispatcher.setVolumeLogarithmic(Math.round(args) / 10)
+        serverQueue.volume = Math.round(args);
+        return await message.channel.send(`Volume level \`${Math.round(args)}\` has been set.`);
       
     }
     
