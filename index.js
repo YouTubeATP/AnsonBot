@@ -512,10 +512,6 @@ bot.on('message', async message => {
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
     
-    } else if (commandName === "skip") {
-      
-        
-      
     } else if (commandName === "np") {
       
       const voiceChannel = message.member.voiceChannel;
