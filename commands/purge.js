@@ -25,6 +25,7 @@ module.exports = {
     
     if (message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
         let messagesClear = args.join(" ")
+        if (!args || messagesClear !== parseInt(messagesClear)) return message.reply ("please provide a valid number of messages for me to purge!")
         return message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
     }
     
