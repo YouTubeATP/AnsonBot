@@ -10,7 +10,6 @@ module.exports = {
     
     if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
       
-      message.delete;
       return message.channel.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
@@ -19,18 +18,22 @@ module.exports = {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Clean Embeds, Crisp Music"
       }
-  }})
+  }}).then(message.delete())
       
     };
     
     if (message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
+      
+      try {
         let messagesClear = args.join(" ")
-        if (!args || messagesClear !== parseInt(messagesClear)) return message.reply ("please provide a valid number of messages for me to purge!")
-        return message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1));
+        return message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1))
+          .then(m => m.delete);
+      } catch (error) {
+        return message.reply("please provide the number of messages you want purged.")
+      }
     }
     
-        message.delete().catch(O_o=>{});
-        message.reply("you don't have sufficient permissions!");
+        message.reply("you don't have sufficient permissions!").then(message.delete());
         return;
     
 	}

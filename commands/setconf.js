@@ -2,6 +2,8 @@ const index = require('../index.js');
 const fs = require('fs');
 const Discord = require('discord.js');
 
+var i;
+
 module.exports = {
 	name: "setconf",
 	usage: "setconf <config> <value>",
@@ -11,7 +13,7 @@ module.exports = {
 	run: async (bot, message, args, shared) => {
 
     if (shared.censors === "on") {
-      for (i=0;i<bannedwords.length;i++) {
+      for (i=0;i<shared.bannedwords.length;i++) {
         if (message.content.toLowerCase().includes(shared.bannedwords[i])) {
           message.delete().catch(O_o=>{});
           message.reply("please refrain from using such contemptable words.");
