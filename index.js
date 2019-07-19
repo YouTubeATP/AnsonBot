@@ -30,7 +30,35 @@ shared.queue = queue
 shared.youtube = youtube
 shared.handler = handler
 
-// post stats to bot lists
+// post stats to discordbots.org
+
+const DBL = require("dblapi.js");
+const dbl = new DBL(config.dbltoken, { statsInterval: 900000 }, bot);
+
+dbl.on('posted', () => {
+  console.log('Server count posted!');
+});
+
+dbl.on('error', e => {
+ console.log(`Oops! ${e}`);
+});
+
+// post stats to mythicalbots.xyz
+
+const MythicalAPI = require("mythical-api");
+let API = new MythicalAPI("GryfB-p2qHtYZE8urU5YYeJBeq0-4Vnk4oQ.1eUC8xh0z72.qo");
+
+bot.on('ready', ()=> {
+  
+    API.postStats(bot.guilds.size, bot.user.id);
+  
+        setInterval(function() {
+            API.postStats(bot.guilds.size, bot.user.id);
+        }, 900000);
+  
+});
+
+// post stats to other bot lists
 
 bot.on("ready", () =>  {
   
@@ -50,20 +78,6 @@ bot.on("ready", () =>  {
 }, 30)
   
 });
-
-const DBL = require("dblapi.js");
-const dbl = new DBL(config.dbltoken, { statsInterval: 900000 }, bot);
-
-dbl.on('posted', () => {
-  console.log('Server count posted!');
-});
-
-dbl.on('error', e => {
- console.log(`Oops! ${e}`);
-});
-
-const MythicalAPI = require("mythical-api");
-let API = new MythicalAPI("GryfB-p2qHtYZE8urU5YYeJBeq0-4Vnk4oQ.1eUC8xh0z72.qo");
 
 // other variables
 
