@@ -359,10 +359,12 @@ bot.on('message', async message => {
     
 		const commandName = argsNEW.shift().toLowerCase()
 		shared.commandName = commandName
+    
+    if ( message.content === prefix || message.content === mention || message.content === mention1 ) return;
         
 		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
-		if (!command) return message.channel.send({embed: {
+		if ( !command && message.guild ) return message.channel.send({embed: {
       color: 0x00bdf2,
       title: "The command you used was invalid!",
       description:(`Do ${prefix}help for a list of commands.`),
