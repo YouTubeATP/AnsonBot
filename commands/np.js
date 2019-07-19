@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: "np",
 	usage: "np",
+  aliases: ["nowplaying"],
 	description: "Shows the name of the currently playing song.",
 	run: async (bot, message, args, shared) => {
     
