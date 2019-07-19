@@ -254,7 +254,7 @@ bot.on("guildDelete", guild => {
 
 bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageReaction, user));
 
-// command detection
+// profanity filter and command detection
 
 bot.on('message', async message => {
   

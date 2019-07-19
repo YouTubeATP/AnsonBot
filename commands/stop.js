@@ -25,7 +25,14 @@ module.exports = {
         if (!message.member.hasPermission("MOVE_MEMBERS")) return await message.reply("you don't have sufficient permissions!")
     shared.stopping = true;
     serverQueue.voiceChannel.leave();
-        return serverQueue.textChannel.send("Music playing has been terminated, and I have left your voice channel. See you next time!");
+    
+    var stop = new Discord.RichEmbed()
+          .setColor("00bdf2")
+          .setTitle("Music playing successfully terminated.")
+          .setDescription("Music playing successfully terminated.")
+          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+        return serverQueue.textChannel.send(stop);
     
 	}
 }
