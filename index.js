@@ -474,7 +474,7 @@ bot.on('message', async message => {
                                       },
                                       { emoji: '❌',
                                           run: (user, message) => {
-                                              message.channel.send('Video selection canceled.')
+                                              message.channel.send('Selection canceled.')
                                               return message.delete()
                                                   }
                                       },
@@ -487,7 +487,7 @@ bot.on('message', async message => {
                     handler.addMenus(videosChoice)
                       
                       await message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
-                        .then(() => message.channel.sendMenu(videosChoice))
+                        .then(() => {return message.channel.sendMenu(videosChoice).then(m => m.delete(120000)).then(() => message.channel.send("Selection timed out."))})
                   
                 } catch(err) {
                     console.log(err)
