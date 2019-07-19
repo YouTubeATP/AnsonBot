@@ -27,12 +27,12 @@ module.exports = {
       try {
         let messagesClear = args.join(" ")
         if (isNaN(messagesClear)) return message.reply("please provide the number of messages you want purged.").then(message.delete())
-        message.channel.bulkDelete(parseInt(messagesClear) + parseInt(1))
+        if (Math.round(messagesClear) >= 1) message.channel.bulkDelete(Math.round(messagesClear) + Math.round(1))
         
         var purgeEmbed = new Discord.RichEmbed()
         .setColor("GREEN")
         .setTitle("Messages purged!")
-        .setDescription(`Successfully purged \`${parseInt(messagesClear)}\` messages in this channel.`)
+        .setDescription(`Successfully purged \`${Math.round(messagesClear)}\` messages in this channel.`)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
         
         return message.channel.send(purgeEmbed).then(m => m.delete(5000));
