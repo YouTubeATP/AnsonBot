@@ -24,7 +24,7 @@ module.exports = {
         
         if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
       
-        if ( !number || number.includes(".") || number.includes(",") || number.includes(" ") ) return await message.channel.send(`The current volume is \`${serverQueue.volume}\`. To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
+        if ( !number || number.includes("-") || number.includes(".") || number.includes(",") || number.includes(" ") ) return await message.channel.send(`The current volume is \`${serverQueue.volume}\`. To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
     
         if ( number >= 0 && number <= 10 ) {
             serverQueue.connection.dispatcher.setVolumeLogarithmic(parseInt(number) / 10)
