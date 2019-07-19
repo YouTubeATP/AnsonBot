@@ -26,8 +26,16 @@ module.exports = {
     if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
 
         for (var x = 0; x < shared.playerVoted.length; x++) {
-            if (sender === shared.playerVoted[x]){
-            return message.reply(` you think you run the place? You can\'t vote twice!`)
+            if (sender === shared.playerVoted[x]) {
+              var voteSkipFail = new Discord.RichEmbed()
+              .setColor("RED")
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(message.guild.iconURL)
+              .setTitle("You've already voted to skip this song!")
+              .setDescription(shared.voted + '\/' + voteSkip + ' players voted to skip!')
+              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+          
+            return message.channel.send(voteSkipFail)
         }
         }
         shared.voted++;
@@ -46,7 +54,7 @@ module.exports = {
           .setAuthor(message.author.tag, message.author.avatarURL)
           .setThumbnail(message.guild.iconURL)
           .setTitle("Your vote has been logged!")
-          .setDescription(`The vote to skip this song The currently playing song will be stopped.`)
+          .setDescription(`The vote to skip the currently playing song has been passed, so it will be stopped.`)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
           
         await message.channel.send(skip)
