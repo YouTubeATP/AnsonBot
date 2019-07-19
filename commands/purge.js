@@ -27,18 +27,21 @@ module.exports = {
     if (message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
       
       try {
-        let messagesClear = args.join(" ")
-        if (!args) return message.reply("please provide the number of messages you want purged.").then(message.delete())
-        if ( !isNaN(messagesClear) || args.includes(".") || args.includes(",") || args.includes(" ") ) return message.reply("please provide a valid integer as the number of messages you want purged.")
-        if ( parseInt(messagesClear) >= 1 ) message.channel.bulkDelete( parseInt(messagesClear) + Math.round(1) )
+        
+        if (!number) return message.reply("please provide the number of messages you want purged.").then(message.delete())
+        if ( !isNaN(number) || number.includes(".") || number.includes(",") || number.includes(" ") ) return message.reply("please provide a valid integer as the number of messages you want purged.")
+        if ( number < 1000 ) return message.reply("I can only purge up to 1000 messages, so can't help you there!")
+        
+        if ( number >= 1 ) message.channel.bulkDelete( parseInt(number) + parseInt(1) )
         
         var purgeEmbed = new Discord.RichEmbed()
         .setColor("GREEN")
         .setTitle("Messages purged!")
-        .setDescription(`Successfully purged \`${Math.round(messagesClear)}\` messages in this channel.`)
+        .setDescription(`Successfully purged \`${number}\` messages in this channel.`)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
         
         return message.channel.send(purgeEmbed).then(m => m.delete(5000));
+        
       } catch (error) {
         return message.reply("please provide the number of messages you want purged.").then(message.delete())
       }
