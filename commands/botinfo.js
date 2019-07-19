@@ -26,9 +26,13 @@ module.exports = {
       
         const totalGuilds = results[0].reduce((prev, guildCount) => prev + guildCount, 0);
 		    const totalMembers = results[1].reduce((prev, memberCount) => prev + memberCount, 0);
-      
+        
+        function getMemoryUsage() {
+            let total_rss = require('fs').readFileSync("/sys/fs/cgroup/memory/memory.stat", "utf8").split("\n").filter(l => l.startsWith("total_rss"))[0].split(" ")[1]; 
+            return Math.round( Number(total_rss) / 1e6 ) - 60;
+        }
+        
         let bicon = bot.user.displayAvatarURL
-        const used = process.memoryUsage().heapUsed / 1024 / 1024
         let embed = new Discord.RichEmbed()
           .setTitle("Bot Information")
           .setColor(0x00bdf2)
@@ -39,7 +43,7 @@ module.exports = {
           .addField("Time of Birth", bot.user.createdAt)
           .addField("Servers", `${totalGuilds}`, true)
           .addField("Users", `${totalMembers}`, true)
-          .addField("Memory Used", `${Math.round(used * 100) / 100}MB`, true)
+          .addField("Memory Used", `${getMemoryUsage()}MB`, true)
           .addField("Library", "discord.js", true)
           .addField("ID", bot.user.id)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
