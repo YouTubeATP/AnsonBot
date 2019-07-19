@@ -24,7 +24,7 @@ module.exports = {
       
         if (isNaN(args)) return await message.channel.send(`The current volume is \`${serverQueue.volume}\`. To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
     
-    if ( parseInt(Math.round(args)) >= 0 && parseInt(Math.round(args)) <= 10 ) {
+    if ( (args === parseInt(args) || args === Math.round(args)) && parseInt(args) >= 0 && parseInt(args) <= 10 && Math.round(args) >= 0 && Math.round(args) <= 10 ) {
       
         serverQueue.connection.dispatcher.setVolumeLogarithmic(Math.round(args) / 10)
         serverQueue.volume = Math.round(args);

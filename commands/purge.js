@@ -27,7 +27,7 @@ module.exports = {
       try {
         let messagesClear = args.join(" ")
         if (isNaN(messagesClear)) return message.reply("please provide the number of messages you want purged.").then(message.delete())
-        if (Math.round(messagesClear) >= 1) message.channel.bulkDelete(Math.round(messagesClear) + Math.round(1))
+        if ( (args === parseInt(args) || args === Math.round(args)) && Math.round(messagesClear) >= 1 ) message.channel.bulkDelete(Math.round(messagesClear) + Math.round(1))
         
         var purgeEmbed = new Discord.RichEmbed()
         .setColor("GREEN")
