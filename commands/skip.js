@@ -23,7 +23,10 @@ module.exports = {
     
         if (!serverQueue) return message.channel.send("Nothing is playing right now!")
       
-    if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
+        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
+    
+        var voteSkipPass1 = shared.voteSkipPass - 1;
+        var voteSkip = Math.round(voteSkipPass1/2);
 
         for (var x = 0; x < shared.playerVoted.length; x++) {
             if (sender === shared.playerVoted[x]) {
@@ -45,8 +48,7 @@ module.exports = {
              shared.voteSkipPass++;
             })
         }
-        var voteSkipPass1 = shared.voteSkipPass - 1;
-        var voteSkip = Math.round(voteSkipPass1/2);
+        
         if (voteSkip === 0) voteSkip = 1;
         if (shared.voted >= voteSkip) {
           var skip = new Discord.RichEmbed()
