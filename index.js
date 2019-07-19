@@ -47,7 +47,6 @@ bot.on("ready", () =>  {
         'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237',
         "discordbotreviews.xyz": "egUF6w5vwr2y4LVnsyvRt.iGrO5oA69ZuVBkEFZPwGNBy5CHNwBjR3T1Qe42Fam59lg8Cg4TUITlW4aL",
         "discordbotslist.us.to": "ea4fc017c66245a2dcc1abc8ecf11bef",
-        "mythicalbots.xyz": "GryfB-p2qHtYZE8urU5YYeJBeq0-4Vnk4oQ.1eUC8xh0z72.qo"
 }, 30)
   
 });
@@ -62,6 +61,9 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
  console.log(`Oops! ${e}`);
 });
+
+const MythicalAPI = require("mythical-api");
+let API = new MythicalAPI("GryfB-p2qHtYZE8urU5YYeJBeq0-4Vnk4oQ.1eUC8xh0z72.qo");
 
 // other variables
 
