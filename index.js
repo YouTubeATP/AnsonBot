@@ -684,6 +684,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
     var queueConstruct = {
       textChannel: message.channel,
       voiceChannel: voiceChannel,
+      guild: message.guild,
       connection: null,
       songs: [],
       volume: 10,
@@ -721,8 +722,10 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         let queueemb = new Discord.RichEmbed()
           .setColor(0x00bdf2)
           .setTitle(`Song added to queue!`)
-          .setDescription(`Something is already playing, so I've added your song to the end of the current queue. \n　\n[${song.title}](${song.url})`)
+          .setAuthor(`\`${song.guild.name}\``, song.guild.iconURL)
+          .setDescription(`Something is already playing, so I've added your song to the end of the current queue. \n　`)
           .setThumbnail(song.thumbnail)
+          .addField(``[${song.title}](${song.url})`)
           .addField("Requested by", `<@${song.requested}>`)
           .addField("Uploaded by", song.channel, true)
           .addField(`Time of Publication`, `${song.publishedAt}`, true)
@@ -739,12 +742,13 @@ function np(serverQueue) {
       let bicon = bot.user.displayAvatarURL
       let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
-      .setTitle(`Now Playing`)
+      .setAuthor(`\`${song.guild.name}\``, song.guild.iconURL)
+      .setTitle(`Now Playing:`)
       .setDescription(`[${song.title}](${song.url})`)
       .setThumbnail(song.thumbnail)
-      .addField("Requested by", `<@${song.requested}>`)
       .addField("Uploaded by", song.channel, true)
-      .addField(`Time of Publication`, `${song.publishedAt}`, true)
+      .addField("Requested by", `<@${song.requested}>`, true)
+      .addField("Time of Publication", `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
       

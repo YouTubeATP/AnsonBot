@@ -11,7 +11,7 @@ module.exports = {
       const queue = shared.queue;
       const serverQueue = queue.get(message.guild.id);  
     
-    const voiceChannel = message.member.voiceChannel;
+      const voiceChannel = message.member.voiceChannel;
       const botVoiceConnection = message.guild.voiceConnection;
         
       if (!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!').then(message.delete())
@@ -24,12 +24,12 @@ module.exports = {
       let bicon = bot.user.displayAvatarURL
       let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
-      .setTitle(`Now Playing`)
+      .setTitle(`Guild: \`${message.guild.name}\` \nNow Playing`)
       .setDescription(`[${song.title}](${song.url})`)
       .setThumbnail(song.thumbnail)
-      .addField("Requested by", `<@${song.requested}>`)
       .addField("Uploaded by", song.channel, true)
-      .addField(`Time of Publication`, `${song.publishedAt}`, true)
+      .addField("Requested by", `<@${song.requested}>`, true)
+      .addField("Time of Publication", `${song.publishedAt}`, true)
       .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
       .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
       return message.channel.send(embed).then(message.delete())
