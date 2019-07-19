@@ -8,6 +8,8 @@ module.exports = {
 	description: "Deletes a number of messages in a channel.",
 	run: async (bot, message, args, shared) => {
     
+    const number = message.content.slice(shared.prefix.length + 6).trim()
+    
     if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
       
       return message.channel.send({embed: {
@@ -26,8 +28,8 @@ module.exports = {
       
       try {
         let messagesClear = args.join(" ")
-        if ( !isNaN(messagesClear) ) return message.reply("please provide the number of messages you want purged.").then(message.delete())
-        if ( args.includes(".") || args.includes(",") || args.includes(" ") ) return message.reply("please provide a valid integer as the number of messages you want purged.")
+        if (!args) return message.reply("please provide the number of messages you want purged.").then(message.delete())
+        if ( !isNaN(messagesClear) || args.includes(".") || args.includes(",") || args.includes(" ") ) return message.reply("please provide a valid integer as the number of messages you want purged.")
         if ( parseInt(messagesClear) >= 1 ) message.channel.bulkDelete( parseInt(messagesClear) + Math.round(1) )
         
         var purgeEmbed = new Discord.RichEmbed()
