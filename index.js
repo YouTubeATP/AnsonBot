@@ -63,6 +63,7 @@ bot.on('ready', ()=> {
 bot.on("ready", () =>  {
   
     blapi.handle(bot, {
+        "bots.ondiscord.xyz": "0c33a4ba8baaad462d07a7f76c870f46",
         'botsfordiscord.com': 'b034d05d7563f445f0675af50fcd9dc9f037916e9df587a913087adec6494f0b06151d4ef4c0e5ca34308be569c79bbb26ccdc6710054bca06f6700f49ae2998',
         'botlist.space': '8b4fbad11dbb49beb56f65fdc3f5e2793d7603a76e6f47d70a321e7200610933d73cac410c6f2e5ac8d355da5efea837',
         'discordapps.dev': '806277c41d92f48334e89aa7a86af7067f8463d7',
