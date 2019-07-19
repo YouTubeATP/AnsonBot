@@ -9,7 +9,23 @@ module.exports = {
   requirements: "Move Members",
 	run: async (bot, message, args, shared) => {
     
-    return;
+    const queue = shared.queue;
+    const serverQueue = queue.get(message.guild.id);
+    
+    message.delete().catch(O_o=>{});
+        const voiceChannel = message.member.voiceChannel;
+        const botVoiceConnection = message.guild.voiceConnection;
+          
+        if (!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
+    
+        if (!serverQueue) return message.channel.send("Nothing is playing right now!")
+      
+        if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
+    
+        if (!message.member.hasPermission("MOVE_MEMBERS")) return await message.reply("you don't have sufficient permissions!")
+    shared.stopping = true;
+    serverQueue.voiceChannel.leave();
+        return serverQueue.textChannel.send("Music playing has been terminated, and I have left your voice channel. See you next time!");
     
 	}
 }
