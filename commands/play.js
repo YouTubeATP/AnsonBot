@@ -363,7 +363,7 @@ function play(guild, song){
         return undefined;
     }
   
-    const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 384000 /* 384kbps */})
+    const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 512000 /* 512kbps */})
         .on('end', reason => {
 			    if (reason === 'Stream is not generating quickly enough.') {
             console.log('Song ended.');
