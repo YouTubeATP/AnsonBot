@@ -24,6 +24,8 @@ module.exports = {
       
     };
     
+    if (!message.member.hasPermission("MANAGE_MESSAGES") || !message.member.hasPermission("ADMINISTRATOR")) return message.reply("you don't have sufficient permissions!").then(message.delete());
+    
     if (message.member.hasPermission("MANAGE_MESSAGES") || message.member.hasPermission("ADMINISTRATOR")) {
       
       try {
@@ -34,7 +36,8 @@ module.exports = {
         
         if ( number >= 1 && number <= 100 ) {
           
-          message.channel.bulkDelete( parseInt(number) + parseInt(1) )
+          await message.delete()
+          .then(() => message.channel.bulkDelete(parseInt(number)))
         
           var purgeEmbed = new Discord.RichEmbed()
           .setColor("GREEN")
@@ -51,8 +54,7 @@ module.exports = {
       }
     }
     
-        message.reply("you don't have sufficient permissions!").then(message.delete());
-        return;
+        return message.reply("please provide a valid integer as the number of messages you want purged.").then(message.delete())
     
 	}
 }
