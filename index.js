@@ -1,5 +1,7 @@
+// start of index.js
+// require various packages
+
 const Discord = require('discord.js');
-const { Util } = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./config.json");
 const fs = require('fs');
@@ -25,6 +27,10 @@ const queue = new Map();
 const youtube = new YouTube(config.youtube)
 
 shared.queue = queue
+shared.youtube = youtube
+shared.handler = handler
+
+// post stats to bot lists
 
 bot.on("ready", () =>  {
   
@@ -57,6 +63,8 @@ dbl.on('error', e => {
  console.log(`Oops! ${e}`);
 });
 
+// other variables
+
 var i;
 
 var stopping = false;
@@ -77,6 +85,7 @@ shared.playlist = playlist
 var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kys,fuc,pu$$y,anal,xvideo,porn,asshole,a$$hole,kunt,anal,d.1.c.k,diu".split(",");
 
 var userData = 0
+shared.userData = userData
 
 const owner = config.ownerID
 
@@ -91,6 +100,8 @@ const defaultSettings = {
   prefix: "em/",    
   censor: "off"
 };
+
+// functions for command handling
 
 bot.commands = new Discord.Collection()
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
@@ -116,6 +127,8 @@ function printError(message, error, title) {
 
 shared.printError = printError
 
+// support server member flow
+
 bot.on('guildMemberAdd', member => {
   let guild = member.guild;
   let memberTag = member.user.id;
@@ -139,6 +152,8 @@ bot.on('guildMemberRemove', member => {
   if (guild.id === config.serverID) {
         bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support**. Farewell, <@" + memberTag + ">.");
 }});
+
+// bot status
 
 bot.on("ready", () =>  {
     setInterval(() => {
@@ -170,6 +185,8 @@ bot.on("ready", () =>  {
     });
     }, 20000);
 });
+
+// bot guild joinlogs
 
 bot.on("guildCreate", guild => {
   const guildConf = bot.settings.ensure(guild.id, defaultSettings)
@@ -206,6 +223,8 @@ bot.on("guildCreate", guild => {
   })
 })
 
+// bot guild leave logs
+
 bot.on("guildDelete", guild => {
   bot.settings.delete(guild.id);
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
@@ -231,7 +250,11 @@ bot.on("guildDelete", guild => {
   })
 });
 
+// detect reaction-adding
+
 bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageReaction, user));
+
+// command detection
 
 bot.on('message', async message => {
   
@@ -344,6 +367,8 @@ bot.on('message', async message => {
   
 });
 
+// invite link detection for support server
+
 bot.on('message', message => {
   
     if (message.guild.id !== config.serverID) return;
@@ -369,181 +394,6 @@ function clean(text) {
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
   else
       return text;
-}
-
-async function handleVideo(video, message, voiceChannel, playlist = false){
-    const serverQueue = queue.get(message.guild.id)
-    const song = {
-                id: video.id,
-                title: Util.escapeMarkdown(video.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
-				.replace(/&quot;/g, '"')
-				.replace(/&OElig;/g, 'Œ')
-				.replace(/&oelig;/g, 'œ')
-				.replace(/&Scaron;/g, 'Š')
-				.replace(/&scaron;/g, 'š')
-				.replace(/&Yuml;/g, 'Ÿ')
-				.replace(/&circ;/g, 'ˆ')
-				.replace(/&tilde;/g, '˜')
-				.replace(/&ndash;/g, '–')
-				.replace(/&mdash;/g, '—')
-				.replace(/&lsquo;/g, '‘')
-				.replace(/&rsquo;/g, '’')
-				.replace(/&sbquo;/g, '‚')
-				.replace(/&ldquo;/g, '“')
-				.replace(/&rdquo;/g, '”')
-				.replace(/&bdquo;/g, '„')
-				.replace(/&dagger;/g, '†')
-				.replace(/&Dagger;/g, '‡')
-				.replace(/&permil;/g, '‰')
-				.replace(/&lsaquo;/g, '‹')
-				.replace(/&rsaquo;/g, '›')
-				.replace(/&euro;/g, '€')
-				.replace(/&copy;/g, '©')
-				.replace(/&trade;/g, '™')
-				.replace(/&reg;/g, '®')
-				.replace(/&nbsp;/g, ' ')),
-                thumbnail: video.thumbnails.default.url,
-                url: `https://www.youtube.com/watch?v=${video.id}`,
-                channel: video.channel.title,
-                durationm: video.duration.minutes,
-                durations: video.duration.seconds,
-                durationh: video.duration.hours,
-                durationd: video.duration.days,
-                requested: message.author.id,
-                guild: message.guild,
-                publishedAt: video.publishedAt,
-            }
-        
-    if (!serverQueue) {
-    var queueConstruct = {
-      textChannel: message.channel,
-      voiceChannel: voiceChannel,
-      guild: message.guild,
-      connection: null,
-      songs: [],
-      volume: 10,
-      playing: true,
-      loop: "off"
-    };
-    queue.set(message.guild.id, queueConstruct);
-
-        queueConstruct.songs.push(song);
-      
-        if (playlist) return message.channel.send("Playlist added to queue.")
-      
-        try {
-            var connection = await voiceChannel.join();
-            queueConstruct.connection = connection;
-            play(message.guild, queueConstruct.songs[0]);
-        } catch (error) {
-            console.error(error)
-            queue.delete(message.guild.id)
-            return message.channel.send({embed: {
-            color: 0x00bdf2,
-            description:("An error occured!"),
-            footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-            }
-  }})
-        }
-    } else {
-        serverQueue.songs.push(song);
-      
-        if (playlist) return message.channel.send("Playlist added to queue.")
-        
-        let bicon = bot.user.displayAvatarURL
-        let queueemb = new Discord.RichEmbed()
-          .setColor(0x00bdf2)
-          .setTitle(`Song added to queue!`)
-          .setAuthor(song.guild.name, song.guild.iconURL)
-          .setDescription(`Something is already playing, so I've added your song to the end of the current queue. \n　`)
-          .setThumbnail(song.thumbnail)
-          .addField("Requested Song", `[${song.title}](${song.url})`)
-          .addField("Requested by", `<@${song.requested}>`)
-          .addField("Uploaded by", song.channel, true)
-          .addField(`Time of Publication`, `${song.publishedAt}`, true)
-          .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
-          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-        return message.channel.send (queueemb)
-    }
-    return undefined;
-}
-
-function np(serverQueue) {
-
-      let song = serverQueue.songs[0]
-      let bicon = bot.user.displayAvatarURL
-      let embed = new Discord.RichEmbed()
-      .setColor(0x00bdf2)
-      .setAuthor(song.guild.name, song.guild.iconURL)
-      .setTitle(`Now Playing`)
-      .setDescription(`[${song.title}](${song.url})`)
-      .setThumbnail(song.thumbnail)
-      .addField("Uploaded by", song.channel, true)
-      .addField("Requested by", `<@${song.requested}>`, true)
-      .addField("Time of Publication", `${song.publishedAt}`, true)
-      .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
-      .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-      
-      serverQueue.textChannel.send(embed)
-}
-
-function play(guild, song){
-    const serverQueue = queue.get(guild.id)
-    if (stopping) {
-       queue.delete(guild.id);
-       return;
-    }
-    
-    if (!song) {
-        serverQueue.voiceChannel.leave();
-        queue.delete(guild.id);
-        return undefined;
-    }
-  
-    const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 384000 /* 384kbps */})
-        .on('end', reason => {
-			    if (reason === 'Stream is not generating quickly enough.') {
-            console.log('Song ended.');
-          } else console.log(reason);
-        
-          if(!serverQueue.songs) {
-                serverQueue.voiceChannel.leave();
-                queue.delete(guild.id);
-                voted = 0;
-            voteSkipPass = 0;
-            playerVoted = [];
-                return undefined;
-          }
-        
-          if (serverQueue.loop === "off") serverQueue.songs.shift();
-          if (serverQueue.loop === "all") serverQueue.songs.push(serverQueue.songs.shift());
-          
-        voted = 0;
-        voteSkipPass = 0;
-        playerVoted = [];
-                play(guild, serverQueue.songs[0]);
-            })
-        .on('error', error => console.error(error));
-      dispatcher.setVolumeLogarithmic(serverQueue.volume / 10);
-      if (song) {
-        np(serverQueue)
-    }
-}
-
-function sortObject() {
-    var arr = [];
-    for (var prop in userData) {
-        if (userData.hasOwnProperty(prop)) {
-            arr.push({
-            'key': prop,
-            'value': userData[prop].money
-            });
-        }
-    }
-    arr.sort(function(a, b) { return b.value - a.value; });
-    return arr;
 }
 
 bot.login(config.token);
