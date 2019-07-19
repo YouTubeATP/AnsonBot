@@ -27,9 +27,11 @@ module.exports = {
     serverQueue.voiceChannel.leave();
     
     var stop = new Discord.RichEmbed()
-          .setColor("00bdf2")
-          .setTitle("Music playing successfully terminated.")
-          .setDescription("Music playing successfully terminated.")
+          .setColor(0x00bdf2)
+          .setAuthor(message.author.tag, message.author.avatarURL)
+          .setThumbnail(message.guild.iconURL)
+          .setTitle("Music Terminated")
+          .setDescription(`The queue for \`${message.guild.name}\` has been deleted, and I have left the voice channel.`)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
         return serverQueue.textChannel.send(stop);

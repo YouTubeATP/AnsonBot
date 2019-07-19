@@ -32,22 +32,38 @@ module.exports = {
         }
         shared.voted++;
         shared.playerVoted.push(sender);
-        if(shared.voteSkipPass === 0){
+        if (shared.voteSkipPass === 0){
             voiceChannel.members.forEach(function() {
              shared.voteSkipPass++;
             })
         }
         var voteSkipPass1 = shared.voteSkipPass - 1;
         var voteSkip = Math.round(voteSkipPass1/2);
-        if(voteSkip === 0) voteSkip = 1;
-        if(shared.voted >= voteSkip){
-        await message.channel.send('Vote skip has passed!')
+        if (voteSkip === 0) voteSkip = 1;
+        if (shared.voted >= voteSkip) {
+          var skip = new Discord.RichEmbed()
+          .setColor("GREEN")
+          .setAuthor(message.author.tag, message.author.avatarURL)
+          .setThumbnail(message.guild.iconURL)
+          .setTitle("Your vote has been logged!")
+          .setDescription(`The vote to skip this song The currently playing song will be stopped.`)
+          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+          
+        await message.channel.send(skip)
             serverQueue.connection.dispatcher.end();
         shared.voted = 0;
         shared.voteSkipPass = 0;
         shared.playerVoted = [];
         } else {
-            await message.channel.send(shared.voted + '\/' + voteSkip + ' players voted to skip!')
+            var voteSkip = new Discord.RichEmbed()
+            .setColor("GREEN")
+            .setAuthor(message.author.tag, message.author.avatarURL)
+            .setThumbnail(message.guild.iconURL)
+            .setTitle("Your vote has been logged!")
+            .setDescription(shared.voted + '\/' + voteSkip + ' players voted to skip!')
+            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+          
+            await message.channel.send(voteSkip)
         }
         return undefined;
     

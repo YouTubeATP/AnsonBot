@@ -64,9 +64,9 @@ module.exports = {
 				.replace(/&nbsp;/g, ' ')}](${s.url})`)
         
         let queueEmbed = new Discord.RichEmbed()
-        .setAuthor(message.guild.name, message.guild.iconURL)
+        .setAuthor(message.author.tag, message.author.avatarURL)
         .setColor(0x00bdf2)
-        .setThumbnail(song.thumbnail)
+        .setThumbnail(message.guild.iconURL)
         .setDescription(`**Now playing:** [${song.title}](${song.url}) \n**Loop:** \`${serverQueue.loop}\``)
         .addField("Queued Songs", queueValue)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
