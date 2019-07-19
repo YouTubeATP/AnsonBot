@@ -50,7 +50,7 @@ module.exports = {
     message.guild.unban(mem).then(() => {
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
-        .setDescription(`<@${mem}> has been successfully unbanned!`, mem.user.avatarURL)
+        .setDescription(`<@${mem}> has been successfully unbanned!`)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
       if (reason) embed.addField("Reason", reason)

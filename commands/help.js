@@ -6,7 +6,7 @@ const Enmap = require('enmap');
 module.exports = {
 	name: "help",
 	usage: "help [command]",
-	description: "Shows help message.",
+	description: "Shows the help message.",
 	run: async (bot, message, args, shared) => {
     
     const commands = bot.commands
@@ -28,7 +28,7 @@ module.exports = {
         .addField("General Commands", "`help`: Shows this help message.\n`botinfo`: Retrieves information about the bot.\n`serverinfo`: Retrieves information about the server.\n`ping`: Shows latency of the bot and the API.\n`links`: Shows all our links.\n`suggestion`: Submits a suggestion to MusEmbed's support server.")
         .addField("Embed Commands", "`embed`: Embeds your message.\n`rawembed`: Embeds your message without showing your name.")
         .addField("Music Commands", "`play`: Searches for the song you requested.\n`pause`: Pauses the current song.\n`resume`: Resumes a paused song.\n`skip`: Votes to skip the playing song.\n`np`: Shows the name of the currently playing song.\n`volume`: Shows or changes volume to the provided number.\n`queue`: Shows the current queue of songs.\n`loop`: Toggles loop.\n`stop`: Stops all music.")
-        .addField("Moderation Commands", "`kick`: Kicks a user from the guild.\n`ban`: Bans a user from the guild.\n`purge`: Deletes a number of messages in a channel.\n`mute`: Mutes a user in the guild.\n`unmute`: Unmutes a user in the guild.")
+        .addField("Moderation Commands", "`kick`: Kicks a user from the guild.\n`ban`: Bans a user from the guild.\n`unban`: Unbans a banned user in the guild.\n`purge`: Deletes a number of messages in a channel.\n`mute`: Mutes a user in the guild.\n`unmute`: Unmutes a user in the guild.")
         .addField("Server Configuration Commands", "`showconf`: Shows the configurations of the server.\n`setconf`: Sets new value for the server's configuration.")
         .addField("Detailed Help", `\nYou can do \`${guildConf.prefix}help [command]\` to get detailed information on how to use the specified command.`)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
