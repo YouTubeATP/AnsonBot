@@ -512,31 +512,6 @@ bot.on('message', async message => {
     serverQueue.voiceChannel.leave();
         return serverQueue.textChannel.send('Cya, I\'m leaving!');
     
-    } else if (commandName === "np") {
-      
-      const voiceChannel = message.member.voiceChannel;
-      const botVoiceConnection = message.guild.voiceConnection;
-        
-      if (!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!').then(message.delete())
-    
-      if (!serverQueue) return message.channel.send("Nothing is playing right now!").then(message.delete())
-      
-      if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!').then(message.delete)
-
-      let song = serverQueue.songs[0]
-      let bicon = bot.user.displayAvatarURL
-      let embed = new Discord.RichEmbed()
-      .setColor(0x00bdf2)
-      .setTitle(`Now Playing`)
-      .setDescription(`[${song.title}](${song.url})`)
-      .setThumbnail(song.thumbnail)
-      .addField("Requested by", `<@${song.requested}>`)
-      .addField("Uploaded by", song.channel, true)
-      .addField(`Time of Publication`, `${song.publishedAt}`, true)
-      .addField("Duration", `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`, true)
-      .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-      return message.channel.send(embed).then(message.delete())
-      
     } else if (commandName === "queue") {
       
         message.delete().catch(O_o=>{});
@@ -551,12 +526,15 @@ bot.on('message', async message => {
       if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
       
         let bicon = bot.user.displayAvatarURL
+        let song = serverQueue.songs[0]
         let queueEmbed = new Discord.RichEmbed()
-        .setTitle("Queue")
+        .setAuthor(message.guild.name, message.guild.iconURL)
         .setColor(0x00bdf2)
         .setThumbnail(message.guild.iconURL)
-        .setDescription(`**Guild:** ${message.guild.name} \n**Now playing:** ${serverQueue.songs[0].title} \n**Loop:** \`${serverQueue.loop}\``)
-        .addField("Songs:", serverQueue.songs.map(song => `**-** ${song.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+        .setDescription(`**Now playing:** ${song.title} \n**Loop:** \`${serverQueue.loop}\``)
+        .addField("Now Playing", `[${song.title}](${song.url})`)
+        .addField("Loop", `[${song.title}](${song.url})`)
+        .addField("Queue", serverQueue.songs.map(s => `**-** [${s.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -582,7 +560,7 @@ bot.on('message', async message => {
 				.replace(/&copy;/g, '©')
 				.replace(/&trade;/g, '™')
 				.replace(/&reg;/g, '®')
-				.replace(/&nbsp;/g, ' ')}`))
+				.replace(/&nbsp;/g, ' ')}[`))
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
       
@@ -677,6 +655,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
                 durationh: video.duration.hours,
                 durationd: video.duration.days,
                 requested: message.author.id,
+                guild: message.guild,
                 publishedAt: video.publishedAt,
             }
         
@@ -722,10 +701,10 @@ async function handleVideo(video, message, voiceChannel, playlist = false){
         let queueemb = new Discord.RichEmbed()
           .setColor(0x00bdf2)
           .setTitle(`Song added to queue!`)
-          .setAuthor(`\`${song.guild.name}\``, song.guild.iconURL)
+          .setAuthor(song.guild.name, song.guild.iconURL)
           .setDescription(`Something is already playing, so I've added your song to the end of the current queue. \n　`)
           .setThumbnail(song.thumbnail)
-          .addField(``[${song.title}](${song.url})`)
+          .addField("Song", `[${song.title}](${song.url})`)
           .addField("Requested by", `<@${song.requested}>`)
           .addField("Uploaded by", song.channel, true)
           .addField(`Time of Publication`, `${song.publishedAt}`, true)
@@ -742,8 +721,8 @@ function np(serverQueue) {
       let bicon = bot.user.displayAvatarURL
       let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
-      .setAuthor(`\`${song.guild.name}\``, song.guild.iconURL)
-      .setTitle(`Now Playing:`)
+      .setAuthor(song.guild.name, song.guild.iconURL)
+      .setTitle(`Now Playing`)
       .setDescription(`[${song.title}](${song.url})`)
       .setThumbnail(song.thumbnail)
       .addField("Uploaded by", song.channel, true)

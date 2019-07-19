@@ -24,7 +24,8 @@ module.exports = {
       let bicon = bot.user.displayAvatarURL
       let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
-      .setTitle(`Guild: \`${message.guild.name}\` \nNow Playing`)
+      .setAuthor(`\`${message.guild.name}\``, message.guild.iconURL)
+      .setTitle(`Now Playing: \n　`)
       .setDescription(`[${song.title}](${song.url})`)
       .setThumbnail(song.thumbnail)
       .addField("Uploaded by", song.channel, true)
