@@ -527,14 +527,19 @@ bot.on('message', async message => {
       
         let bicon = bot.user.displayAvatarURL
         let song = serverQueue.songs[0]
+        
+        var queueValue
+        
+        if (!serverQueue.songs.slice(1)) queuevalue = "There are no other songs in the queue! Use the command "
+        
         let queueEmbed = new Discord.RichEmbed()
         .setAuthor(message.guild.name, message.guild.iconURL)
         .setColor(0x00bdf2)
         .setThumbnail(message.guild.iconURL)
         .setDescription(`**Now playing:** ${song.title} \n**Loop:** \`${serverQueue.loop}\``)
         .addField("Now Playing", `[${song.title}](${song.url})`)
-        .addField("Loop", `[${song.title}](${song.url})`)
-        .addField("Queue", serverQueue.songs.map(s => `**-** [${s.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+        .addField("Loop", `\`${serverQueue.loop}\``)
+        .addField("Queue", serverQueue.songs.slice(1).map(s => `**-** [${s.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -560,7 +565,7 @@ bot.on('message', async message => {
 				.replace(/&copy;/g, '©')
 				.replace(/&trade;/g, '™')
 				.replace(/&reg;/g, '®')
-				.replace(/&nbsp;/g, ' ')}[`))
+				.replace(/&nbsp;/g, ' ')}](${s.url})`))
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
       
