@@ -26,7 +26,7 @@ module.exports = {
       
       try {
         let messagesClear = args.join(" ")
-        if ( isNaN(messagesClear) ) return message.reply("please provide the number of messages you want purged.").then(message.delete())
+        if ( !isNaN(messagesClear) ) return message.reply("please provide the number of messages you want purged.").then(message.delete())
         if ( args.includes(".") || args.includes(",") || args.includes(" ") ) return message.reply("please provide a valid integer as the number of messages you want purged.")
         if ( parseInt(messagesClear) >= 1 ) message.channel.bulkDelete( parseInt(messagesClear) + Math.round(1) )
         
