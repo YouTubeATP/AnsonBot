@@ -4,8 +4,8 @@ const Discord = require('discord.js');
 
 module.exports = {
   name: "unban",
-  usage: "unban <user> [reason]",
-  description: "Unbans a user from the guild.",
+  usage: "unban <user id> [reason]",
+  description: "Unbans a banned user in the guild.",
   requirements: "Ban Members",
   run: async (bot, message, args, shared) => {
     
@@ -25,7 +25,7 @@ module.exports = {
       return message.channel.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
-      description:(`I cannot ban members in this guild, so I cannot carry out this command.`),
+      description:(`I cannot ban or unban members in this guild, so I cannot carry out this command.`),
       footer: {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Clean Embeds, Crisp Music"
@@ -34,12 +34,12 @@ module.exports = {
       
     };
     
-    var mem = message.mentions.members.first();
+    var mem = message.content.slice(shared.prefix.length + 6).trim()
     
     if (!mem) {
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
-        .setTitle("Hmm... Who am I supposed to ban?")
+        .setTitle("Hmm... Who am I supposed to unban?")
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       
       return message.channel.send(embed)
@@ -47,22 +47,10 @@ module.exports = {
         .catch(console.error)
     }
     
-    if (mem.hasPermission("MANAGE_MESSAGES") || mem.hasPermission("BAN_MEMBERS") || mem.hasPermission("KICK_MEMBERS") || mem.hasPermission("ADMINISTRATOR")) {
-      
+    message.guild.unban(mem).then(() => {
       var embed = new Discord.RichEmbed()
         .setColor(0x00bdf2)
-        .setTitle("Hmm... You are not supposed to ban another moderator!")
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-      
-      return message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
-    }
-    
-    mem.ban(reason).then(() => {
-      var embed = new Discord.RichEmbed()
-        .setColor(0x00bdf2)
-        .setAuthor(`${mem.user.tag} has been successfully banned!`, mem.user.avatarURL)
+        .setDescription(`<@${mem}> has been successfully unbanned!`, mem.user.avatarURL)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
 
       if (reason) embed.addField("Reason", reason)
@@ -72,7 +60,7 @@ module.exports = {
         .catch(console.error)
 
     }).catch(e => {
-      shared.printError(message, e, `I couldn't ban ${mem.user.tag}!`)
+      shared.printError(message, e, `I couldn't unban this user! Check if the value you provided was a valid user ID.`)
     })
     
   }

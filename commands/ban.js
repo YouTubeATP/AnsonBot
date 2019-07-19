@@ -25,7 +25,7 @@ module.exports = {
       return message.channel.send({embed: {
       color: 0x00bdf2,
       title: "I do not have sufficient permissions!",
-      description:(`I cannot ban members in this guild, so I cannot carry out this command.`),
+      description:(`I cannot ban or unban members in this guild, so I cannot carry out this command.`),
       footer: {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Clean Embeds, Crisp Music"
