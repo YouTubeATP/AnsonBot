@@ -25,8 +25,51 @@ module.exports = {
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
       
         const permissions = voiceChannel.permissionsFor(bot.user)
-        if(!permissions.has('CONNECT')) return message.channel.send('I can\'t connect to your channel, duh! How do you expect me to play you music?')
-        if(!permissions.has('SPEAK')) return message.channel.send('I can\'t speak here, duh! How do you expect me to play you music?')
+        
+        if (!permissions.has('CONNECT')) {
+      
+          return bot.fetchUser(message.member).then((user) => {
+          user.send({embed: {
+            color: 0x00bdf2,
+            title: "I do not have sufficient permissions!",
+            description:(`I cannot connect to voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+            footer: {
+              icon_url: bot.user.avatarURL,
+              text: "MusEmbed™ | Clean Embeds, Crisp Music"
+            }
+          }})}).then(message.delete());
+    
+        };
+    
+        if (!permissions.has('SPEAK')) {
+      
+          return bot.fetchUser(message.member).then((user) => {
+          user.send({embed: {
+            color: 0x00bdf2,
+            title: "I do not have sufficient permissions!",
+            description:(`I cannot speak in voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+            footer: {
+              icon_url: bot.user.avatarURL,
+              text: "MusEmbed™ | Clean Embeds, Crisp Music"
+            }
+          }})}).then(message.delete());
+    
+        };
+    
+        if (!message.guild.me.hasPermission("ADD_REACTIONS")) {
+      
+          return bot.fetchUser(message.member).then((user) => {
+          user.send({embed: {
+            color: 0x00bdf2,
+            title: "I do not have sufficient permissions!",
+            description:(`I cannot add reactions to messages in the guild \`${message.guild.name}\`! Please notify a server administrator.`),
+            footer: {
+              icon_url: bot.user.avatarURL,
+              text: "MusEmbed™ | Clean Embeds, Crisp Music"
+            }
+          }})}).then(message.delete());
+    
+        };
         
     if (!searchString) return message.reply('please provide a search term, url or playlist link!')
     if (shared.stopping) shared.stopping = false;
