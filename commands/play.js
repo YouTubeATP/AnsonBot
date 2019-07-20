@@ -21,6 +21,8 @@ module.exports = {
         
         const voiceChannel = message.member.voiceChannel;
         const botVoiceConnection = message.guild.voiceConnection;
+    
+        var cancelled;
         
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel to execute this command!')
       
@@ -183,6 +185,7 @@ module.exports = {
                                       { emoji: '588269975798808588',
                                           run: (user, message) => {
                                               vindex = "cancel"
+                                              cancelled = true
                                               return detectSelection();
                                                   }
                                       },
@@ -207,6 +210,7 @@ module.exports = {
                       vindex = parseInt(response.first().content, 10);
                       message.channel.fetchMessage(response.first().id).then(m => m.delete)
 			            } catch (err) {
+                      if (cancelled) return cancelled = false
                       vindex = "time"
       }
                   return detectSelection();
