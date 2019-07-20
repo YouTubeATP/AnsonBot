@@ -77,8 +77,16 @@ module.exports = {
     if (shared.stopping) shared.stopping = false;
     
     for (var x = 0; x < shared.playerVoted.length; x++) {
-            if (message.guild.id === shared.playerVoted[x]) {
-              return;
+            if (message.guild.id === shared.activeMusicSelection[x]) {
+              var alreadySelection = new Discord.RichEmbed()
+                  .setColor("RED")
+                  .setAuthor(message.author.tag, message.author.avatarURL)
+                  .setThumbnail(message.guild.iconURL)
+                  .setTitle("You can't use this command right now!")
+                  .setDescription("Another music selection menu is active in this channel. To maintain quality performance, only 1 music selection menu can be active in a guild at a time.")
+                  .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+              return message.channel.send(alreadySelection).then(m => m.delete(10000));
         }
         }
       
@@ -125,7 +133,7 @@ module.exports = {
                             .setDescription(`Check if you've inputted your search string correctly.`)
                             .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
-                        return message.channel.send(noresult).then(() => message.delete(10000))
+                        return message.channel.send(noresult).then(m => m.delete(10000));
                     }
                   
                     var vindex;
@@ -181,7 +189,7 @@ module.exports = {
                             .setDescription("Your music selection menu timed out. To maintain quality preformance, all music selection menus expire after 60 seconds.")
                             .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
-                          return message.channel.send(timeout);
+                          return message.channel.send(timeout).then(m => m.delete(10000));
                           
                         } else if (vindex === "cancel") {
                           
@@ -193,7 +201,7 @@ module.exports = {
                             .setDescription("You have manually cancelled your music selection menu.")
                             .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
-                          return message.channel.send(cancelmsg);
+                          return message.channel.send(cancelmsg).then(m => m.delete(10000));
                           
                         } else {
                           
@@ -261,7 +269,7 @@ module.exports = {
                         .setDescription(error)
                         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
-                    return message.channel.send(searchError)
+                    return message.channel.send(searchError).then(m => m.delete(10000));
                 }
             }
         }
