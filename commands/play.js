@@ -73,9 +73,6 @@ module.exports = {
         
     if (!searchString) return message.reply('please provide a search term, url or playlist link!')
     if (shared.stopping) shared.stopping = false;
-    
-    var mid;
-    if (message.channel.fetchMessage(mid)) return message.reply("another music selection menu is currently active!").then(m => m.delete(5000)).then(() => message.delete())
       
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
       
@@ -196,6 +193,8 @@ module.exports = {
                             )
                   
                     shared.handler.addMenus(videosChoice)
+                  
+                    var mid;
                       
                       message.channel.sendMenu(videosChoice).then(m => mid = m.id)
                   
