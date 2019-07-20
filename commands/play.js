@@ -75,6 +75,12 @@ module.exports = {
         
     if (!searchString) return message.reply('please provide a search term, url or playlist link!')
     if (shared.stopping) shared.stopping = false;
+    
+    for (var x = 0; x < shared.playerVoted.length; x++) {
+            if (message.guild.id === shared.playerVoted[x]) {
+              return;
+        }
+        }
       
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
       
@@ -119,7 +125,7 @@ module.exports = {
                             .setDescription(`Check if you've inputted your search string correctly.`)
                             .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
-                        return message.channel.send(noresult)
+                        return message.channel.send(noresult).then(() => message.delete(10000))
                     }
                   
                     var vindex;
@@ -163,6 +169,7 @@ module.exports = {
                     async function detectSelection() {
                       
                         message.channel.fetchMessage(mid).then(m => m.delete());
+                        shared.activeMusicSelection.splice(message.guild.id)
                       
                         if (vindex === "time") {
                           
@@ -228,6 +235,7 @@ module.exports = {
                     var mid;
                       
                       message.channel.sendMenu(videosChoice).then(m => mid = m.id)
+                      shared.activeMusicSelection.push(message.guild.id)
                   
 			            try {
 				              var response = await message.channel.awaitMessages(m => m.content >= 1 && m.content <= 10 && !m.content.includes("-") && !m.content.includes(".") && !m.content.includes(",") && !m.content.includes(" ") && message.author.id === m.author.id, {
