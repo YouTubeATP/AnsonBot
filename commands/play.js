@@ -145,13 +145,13 @@ module.exports = {
           
           let playlistEmbed = new Discord.RichEmbed()
             .setAuthor(message.author.tag, message.author.avatarURL)
-            .setTitle(`Current Queue in Server: \`${message.guild.name}\``)
+            .setTitle(`Playlist added to queue!`)
             .setColor(0x00bdf2)
             .setThumbnail(message.guild.iconURL)
             .setDescription(`**Loop:** \`${serverQueue.loop}\``)
-            .addField("Now Playing", `**•** [${song.title}](${song.url})`)
-            .addField("Queued Songs", queueValue)
-            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+            .addField("Name", `**•** [${playlist.title}](https://www.youtube.com/playlist?list=${playlist.id})`)
+            .addField("Songs", playlistValue)
+            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
           return await message.channel.send(playlistEmbed)
       
         } else {
@@ -397,7 +397,7 @@ module.exports = {
 
         queueConstruct.songs.push(song);
       
-        if (playlist) return message.channel.send("Playlist added to queue.")
+        if (shared.playlist) return;
       
         try {
             var connection = await voiceChannel.join();
@@ -418,7 +418,7 @@ module.exports = {
     } else {
         serverQueue.songs.push(song);
       
-        if (playlist) return message.channel.send("Playlist added to queue.")
+        if (shared.playlist) return;
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
