@@ -151,8 +151,8 @@ module.exports = {
                     
                     async function detectSelection() {
                       
-                        if (vindex === "time") message.reply
-                        
+                        if (vindex === "time") return message.channel.send('Music selection timed out.');
+                        if (vindex === "cancel") return message.channel.send()
                         
                         const videoIndex = parseInt(vindex);
                         var video;
@@ -171,8 +171,8 @@ module.exports = {
                                   [
                                       { emoji: '❌',
                                           run: (user, message) => {
+                                              vindex = "cancel"
                                               detectSelection();
-                                              message.channel.send('Music selection canceled.');
                                               return message.delete()
                                                   }
                                       },
@@ -185,19 +185,18 @@ module.exports = {
                     shared.handler.addMenus(videosChoice)
                       
                       await message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
-                        .then(() => message.channel.sendMenu(videosChoice))
+                        .then(() => message.channel.sendMenu(videosChoice).then(m => m.delete(60000)).catch(error))
                   
-                  let response;
 			            try {
-				              response = await message.channel.awaitMessages(msg2 => msg2.content >= 1 && msg2.content <= 10 && message.author.id === msg2.author.id, {
+				              vindex = await message.channel.awaitMessages(msg2 => msg2.content >= 1 && msg2.content <= 10 && message.author.id === msg2.author.id, {
 					                max: 1,
 					                time: 60000,
 					                errors: ['time']
 				            });
+                      return detectSelection();
 			            } catch (err) {
                       vindex = "time"
-                      detectSelection();
-				              return message.channel.send('Music selection timed out.');
+                      return detectSelection();
       }
                   
                 } catch(err) {
