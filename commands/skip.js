@@ -7,6 +7,7 @@ var i;
 module.exports = {
 	name: "skip",
 	usage: "skip",
+  aliases: ["voteskip"],
 	description: "Votes to skip the playing song.\nSong automatically skips if half or more people voted to skip.",
 	run: async (bot, message, args, shared) => {
     

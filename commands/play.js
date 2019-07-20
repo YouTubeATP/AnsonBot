@@ -165,9 +165,29 @@ module.exports = {
                         message.channel.fetchMessage(mid).then(m => m.delete());
                       
                         if (vindex === "time") {
-                          return message.channel.send('Music selection timed out.');
+                          
+                          var timeout = new Discord.RichEmbed()
+                            .setColor("RED")
+                            .setAuthor(message.author.tag, message.author.avatarURL)
+                            .setThumbnail(message.guild.iconURL)
+                            .setTitle("Music selection cancelled!")
+                            .setDescription("Your music selection menu timed out. To maintain quality preformance, all music selection menus expire after 60 seconds.")
+                            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+                          return message.channel.send(timeout);
+                          
                         } else if (vindex === "cancel") {
-                          return message.channel.send('Music selection cancelled.');
+                          
+                          var cancelmsg = new Discord.RichEmbed()
+                            .setColor("RED")
+                            .setAuthor(message.author.tag, message.author.avatarURL)
+                            .setThumbnail(message.guild.iconURL)
+                            .setTitle("Music selection cancelled!")
+                            .setDescription("You have manually cancelled your music selection menu.")
+                            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+                          return message.channel.send(cancelmsg);
+                          
                         } else {
                           
                           const videoIndex = parseInt(vindex);
@@ -225,15 +245,15 @@ module.exports = {
                   
                 } catch(err) {
                     console.log(error)
-                        var noresult = new Discord.RichEmbed()
-                            .setColor("RED")
-                            .setAuthor(message.author.tag, message.author.avatarURL)
-                            .setThumbnail(message.guild.iconURL)
-                            .setTitle("An error occured whilst searching for your music!")
-                            .setDescription(error)
-                            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+                    var searchError = new Discord.RichEmbed()
+                        .setColor("RED")
+                        .setAuthor(message.author.tag, message.author.avatarURL)
+                        .setThumbnail(message.guild.iconURL)
+                        .setTitle("An error occured whilst searching for your music!")
+                        .setDescription(error)
+                        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
-                        return message.channel.send(noresult)
+                    return message.channel.send(searchError)
                 }
             }
         }

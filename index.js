@@ -100,6 +100,9 @@ shared.voted = voted
 var playerVoted = [];
 shared.playerVoted = playerVoted
 
+var activeMusicSelection = [];
+shared.activeMusicSelection = activeMusicSelection
+
 var playlist = false;
 shared.playlist = playlist
 

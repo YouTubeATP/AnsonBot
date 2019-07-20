@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: "stop",
 	usage: "stop",
+  aliases: ["forceskip", "forcestop"],
 	description: "Resets the queue and stops music.\nAlso forces bot to leave the voice channel.",
   requirements: "Move Members",
 	run: async (bot, message, args, shared) => {
