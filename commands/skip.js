@@ -16,6 +16,7 @@ module.exports = {
     const serverQueue = queue.get(message.guild.id);
     
     message.delete().catch(O_o=>{});
+    
         const voiceChannel = message.member.voiceChannel;
         const botVoiceConnection = message.guild.voiceConnection;
         
@@ -25,23 +26,12 @@ module.exports = {
       
         if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
     
-        if (voteSkip === 0) voteSkip = 1;
-        var voteSkipPass1 = shared.voteSkipPass - 1;
-        var voteSkip = Math.round(voteSkipPass1/2);
-
         for (var x = 0; x < shared.playerVoted.length; x++) {
             if (sender === shared.playerVoted[x]) {
-              var voteSkipFail = new Discord.RichEmbed()
-              .setColor("RED")
-              .setAuthor(message.author.tag, message.author.avatarURL)
-              .setThumbnail(message.guild.iconURL)
-              .setTitle("You've already voted to skip this song!")
-              .setDescription(shared.voted + '\/' + voteSkip + ' players voted to skip!')
-              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-          
-            return message.channel.send(voteSkipFail)
+              return voteSkipFailMessage()
         }
         }
+    
         shared.voted++;
         shared.playerVoted.push(sender);
         if (shared.voteSkipPass === 0) {
@@ -49,6 +39,10 @@ module.exports = {
              shared.voteSkipPass++;
             })
         }
+    
+        var voteSkipPass1 = shared.voteSkipPass - 1;
+        var voteSkip = Math.round(voteSkipPass1/2);
+        if (voteSkip === 0) voteSkip = 1;
         
         if (shared.voted >= voteSkip) {
           var skip = new Discord.RichEmbed()
@@ -75,6 +69,22 @@ module.exports = {
           
             await message.channel.send(voteSkip)
         }
+    
+        function voteSkipFailMessage() {
+          var voteSkipPass1 = shared.voteSkipPass - 1;
+          var voteSkip = Math.round(voteSkipPass1/2);
+          if (voteSkip === 0) voteSkip = 1;
+          var voteSkipFail = new Discord.RichEmbed()
+              .setColor("RED")
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(message.guild.iconURL)
+              .setTitle("You've already voted to skip this song!")
+              .setDescription(shared.voted + '\/' + voteSkip + ' players voted to skip!')
+              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+          
+            return message.channel.send(voteSkipFail)
+        }
+    
         return undefined;
     
 	}
