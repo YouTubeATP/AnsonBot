@@ -31,13 +31,34 @@ module.exports = {
       
           if (serverQueue.loop === "off") {
             serverQueue.loop = "single"
-              return message.channel.send ("Loop for the current queue has been toggled to `single`. Use this command again to toggle loop to `all`.");
+            var single = new Discord.RichEmbed()
+              .setColor("GREEN")
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(message.guild.iconURL)
+              .setTitle("Loop mode toggled!")
+              .setDescription("Loop for the current queue has been toggled to `single`. Use this command again to toggle loop to `all`.")
+              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+            return message.channel.send(single)
           } else if (serverQueue.loop === "single") {
             serverQueue.loop = "all"
-          return message.channel.send ("Loop for the current queue has been toggled `all`. Use this command again to disable loop.");
+            var all = new Discord.RichEmbed()
+              .setColor("GREEN")
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(message.guild.iconURL)
+              .setTitle("Loop mode toggled!")
+              .setDescription("Loop for the current queue has been toggled `all`. Use this command again to disable loop.")
+              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+            return message.channel.send(all)
     }
           serverQueue.loop = "off"
-          return message.channel.send ("Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`.");
+          var off = new Discord.RichEmbed()
+              .setColor("GREEN")
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(message.guild.iconURL)
+              .setTitle("Loop mode toggled!")
+              .setDescription("Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`.")
+              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+          return message.channel.send(off)
     
 	}
 }

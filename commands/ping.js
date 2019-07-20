@@ -13,8 +13,10 @@ module.exports = {
       var pingMessage = (`Bot latency is ${m.createdTimestamp - message.createdTimestamp}ms. API latency is ${Math.round(bot.ping)}ms.`)
       
       var embed = new Discord.RichEmbed()
-        .setColor(0x00bdf2)
-        .setTitle("Ping Received")
+        .setColor("GREEN")
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setThumbnail(message.guild.iconURL)
+        .setTitle("Ping Received!")
         .setDescription(pingMessage)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
       

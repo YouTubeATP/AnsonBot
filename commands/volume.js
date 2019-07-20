@@ -24,12 +24,30 @@ module.exports = {
         
         if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
       
-        if ( !number || number.includes("-") || number.includes(".") || number.includes(",") || number.includes(" ") ) return await message.channel.send(`The current volume is \`${serverQueue.volume}\`. To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
+        if ( !number || number.includes("-") || number.includes(".") || number.includes(",") || number.includes(" ") ) {
+          
+          var currentvol = new Discord.RichEmbed()
+              .setColor(0x00bdf2)
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(message.guild.iconURL)
+              .setTitle(`The volume is \`${serverQueue.volume}\`)
+              .setDescription(`To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
+              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+            return await message.channel.send(currentvol)
+          
+        }
     
         if ( number >= 0 && number <= 10 ) {
             serverQueue.connection.dispatcher.setVolumeLogarithmic(parseInt(number) / 10)
             serverQueue.volume = parseInt(number);
-            return await message.channel.send(`Volume level \`${number}\` has been set.`);
+            var vol = new Discord.RichEmbed()
+              .setColor("GREEN")
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(message.guild.iconURL)
+              .setTitle("Volume level changed!")
+              .setDescription(`Volume level \`${number}\` for the current queue has been set.`)
+              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+            return await message.channel.send(vol)
         }
     
     return message.channel.send(`The current volume is \`${serverQueue.volume}\`. To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
