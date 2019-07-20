@@ -120,7 +120,7 @@ module.exports = {
                     .setTitle("Music Selection")
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setThumbnail(message.guild.iconURL)
-                    .addField("Please provide a valid integer that corresponds to the song you want to select. \nClick ❌ to cancel selection.", videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -180,7 +180,7 @@ module.exports = {
                     let videosChoice = new RC.Menu(
                                   videosEmbed,
                                   [
-                                      { emoji: '❌',
+                                      { emoji: '588269975798808588',
                                           run: (user, message) => {
                                               vindex = "cancel"
                                               return detectSelection();
@@ -205,7 +205,7 @@ module.exports = {
 					                errors: ['time']
 				            });
                       vindex = parseInt(response.first().content, 10);
-                      message.delete(response.first().id)
+                      message.channel.fetchMessage(response.first().id).then(m => m.delete)
 			            } catch (err) {
                       vindex = "time"
       }
