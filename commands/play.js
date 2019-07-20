@@ -73,6 +73,9 @@ module.exports = {
         
     if (!searchString) return message.reply('please provide a search term, url or playlist link!')
     if (shared.stopping) shared.stopping = false;
+    
+    var mid;
+    if (message.channel.fetchMessage(mid)) return message.reply("another music selection menu is currently active!").then(m => m.delete(5000)).then(() => message.delete())
       
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
       
@@ -193,8 +196,6 @@ module.exports = {
                             )
                   
                     shared.handler.addMenus(videosChoice)
-                  
-                    var mid;
                       
                       message.channel.sendMenu(videosChoice).then(m => mid = m.id)
                   
@@ -347,7 +348,15 @@ function play(guild, song){
     if (!song) {
         serverQueue.voiceChannel.leave();
         queue.delete(guild.id);
-        return undefined;
+        var nosong = new Discord.RichEmbed()
+          .setColor(0x00bdf2)
+          .setAuthor(message.author.tag, message.author.avatarURL)
+          .setThumbnail(message.guild.iconURL)
+          .setTitle("Music Concluded")
+          .setDescription(`All queued songs in \`${message.guild.name}\` have been played, and I have left the voice channel.`)
+          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+        return serverQueue.textChannel.send(nosong);
     }
   
     const dispatcher = serverQueue.connection.playStream(ytdl(song.url), {bitrate: 512000 /* 512kbps */})
