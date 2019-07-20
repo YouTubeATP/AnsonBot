@@ -77,13 +77,13 @@ module.exports = {
     if (shared.stopping) shared.stopping = false;
     
     for (var x = 0; x < shared.activeMusicSelection.length; x++) {
-            if (message.guild.id === shared.activeMusicSelection[x]) {
+            if (message.author.id === shared.activeMusicSelection[x]) {
               var alreadySelection = new Discord.RichEmbed()
                   .setColor("RED")
                   .setAuthor(message.author.tag, message.author.avatarURL)
                   .setThumbnail(message.guild.iconURL)
                   .setTitle("You can't use this command right now!")
-                  .setDescription("Another music selection menu is active in this channel. To maintain quality performance, only 1 music selection menu can be active in a guild at a time.")
+                  .setDescription("You've already opened a music selection menu! Either make a selection, manually cancel it or wait for it to expire before trying again.")
                   .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
               return message.channel.send(alreadySelection).then(m => m.delete(10000));
@@ -178,7 +178,7 @@ module.exports = {
                       
                         message.channel.fetchMessage(mid).then(m => m.delete());
                         for (var x = 0; x < shared.activeMusicSelection.length; x++) {
-                           if ( shared.activeMusicSelection[x] === message.guild.id) {
+                           if ( shared.activeMusicSelection[x] === message.author.id) {
                                shared.activeMusicSelection.splice(x, 1) 
                             }
                         }
@@ -247,7 +247,7 @@ module.exports = {
                     var mid;
                       
                       message.channel.sendMenu(videosChoice).then(m => mid = m.id)
-                      shared.activeMusicSelection.push(message.guild.id)
+                      shared.activeMusicSelection.push(message.author.id)
                   
 			            try {
 				              var response = await message.channel.awaitMessages(m => m.content >= 1 && m.content <= 10 && !m.content.includes("-") && !m.content.includes(".") && !m.content.includes(",") && !m.content.includes(" ") && message.author.id === m.author.id, {
