@@ -30,10 +30,10 @@ module.exports = {
               .setColor(0x00bdf2)
               .setAuthor(message.author.tag, message.author.avatarURL)
               .setThumbnail(message.guild.iconURL)
-              .setTitle(`The volume is \`${serverQueue.volume}\`)
-              .setDescription(`To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
+              .setTitle(`The current volume level is \`${serverQueue.volume}\`.`)
+              .setDescription(`To change the volume, please provide a valid integer between \`0\` and \`10\` when using this command.`)
               .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-            return await message.channel.send(currentvol)
+          return await message.channel.send(currentvol)
           
         }
     
@@ -50,7 +50,14 @@ module.exports = {
             return await message.channel.send(vol)
         }
     
-    return message.channel.send(`The current volume is \`${serverQueue.volume}\`. To change the volume, please provide a valid integer between \`0\` and \`10\`.`)
+        var currentvol = new Discord.RichEmbed()
+              .setColor(0x00bdf2)
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(message.guild.iconURL)
+              .setTitle(`The current volume level is \`${serverQueue.volume}\`.`)
+              .setDescription(`To change the volume, please provide a valid integer between \`0\` and \`10\` when using this command.`)
+              .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+        return await message.channel.send(currentvol)
     
 	}
 }
