@@ -153,19 +153,23 @@ module.exports = {
                       
                         message.channel.fetchMessage(mid).then(m => m.delete());
                       
-                        if (vindex === "time") return message.channel.send('Music selection timed out.');
-                        if (vindex === "cancel") return message.channel.send('Music selection cancelled.');
-                        
-                        const videoIndex = parseInt(vindex);
-                        var video;
-                      
-                        try {
+                        if (vindex === "time") {
+                          return message.channel.send('Music selection timed out.');
+                        } else if (vindex === "cancel") {
+                          return message.channel.send('Music selection cancelled.');
+                        } else {
+                          const videoIndex = parseInt(vindex);
+                          var video;
+                          
+                          try {
                             video = await shared.youtube1.getVideoByID(videos[videoIndex - 1].id);
-                        } catch (error) {
+                          } catch (error) {
                             video = await shared.youtube2.getVideoByID(videos[videoIndex - 1].id);
-                        }
+                          }
                       
                         return handleVideo(video, message, voiceChannel);
+                        }
+                      
                     }
                     
                     let videosChoice = new RC.Menu(
@@ -187,19 +191,19 @@ module.exports = {
                   
                     var mid;
                       
-                      await message.channel.sendMenu(videosChoice).then(m => mid = m.id)
+                      message.channel.sendMenu(videosChoice).then(m => mid = m.id)
                   
 			            try {
-				              vindex = await message.channel.awaitMessages(m => m.content >= 1 && m.content <= 10 && !m.content.includes("-") && !m.content.includes(".") && !m.content.includes(",") && !m.content.includes(" ") && message.author.id === m.author.id, {
+				              var response = await message.channel.awaitMessages(m => m.content >= 1 && m.content <= 10 && !m.content.includes("-") && !m.content.includes(".") && !m.content.includes(",") && !m.content.includes(" ") && message.author.id === m.author.id, {
 					                max: 1,
 					                time: 60000,
 					                errors: ['time']
 				            });
-                      return detectSelection();
+                      vindex = response
 			            } catch (err) {
                       vindex = "time"
-                      return detectSelection();
       }
+                  return detectSelection();
                   
                 } catch(err) {
                     console.log(err)
