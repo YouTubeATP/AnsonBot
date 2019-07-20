@@ -151,8 +151,10 @@ module.exports = {
                     
                     async function detectSelection() {
                       
+                        message.channel.fetchMessage(mid).then(m => m.delete());
+                      
                         if (vindex === "time") return message.channel.send('Music selection timed out.');
-                        if (vindex === "cancel") return message.channel.send()
+                        if (vindex === "cancel") return message.channel.send('Music selection cancelled.')
                         
                         const videoIndex = parseInt(vindex);
                         var video;
@@ -172,8 +174,7 @@ module.exports = {
                                       { emoji: '❌',
                                           run: (user, message) => {
                                               vindex = "cancel"
-                                              detectSelection();
-                                              return message.delete()
+                                              return detectSelection();
                                                   }
                                       },
                                   ],
@@ -183,12 +184,14 @@ module.exports = {
                             )
                   
                     shared.handler.addMenus(videosChoice)
+                  
+                    var mid;
                       
                       await message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
-                        .then(() => message.channel.sendMenu(videosChoice).then(m => m.delete(60000)).catch(error))
+                        .then(() => message.channel.sendMenu(videosChoice).then(m => mid = m.id))
                   
 			            try {
-				              vindex = await message.channel.awaitMessages(msg2 => msg2.content >= 1 && msg2.content <= 10 && message.author.id === msg2.author.id, {
+				              vindex = await message.channel.awaitMessages(m => m.content >= 1 && m.content <= 10 && ( m.content.includes("-") || m.content.includes(".") || m.content.includes(",") || m.content.includes(" ") ) && message.author.id === m.author.id, {
 					                max: 1,
 					                time: 60000,
 					                errors: ['time']
