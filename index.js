@@ -24,7 +24,13 @@ blapi.setLogging(true);
 var shared = {}
 
 const queue = new Map();
-const youtube = new YouTube(config.youtube)
+
+var youtube;
+  try {
+    youtube = new YouTube(config.youtube1)
+  } catch(err) {
+    youtube = new YouTube(config.youtube2)
+  }
 
 shared.queue = queue
 shared.youtube = youtube
