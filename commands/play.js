@@ -111,7 +111,15 @@ module.exports = {
                   
                     if (videos.length === 0) {
                         console.log(error)
-                        return message.channel.send("No results could be found.")
+                        var noresult = new Discord.RichEmbed()
+                            .setColor("RED")
+                            .setAuthor(message.author.tag, message.author.avatarURL)
+                            .setThumbnail(message.guild.iconURL)
+                            .setTitle("No results could be found.")
+                            .setDescription(`Check if you've inputted your search string correctly.`)
+                            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+                        return message.channel.send(noresult)
                     }
                   
                     var vindex;
@@ -216,8 +224,16 @@ module.exports = {
                   return detectSelection();
                   
                 } catch(err) {
-                    console.log(err)
-                    return await message.channel.send("No results could be found.")
+                    console.log(error)
+                        var noresult = new Discord.RichEmbed()
+                            .setColor("RED")
+                            .setAuthor(message.author.tag, message.author.avatarURL)
+                            .setThumbnail(message.guild.iconURL)
+                            .setTitle("An error occured whilst searching for your music!")
+                            .setDescription(error)
+                            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+                        return message.channel.send(noresult)
                 }
             }
         }

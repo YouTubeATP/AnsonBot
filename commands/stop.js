@@ -23,10 +23,11 @@ module.exports = {
         if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
     
         if (!message.member.hasPermission("MOVE_MEMBERS")) return await message.reply("you don't have sufficient permissions!")
+        
     shared.stopping = true;
-    serverQueue.voiceChannel.leave();
+        serverQueue.voiceChannel.leave();
     
-    var stop = new Discord.RichEmbed()
+        var stop = new Discord.RichEmbed()
           .setColor(0x00bdf2)
           .setAuthor(message.author.tag, message.author.avatarURL)
           .setThumbnail(message.guild.iconURL)
