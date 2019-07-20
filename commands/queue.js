@@ -66,6 +66,7 @@ module.exports = {
         
         let queueEmbed = new Discord.RichEmbed()
         .setAuthor(message.author.tag, message.author.avatarURL)
+        .setTitle(`Current Queue in Server \`${message.guild.name}\``)
         .setColor(0x00bdf2)
         .setThumbnail(message.guild.iconURL)
         .setDescription(`**Now playing:** [${song.title}](${song.url}) \n**Loop:** \`${serverQueue.loop}\``)

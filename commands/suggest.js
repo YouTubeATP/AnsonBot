@@ -8,6 +8,8 @@ module.exports = {
 	description: "Submits a suggestion to our support server.",
 	run: async (bot, message, args, shared) => {
     
+            var i;
+    
             const embedMessage = args.join(" ");
     
             for (i=0;i<shared.bannedwords.length;i++) {
