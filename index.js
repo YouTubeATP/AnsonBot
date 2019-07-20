@@ -366,17 +366,7 @@ bot.on('message', async message => {
         
 		const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
 
-		if ( !command && message.guild.id !== "264445053596991498" ) {
-      return message.channel.send({embed: {
-      color: 0x00bdf2,
-      title: "The command you used was invalid!",
-      description:(`Do ${prefix}help for a list of commands.`),
-      footer: {
-          icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Clean Embeds, Crisp Music"
-      }
-  }}).then(message.delete());;
-    } else if ( !command && message.guild.id === "264445053596991498" ) return;
+		if ( !command ) return;
     
     console.log(argsNEW)
 		
