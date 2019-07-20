@@ -107,13 +107,19 @@ module.exports = {
                         videos = await shared.youtube2.searchVideos(searchString, 10); 
                     }
                   
+                    if (videos.length === 0) {
+                        console.log(error)
+                        return message.channel.send("No results could be found.")
+                    }
+                  
                     var vindex = 0;
                     let bicon = bot.user.displayAvatarURL
                     let videosEmbed = new Discord.RichEmbed()
                     .setColor(0x00bdf2)
+                    .setTitle("Music Selection")
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setThumbnail(message.guild.iconURL)
-                    .addField("Music Selection", videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+                    .addField("Please provide the value corresponding to the song you want to select. Click ❌ to cancel selection.", videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -144,6 +150,10 @@ module.exports = {
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     
                     async function detectSelection() {
+                      
+                        if (vindex === "time") message.reply
+                        
+                        
                         const videoIndex = parseInt(vindex);
                         var video;
                       
@@ -159,79 +169,10 @@ module.exports = {
                     let videosChoice = new RC.Menu(
                                   videosEmbed,
                                   [
-                                      { emoji: '1⃣',
-                                          run: (user, message) => {
-                                              vindex = 1
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '2⃣',
-                                          run: (user, message) => {
-                                              vindex = 2
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '3⃣',
-                                          run: (user, message) => {
-                                              vindex = 3
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '4⃣',
-                                          run: (user, message) => {
-                                              vindex = 4
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '5⃣',
-                                          run: (user, message) => {
-                                              vindex = 5
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '6⃣',
-                                          run: (user, message) => {
-                                              vindex = 6
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '7⃣',
-                                          run: (user, message) => {
-                                              vindex = 7
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '8⃣',
-                                          run: (user, message) => {
-                                              vindex = 8
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '9⃣',
-                                          run: (user, message) => {
-                                              vindex = 9
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
-                                      { emoji: '🔟',
-                                          run: (user, message) => {
-                                              vindex = 10
-                                              detectSelection()
-                                              return message.delete()
-                                                  }
-                                      },
                                       { emoji: '❌',
                                           run: (user, message) => {
-                                              message.channel.send('Music selection canceled.')
+                                              detectSelection();
+                                              message.channel.send('Music selection canceled.');
                                               return message.delete()
                                                   }
                                       },
@@ -245,6 +186,19 @@ module.exports = {
                       
                       await message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
                         .then(() => message.channel.sendMenu(videosChoice))
+                  
+                  let response;
+			            try {
+				              response = await message.channel.awaitMessages(msg2 => msg2.content >= 1 && msg2.content <= 10 && message.author.id === msg2.author.id, {
+					                max: 1,
+					                time: 60000,
+					                errors: ['time']
+				            });
+			            } catch (err) {
+                      vindex = "time"
+                      detectSelection();
+				              return message.channel.send('Music selection timed out.');
+      }
                   
                 } catch(err) {
                     console.log(err)
