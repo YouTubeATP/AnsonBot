@@ -76,7 +76,7 @@ module.exports = {
     if (!searchString) return message.reply('please provide a search term, url or playlist link!')
     if (shared.stopping) shared.stopping = false;
     
-    for (var x = 0; x < shared.playerVoted.length; x++) {
+    for (var x = 0; x < shared.activeMusicSelection.length; x++) {
             if (message.guild.id === shared.activeMusicSelection[x]) {
               var alreadySelection = new Discord.RichEmbed()
                   .setColor("RED")
@@ -177,7 +177,11 @@ module.exports = {
                     async function detectSelection() {
                       
                         message.channel.fetchMessage(mid).then(m => m.delete());
-                        shared.activeMusicSelection.splice(message.guild.id)
+                        for (var x = 0; x < shared.activeMusicSelection.length; x++) {
+                           if ( shared.activeMusicSelection[x] === message.guild.id) {
+                               shared.activeMusicSelection.splice(x, 1) 
+                            }
+                        }
                       
                         if (vindex === "time") {
                           
