@@ -48,6 +48,7 @@ module.exports = {
 				.replace(/&mdash;/g, '—')
 				.replace(/&lsquo;/g, '‘')
 				.replace(/&rsquo;/g, '’')
+        .replace(/&#39;/g, "'")
 				.replace(/&sbquo;/g, '‚')
 				.replace(/&ldquo;/g, '“')
 				.replace(/&rdquo;/g, '”')
