@@ -119,7 +119,7 @@ module.exports = {
                     .setTitle("Music Selection")
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setThumbnail(message.guild.iconURL)
-                    .addField("Please provide the value corresponding to the song you want to select. Click ❌ to cancel selection.", videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+                    .addField("Please provide a valid integer that corresponds to the song you want to select. \nClick ❌ to cancel selection.", videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -154,7 +154,7 @@ module.exports = {
                         message.channel.fetchMessage(mid).then(m => m.delete());
                       
                         if (vindex === "time") return message.channel.send('Music selection timed out.');
-                        if (vindex === "cancel") return message.channel.send('Music selection cancelled.')
+                        if (vindex === "cancel") return message.channel.send('Music selection cancelled.');
                         
                         const videoIndex = parseInt(vindex);
                         var video;
@@ -187,11 +187,10 @@ module.exports = {
                   
                     var mid;
                       
-                      await message.channel.send("Please select the number corresponding to your video! Wait for all the options to load before choosing.")
-                        .then(() => message.channel.sendMenu(videosChoice).then(m => mid = m.id))
+                      await message.channel.sendMenu(videosChoice).then(m => mid = m.id)
                   
 			            try {
-				              vindex = await message.channel.awaitMessages(m => m.content >= 1 && m.content <= 10 && ( m.content.includes("-") || m.content.includes(".") || m.content.includes(",") || m.content.includes(" ") ) && message.author.id === m.author.id, {
+				              vindex = await message.channel.awaitMessages(m => m.content >= 1 && m.content <= 10 && !m.content.includes("-") && !m.content.includes(".") && !m.content.includes(",") && !m.content.includes(" ") && message.author.id === m.author.id, {
 					                max: 1,
 					                time: 60000,
 					                errors: ['time']
