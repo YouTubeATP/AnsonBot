@@ -25,6 +25,7 @@ module.exports = {
       
         if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
     
+        if (voteSkip === 0) voteSkip = 1;
         var voteSkipPass1 = shared.voteSkipPass - 1;
         var voteSkip = Math.round(voteSkipPass1/2);
 
@@ -43,13 +44,12 @@ module.exports = {
         }
         shared.voted++;
         shared.playerVoted.push(sender);
-        if (shared.voteSkipPass === 0){
+        if (shared.voteSkipPass === 0) {
             voiceChannel.members.forEach(function() {
              shared.voteSkipPass++;
             })
         }
         
-        if (voteSkip === 0) voteSkip = 1;
         if (shared.voted >= voteSkip) {
           var skip = new Discord.RichEmbed()
           .setColor("GREEN")
