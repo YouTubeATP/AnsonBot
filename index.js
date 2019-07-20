@@ -25,15 +25,12 @@ var shared = {}
 
 const queue = new Map();
 
-var youtube;
-  try {
-    youtube = new YouTube(config.youtube1)
-  } catch(err) {
-    youtube = new YouTube(config.youtube2)
-  }
+const youtube1 = new YouTube(config.youtube1)
+const youtube2 = new YouTube(config.youtube2)
 
 shared.queue = queue
-shared.youtube = youtube
+shared.youtube1 = youtube1
+shared.youtube2 = youtube2
 shared.handler = handler
 
 // post stats to discordbots.org

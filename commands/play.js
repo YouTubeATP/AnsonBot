@@ -86,13 +86,27 @@ module.exports = {
           
             try {
               
-                var video = await shared.youtube.getVideo(searchString)
+                var video;
+                    
+                try {
+                  video = await shared.youtube1.getVideo(searchString)
+                } catch(error) {
+                  video = await shared.youtube2.getVideo(searchString)
+                }
+                
                 return handleVideo(video, message, voiceChannel);
                 
             } catch(error) {
                 try {
                     let index = 0;
-                    var videos = await shared.youtube.searchVideos(searchString, 10);
+                    var videos;
+                  
+                    try {
+                        videos = await shared.youtube1.searchVideos(searchString, 10);
+                    } catch (error) {
+                        videos = await shared.youtube2.searchVideos(searchString, 10); 
+                    }
+                  
                     var vindex = 0;
                     let bicon = bot.user.displayAvatarURL
                     let videosEmbed = new Discord.RichEmbed()
