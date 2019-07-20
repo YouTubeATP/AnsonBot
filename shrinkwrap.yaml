@@ -5,7 +5,7 @@ dependencies:
   dblapi.js: 2.3.0
   discord.js: 11.5.1
   discord.js-arbitrary-ffmpeg: 1.0.0
-  enmap: 4.8.7
+  enmap: 5.0.1
   express: 4.16.4
   ffmpeg: 0.0.4
   fs: 0.0.2
@@ -799,14 +799,14 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
-  /enmap/4.8.7:
+  /enmap/5.0.1:
     dependencies:
-      lodash: 4.17.11
+      lodash: 4.17.15
     dev: false
     peerDependencies:
-      better-sqlite-pool: 'github:eslachance/better-sqlite-pool'
+      better-sqlite3: ^5.4.0
     resolution:
-      integrity: sha512-uDdns7BXSohCQSFO+5RGgJQlgIgKWUHoLY0IPdXmiz90OdlfW+e2SOFAsuaXDCJxdXeKGcJJ9JUvv3wIwF80/Q==
+      integrity: sha512-GyUU8ffkG7+QqFaiS9kUKVIiiU8/TQnehR8YeDBszdepBErLEXHTdm2rc0zSHIbJ8cUyvu0xnURW+FZGusCx3Q==
   /es6-promise/4.2.6:
     dev: false
     resolution:
@@ -1656,6 +1656,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+  /lodash/4.17.15:
+    dev: false
+    resolution:
+      integrity: sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
   /log-driver/1.2.7:
     dev: false
     engines:
@@ -3143,7 +3147,7 @@ specifiers:
   dblapi.js: ^2.3.0
   discord.js: ^11.5.1
   discord.js-arbitrary-ffmpeg: ^1.0.0
-  enmap: ^4.8.6
+  enmap: ^5.0.1
   express: ^4.16.4
   ffmpeg: ^0.0.4
   fs: ^0.0.2

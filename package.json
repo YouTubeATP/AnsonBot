@@ -9,7 +9,7 @@
     "dblapi.js": "^2.3.0",
     "discord.js": "^11.5.1",
     "discord.js-arbitrary-ffmpeg": "^1.0.0",
-    "enmap": "^4.8.6",
+    "enmap": "^5.0.1",
     "express": "^4.16.4",
     "ffmpeg": "^0.0.4",
     "fs": "^0.0.2",
