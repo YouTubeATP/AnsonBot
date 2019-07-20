@@ -110,11 +110,10 @@ module.exports = {
                     var vindex = 0;
                     let bicon = bot.user.displayAvatarURL
                     let videosEmbed = new Discord.RichEmbed()
-                    .setTitle("Song Selection")
                     .setColor(0x00bdf2)
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setThumbnail(message.guild.iconURL)
-                    .addField("Songs:", videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+                    .addField("Music Selection", videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -232,7 +231,7 @@ module.exports = {
                                       },
                                       { emoji: '❌',
                                           run: (user, message) => {
-                                              message.channel.send('Selection canceled.')
+                                              message.channel.send('Music selection canceled.')
                                               return message.delete()
                                                   }
                                       },
