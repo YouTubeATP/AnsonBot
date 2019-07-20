@@ -30,9 +30,20 @@ module.exports = {
       if (voiceChannel !== botVoiceConnection.channel) return message.channel.send('You need to be in my voice channel to execute this command!')
       
 		  if (serverQueue && serverQueue.playing) {
+        
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
-			return message.channel.send('Music paused. Use the command \`' + guildConf.prefix + 'resume\` to resume playing.');
+        
+      var embed = new Discord.RichEmbed()
+        .setColor("GREEN")
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setThumbnail(message.guild.iconURL)
+        .setTitle("Music paused!")
+        .setDescription(`Use the command \`${guildConf.prefix}resume\` to resume playing.`)
+      .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+      return message.channel.send(embed)
+
 		}
 		return message.channel.send('Nothing is playing!');
     

@@ -23,6 +23,7 @@ module.exports = {
     let embed = new Discord.RichEmbed()
       .setTitle("Server Information")
       .setColor(0x00bdf2)
+      .setAuthor(message.author.tag, message.author.avatarURL)
       .setThumbnail(sicon)
       .addField("Name", message.guild.name, true)
       .addField("Owner", message.guild.owner, true)

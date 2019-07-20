@@ -36,6 +36,7 @@ module.exports = {
         let embed = new Discord.RichEmbed()
           .setTitle("Bot Information")
           .setColor(0x00bdf2)
+          .setAuthor(message.author.tag, message.author.avatarURL)
           .setThumbnail(bicon)
           .addField("Name", bot.user.username, true)
           .addField("Prefix for this Server", "\`" + guildConf.prefix + "\`", true)

@@ -32,7 +32,15 @@ module.exports = {
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
-			return message.channel.send('Music resumed.');
+			var embed = new Discord.RichEmbed()
+        .setColor("GREEN")
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setThumbnail(message.guild.iconURL)
+        .setTitle("Music resumed!")
+        .setDescription(`Use the command \`${guildConf.prefix}pause\` to pause the music.`)
+      .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+      return message.channel.send(embed)
 		}
 		return message.channel.send(`Something is currently playing! Use ${guildConf.prefix}pause to pause the music.`);
     
