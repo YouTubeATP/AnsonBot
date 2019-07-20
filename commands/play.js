@@ -112,7 +112,8 @@ module.exports = {
                         return message.channel.send("No results could be found.")
                     }
                   
-                    var vindex = 0;
+                    var vindex;
+                  
                     let bicon = bot.user.displayAvatarURL
                     let videosEmbed = new Discord.RichEmbed()
                     .setColor(0x00bdf2)
@@ -158,16 +159,20 @@ module.exports = {
                         } else if (vindex === "cancel") {
                           return message.channel.send('Music selection cancelled.');
                         } else {
-                          const videoIndex = parseInt(vindex);
-                          var video;
                           
+                          const videoIndex = parseInt(vindex);
+                          
+                          var video;
                           try {
                             video = await shared.youtube1.getVideoByID(videos[videoIndex - 1].id);
+                            console.log("Music || API #1")
                           } catch (error) {
                             video = await shared.youtube2.getVideoByID(videos[videoIndex - 1].id);
+                            console.log("Music || API #2")
                           }
-                      
+                          
                         return handleVideo(video, message, voiceChannel);
+                          
                         }
                       
                     }
@@ -199,7 +204,8 @@ module.exports = {
 					                time: 60000,
 					                errors: ['time']
 				            });
-                      vindex = response
+                      vindex = parseInt(response.first().content, 10);
+                      message.delete(response.first().id)
 			            } catch (err) {
                       vindex = "time"
       }
