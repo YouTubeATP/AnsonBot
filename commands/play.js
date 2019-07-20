@@ -127,6 +127,7 @@ module.exports = {
 				.replace(/&lsquo;/g, '‘')
 				.replace(/&rsquo;/g, '’')
         .replace(/&#39;/g, "'")
+        .replace(/&#124;/g, "|")
 				.replace(/&sbquo;/g, '‚')
 				.replace(/&ldquo;/g, '“')
 				.replace(/&rdquo;/g, '”')
@@ -141,6 +142,17 @@ module.exports = {
 				.replace(/&trade;/g, '™')
 				.replace(/&reg;/g, '®')
 				.replace(/&nbsp;/g, ' ')}](https://www.youtube.com/watch?v=${s.id})`)
+          
+          let playlistEmbed = new Discord.RichEmbed()
+            .setAuthor(message.author.tag, message.author.avatarURL)
+            .setTitle(`Current Queue in Server: \`${message.guild.name}\``)
+            .setColor(0x00bdf2)
+            .setThumbnail(message.guild.iconURL)
+            .setDescription(`**Loop:** \`${serverQueue.loop}\``)
+            .addField("Now Playing", `**•** [${song.title}](${song.url})`)
+            .addField("Queued Songs", queueValue)
+            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
+          return await message.channel.send(playlistEmbed)
       
         } else {
           
@@ -204,6 +216,7 @@ module.exports = {
 				.replace(/&lsquo;/g, '‘')
 				.replace(/&rsquo;/g, '’')
         .replace(/&#39;/g, "'")
+        .replace(/&#124;/g, "|")
 				.replace(/&sbquo;/g, '‚')
 				.replace(/&ldquo;/g, '“')
 				.replace(/&rdquo;/g, '”')
@@ -342,6 +355,7 @@ module.exports = {
 				.replace(/&lsquo;/g, '‘')
 				.replace(/&rsquo;/g, '’')
         .replace(/&#39;/g, "'")
+        .replace(/&#124;/g, "|")
 				.replace(/&sbquo;/g, '‚')
 				.replace(/&ldquo;/g, '“')
 				.replace(/&rdquo;/g, '”')
