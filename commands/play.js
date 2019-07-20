@@ -94,7 +94,24 @@ module.exports = {
       
           shared.playlist = true
       
-          return message.reply("directly playing a playlist is currently not supported.")
+          var playlist;
+          try {
+              playlist = await shared.youtube1.getPlaylist(searchString, 10);
+          } catch (error) {
+              playlist = await shared.youtube2.getPlaylist(searchString, 10); 
+          }
+          
+          var videos = await playlist.getVideos();
+          
+          for (const video of Object.values(videos)) {
+			        var video2;
+              try {
+                  video2 = await shared.youtube1.getVideoByID(video.id);
+              } catch (error) {
+                  video2 = await shared.youtube2.getVideoByID(video.id);
+              }
+			        await handleVideo(video2, message, voiceChannel);
+		      }
       
         } else {
           
