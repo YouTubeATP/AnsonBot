@@ -93,66 +93,7 @@ module.exports = {
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
       
           shared.playlist = true
-      
-          var playlist;
-          try {
-              playlist = await shared.youtube1.getPlaylist(searchString, 10);
-          } catch (error) {
-              playlist = await shared.youtube2.getPlaylist(searchString, 10); 
-          }
-          
-          var videos = await playlist.getVideos();
-          
-          for (const video of Object.values(videos)) {
-			        var video2;
-              try {
-                  video2 = await shared.youtube1.getVideoByID(video.id);
-              } catch (error) {
-                  video2 = await shared.youtube2.getVideoByID(video.id);
-              }
-			        await handleVideo(video2, message, voiceChannel);
-		      }
-      
-          var playlistValue = videos.map(s => `**•** [${s.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
-				.replace(/&quot;/g, '"')
-				.replace(/&OElig;/g, 'Œ')
-				.replace(/&oelig;/g, 'œ')
-				.replace(/&Scaron;/g, 'Š')
-				.replace(/&scaron;/g, 'š')
-				.replace(/&Yuml;/g, 'Ÿ')
-				.replace(/&circ;/g, 'ˆ')
-				.replace(/&tilde;/g, '˜')
-				.replace(/&ndash;/g, '–')
-				.replace(/&mdash;/g, '—')
-				.replace(/&lsquo;/g, '‘')
-				.replace(/&rsquo;/g, '’')
-        .replace(/&#39;/g, "'")
-        .replace(/&#124;/g, "|")
-				.replace(/&sbquo;/g, '‚')
-				.replace(/&ldquo;/g, '“')
-				.replace(/&rdquo;/g, '”')
-				.replace(/&bdquo;/g, '„')
-				.replace(/&dagger;/g, '†')
-				.replace(/&Dagger;/g, '‡')
-				.replace(/&permil;/g, '‰')
-				.replace(/&lsaquo;/g, '‹')
-				.replace(/&rsaquo;/g, '›')
-				.replace(/&euro;/g, '€')
-				.replace(/&copy;/g, '©')
-				.replace(/&trade;/g, '™')
-				.replace(/&reg;/g, '®')
-				.replace(/&nbsp;/g, ' ')}](https://www.youtube.com/watch?v=${s.id})`)
-          
-          let playlistEmbed = new Discord.RichEmbed()
-            .setAuthor(message.author.tag, message.author.avatarURL)
-            .setTitle(`Current Queue in Server: \`${message.guild.name}\``)
-            .setColor(0x00bdf2)
-            .setThumbnail(message.guild.iconURL)
-            .setDescription(`**Loop:** \`${serverQueue.loop}\``)
-            .addField("Now Playing", `**•** [${song.title}](${song.url})`)
-            .addField("Queued Songs", queueValue)
-            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
-          return await message.channel.send(playlistEmbed)
+          return message.reply("directly playing a playlist is currently not supported.");
       
         } else {
           
@@ -202,7 +143,7 @@ module.exports = {
                     .setTitle("Music Selection")
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setThumbnail(bot.user.displayAvatarURL)
-                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", videos.map(video2 => `**${++index}.** [${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", videos.map(video2 => `**${++index}.** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -230,7 +171,7 @@ module.exports = {
 				.replace(/&copy;/g, '©')
 				.replace(/&trade;/g, '™')
 				.replace(/&reg;/g, '®')
-				.replace(/&nbsp;/g, ' ')}](https://www.youtube.com/watch?v=${video2.id})`))
+				.replace(/&nbsp;/g, ' ')}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     
                     async function detectSelection() {
@@ -397,7 +338,7 @@ module.exports = {
 
         queueConstruct.songs.push(song);
       
-        if (playlist) return message.channel.send("Playlist added to queue.")
+        if (shared.playlist) return;
       
         try {
             var connection = await voiceChannel.join();
@@ -418,7 +359,7 @@ module.exports = {
     } else {
         serverQueue.songs.push(song);
       
-        if (playlist) return message.channel.send("Playlist added to queue.")
+        if (shared.playlist) return;
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
