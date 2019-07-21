@@ -135,6 +135,8 @@ module.exports = {
                         return message.channel.send(noresult).then(m => m.delete(10000));
                     }
                   
+                    const searchResult = Util.escapeMarkdown()
+                    
                     var vindex;
                   
                     let bicon = bot.user.displayAvatarURL
