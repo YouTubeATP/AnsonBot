@@ -1,4 +1,5 @@
 // start of index.js
+// no sh*t 
 // require various packages
 
 const Discord = require('discord.js');
