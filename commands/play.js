@@ -1,4 +1,4 @@
-const index = require('app/index.js');
+const index = require('../index.js');
 const fs = require('fs');
 const Discord = require('discord.js');
 const { Util } = require('discord.js');

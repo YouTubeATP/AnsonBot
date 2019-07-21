@@ -1,5 +1,4 @@
 // start of index.js
-// no sh*t Sherlock
 // require various packages
 
 const Discord = require('discord.js');
@@ -129,38 +128,9 @@ const defaultSettings = {
 // functions for command handling
 
 bot.commands = new Discord.Collection()
-var commandFiles;
-var folder;
-try {
-  commandFiles = fs.readdirSync('./commands/general').filter(file => file.endsWith('.js'))
-  folder = "general"
-} catch (error) {
-  try {
-    commandFiles = fs.readdirSync('./commands/embed').filter(file => file.endsWith('.js'))
-    folder = "embed"
-  } catch (error) {
-    try {
-      commandFiles = fs.readdirSync('./commands/music').filter(file => file.endsWith('.js'))
-      folder = "music"
-    } catch (error) {
-      try {
-        commandFiles = fs.readdirSync('./commands/moderation').filter(file => file.endsWith('.js'))
-        folder = "moderation"
-      } catch (error) {
-        try {
-          commandFiles = fs.readdirSync('./commands/serverconf').filter(file => file.endsWith('.js'))
-          folder = "serverconf"
-        } catch (error) {
-          commandFiles = fs.readdirSync('./commands/botadmin').filter(file => file.endsWith('.js'))
-          folder = "botadmin"
-        }
-      }
-    }
-  }
-}
-
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 for (const file of commandFiles) {
-	const command = require(`./commands/${folder}/${file}`)
+	const command = require(`./commands/${file}`)
 	bot.commands.set(command.name, command)
 }
 
