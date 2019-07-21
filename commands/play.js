@@ -260,6 +260,7 @@ module.exports = {
 					                time: 60000,
 					                errors: ['time']
 				            });
+                      if (cancelled) return cancelled = false
                       vindex = parseInt(response.first().content, 10);
                       message.channel.fetchMessage(response.first().id).then(m => m.delete)
 			            } catch (err) {
