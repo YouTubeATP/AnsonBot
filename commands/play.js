@@ -143,7 +143,7 @@ module.exports = {
                     .setTitle("Music Selection")
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setThumbnail(bot.user.displayAvatarURL)
-                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", videos.map(video2 => `**${++index}.** [${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", videos.map(video2 => `**${++index}.** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -171,7 +171,7 @@ module.exports = {
 				.replace(/&copy;/g, '©')
 				.replace(/&trade;/g, '™')
 				.replace(/&reg;/g, '®')
-				.replace(/&nbsp;/g, ' ')}](${video2.id})`))
+				.replace(/&nbsp;/g, ' ')}`))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     
                     async function detectSelection() {
