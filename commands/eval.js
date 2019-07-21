@@ -19,6 +19,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor("GREEN")
         .setTitle(`<:yes:588269976658378768> Evaluation Success!`)
+        .setAuthor(message.author.tag, message.author.avatarURL)
         .addField(`Expression`, '```js\n'+args.join(" ")+'```')
         .addField(`Result`, '```js\n'+out+'```')
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
