@@ -218,7 +218,7 @@ bot.on("guildCreate", guild => {
   
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   guild.owner.send({embed: {
-    color: '',
+    color: (0x00bdf2),
     title: "Thank you for choosing MusEmbed!",
     description: (`To get started, use the command ${guildConf.prefix}help to show a list of our commands.`),
     footer: {
@@ -229,7 +229,7 @@ bot.on("guildCreate", guild => {
    .then(results => {
   let sicon = guild.iconURL
   var embed = new Discord.RichEmbed()
-    .setColor(0x00bdf2)
+    .setColor("GREEN")
     .setTitle("I've joined a server!")
     .setDescription(`I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`)
     .setThumbnail(sicon)
@@ -256,7 +256,7 @@ bot.on("guildDelete", guild => {
    .then(results => {
   let sicon = guild.iconURL
   var embed = new Discord.RichEmbed()
-    .setColor(0x00bdf2)
+    .setColor("RED")
     .setTitle("I've left a server!")
     .setDescription(`I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`)
     .setThumbnail(sicon)
