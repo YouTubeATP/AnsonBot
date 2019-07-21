@@ -15,7 +15,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(message.guild.iconURL)
+        .setThumbnail(bot.user.avatarURL)
         .setTitle("Ping Received!")
         .setDescription(pingMessage)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
