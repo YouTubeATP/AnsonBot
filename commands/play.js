@@ -135,6 +135,8 @@ module.exports = {
                         return message.channel.send(noresult).then(m => m.delete(10000));
                     }
                   
+                    console.log(videos)
+                  
                     const searchResult = videos.map(video2 => `**${++index}.** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				                                  .replace(/&quot;/g, '"')
 				                                  .replace(/&OElig;/g, 'Œ')
@@ -173,7 +175,7 @@ module.exports = {
                     .setTitle("Music Selection")
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setThumbnail(bot.user.displayAvatarURL)
-                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", Util.escapeMarkdown(searchResult))
+                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", searchResult)
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     
                     async function detectSelection() {
