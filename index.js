@@ -218,7 +218,7 @@ bot.on("guildCreate", guild => {
   
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   guild.owner.send({embed: {
-    color: 0x00bdf2,
+    color: '',
     title: "Thank you for choosing MusEmbed!",
     description: (`To get started, use the command ${guildConf.prefix}help to show a list of our commands.`),
     footer: {

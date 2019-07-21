@@ -111,7 +111,7 @@ module.exports = {
                 
                 return handleVideo(video, message, voiceChannel);
                 
-            } catch(error) {
+            } catch (error) {
                 try {
                     let index = 0;
                     var videos;
@@ -135,7 +135,35 @@ module.exports = {
                         return message.channel.send(noresult).then(m => m.delete(10000));
                     }
                   
-                    const searchResult = Util.escapeMarkdown()
+                    const searchResult = videos.map(video2 => `**${++index}.** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+				                                  .replace(/&quot;/g, '"')
+				                                  .replace(/&OElig;/g, 'Œ')
+				                                  .replace(/&oelig;/g, 'œ')
+				                                  .replace(/&Scaron;/g, 'Š')
+				                                  .replace(/&scaron;/g, 'š')
+				                                  .replace(/&Yuml;/g, 'Ÿ')
+				                                  .replace(/&circ;/g, 'ˆ')
+				                                  .replace(/&tilde;/g, '˜')
+				                                  .replace(/&ndash;/g, '–')
+				                                  .replace(/&mdash;/g, '—')
+				                                  .replace(/&lsquo;/g, '‘')
+				                                  .replace(/&rsquo;/g, '’')
+                                          .replace(/&#39;/g, "'")
+                                          .replace(/&#124;/g, "|")
+			                                  	.replace(/&sbquo;/g, '‚')
+				                                  .replace(/&ldquo;/g, '“')
+				                                  .replace(/&rdquo;/g, '”')
+				                                  .replace(/&bdquo;/g, '„')
+				                                  .replace(/&dagger;/g, '†')
+				                                  .replace(/&Dagger;/g, '‡')
+				                                  .replace(/&permil;/g, '‰')
+				                                  .replace(/&lsaquo;/g, '‹')
+				                                  .replace(/&rsaquo;/g, '›')
+				                                  .replace(/&euro;/g, '€')
+				                                  .replace(/&copy;/g, '©')
+				                                  .replace(/&trade;/g, '™')
+				                                  .replace(/&reg;/g, '®')
+				                                  .replace(/&nbsp;/g, ' ')}`)
                     
                     var vindex;
                   
@@ -145,35 +173,7 @@ module.exports = {
                     .setTitle("Music Selection")
                     .setAuthor(message.author.tag, message.author.avatarURL)
                     .setThumbnail(bot.user.displayAvatarURL)
-                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", videos.map(video2 => `**${++index}.** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
-				.replace(/&quot;/g, '"')
-				.replace(/&OElig;/g, 'Œ')
-				.replace(/&oelig;/g, 'œ')
-				.replace(/&Scaron;/g, 'Š')
-				.replace(/&scaron;/g, 'š')
-				.replace(/&Yuml;/g, 'Ÿ')
-				.replace(/&circ;/g, 'ˆ')
-				.replace(/&tilde;/g, '˜')
-				.replace(/&ndash;/g, '–')
-				.replace(/&mdash;/g, '—')
-				.replace(/&lsquo;/g, '‘')
-				.replace(/&rsquo;/g, '’')
-        .replace(/&#39;/g, "'")
-        .replace(/&#124;/g, "|")
-				.replace(/&sbquo;/g, '‚')
-				.replace(/&ldquo;/g, '“')
-				.replace(/&rdquo;/g, '”')
-				.replace(/&bdquo;/g, '„')
-				.replace(/&dagger;/g, '†')
-				.replace(/&Dagger;/g, '‡')
-				.replace(/&permil;/g, '‰')
-				.replace(/&lsaquo;/g, '‹')
-				.replace(/&rsaquo;/g, '›')
-				.replace(/&euro;/g, '€')
-				.replace(/&copy;/g, '©')
-				.replace(/&trade;/g, '™')
-				.replace(/&reg;/g, '®')
-				.replace(/&nbsp;/g, ' ')}`))
+                    .addField("Provide a valid integer (1-10) to make a selection. \nClick " + bot.emojis.get("588269975798808588").toString() + " to cancel.", Util.escapeMarkdown(searchResult))
                     .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
                     
                     async function detectSelection() {
