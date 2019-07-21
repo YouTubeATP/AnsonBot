@@ -35,7 +35,7 @@ module.exports = {
         var queueValue
         
         if (!Array.isArray(serverQueue.songs.slice(1)) || !serverQueue.songs.slice(1).length) queueValue = `There are no queued songs right now! To add another song to the queue, use the command \`${guildConf.prefix}play <song name/url>\` and make a selection.`
-        else queueValue = serverQueue.songs.slice(1).map(s => `**•** [${s.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+        else queueValue = serverQueue.songs.slice(1).map(s => `• [${s.title.replace(/&gt;/g, '>').replace(/&lt;/g, '<')
 				.replace(/&quot;/g, '"')
 				.replace(/&OElig;/g, 'Œ')
 				.replace(/&oelig;/g, 'œ')
@@ -71,7 +71,7 @@ module.exports = {
         .setColor(0x00bdf2)
         .setThumbnail(message.guild.iconURL)
         .setDescription(`**Loop:** \`${serverQueue.loop}\``)
-        .addField("Now Playing", `**•** [${song.title}](${song.url})`)
+        .addField("Now Playing", `[${song.title}](${song.url})`)
         .addField("Queued Songs", queueValue)
         .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon)
         return await message.channel.send(queueEmbed)
