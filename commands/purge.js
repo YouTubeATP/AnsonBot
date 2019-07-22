@@ -30,6 +30,7 @@ module.exports = {
       
       try {
         
+        if (!number) return message.reply("please provide the number of messages you want purged.").then(message.delete())
         if ( number <= 0 || number.includes("-") || number.includes(".") || number.includes(",") || number.includes(" ") ) return message.reply("please provide a valid integer as the number of messages you want purged.").then(message.delete())
         if ( number > 100 ) return message.reply("due to Discord's limitations, I can only purge up to 100 messages at a time.").then(message.delete())
         
@@ -49,7 +50,7 @@ module.exports = {
         }
         
       } catch (error) {
-        return message.reply("please provide the number of messages you want purged.").then(message.delete())
+        return message.reply("due to Discord's limitations, we cannot purge messages that are more than 2 weeks old.").then(message.delete())
       }
     }
     
