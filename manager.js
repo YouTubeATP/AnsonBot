@@ -1,4 +1,4 @@
-// run MusEmbed with sharding
+// Initiating MusEmbed™ with Sharding
 
 const Discord = require('discord.js');
 const config = require("./config.json");
@@ -27,7 +27,7 @@ const listener = app.listen(process.env.PORT, function() {
 }, 225000);
 });
 
-// vote detection
+// Vote Detection System
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { webhookAuth: 'NaKh26100225', webhookServer: listener }, bot);
@@ -61,3 +61,18 @@ dbl.webhook.on('vote', vote => {
 });
   
 bot.login(config.token);
+
+// MusicSounds's Rich Presence
+
+const RPC = require('discord-rpc')
+const client = require('discord-rich-presence')('414440610418786314');
+ 
+client.updatePresence ({
+  state: 'www.musembed.tk',
+  details: 'Lead Developer',
+  largeImageKey: 'musicsounds_avatar',
+  largeImageText: "My Avatar",
+  smallImageKey: 'musicsounds_avatar',
+  smallImageText: "MusEmbed's Logo",
+  instance: true,
+});
