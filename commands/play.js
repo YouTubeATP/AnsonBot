@@ -100,12 +100,12 @@ module.exports = {
           }
           if (playlist.length > 20) {
             
-            let playlistAddEmbed = new Discord.RichEmbed()
+            let failEmbed = new Discord.RichEmbed()
             .setColor(0x00bdf2)
-            .setTitle("Playlist Detected")
+            .setTitle("We can't play this playlist!")
             .setAuthor(message.author.tag, message.author.avatarURL)
             .setThumbnail(playlist.thumbnails.defailt.url)
-            .setDescription(`[${playlist.title}](${searchString}) \nI'm adding your songs to the queue rignt now! I'll tell you when I'm done.`)
+            .setDescription(`[${playlist.title}](${searchString}) \nThis playlist is quite long! If we add all the songs here`)
             return message.channel.send(failEmbed)
             
           }
