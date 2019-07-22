@@ -107,9 +107,16 @@ module.exports = {
               video2 = await shared.youtube2.getVideoByID(video.id);
             }
 				    await handleVideo(video2, message, voiceChannel, true);
-			}
-			return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
-          return message.reply("directly playing a playlist is currently not supported.");
+			    }
+      
+          let bicon = bot.user.displayAvatarURL
+          let playlistEmbed = new Discord.RichEmbed()
+            .setColor(0x00bdf2)
+            .setTitle("Playlist added")
+            .setAuthor(message.author.tag, message.author.avatarURL)
+            .setThumbnail(bot.user.displayAvatarURL)
+          
+			    return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
       
         } else {
           
@@ -303,35 +310,35 @@ module.exports = {
     const song = {
                 id: video.id,
                 title: Util.escapeMarkdown(video.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
-				.replace(/&quot;/g, '"')
-				.replace(/&OElig;/g, 'Œ')
-				.replace(/&oelig;/g, 'œ')
-				.replace(/&Scaron;/g, 'Š')
-				.replace(/&scaron;/g, 'š')
-				.replace(/&Yuml;/g, 'Ÿ')
-				.replace(/&circ;/g, 'ˆ')
-				.replace(/&tilde;/g, '˜')
-				.replace(/&ndash;/g, '–')
-				.replace(/&mdash;/g, '—')
-				.replace(/&lsquo;/g, '‘')
-				.replace(/&rsquo;/g, '’')
-        .replace(/&#39;/g, "'")
-        .replace(/&#96;/g, "`")
-        .replace(/&#124;/g, "|")
-				.replace(/&sbquo;/g, '‚')
-				.replace(/&ldquo;/g, '“')
-				.replace(/&rdquo;/g, '”')
-				.replace(/&bdquo;/g, '„')
-				.replace(/&dagger;/g, '†')
-				.replace(/&Dagger;/g, '‡')
-				.replace(/&permil;/g, '‰')
-				.replace(/&lsaquo;/g, '‹')
-				.replace(/&rsaquo;/g, '›')
-				.replace(/&euro;/g, '€')
-				.replace(/&copy;/g, '©')
-				.replace(/&trade;/g, '™')
-				.replace(/&reg;/g, '®')
-				.replace(/&nbsp;/g, ' ')),
+				          .replace(/&quot;/g, '"')
+				          .replace(/&OElig;/g, 'Œ')
+				          .replace(/&oelig;/g, 'œ')
+			          	.replace(/&Scaron;/g, 'Š')
+			          	.replace(/&scaron;/g, 'š')
+			          	.replace(/&Yuml;/g, 'Ÿ')
+		          		.replace(/&circ;/g, 'ˆ')
+		          		.replace(/&tilde;/g, '˜')
+	          			.replace(/&ndash;/g, '–')
+	          			.replace(/&mdash;/g, '—')
+	          			.replace(/&lsquo;/g, '‘')
+	          			.replace(/&rsquo;/g, '’')
+                  .replace(/&#39;/g, "'")
+                  .replace(/&#96;/g, "`")
+                  .replace(/&#124;/g, "|")
+		          		.replace(/&sbquo;/g, '‚')
+                  .replace(/&ldquo;/g, '“')
+	        	  		.replace(/&rdquo;/g, '”')
+	          			.replace(/&bdquo;/g, '„')
+	          			.replace(/&dagger;/g, '†')
+	          			.replace(/&Dagger;/g, '‡')
+	          			.replace(/&permil;/g, '‰')
+	          			.replace(/&lsaquo;/g, '‹')
+		          		.replace(/&rsaquo;/g, '›')
+		          		.replace(/&euro;/g, '€')
+		          		.replace(/&copy;/g, '©')
+		          		.replace(/&trade;/g, '™')
+		          		.replace(/&reg;/g, '®')
+		          		.replace(/&nbsp;/g, ' ')),
                 thumbnail: video.thumbnails.default.url,
                 url: `https://www.youtube.com/watch?v=${video.id}`,
                 channel: video.channel.title,
@@ -373,10 +380,11 @@ module.exports = {
                 icon_url: bot.user.avatarURL,
                 text: "MusEmbed™ | Clean Embeds, Crisp Music"
             }
-  }})
+          }})
         }
     } else {
         serverQueue.songs.push(song);
+        if (playlist) return undefined;
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
