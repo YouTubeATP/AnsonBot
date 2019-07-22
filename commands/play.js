@@ -92,23 +92,28 @@ module.exports = {
       
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       
+          return message.reply("we're currently working on a better GUI for adding playlists.")
+      
           var playlist
           try {
             playlist = await shared.youtube1.getPlaylist(searchString)
           } catch (error) {
             playlist = await shared.youtube2.getPlaylist(searchString)
           }
+          
           if (playlist.length > 20) {
             
+            let bicon = bot.user.displayAvatarURL
             let failEmbed = new Discord.RichEmbed()
             .setColor(0x00bdf2)
             .setTitle("We can't play this playlist!")
             .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(playlist.thumbnails.defailt.url)
-            .setDescription(`[${playlist.title}](${searchString}) \nThis playlist is quite long! If we add all the songs here`)
+            .setThumbnail(bicon)
+            .setDescription(`[${playlist.title}](${searchString}) \nDue to YouTube limitations, I can only add playlists with 20 songs at most to my queue.`)
             return message.channel.send(failEmbed)
             
           }
+      
 			    const videos = await playlist.getVideos();
 			    for (const video of Object.values(videos)) {
 				    var video2
@@ -122,7 +127,7 @@ module.exports = {
             .setColor(0x00bdf2)
             .setTitle("Playlist Detected")
             .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(playlist.thumbnails.defailt.url)
+            .setThumbnail(bicon)
             .setDescription(`[${playlist.title}](${searchString}) \nI'm adding your songs to the queue rignt now! I'll tell you when I'm done.`)
             
 			      return message.channel.send(playlistAddEmbed);
