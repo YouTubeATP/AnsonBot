@@ -3,7 +3,6 @@ dependencies:
   blapi: 1.1.0
   child_process: 1.0.2
   dblapi.js: 2.3.0
-  discord-rpc: 3.0.2
   discord.js: 11.5.1
   discord.js-arbitrary-ffmpeg: 1.0.0
   enmap: 5.0.1
@@ -748,15 +747,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
-  /discord-rpc/3.0.2:
-    dependencies:
-      node-fetch: 2.6.0
-      ws: 6.2.1
-    dev: false
-    peerDependencies:
-      register-scheme: 'github:devsnek/node-register-scheme'
-    resolution:
-      integrity: sha512-13JDueH1geWUlS0aLzVl2nLoEQx9U69Ie3vxMM3D6nOSKASq/irohqxT3AU0zhZDEtkp23AWWMLRwOlXcfCvWg==
   /discord.js-arbitrary-ffmpeg/1.0.0:
     dev: false
     resolution:
@@ -3155,7 +3145,6 @@ specifiers:
   blapi: ^1.1.0
   child_process: ^1.0.2
   dblapi.js: ^2.3.0
-  discord-rpc: ^3.0.2
   discord.js: ^11.5.1
   discord.js-arbitrary-ffmpeg: ^1.0.0
   enmap: ^5.0.1
