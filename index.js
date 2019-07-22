@@ -284,7 +284,7 @@ bot.on('message', async message => {
   
   console.log(message.guild.name, '|', message.author.tag, '|', message.content)
   
-  if (message.guild.id === config.serverID && message.author.bot && message.channel.id !== "585811595884625927" && message.channel.id !== "585811848159559680" && message.channel.id !== "585811822305738772" && message.channel.id !== "585811927565860865" && message.channel.id !== "585811949963444244" && message.channel.id !== "585814273020788736" && message.channel.id !== "596211334782386177" && message.channel.id !== "596210766944665600" && message.channel.id !== "585812719043870780" && message.channel.id !== "595151500603555871") return message.delete();
+  if (message.guild.id === config.serverID && message.author.bot && message.channel.id !== "585811595884625927" && message.channel.id !== "585811848159559680" && message.channel.id !== "585811822305738772" && message.channel.id !== "585811927565860865" && message.channel.id !== "585811949963444244" && message.channel.id !== "585814273020788736" && message.channel.id !== "596211334782386177" && message.channel.id !== "596210766944665600" && message.channel.id !== "585812719043870780" && message.channel.id !== "595151500603555871" && message.channel.id !== "602730640269508611") return message.delete();
     
   let sender = message.author;
   let msg = message.content.toLowerCase();
