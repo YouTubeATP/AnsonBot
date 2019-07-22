@@ -92,42 +92,15 @@ module.exports = {
       
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       
-          var playlist
-          try {
-            playlist = await shared.youtube1.getPlaylist(searchString)
-          } catch (error) {
-            playlist = await shared.youtube2.getPlaylist(searchString)
-          }
-      
-			    const videos = await playlist.getVideos();
-			    for (const video of Object.values(videos)) {
-				    var video2
-            try {
-              video2 = await shared.youtube1.getVideos(video.id, 20);
-            } catch (error) {
-              video2 = await shared.youtube2.getVideos(video.id, 20);
-            }
-            let bicon = bot.user.displayAvatarURL
-            let playlistAddEmbed = new Discord.RichEmbed()
-              .setColor(0x00bdf2)
-              .setTitle("Playlist Detected")
-              .setAuthor(message.author.tag, message.author.avatarURL)
-              .setThumbnail(bicon)
-              .setDescription(`[${playlist.title}](${searchString}) \nI'm adding your songs to the queue rignt now! I'll tell you when I'm done. \nNote: If your playlist is longer than 20 songs, I'll only add the first 20 due to YouTube limitations.`)
-            
-			      return message.channel.send(playlistAddEmbed);
-				    await handleVideo(video2, message, voiceChannel, true);
-			    }
-      
-          let bicon = bot.user.displayAvatarURL
-          let playlistEmbed = new Discord.RichEmbed()
-            .setColor(0x00bdf2)
-            .setTitle("Playlist added to queue!")
-            .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(bicon)
-            .setDescription(`[${playlist.title}](${searchString})`)
-            
-			    return message.channel.send(playlistEmbed);
+          var nope = new Discord.RichEmbed()
+                  .setColor("RED")
+                  .setAuthor(message.author.tag, message.author.avatarURL)
+                  .setThumbnail(bot.user.displayAvatarURL)
+                  .setTitle("You can't play a playlist right now!")
+                  .setDescription("We're finding the most efficient way to support this in the future. For now, however, sorry for the inconvenience caused.")
+                  .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+    
+              return message.channel.send(nope).then(m => m.delete(10000));
       
         } else {
           
