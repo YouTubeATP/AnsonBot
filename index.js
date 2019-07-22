@@ -106,7 +106,7 @@ shared.activeMusicSelection = activeMusicSelection
 var playlist = false;
 shared.playlist = playlist
 
-var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kys,fuc,pu$$y,anal,xvideo,porn,asshole,a$$hole,kunt,anal,d.1.c.k,diu".split(",");
+var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kill yourself,break your neck,kys,fuc,pu$$y,anal,xvideo,porn,asshole,a$$hole,kunt,anal,d.1.c.k,diu".split(",");
 
 var userData = 0
 shared.userData = userData
@@ -312,7 +312,7 @@ bot.on('message', async message => {
     for (i=0;i<bannedwords.length;i++) {
       if (message.content.toLowerCase().includes(bannedwords[i])) {
         message.delete().catch(O_o=>{})
-        return message.reply("please refrain from using such contemptable words.");
+        return message.reply("please refrain from using such contemptable words.").then(m => m.delete(5000));
       }  
     }
   }

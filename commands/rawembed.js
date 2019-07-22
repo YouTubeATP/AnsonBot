@@ -9,6 +9,8 @@ module.exports = {
   requirements: "Administrator",
 	run: async (bot, message, args, shared) => {
     
+    var i
+    
     if (!message.member.hasPermission(8)) {
       
       return message.reply("you don't have sufficient permissions!")
@@ -77,8 +79,7 @@ module.exports = {
       for (i = 0; i < shared.bannedwords.length; i++) {
         if (message.content.toLowerCase().includes(shared.bannedwords[i])) {
           message.delete().catch(O_o=>{});
-          message.reply("please refrain from using such contemptable words.");
-          return;
+          return message.reply("please refrain from using such contemptable words.").then(m => m.delete(5000));
         }
       }
 

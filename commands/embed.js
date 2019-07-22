@@ -8,6 +8,8 @@ module.exports = {
 	description: "Embeds your message.",
 	run: async (bot, message, args, shared) => {
     
+    var i
+    
     function sayEmbed(message, args) {
       var color = args.shift()
       var content = message.content.slice(shared.prefix.length + 12).trim()
@@ -70,8 +72,7 @@ module.exports = {
       for (i = 0; i < shared.bannedwords.length; i++) {
         if (message.content.toLowerCase().includes(shared.bannedwords[i])) {
           message.delete().catch(O_o=>{});
-          message.reply("please refrain from using such contemptable words.");
-          return;
+          return message.reply("please refrain from using such contemptable words.").then(m => m.delete(5000));
         }
       }
 

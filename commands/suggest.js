@@ -15,7 +15,7 @@ module.exports = {
             for (i=0;i<shared.bannedwords.length;i++) {
             if (message.content.toLowerCase().includes(shared.bannedwords[i])) {
                 message.delete().catch(O_o=>{});
-                return message.reply("chill! Suggestions must be made in a calm and collected manner.")
+                return message.reply("chill! Suggestions must be made in a calm and collected manner.").then(m => message.delete(5000))
             } else if (embedMessage.length < 20) {
               message.delete().catch(O_o=>{});
               message.channel.send({embed: {
