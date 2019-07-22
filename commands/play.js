@@ -92,12 +92,26 @@ module.exports = {
       
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
       
-          shared.playlist = true
+          var playlist
+          try {
+            playlist = await shared.youtube1.getPlaylist(searchString)
+          } catch (error) {
+            playlist = await shared.youtube2.getPlaylist(searchString)
+          }
+			    const videos = await playlist.getVideos();
+			    for (const video of Object.values(videos)) {
+				    var video2
+            try {
+              video2 = await shared.youtube1.getVideoByID(video.id);
+            } catch (error) {
+              video2 = await shared.youtube2.getVideoByID(video.id);
+            }
+				    await handleVideo(video2, message, voiceChannel, true);
+			}
+			return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
           return message.reply("directly playing a playlist is currently not supported.");
       
         } else {
-          
-            shared.playlist = false
           
             try {
               
@@ -345,8 +359,6 @@ module.exports = {
 
         queueConstruct.songs.push(song);
       
-        if (shared.playlist) return;
-      
         try {
             var connection = await voiceChannel.join();
             queueConstruct.connection = connection;
@@ -365,8 +377,6 @@ module.exports = {
         }
     } else {
         serverQueue.songs.push(song);
-      
-        if (shared.playlist) return;
         
         let bicon = bot.user.displayAvatarURL
         let queueemb = new Discord.RichEmbed()
