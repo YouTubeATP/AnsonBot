@@ -30,7 +30,6 @@ module.exports = {
       
       try {
         
-        if ( number.length = 0 ) return message.reply("please provide the number of messages you want purged.").then(message.delete())
         if ( number <= 0 || number.includes("-") || number.includes(".") || number.includes(",") || number.includes(" ") ) return message.reply("please provide a valid integer as the number of messages you want purged.").then(message.delete())
         if ( number > 100 ) return message.reply("due to Discord's limitations, I can only purge up to 100 messages at a time.").then(message.delete())
         

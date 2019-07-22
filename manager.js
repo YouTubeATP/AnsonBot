@@ -27,20 +27,6 @@ const listener = app.listen(process.env.PORT, function() {
 }, 225000);
 });
 
-// set MusicSounds's rich presense status
-
-const client = require('discord-rich-presence')('602723302494175261');
- 
-client.updatePresence({
-  state: 'MusEmbed™ | Clean Embeds, Crisp Music',
-  details: 'Head Developer',
-  largeImageKey: 'musicsounds_avatar',
-  largeImageText: 'My Avatar',
-  smallImageKey: 'musembed_logo_background',
-  smallImageText: "MusEmbed's Logo",
-  instance: true,
-});
-
 // vote detection
 
 const DBL = require("dblapi.js");
