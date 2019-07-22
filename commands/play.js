@@ -87,10 +87,10 @@ module.exports = {
                   .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
               return message.channel.send(alreadySelection).then(m => m.delete(10000));
-        }
-        }
+            }
+    }
       
-    if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
+    if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       
           var playlist
           try {
@@ -112,11 +112,12 @@ module.exports = {
           let bicon = bot.user.displayAvatarURL
           let playlistEmbed = new Discord.RichEmbed()
             .setColor(0x00bdf2)
-            .setTitle("Playlist added")
+            .setTitle("Playlist added to queue!")
             .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(bot.user.displayAvatarURL)
-          
-			    return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
+            .setThumbnail(playlist.thumbnails.defailt.url)
+            .setDescription(`[${playlist.title}](${searchString})`)
+            
+			    return message.channel.send(playlistEmbed);
       
         } else {
           
