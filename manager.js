@@ -64,6 +64,7 @@ bot.login(config.token);
 
 // MusicSounds's Rich Presence
 
+const clientId = '180984871685062656';
 const RPC = require('discord-rpc')
 const client = require('discord-rich-presence')('414440610418786314');
  
