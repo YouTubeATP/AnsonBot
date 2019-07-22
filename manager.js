@@ -32,12 +32,12 @@ const listener = app.listen(process.env.PORT, function() {
 const client = require('discord-rich-presence')('602723302494175261');
  
 client.updatePresence({
-  state: 'Head Developer',
-  details: 'MusEmbed™ | Clean Embeds, Crisp Music',
-  startTimestamp: Date.now(),
-  endTimestamp: Date.now() + 1337,
-  largeImageKey: 'musembed_logo_transparent',
-  smallImageKey: 'snek_small',
+  state: 'MusEmbed™ | Clean Embeds, Crisp Music',
+  details: 'Head Developer',
+  largeImageKey: 'musicsounds_avatar',
+  largeImageText: 'My Avatar',
+  smallImageKey: 'musembed_logo_background',
+  smallImageText: "MusEmbed's Logo",
   instance: true,
 });
 
