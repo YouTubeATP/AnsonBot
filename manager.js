@@ -29,14 +29,14 @@ const listener = app.listen(process.env.PORT, function() {
 
 // set MusicSounds's rich presense status
 
-const client = require('discord-rich-presence')('414440610418786314');
+const client = require('discord-rich-presence')('602723302494175261');
  
 client.updatePresence({
-  state: 'with my Discord bot',
-  details: '',
+  state: 'Head Developer',
+  details: 'MusEmbed™ | Clean Embeds, Crisp Music',
   startTimestamp: Date.now(),
   endTimestamp: Date.now() + 1337,
-  largeImageKey: 'snek_large',
+  largeImageKey: 'musembed_logo_transparent',
   smallImageKey: 'snek_small',
   instance: true,
 });
@@ -58,7 +58,7 @@ dbl.webhook.on('vote', vote => {
     description: `<@${vote.user}> just voted for <@414440610418786314>! We really appreciate it. Vote [here](https://vote.musembed.tk) every 12 hours. Voting perks are coming soon!`,
     footer: {
         icon_url: bot.user.avatarURL,
-        text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+        text: "MusEmbed™ | Clean Embeds, Crisp Music"
     }
   }});
   bot.fetchUser(vote.user).then((user) => {
@@ -68,7 +68,7 @@ dbl.webhook.on('vote', vote => {
       description:(`Vote again in 12 hours [here](https://vote.musembed.tk/). Perks for voting are coming soon!`),
       footer: {
           icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Affiliated with Paraborg Discord Bots"
+          text: "MusEmbed™ | Clean Embeds, Crisp Music"
       }
   }})});
       return;

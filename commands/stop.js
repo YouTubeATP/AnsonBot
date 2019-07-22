@@ -36,7 +36,7 @@ module.exports = {
           .setDescription(`The queue for \`${message.guild.name}\` has been deleted, and I have left the voice channel.`)
           .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
     
-        return serverQueue.textChannel.send(stop);
+        return message.channel.send(stop);
     
 	}
 }
