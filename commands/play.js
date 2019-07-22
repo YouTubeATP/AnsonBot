@@ -92,43 +92,28 @@ module.exports = {
       
     if (searchString.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
       
-          return message.reply("we're currently working on a better GUI for adding playlists.")
-      
           var playlist
           try {
             playlist = await shared.youtube1.getPlaylist(searchString)
           } catch (error) {
             playlist = await shared.youtube2.getPlaylist(searchString)
           }
-          
-          if (playlist.length > 20) {
-            
-            let bicon = bot.user.displayAvatarURL
-            let failEmbed = new Discord.RichEmbed()
-            .setColor(0x00bdf2)
-            .setTitle("We can't play this playlist!")
-            .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(bicon)
-            .setDescription(`[${playlist.title}](${searchString}) \nDue to YouTube limitations, I can only add playlists with 20 songs at most to my queue.`)
-            return message.channel.send(failEmbed)
-            
-          }
       
 			    const videos = await playlist.getVideos();
 			    for (const video of Object.values(videos)) {
 				    var video2
             try {
-              video2 = await shared.youtube1.getVideoByID(video.id);
+              video2 = await shared.youtube1.getVideos(video.id, 20);
             } catch (error) {
-              video2 = await shared.youtube2.getVideoByID(video.id);
+              video2 = await shared.youtube2.getVideos(video.id, 20);
             }
             let bicon = bot.user.displayAvatarURL
             let playlistAddEmbed = new Discord.RichEmbed()
-            .setColor(0x00bdf2)
-            .setTitle("Playlist Detected")
-            .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(bicon)
-            .setDescription(`[${playlist.title}](${searchString}) \nI'm adding your songs to the queue rignt now! I'll tell you when I'm done.`)
+              .setColor(0x00bdf2)
+              .setTitle("Playlist Detected")
+              .setAuthor(message.author.tag, message.author.avatarURL)
+              .setThumbnail(bicon)
+              .setDescription(`[${playlist.title}](${searchString}) \nI'm adding your songs to the queue rignt now! I'll tell you when I'm done. \nNote: If your playlist is longer than 20 songs, I'll only add the first 20 due to YouTube limitations.`)
             
 			      return message.channel.send(playlistAddEmbed);
 				    await handleVideo(video2, message, voiceChannel, true);
@@ -139,7 +124,7 @@ module.exports = {
             .setColor(0x00bdf2)
             .setTitle("Playlist added to queue!")
             .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(playlist.thumbnails.defailt.url)
+            .setThumbnail(bicon)
             .setDescription(`[${playlist.title}](${searchString})`)
             
 			    return message.channel.send(playlistEmbed);
