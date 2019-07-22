@@ -26,7 +26,7 @@ module.exports = {
       let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
       .setAuthor(message.guild.name, message.guild.iconURL)
-      .setTitle(`Now Playing: \n　`)
+      .setTitle(`Now Playing`)
       .setDescription(`[${song.title}](${song.url})`)
       .setThumbnail(song.thumbnail)
       .addField("Uploaded by", song.channel, true)
