@@ -98,6 +98,17 @@ module.exports = {
           } catch (error) {
             playlist = await shared.youtube2.getPlaylist(searchString)
           }
+          if (playlist.length > 20) {
+            
+            let playlistAddEmbed = new Discord.RichEmbed()
+            .setColor(0x00bdf2)
+            .setTitle("Playlist Detected")
+            .setAuthor(message.author.tag, message.author.avatarURL)
+            .setThumbnail(playlist.thumbnails.defailt.url)
+            .setDescription(`[${playlist.title}](${searchString}) \nI'm adding your songs to the queue rignt now! I'll tell you when I'm done.`)
+            return message.channel.send(failEmbed)
+            
+          }
 			    const videos = await playlist.getVideos();
 			    for (const video of Object.values(videos)) {
 				    var video2
@@ -106,6 +117,15 @@ module.exports = {
             } catch (error) {
               video2 = await shared.youtube2.getVideoByID(video.id);
             }
+            let bicon = bot.user.displayAvatarURL
+            let playlistAddEmbed = new Discord.RichEmbed()
+            .setColor(0x00bdf2)
+            .setTitle("Playlist Detected")
+            .setAuthor(message.author.tag, message.author.avatarURL)
+            .setThumbnail(playlist.thumbnails.defailt.url)
+            .setDescription(`[${playlist.title}](${searchString}) \nI'm adding your songs to the queue rignt now! I'll tell you when I'm done.`)
+            
+			      return message.channel.send(playlistAddEmbed);
 				    await handleVideo(video2, message, voiceChannel, true);
 			    }
       
