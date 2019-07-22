@@ -1,3 +1,5 @@
+// run MusEmbed with sharding
+
 const Discord = require('discord.js');
 const config = require("./config.json");
 const bot = new Discord.Client();
@@ -24,6 +26,22 @@ const listener = app.listen(process.env.PORT, function() {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 225000);
 });
+
+// set MusicSounds's rich presense status
+
+const client = require('discord-rich-presence')('414440610418786314');
+ 
+client.updatePresence({
+  state: 'with my Discord bot',
+  details: '',
+  startTimestamp: Date.now(),
+  endTimestamp: Date.now() + 1337,
+  largeImageKey: 'snek_large',
+  smallImageKey: 'snek_small',
+  instance: true,
+});
+
+// vote detection
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dbltoken, { webhookAuth: 'NaKh26100225', webhookServer: listener }, bot);
