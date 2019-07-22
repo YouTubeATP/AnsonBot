@@ -26,8 +26,6 @@
     "blapi": "^1.1.0",
     "reaction-core": "^2.2.0",
     "mythical-api": "^0.2.4",
-    "discord-rich-presence": "^0.0.8",
-    "discord-rpc": "^3.0.2"
   },
   "devDependencies": {},
   "scripts": {

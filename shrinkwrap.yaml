@@ -3,7 +3,6 @@ dependencies:
   blapi: 1.1.0
   child_process: 1.0.2
   dblapi.js: 2.3.0
-  discord-rich-presence: 0.0.8
   discord-rpc: 3.0.2
   discord.js: 11.5.1
   discord.js-arbitrary-ffmpeg: 1.0.0
@@ -749,12 +748,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
-  /discord-rich-presence/0.0.8:
-    dependencies:
-      discord-rpc: github.com/discordjs/rpc/3444ac24d2f0d5f52f59207a8759d928207df0ad
-    dev: false
-    resolution:
-      integrity: sha512-IpVMPjv15C9UvppxvrrGdv6bzQHOW1P1vLoMH15HvdJwGJ3dBd2bnrJ63Uy36YRUfrAMxGLiwUDHncvC8AuPaQ==
   /discord-rpc/3.0.2:
     dependencies:
       node-fetch: 2.6.0
@@ -3154,18 +3147,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-IqMjkTvGjB2Shu9W2HhzyquIo8Pv6AGogc7+Vv3bcxDXjYCgYUPt+LX0CqL76GTmjftnMSVpI1dO79Uzj4f5mQ==
-  github.com/discordjs/rpc/3444ac24d2f0d5f52f59207a8759d928207df0ad:
-    dependencies:
-      node-fetch: 2.6.0
-      ws: 6.2.1
-    dev: false
-    name: discord-rpc
-    peerDependencies:
-      register-scheme: 'github:devsnek/node-register-scheme'
-    resolution:
-      registry: 'https://registry.npmjs.org/'
-      tarball: 'https://codeload.github.com/discordjs/rpc/tar.gz/3444ac24d2f0d5f52f59207a8759d928207df0ad'
-    version: 3.0.2
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -3174,7 +3155,6 @@ specifiers:
   blapi: ^1.1.0
   child_process: ^1.0.2
   dblapi.js: ^2.3.0
-  discord-rich-presence: ^0.0.8
   discord-rpc: ^3.0.2
   discord.js: ^11.5.1
   discord.js-arbitrary-ffmpeg: ^1.0.0
