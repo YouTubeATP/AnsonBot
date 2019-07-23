@@ -33,6 +33,19 @@ shared.youtube1 = youtube1
 shared.youtube2 = youtube2
 shared.handler = handler
 
+// Handle Events
+const { scan, ensureDir } = require('fs-nextra');
+const { relative, join, sep, extname } = require('path');
+async () => {
+    const files = await scan(join(__dirname,'events'), { filter: (stats, dir) => stats.isFile() && extname(dir) === 'js' })
+        .catch(() => ensureDir(join(__dirname,'events')));
+    [...files.keys()].forEach(key => {
+        const event = require(join(__dirname,  ...(Array.isArray(key) ? key : [ key ])));
+        if (!event || event.disabled) return;
+        bot.on(event.name, event.run.bind(null, bot));
+    });
+}
+
 // post stats to discordbots.org
 
 const DBL = require("dblapi.js");
