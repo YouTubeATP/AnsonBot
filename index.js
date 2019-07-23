@@ -36,15 +36,17 @@ shared.handler = handler
 // Handle Events
 const { scan, ensureDir } = require('fs-nextra');
 const { relative, join, sep, extname } = require('path');
-async () => {
-    const files = await scan(join(__dirname,'events'), { filter: (stats, dir) => stats.isFile() && extname(dir) === 'js' })
+(async () => {
+    const files = await scan(join(__dirname,'events'), { filter: (stats, dir) => stats.isFile() && extname(dir) === '.js' })
         .catch(() => ensureDir(join(__dirname,'events')));
+    console.log(files);
     [...files.keys()].forEach(key => {
-        const event = require(join(__dirname,  ...(Array.isArray(key) ? key : [ key ])));
+        const path = relative(__dirname, ...(key.split(sep)))      
+        const event = require(path);
         if (!event || event.disabled) return;
         bot.on(event.name, event.run.bind(null, bot));
     });
-}
+})()
 
 // post stats to discordbots.org
 
