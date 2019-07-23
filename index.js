@@ -36,15 +36,14 @@ shared.handler = handler
 // Handle Events
 const { scan, ensureDir } = require('fs-nextra');
 const { relative, join, sep, extname } = require('path');
-(async () => {
-    const files = await scan(join(__dirname,'events'), { filter: (stats, dir) => stats.isFile() && extname(dir) === '.js' })
-        .catch(() => ensureDir(join(__dirname,'events')));
-    console.log(files);
-    [...files.keys()].forEach(key => {
-        const path = relative(__dirname, ...(key.split(sep)))      
-        const event = require(path);
-        if (!event || event.disabled) return;
-        bot.on(event.name, event.run.bind(null, bot));
+(async (directory  = join(__dirname, '/events/')) => {
+		const files = await scan(directory, { filter: (stats, path) => stats.isFile() && extname(path) === '.js' })
+			.catch(() => ensureDir(directory));
+		if (!files) return true;
+    return [...files.keys()].map(key => {
+      const event = require(join(directory, ...relative(directory, key).split(sep)));
+      if (!event || event.disabled) return;
+      bot.on(event.name, event.run.bind(null, bot));
     });
 })()
 
@@ -56,7 +55,7 @@ const dbl = new DBL(config.dbltoken, { statsInterval: 900000 }, bot);
 dbl.on('posted', () => {
   console.log('Server count posted!');
 });
-
+                                        
 dbl.on('error', e => {
  console.log(`Oops! ${e}`);
 });
