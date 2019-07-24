@@ -1,3 +1,5 @@
+[![Discord Bots](https://discordbots.org/api/widget/upvotes/414440610418786314.svg?noavatar=true)](https://discordbots.org/bot/414440610418786314),
+
 Welcome to MusEmbed's Script
 ============================
 
