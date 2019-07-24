@@ -88,7 +88,6 @@ bot.on("ready", () =>  {
         'lbots.org': '85122715e6bcda2148f3984ad0bc1a38f615937e39cce516d16b5363a078db9dc291aeaa86bd639c154abc50a30f60fe93c5d141875ef07bbd65647a371fb7aa',
         'discord.bots.gg': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOnRydWUsImlkIjoiMzQ0MzM1MzM3ODg5NDY0MzU3IiwiaWF0IjoxNTYxOTcxNzYwfQ.cR49aGOlrxyQ15ibqLWTT94yKxib0TG2Oo1B1tJOfmM',
         'discordsbestbots.xyz': 'fc04b6420d06677918defa27d387168c7aa14f0d',
-        'discordbots.group': '0fcdcf13b394dabc2738640ce7daec8b8b22',
         "discordbots.fun": "hPZUC7reoL8nwhYraDUPbPvuQe31DSDU",
         'discordbotlist.com': 'Bot 21efedbb4ebea98f76cb15f49951a6bd86f00b3a74f524e64ffa3dd60fc890b1',
         'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237',
