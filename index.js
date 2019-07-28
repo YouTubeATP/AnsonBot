@@ -345,7 +345,10 @@ bot.on('message', async message => {
           icon_url: bot.user.avatarURL,
           text: "MusEmbed™ | Clean Embeds, Crisp Music"
         }
-  }})}).then(message.delete());
+      }
+      }
+      )
+      }).then(message.delete());
     
     };
     
