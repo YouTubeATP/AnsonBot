@@ -10,7 +10,7 @@ module.exports = {
 	run: async (bot, message, args, shared) => {
     const msg = message, client = bot
     
-    if (message.author.id != "336389636878368770" && message.author.id != "344335337889464357") return message.reply("you have insufficient permissions to use my eval commands!").then(message.delete());
+    if (message.author.id != "336389636878368770" && message.author.id != "344335337889464357" && message.author.id != '325126878958714880') return message.reply("you have insufficient permissions to use my eval commands!").then(message.delete());
 
 		try {
 			var out = eval(args.join(' '))
