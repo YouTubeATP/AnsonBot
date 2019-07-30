@@ -293,8 +293,10 @@ bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageRe
 
 // profanity filter and command detection
 bot.on('message', async message => {
-  if (message.channel.name == undefined) {
+  if (message.channel.type === 'dm') {
     const channel = bot.channels.get('605785120976404560');
+    message.content.replace(new RegExp("@everyone|@here", "gi"), m => m === '@everyone' ? "@every1" : "@he_re");
+    return console.log()
     channel.send(message.author.id + ' | ' + message.author.username + ' | ' + message.content)
   }
 });

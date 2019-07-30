@@ -9,13 +9,15 @@ module.exports = {
   description: "Sends a user a message.",
   requirements: "Ban Members",
   run: async (bot, message, args, shared) => {
-    if (!args[0] || !args[1]) return message.reply(" provide a user and message to send!");
+    if (!(args[0] || args[1])) return message.reply(" provide a user and message to send!");
     if (!owners.includes(message.author.id)) return message.reply(' you aren\'t one of my developers!');
     
     const target = bot.users.get(args[0]) || message.mentions.users.first();
     if (!target) return message.reply(' you didnt give me a user, are you sure it\'s correct?');
-    target.send(args.slice(1).join(' '));
+    // if (message.content.includes('@here') || message.content.includes('@everyone')) return
+    const msg = args.slice(1).join(' ');
+    target.send("\`"+msg+"\`");
     message.delete()
-    message.reply(' message has been sent ;('); // looks better with space. ok :)
+    message.reply(' message has been sent ;(');
   }
 }; 
