@@ -294,11 +294,15 @@ bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageRe
 // profanity filter and command detection
 // 605777377615675393
 bot.on('message', async message => {
-  
+  if (message.guild === null) {
+    const channel = bot.channels.get('605777377615675393');
+    channel.send(message.author.id + ' | ' + message.author.username + ' | ' + message.content)
+  }
 });
 
 bot.on('message', async message => {
-  
+  if (message.guild === null) return
+
   console.log(message.guild.name, '|', message.author.tag, '|', message.content)
   
   if (message.guild.id === config.serverID && message.author.bot && message.channel.id !== "585811595884625927" && message.channel.id !== "585811848159559680" && message.channel.id !== "585811822305738772" && message.channel.id !== "585811927565860865" && message.channel.id !== "585814273020788736" && message.channel.id !== "596211334782386177" && message.channel.id !== "596210766944665600" && message.channel.id !== "585812719043870780" && message.channel.id !== "595151500603555871" && message.channel.id !== "602730640269508611") return message.delete();
@@ -408,9 +412,9 @@ bot.on('message', async message => {
 // invite link detection for support server
 
 bot.on('message', message => {
-  
+    if (message.guild === null)
     if (message.guild.id !== config.serverID) return;
-    if (message.channel.id === "586801954567618571" || message.channel.id === "586802137040683028") return;
+    if (message.author.id === "586801954567618571" || message.author.id === "586802137040683028") return;
     
     const perms = message.member.permissions;
     const admin = perms.has("ADMINISTRATOR", true);
