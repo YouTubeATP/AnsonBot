@@ -292,10 +292,9 @@ bot.on("guildDelete", guild => {
 bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageReaction, user));
 
 // profanity filter and command detection
-// 605777377615675393
 bot.on('message', async message => {
   if (message.channel.name == undefined) {
-    const channel = bot.channels.get('605777377615675393');
+    const channel = bot.channels.get('605785120976404560');
     channel.send(message.author.id + ' | ' + message.author.username + ' | ' + message.content)
   }
 });
