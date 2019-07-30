@@ -292,6 +292,10 @@ bot.on("guildDelete", guild => {
 bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageReaction, user));
 
 // profanity filter and command detection
+// 605777377615675393
+bot.on('message', async message => {
+  
+});
 
 bot.on('message', async message => {
   
