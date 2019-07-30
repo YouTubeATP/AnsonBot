@@ -294,14 +294,14 @@ bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageRe
 // profanity filter and command detection
 // 605777377615675393
 bot.on('message', async message => {
-  if (message.guild === null) {
+  if (message.channel.name == undefined) {
     const channel = bot.channels.get('605777377615675393');
     channel.send(message.author.id + ' | ' + message.author.username + ' | ' + message.content)
   }
 });
 
 bot.on('message', async message => {
-  if (message.guild === null) return
+  if (message.channel.name == undefined) return
 
   console.log(message.guild.name, '|', message.author.tag, '|', message.content)
   
@@ -412,7 +412,7 @@ bot.on('message', async message => {
 // invite link detection for support server
 
 bot.on('message', message => {
-    if (message.guild === null)
+    if (message.channel.name == undefined) return
     if (message.guild.id !== config.serverID) return;
     if (message.author.id === "586801954567618571" || message.author.id === "586802137040683028") return;
     
