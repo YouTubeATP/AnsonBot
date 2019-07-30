@@ -3,14 +3,16 @@ const fs = require('fs');
 const Discord = require('discord.js');
 
 module.exports = {
-  name: "ban",
-  usage: "ban <user> [reason]",
-  description: "Bans a user from the guild.",
+  name: "dm",
+  usage: "dm <userID> <message>",
+  description: "Sends a user a message.",
   requirements: "Ban Members",
   run: async (bot, message, args, shared) => {
-    if (message.author.id != '325126878958714880' && message.author.id != '344335337889464357') return
+    if (message.author.id != '325126878958714880' && message.author.id != '344335337889464357') return message.reply(' you aren\'t one of my developers!')
     const target = bot.users.get(args[0])
-    if (!target) return message.reply('you didnt give me a user, are you sure it\'s correct?')
+    if (!target) return message.reply(' you didnt give me a user, are you sure it\'s correct?')
     target.send(args.slice(1))
+    message.delete()
+    message.reply(' message has been sent ;(') // looks better with space. ok :)
   }
-};
+}; 

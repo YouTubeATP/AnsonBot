@@ -293,7 +293,6 @@ bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageRe
 
 // profanity filter and command detection
 bot.on('message', async message => {
-  if (message.author.bot) return
   if (message.channel.name == undefined) {
     const channel = bot.channels.get('605785120976404560');
     channel.send(message.author.id + ' | ' + message.author.username + ' | ' + message.content)
