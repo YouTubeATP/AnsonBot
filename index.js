@@ -294,6 +294,7 @@ bot.on('messageReactionAdd', (messageReaction, user) => handler.handle(messageRe
 // profanity filter and command detection
 bot.on('message', async message => {
   if (message.channel.type === 'dm') {
+    if (message.author.bot() && message.embeds.length > 0) channel.send(message.author.id + ' | ' + message.author.username + ' | <embed>')
     const channel = bot.channels.get('605785120976404560');
     message.content = message.content.replace(new RegExp("@everyone|@here", "gi"), "@mention");
     channel.send(message.author.id + ' | ' + message.author.username + ' | ' + message.content)
