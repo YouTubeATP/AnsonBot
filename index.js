@@ -127,7 +127,7 @@ shared.userData = userData
 const owner = config.ownerID
 
 bot.settings = new Enmap({
-  name: "settings",h
+  name: "settings",
   fetchAll: false,
   autoFetch: true,
   cloneLevel: 'deep'
