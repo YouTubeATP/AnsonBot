@@ -46,7 +46,7 @@ module.exports = {
               .setAuthor(message.author.tag, message.author.avatarURL)
               .setThumbnail(bot.user.displayAvatarURL)
               .setTitle("Loop mode toggled!")
-              .setDescription("Loop for the current queue has been toggled `all`. Use this command again to disable loop.")
+              .setDescription("Loop for the current queue has been toggled to `all`. Use this command again to disable loop.")
               .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
             return message.channel.send(all)
     }

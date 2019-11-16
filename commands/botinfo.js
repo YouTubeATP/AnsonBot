@@ -40,7 +40,7 @@ module.exports = {
           .setThumbnail(bicon)
           .addField("Name", bot.user.username, true)
           .addField("Prefix for this Server", "\`" + guildConf.prefix + "\`", true)
-          .addField("Developers", "<@344335337889464357>, <@336389636878368770>, <@325126878958714880>", true)
+          .addField("Developers", "<@344335337889464357>, <@336389636878368770>, <@396096412116320258>, <@325126878958714880>", true)
           .addField("Time of Birth", bot.user.createdAt)
           .addField("Servers", `\`${totalGuilds}\``, true)
           .addField("Users", `\`${totalMembers}\``, true)
