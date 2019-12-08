@@ -47,56 +47,6 @@ const { relative, join, sep, extname } = require('path');
     });
 })()
 
-// post stats to discordbots.org
-
-const DBL = require("dblapi.js");
-const dbl = new DBL(config.dbltoken, { statsInterval: 900000 }, bot);
-
-dbl.on('posted', () => {
-  console.log('Server count posted!');
-});
-                                        
-dbl.on('error', e => {
- console.log(`Oops! ${e}`);
-});
-
-// post stats to mythicalbots.xyz
-
-const MythicalAPI = require("mythical-api");
-let API = new MythicalAPI("GryfB-p2qHtYZE8urU5YYeJBeq0-4Vnk4oQ.1eUC8xh0z72.qo");
-
-bot.on('ready', ()=> {
-  
-    API.postStats(bot.guilds.size, bot.user.id);
-  
-        setInterval(function() {
-            API.postStats(bot.guilds.size, bot.user.id);
-        }, 900000);
-  
-});
-
-// post stats to other bot lists
-
-bot.on("ready", () =>  {
-  
-    blapi.handle(bot, {
-        "bots.ondiscord.xyz": "0c33a4ba8baaad462d07a7f76c870f46",
-        'botsfordiscord.com': 'b034d05d7563f445f0675af50fcd9dc9f037916e9df587a913087adec6494f0b06151d4ef4c0e5ca34308be569c79bbb26ccdc6710054bca06f6700f49ae2998',
-        'botlist.space': '8b4fbad11dbb49beb56f65fdc3f5e2793d7603a76e6f47d70a321e7200610933d73cac410c6f2e5ac8d355da5efea837',
-        'discordapps.dev': '806277c41d92f48334e89aa7a86af7067f8463d7',
-        "discord.boats": "JpMMZGs4N1iRXIHDqXpkEosM6uQpfSMITKVe82MFviz6TuKSvdHJPxRhA1vMFzP4XIwvrxu0WRF01OF3w5xZSsXtiQxvR8jaEszvuX19D7zP6vsMbtLPjoInjK4otDKFzTHcrzTcO5BL7DCKjADNWbkr5Uv",
-        'lbots.org': '85122715e6bcda2148f3984ad0bc1a38f615937e39cce516d16b5363a078db9dc291aeaa86bd639c154abc50a30f60fe93c5d141875ef07bbd65647a371fb7aa',
-        'discord.bots.gg': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOnRydWUsImlkIjoiMzQ0MzM1MzM3ODg5NDY0MzU3IiwiaWF0IjoxNTYxOTcxNzYwfQ.cR49aGOlrxyQ15ibqLWTT94yKxib0TG2Oo1B1tJOfmM',
-        'discordsbestbots.xyz': 'fc04b6420d06677918defa27d387168c7aa14f0d',
-        "discordbots.fun": "hPZUC7reoL8nwhYraDUPbPvuQe31DSDU",
-        'discordbotlist.com': 'Bot 21efedbb4ebea98f76cb15f49951a6bd86f00b3a74f524e64ffa3dd60fc890b1',
-        'divinediscordbots.com': '251fc9cf4719832e0fe98a31904f10a12af69363bb2a8e47c83841854896358cb427fc92096e1954cc692477b1e1c2d738715a196b65e62304f822f2cb219237',
-        "discordbotreviews.xyz": "egUF6w5vwr2y4LVnsyvRt.iGrO5oA69ZuVBkEFZPwGNBy5CHNwBjR3T1Qe42Fam59lg8Cg4TUITlW4aL",
-        "discordbotslist.us.to": "ea4fc017c66245a2dcc1abc8ecf11bef",
-}, 30)
-  
-});
-
 // other variables
 
 var i;
@@ -134,7 +84,7 @@ bot.settings = new Enmap({
 });
 
 const defaultSettings = {   
-  prefix: "em/",    
+  prefix: "m/",    
   censor: "off"
 };
 
