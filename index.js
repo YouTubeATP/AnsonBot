@@ -155,80 +155,17 @@ bot.on("ready", () =>  {
 		const totalMembers = results[1].reduce((prev, memberCount) => prev + memberCount, 0);
       
         bot.user.setStatus('available')
-        const index = Math.floor(parseInt(Math.random() * 2) + parseInt(0));
-        const activities_list = [
-            `${totalGuilds} servers`,
-            `${totalMembers} users`,
-        ];
       
         bot.user.setPresence({
             game: {
-                name: (activities_list[index]),
-                type: 3,
-                url: "https://discordbots.org/bot/414440610418786314"
+                name: "MusicSounds",
+                type: "LISTENING"
             }
         });
       
     });
     }, 20000);
 });
-
-// bot guild joinlogs
-
-bot.on("guildCreate", guild => {
-  const guildConf = bot.settings.ensure(guild.id, defaultSettings)
-  const prefix = guildConf.prefix
-  
-  console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-  guild.owner.send({embed: {
-    color: (0x00bdf2),
-    title: "Thank you for choosing MusEmbed!",
-    description: (`To get started, use the command ${guildConf.prefix}help to show a list of our commands.`),
-    footer: {
-      icon_url: bot.user.avatarURL,
-      text: ("MusEmbed™ | Clean Embeds, Crisp Music")
-  }}})
-  return bot.shard.broadcastEval('this.guilds.size')
-   .then(results => {
-  let sicon = guild.iconURL
-  var embed = new Discord.RichEmbed()
-    .setColor("GREEN")
-    .setTitle("I've joined a server!")
-    .setDescription(`I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`)
-    .setThumbnail(sicon)
-    .addField("Name", guild.name, true)
-    .addField("Owner", guild.owner, true)
-    .addField("Region", guild.region, true)
-    .addField("Created At", guild.createdAt)
-    .addField("Members", guild.memberCount, true)
-    .addField("Humans", guild.members.filter(member => !member.user.bot).size, true)
-    .addField("Bots", Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size), true)
-    .addField("ID", guild.id)
-    .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-  
-  bot.channels.get(`585811927565860865`).send(embed)
-  })
-})
-
-// bot guild leave logs
-
-bot.on("guildDelete", guild => {
-  bot.settings.delete(guild.id);
-  console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-  return bot.shard.broadcastEval('this.guilds.size')
-   .then(results => {
-  let sicon = guild.iconURL
-  var embed = new Discord.RichEmbed()
-    .setColor("RED")
-    .setTitle("I've left a server!")
-    .setDescription(`I am now in \`${results.reduce((prev, val) => prev + val, 0)}\` servers`)
-    .setThumbnail(sicon)
-    .addField("Name", guild.name, true)
-    .addField("Owner", guild.owner, true)
-    .addField("Region", guild.region, true)
-    .addField("Created At", guild.createdAt)
-    .addField("Members", guild.memberCount, true)
-    .addField("Humans", guild.members.filter(member => !member.user
 
 // detect reaction-adding
 
