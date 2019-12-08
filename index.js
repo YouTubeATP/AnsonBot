@@ -121,7 +121,7 @@ bot.on('guildMemberAdd', member => {
   let memberTag = member.user.id;
   if (guild.id === config.serverID && !member.user.bot) {
   member.addRole(guild.roles.find("name", "Member")).then(() => {
-        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusEmbed Support**. Welcome, <@" + memberTag + ">.");
+        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has joined **MusicSounds's Hangout**. Welcome, <@" + memberTag + ">.");
       }).catch(e => {
         console.log(e);
       });
@@ -137,7 +137,7 @@ bot.on('guildMemberRemove', member => {
   if(member.user.bot) return;
   let memberTag = member.user.id;
   if (guild.id === config.serverID) {
-        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusEmbed Support**. Farewell, <@" + memberTag + ">.");
+        bot.channels.get('585811822305738772').send("<@" + memberTag + "> has left **MusicSounds's Hangout**. Farewell, <@" + memberTag + ">.");
 }});
 
 // bot status
@@ -228,14 +228,7 @@ bot.on("guildDelete", guild => {
     .addField("Region", guild.region, true)
     .addField("Created At", guild.createdAt)
     .addField("Members", guild.memberCount, true)
-    .addField("Humans", guild.members.filter(member => !member.user.bot).size, true)
-    .addField("Bots", Math.round(guild.memberCount - guild.members.filter(member => !member.user.bot).size), true)
-    .addField("ID", guild.id)
-    .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-  
-  bot.channels.get(`585811927565860865`).send(embed)
-  })
-});
+    .addField("Humans", guild.members.filter(member => !member.user
 
 // detect reaction-adding
 
