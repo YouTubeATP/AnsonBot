@@ -1,8 +1,6 @@
 {
-  "name": "musembed",
+  "name": "musicalpal",
   "version": "2.3.0",
-  "homepage": "https://www.musembed.tk",
-  "description": "A bot that can create embeds and play music.",
   "main": "manager.js",
   "dependencies": {
     "better-sqlite-pool": "^0.2.2",
