@@ -53,22 +53,13 @@ client.login(token);
 
 client.on("ready", () => {
   console.log(`${fn.time()} | ${client.user.username} is up!`);
-  if (!botData.get("maintenance"))
-    client.user.setPresence({
-      status: "online",
-      game: {
-        name: `for ${config.defaultPrefix}help`,
-        type: "LISTENING"
-      }
-    });
-  else
-    client.user.setPresence({
-      status: "dnd",
-      game: {
-        name: `maintenance work`,
-        type: "LISTENING"
-      }
-    });
+  client.user.setPresence({
+    status: "online",
+    game: {
+      name: `MusicSounds`,
+      type: "LISTENING"
+    }
+  });
 });
 
 client.on("guildCreate", async guild => {
@@ -84,19 +75,47 @@ client.on("guildCreate", async guild => {
 });
 
 client.on("guildMemberAdd", async member => {
-  if (member.guild.id != "522638136635817986") return;
-
-  member.guild.channels
-    .get("640530363587887104")
-    .send(`${member} has entered Utopia!`);
+  let guild = member.guild;
+  let memberTag = member.user.id;
+  if (guild.id === config.server && !member.user.bot) {
+    member
+      .addRole(guild.roles.find("name", "Member"))
+      .then(() => {
+        client.channels
+          .get("653133031292403742")
+          .send(
+            "<@" +
+              memberTag +
+              "> has joined **MusicSounds's Hangout**. Welcome, <@" +
+              memberTag +
+              ">."
+          );
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  } else if (guild.id === config.server && member.user.bot) {
+    member.addRole(guild.roles.find("name", "Bot")).catch(e => {
+      console.log(e);
+    });
+  }
 });
 
 client.on("guildMemberRemove", async member => {
-  if (member.guild.id != "522638136635817986") return;
-
-  member.guild.channels
-    .get("640530363587887104")
-    .send(`**${member.user.username}** has sadly returned to`);
+  let guild = member.guild;
+  if (member.user.bot) return;
+  let memberTag = member.user.id;
+  if (guild.id === config.server) {
+    client.channels
+      .get("653133031292403742")
+      .send(
+        "<@" +
+          memberTag +
+          "> has left **MusicSounds's Hangout**. Farewell, <@" +
+          memberTag +
+          ">."
+      );
+  }
 });
 
 // for guilds
@@ -251,11 +270,11 @@ client.on("message", async message => {
   message.delete().catch();
 });
 
-// invite link detection for server
+// invite link detection
 
 client.on("message", message => {
   if (message.channel.name == undefined) return;
-  if (message.guild.id !== config.serverID) return;
+  if (message.guild.id !== config.server) return;
   if (message.author.id === "344335337889464357") return;
 
   const perms = message.member.permissions;
@@ -280,7 +299,7 @@ client.on("message", message => {
 
   if (links.some(link => bannedlinks.includes(link))) {
     message.delete();
-    return message.reply("please refrain from advertising in this server.");
+    return message.reply("please stick to <#662249455847735306> when advertising.");
   }
 });
 
