@@ -131,7 +131,7 @@ client.on("message", async message => {
 
   if (
     message.guild.id === config.server &&
-    message.author.bot &&
+    message.author.bot && message
     message.channel.id !== "653091741351542825" &&
     message.channel.id !== "653091798498934825" &&
     message.channel.id !== "653133031292403742" &&
