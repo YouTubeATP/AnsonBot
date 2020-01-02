@@ -141,7 +141,7 @@ client.on("message", async message => {
     message.channel.id !== "662273284322230282"
   )
     return message.delete();
-  
+
   if (!userData.has(message.author.id)) {
     let newUserData = {
       botStaff: false,
@@ -207,7 +207,13 @@ client.on("message", async message => {
         cmd => cmd.aliases && cmd.aliases.includes(commandName)
       );
 
-    if (!command) return;
+    if (!command)
+      return message.channel.send(
+        fn.embed(
+          client,
+          `I can't recognize this command! Do ${prefix}help and I'll DM you a list of my commands.`
+        )
+      );
 
     if (command.botStaffOnly && !user.botStaff)
       return message.channel.send(
@@ -290,6 +296,7 @@ client.on("message", message => {
   if (message.channel.name == undefined) return;
   if (message.guild.id !== config.server) return;
   if (message.author.id === "344335337889464357") return;
+  if (message.channel.id === "662249455847735306") return;
 
   const perms = message.member.permissions;
   const admin = perms.has("ADMINISTRATOR", true);
@@ -313,9 +320,9 @@ client.on("message", message => {
 
   if (links.some(link => bannedlinks.includes(link))) {
     message.delete();
-    return message.reply(
-      "please stick to <#662249455847735306> when advertising."
-    ).then(m => m.delete(5000));
+    return message
+      .reply("please stick to <#662249455847735306> when advertising.")
+      .then(m => m.delete(5000));
   }
 });
 
