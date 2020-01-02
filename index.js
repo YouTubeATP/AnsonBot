@@ -1,327 +1,259 @@
-// start of index.js
-// require various packages
+/* --- ALL PACKAGES --- */
 
-const Discord = require("discord.js");
-const bot = new Discord.Client();
-const config = require("./config.json");
-const fs = require("fs");
-const moment = require("moment");
-const express = require("express");
+require("es6-shim");
+
+const Discord = require("discord.js"),
+  express = require("express"),
+  fs = require("fs"),
+  http = require("http"),
+  moment = require("moment"),
+  db = require("quick.db");
+
+/* --- ALL PACKAGES --- */
+
+/* --- ALL GLOBAL CONSTANTS & FUNCTIONS --- */
+
+const client = new Discord.Client(),
+  config = require("/app/util/config"),
+  fn = require("/app/util/fn"),
+  userData = new db.table("USERDATA"),
+  guildData = new db.table("GUILDDATA"),
+  botData = new db.table("BOTDATA");
+
 const app = express();
-const ms = require("ms");
-const ytdl = require("ytdl-core");
-const opus = require("node-opus");
-const YouTube = require("simple-youtube-api");
-const Enmap = require("enmap");
-const mutedSet = new Set();
+app.use(express.static("public"));
 
-const RC = require("reaction-core");
-const handler = new RC.Handler();
-
-const blapi = require("blapi");
-blapi.setLogging(true);
-
-var shared = {};
-
-const queue = new Map();
-
-const youtube1 = new YouTube(config.youtube1);
-const youtube2 = new YouTube(config.youtube2);
-
-shared.queue = queue;
-shared.youtube1 = youtube1;
-shared.youtube2 = youtube2;
-shared.handler = handler;
-
-// other variables
-
-var i;
-
-var stopping = false;
-shared.stopping = stopping;
-
-var voteSkipPass = 0;
-shared.voteSkipPass = voteSkipPass;
-
-var voted = 0;
-shared.voted = voted;
-
-var playerVoted = [];
-shared.playerVoted = playerVoted;
-
-var activeMusicSelection = [];
-shared.activeMusicSelection = activeMusicSelection;
-
-var playlist = false;
-shared.playlist = playlist;
-
-var bannedwords = "fuck,nigg,fuk,cunt,cnut,bitch,dick,d1ck,$h1t,shit,pussy,blowjob,cock,c0ck,slut,whore,kill yourself,break your neck,kys,fuc,pu$$y,anal,xvideo,porn,asshole,a$$hole,kunt,anal,d.1.c.k,diu".split(
-  ","
-);
-
-var userData = 0;
-shared.userData = userData;
-
-const owner = config.ownerID;
-
-bot.settings = new Enmap({
-  name: "settings",
-  fetchAll: false,
-  autoFetch: true,
-  cloneLevel: "deep"
+app.get("/", function(request, response) {
+  response.sendFile(__dirname + "/views/index.html");
 });
 
-const defaultSettings = {
-  prefix: "m/",
-  censor: "off"
-};
+const listener = app.listen(process.env.PORT, function() {
+  setInterval(() => {
+    http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+  }, 225000);
+});
 
-// functions for command handling
-
-bot.commands = new Discord.Collection();
+client.commands = new Discord.Collection();
 const commandFiles = fs
   .readdirSync("./commands")
   .filter(file => file.endsWith(".js"));
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  bot.commands.set(command.name, command);
+  client.commands.set(command.name, command);
 }
 
-shared.bannedwords = bannedwords;
-shared.config = config;
+const token = process.env.DISCORD_BOT_TOKEN;
 
-function printError(message, error, title) {
-  var embed = new Discord.RichEmbed()
-    .setColor(0x00bdf2)
-    .setTitle(title)
-    .addField("Error Message", error)
-    .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL);
+const tempmute = require("/app/util/tempmute.js")(client);
+const logs = require("/app/util/logging.js")(client);
 
-  return message.channel
-    .send(embed)
-    .then(message.delete())
-    .catch(console.error);
-}
+/* --- ALL GLOBAL CONSTANTS & FUNCTIONS --- */
 
-shared.printError = printError;
+client.login(token);
 
-// support server member flow
-
-bot.on("guildMemberAdd", member => {
-  let guild = member.guild;
-  let memberTag = member.user.id;
-  if (guild.id === config.serverID && !member.user.bot) {
-    member
-      .addRole(guild.roles.find("name", "Member"))
-      .then(() => {
-        bot.channels
-          .get("653133031292403742")
-          .send(
-            "<@" +
-              memberTag +
-              "> has joined **MusicSounds's Hangout**. Welcome, <@" +
-              memberTag +
-              ">."
-          );
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  } else if (guild.id === config.serverID && member.user.bot) {
-    member.addRole(guild.roles.find("name", "Bot")).catch(e => {
-      console.log(e);
+client.on("ready", () => {
+  console.log(`${fn.time()} | ${client.user.username} is up!`);
+  if (!botData.get("maintenance"))
+    client.user.setPresence({
+      status: "online",
+      game: {
+        name: `for ${config.defaultPrefix}help`,
+        type: "LISTENING"
+      }
     });
-  }
-});
-
-bot.on("guildMemberRemove", member => {
-  let guild = member.guild;
-  if (member.user.bot) return;
-  let memberTag = member.user.id;
-  if (guild.id === config.serverID) {
-    bot.channels
-      .get("653133031292403742")
-      .send(
-        "<@" +
-          memberTag +
-          "> has left **MusicSounds's Hangout**. Farewell, <@" +
-          memberTag +
-          ">."
-      );
-  }
-});
-
-// bot status
-
-bot.on("ready", () => {
-  setInterval(() => {
-    const promises = [
-      bot.shard.broadcastEval("this.guilds.size"),
-      bot.shard.broadcastEval(
-        "this.guilds.reduce((prev, guild) => prev + guild.memberCount, 0)"
-      )
-    ];
-    return Promise.all(promises).then(results => {
-      const totalGuilds = results[0].reduce(
-        (prev, guildCount) => prev + guildCount,
-        0
-      );
-      const totalMembers = results[1].reduce(
-        (prev, memberCount) => prev + memberCount,
-        0
-      );
-
-      bot.user.setStatus("available");
-
-      bot.user.setPresence({
-        game: {
-          name: "MusicSounds",
-          type: "LISTENING"
-        }
-      });
+  else
+    client.user.setPresence({
+      status: "dnd",
+      game: {
+        name: `maintenance work`,
+        type: "LISTENING"
+      }
     });
-  }, 20000);
 });
 
-// detect reaction-adding
-
-bot.on("messageReactionAdd", (messageReaction, user) =>
-  handler.handle(messageReaction, user)
-);
-
-// profanity filter and command detection
-bot.on("message", async message => {
-  if (message.channel.type === "dm") {
-    if (message.author.bot() && message.embeds.length > 0)
-      channel.send(
-        message.author.id + " | " + message.author.username + " | <embed>"
-      );
-    const channel = bot.channels.get("605785120976404560");
-    message.content = message.content.replace(
-      new RegExp("@everyone|@here", "gi"),
-      "@mention"
-    );
-    channel.send(
-      message.author.id +
-        " | " +
-        message.author.username +
-        " | " +
-        message.content
-    );
+client.on("guildCreate", async guild => {
+  if (!guildData.has(guild.id)) {
+    let newGuildData = {
+      prefix: config.defaultPrefix,
+      blacklisted: false,
+      commandsUsed: 0,
+      createdTimestamp: moment()
+    };
+    guildData.set(guild.id, newGuildData);
   }
 });
 
-bot.on("message", async message => {
-  if (message.channel.name == undefined) return;
+client.on("guildMemberAdd", async member => {
+  if (member.guild.id != "522638136635817986") return;
+
+  member.guild.channels
+    .get("640530363587887104")
+    .send(`${member} has entered Utopia!`);
+});
+
+client.on("guildMemberRemove", async member => {
+  if (member.guild.id != "522638136635817986") return;
+
+  member.guild.channels
+    .get("640530363587887104")
+    .send(`**${member.user.username}** has sadly returned to`);
+});
+
+// for guilds
+client.on("message", async message => {
+  if (message.author.bot || message.channel.type != "text") return;
 
   console.log(
-    message.guild.name,
-    "|",
-    message.author.tag,
-    "|",
-    message.content
+    `${fn.time()} | ${message.guild.name} #${message.channel.name} | ${
+      message.author.tag
+    } > ${message.cleanContent}`
   );
 
-  if (
-    message.guild.id === config.serverID &&
-    message.author.bot &&
-    message.channel.id !== "653130414847688705" &&
-    message.channel.id !== "653091798498934825" &&
-    message.channel.id !== "653133031292403742" &&
-    message.channel.id !== "653091741351542825" &&
-    message.channel.id !== "662243626050519060"
-  )
-    return message.delete();
-
-  let sender = message.author;
-  let msg = message.content.toLowerCase();
-  const ownerID = config.ownerID;
-  const guildConf = bot.settings.ensure(message.guild.id, defaultSettings);
-  const prefix = guildConf.prefix;
-  shared.prefix = prefix;
-  const censor = guildConf.censor;
-  const mention = "<@502482252756680725> ";
-  const mention1 = "<@!502482252756680725> ";
-  shared.msg = msg;
-  shared.mention = mention;
-  shared.mention1 = mention1;
-  const censors = censor;
-  if (bot.user.id === sender.id) {
-    return;
+  if (!userData.has(message.author.id)) {
+    let newUserData = {
+      botStaff: false,
+      blacklisted: false,
+      commandsUsed: 0,
+      createdTimestamp: moment()
+    };
+    userData.set(message.author.id, newUserData);
   }
-  let nick = sender.username;
+  let user = userData.get(message.author.id);
 
-  const args = message.content
-    .slice(prefix.length)
-    .trim()
-    .split(/ +/g);
-  const command = args.shift().toLowerCase();
-
-  if (message.guild === null) return;
-  if (message.author.bot) return;
-
-  if (censors === "on") {
-    for (i = 0; i < bannedwords.length; i++) {
-      if (message.content.toLowerCase().includes(bannedwords[i])) {
-        message.delete().catch(O_o => {});
-        return message
-          .reply("please refrain from using such contemptable words.")
-          .then(m => m.delete(5000));
-      }
-    }
+  if (!guildData.has(message.guild.id)) {
+    let newGuildData = {
+      prefix: config.defaultPrefix,
+      blacklisted: false,
+      commandsUsed: 0,
+      createdTimestamp: moment()
+    };
+    guildData.set(message.guild.id, newGuildData);
   }
+  let guild = guildData.get(message.guild.id);
 
-  const serverQueue = queue.get(message.guild.id);
+  const msg = message.content.trim().toLowerCase();
+
+  const prefix = guild.prefix || config.defaultPrefix,
+    mention = `<@${client.user.id}> `,
+    mention1 = `<@!${client.user.id}> `;
+
+  let shared = {};
 
   if (
-    msg.startsWith(prefix) ||
-    msg.startsWith(mention) ||
-    msg.startsWith(mention1)
+    message.content.startsWith(prefix) ||
+    message.content.startsWith(mention) ||
+    message.content.startsWith(mention1)
   ) {
-    var argsNEW;
+    var args;
 
     if (msg.startsWith(prefix)) {
-      argsNEW = message.content.slice(prefix.length).split(/\s+/u);
+      args = message.content
+        .trim()
+        .slice(prefix.length)
+        .split(/\s+/u);
       shared.prefix = prefix;
     } else if (msg.startsWith(mention)) {
-      argsNEW = message.content.slice(mention.length).split(/\s+/u);
+      args = message.content
+        .trim()
+        .slice(mention.length)
+        .split(/\s+/u);
       shared.prefix = mention;
     } else if (msg.startsWith(mention1)) {
-      argsNEW = message.content.slice(mention1.length).split(/\s+/u);
+      args = message.content
+        .trim()
+        .slice(mention1.length)
+        .split(/\s+/u);
       shared.prefix = mention1;
     }
 
-    const commandName = argsNEW.shift().toLowerCase();
+    const commandName = args.shift().toLowerCase();
     shared.commandName = commandName;
-
-    if (
-      message.content === prefix ||
-      message.content === mention ||
-      message.content === mention1
-    )
-      return;
-
     const command =
-      bot.commands.get(commandName) ||
-      bot.commands.find(
+      client.commands.get(commandName) ||
+      client.commands.find(
         cmd => cmd.aliases && cmd.aliases.includes(commandName)
       );
 
     if (!command) return;
 
-    console.log(argsNEW);
+    if (command.botStaffOnly && !user.botStaff)
+      return message.channel.send(
+        fn.embed(client, "You do not have permissions to use this command!")
+      );
+    if (command.guildPerms && !message.member.hasPermission(command.guildPerms))
+      return message.channel.send(
+        fn.embed(client, "You do not have permissions to use this command!")
+      );
+
+    shared.user = user;
+    shared.guild = guild;
+    shared.defaultPrefix = config.defaultPrefix;
+    shared.embedColor = config.embedColor;
 
     try {
-      await command.run(bot, message, argsNEW, shared);
+      await command.run(client, message, args, shared);
     } catch (error) {
-      message.channel.send(error);
+      console.log(error);
     }
+
+    message.delete().catch(error => {});
   }
+});
+
+// for DMs
+client.on("message", async message => {
+  if (message.author.bot || message.channel.type != "dm") return;
+
+  console.log(`${fn.time()} | ${message.author.tag} > ${message.cleanContent}`);
+
+  if (!userData.has(message.author.id)) {
+    let newUserData = {
+      botStaff: false,
+      blacklisted: false,
+      commandsUsed: 0,
+      createdTimestamp: moment()
+    };
+    userData.set(message.author.id, newUserData);
+  }
+  let user = userData.get(message.author.id);
+
+  const msg = message.content.toLowerCase();
+
+  let shared = {};
+
+  var args = message.content.split(/\s+/u);
+
+  const commandName = args.shift().toLowerCase();
+  shared.commandName = commandName;
+  const command =
+    client.commands.get(commandName) ||
+    client.commands.find(
+      cmd => cmd.aliases && cmd.aliases.includes(commandName)
+    );
+
+  if (!command) return;
+
+  if (command.botStaffOnly && !user.botStaff)
+    return msg.reply("you do not have the permissions to use this command!");
+  if (command.guildPerms)
+    return msg.reply("this command is only available on servers!");
+
+  shared.user = user;
+  shared.defaultPrefix = config.defaultPrefix;
+  shared.embedColor = config.embedColor;
+
+  try {
+    await command.run(client, message, args, shared);
+  } catch (error) {
+    console.log(error);
+  }
+
+  message.delete().catch();
 });
 
 // invite link detection for server
 
-bot.on("message", message => {
+client.on("message", message => {
   if (message.channel.name == undefined) return;
   if (message.guild.id !== config.serverID) return;
   if (message.author.id === "344335337889464357") return;
@@ -359,5 +291,3 @@ function clean(text) {
       .replace(/@/g, "@" + String.fromCharCode(8203));
   else return text;
 }
-
-bot.login(config.token);

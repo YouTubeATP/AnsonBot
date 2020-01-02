@@ -1,17 +1,19 @@
-const index = require("../index.js");
-const fs = require("fs");
+const Discord = require("discord.js"),
+  db = require("quick.db");
 
-const Discord = require('discord.js'),
-      db = require('quick.db')
+const config = require("/app/util/config"),
+  fn = require("/app/util/fn");
 
-const config = require('/app/util/config'),
-      fn = require('/app/util/fn')
+const userData = new db.table("USERDATA"),
+  guildData = new db.table("GUILDDATA"),
+  modCases = new db.table("MODCASES");
 
 module.exports = {
   name: "ban",
   usage: "ban <user> [reason]",
-  description: "Bans a user from the guild.",
-  requirements: "Ban Members",
+  description: "Ban rule-breakers.",
+  category: "Moderation",
+  guildPerms: ["BAN_MEMBERS"],
   run: async (client, message, args, shared) => {
     if (!args[0])
       return message.channel.send(
