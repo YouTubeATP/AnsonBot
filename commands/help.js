@@ -54,9 +54,9 @@ module.exports = {
         .send(embeds[0])
         .then(msg => {
           fn.paginator(message.author.id, msg, embeds, 0);
-          message.channel.send(fn.embed(client, "Check your DMs!")).then(m => {
-            setTimeout(() => m.delete(), 5 * 1000);
-          });
+          message.channel
+            .send(fn.embed(client, "Check your DMs!"))
+            .then(m => m.delete(5000));
         })
         .catch(err => {
           message.channel.send(embed).catch(error => {

@@ -141,7 +141,7 @@ client.on("message", async message => {
     message.channel.id !== "662273284322230282"
   )
     return message.delete();
-
+  
   if (!userData.has(message.author.id)) {
     let newUserData = {
       botStaff: false,
@@ -315,7 +315,7 @@ client.on("message", message => {
     message.delete();
     return message.reply(
       "please stick to <#662249455847735306> when advertising."
-    );
+    ).then(m => m.delete(5000));
   }
 });
 

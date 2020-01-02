@@ -33,7 +33,7 @@ module.exports = {
               `Successfully purged ${deleted.size} messages from ${message.channel}.`
             )
           )
-          .then(m => setTimeout(m.delete, 5 * 1000));
+          .then(m => m.delete(5000));
       })
       .catch(error => {
         message.channel.send(
