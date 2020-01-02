@@ -41,7 +41,7 @@ module.exports = {
               .setColor("GREEN")
               .setTitle(
                 `${client.guilds
-                  .get(config.support)
+                  .get('585811112788885504')
                   .emojis.find(
                     emoji => emoji.name == "green_tick"
                   )} Evaluation Success!`
@@ -66,7 +66,7 @@ module.exports = {
               .setColor("GREEN")
               .setTitle(
                 `${client.guilds
-                  .get(config.support)
+                  .get('585811112788885504')
                   .emojis.find(
                     emoji => emoji.name == "green_tick"
                   )} Evaluation Success!`
@@ -85,7 +85,7 @@ module.exports = {
         .setColor("RED")
         .setTitle(
           `${client.guilds
-            .get(config.support)
+            .get('585811112788885504')
             .emojis.find(emoji => emoji.name == "red_tick")} Evaluation Failed!`
         )
         .addField(`Expression`, "```js\n" + args.join(" ") + "```")

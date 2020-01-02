@@ -137,7 +137,6 @@ let paginator = async (author, msg, embeds, pageNow) => {
       { time: 30 * 1000, max: 1, errors: ["time"] }
     )
     .catch(() => msg.clearReactions().catch(() => {}));
-  if (!reaction.size) return undefined;
   reaction = reaction.first();
   if (reaction.emoji.name == "◀") {
     let m = await msg.channel.send(embeds[Math.max(pageNow - 1, 0)]);

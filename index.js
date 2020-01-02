@@ -208,21 +208,27 @@ client.on("message", async message => {
       );
 
     if (!command)
-      return message.channel.send(
-        fn.embed(
-          client,
-          `I can't recognize this command! Do ${prefix}help and I'll DM you a list of my commands.`
+      return message.channel
+        .send(
+          fn.embed(
+            client,
+            `I can't recognize this command! Do ${prefix}help and I'll DM you a list of my commands.`
+          )
         )
-      );
+        .then(m => m.delete(5000));
 
     if (command.botStaffOnly && !user.botStaff)
-      return message.channel.send(
-        fn.embed(client, "You do not have permissions to use this command!")
-      );
+      return message.channel
+        .send(
+          fn.embed(client, "You do not have permissions to use this command!")
+        )
+        .then(m => m.delete(5000));
     if (command.guildPerms && !message.member.hasPermission(command.guildPerms))
-      return message.channel.send(
-        fn.embed(client, "You do not have permissions to use this command!")
-      );
+      return message.channel
+        .send(
+          fn.embed(client, "You do not have permissions to use this command!")
+        )
+        .then(m => m.delete(5000));
 
     shared.user = user;
     shared.guild = guild;
