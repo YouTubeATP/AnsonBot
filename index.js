@@ -246,7 +246,8 @@ bot.on("message", async message => {
     message.channel.id !== "653130414847688705" &&
     message.channel.id !== "653091798498934825" &&
     message.channel.id !== "653133031292403742" &&
-    message.channel.id !== "653091741351542825"
+    message.channel.id !== "653091741351542825" &&
+    message.channel.id !== "662243626050519060"
   )
     return message.delete();
 
@@ -295,45 +296,6 @@ bot.on("message", async message => {
     msg.startsWith(mention) ||
     msg.startsWith(mention1)
   ) {
-    if (!message.guild.me.hasPermission("SEND_MESSAGES")) {
-      return bot
-        .fetchUser(message.member)
-        .then(user => {
-          user.send({
-            embed: {
-              color: 0x00bdf2,
-              title: "I do not have sufficient permissions!",
-              description: `I cannot talk in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
-              footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-              }
-            }
-          });
-        })
-        .then(message.delete());
-    }
-
-    if (!message.guild.me.hasPermission("EMBED_LINKS")) {
-      message.delete();
-      return bot
-        .fetchUser(message.member)
-        .then(user => {
-          user.send({
-            embed: {
-              color: 0x00bdf2,
-              title: "I do not have sufficient permissions!",
-              description: `I cannot embed messages in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
-              footer: {
-                icon_url: bot.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
-              }
-            }
-          });
-        })
-        .then(message.delete());
-    }
-
     var argsNEW;
 
     if (msg.startsWith(prefix)) {
@@ -380,11 +342,7 @@ bot.on("message", async message => {
 bot.on("message", message => {
   if (message.channel.name == undefined) return;
   if (message.guild.id !== config.serverID) return;
-  if (
-    message.author.id === "586801954567618571" ||
-    message.author.id === "586802137040683028"
-  )
-    return;
+  if (message.author.id === "344335337889464357") return;
 
   const perms = message.member.permissions;
   const admin = perms.has("ADMINISTRATOR", true);
