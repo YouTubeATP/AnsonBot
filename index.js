@@ -120,13 +120,24 @@ client.on("guildMemberRemove", async member => {
 
 // for guilds
 client.on("message", async message => {
-  if (message.author.bot || message.channel.type != "text") return;
+  if (message.channel.type != "text" || message.guild.id !== config.server) return;
 
   console.log(
     `${fn.time()} | ${message.guild.name} #${message.channel.name} | ${
       message.author.tag
     } > ${message.cleanContent}`
   );
+
+  if (
+    message.guild.id === config.server &&
+    message.author.bot &&
+    message.channel.id !== "653091741351542825" &&
+    message.channel.id !== "653091798498934825" &&
+    message.channel.id !== "653133031292403742" &&
+    message.channel.id !== "662243626050519060" &&
+    message.channel.id !== "653130414847688705"
+  )
+    return message.delete();
 
   if (!userData.has(message.author.id)) {
     let newUserData = {
@@ -299,7 +310,9 @@ client.on("message", message => {
 
   if (links.some(link => bannedlinks.includes(link))) {
     message.delete();
-    return message.reply("please stick to <#662249455847735306> when advertising.");
+    return message.reply(
+      "please stick to <#662249455847735306> when advertising."
+    );
   }
 });
 
