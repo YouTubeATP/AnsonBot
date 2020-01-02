@@ -40,11 +40,7 @@ module.exports = {
             new Discord.RichEmbed()
               .setColor("GREEN")
               .setTitle(
-                `${client.guilds
-                  .get('585811112788885504')
-                  .emojis.find(
-                    emoji => emoji.name == "green_tick"
-                  )} Evaluation Success!`
+                `<:yes:662296097947123715> Evaluation Success!`
               )
               .addField(`Expression`, "```js\n" + args.join(" ") + "```")
               .addField(`Result`, "```js\n" + out + "```")
@@ -65,11 +61,7 @@ module.exports = {
             new Discord.RichEmbed()
               .setColor("GREEN")
               .setTitle(
-                `${client.guilds
-                  .get('585811112788885504')
-                  .emojis.find(
-                    emoji => emoji.name == "green_tick"
-                  )} Evaluation Success!`
+                `<:yes:662296097947123715> Evaluation Success!`
               )
               .addField(`Expression`, "```js\n" + args.join(" ") + "```")
               .addField(
@@ -84,9 +76,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor("RED")
         .setTitle(
-          `${client.guilds
-            .get('585811112788885504')
-            .emojis.find(emoji => emoji.name == "red_tick")} Evaluation Failed!`
+          `<:no:662296249717751869> Evaluation Failed!`
         )
         .addField(`Expression`, "```js\n" + args.join(" ") + "```")
         .addField(`Error Message`, "```js\n" + e + "```")

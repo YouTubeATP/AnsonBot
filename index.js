@@ -118,7 +118,7 @@ client.on("guildMemberRemove", async member => {
   }
 });
 
-// for guilds
+// message detection
 client.on("message", async message => {
   if (message.channel.type != "text" || message.guild.id !== config.server)
     return;
@@ -128,6 +128,8 @@ client.on("message", async message => {
       message.author.tag
     } > ${message.cleanContent}`
   );
+
+  if (message.guild === null) return;
 
   if (
     message.guild.id === config.server &&
@@ -207,28 +209,31 @@ client.on("message", async message => {
         cmd => cmd.aliases && cmd.aliases.includes(commandName)
       );
 
-    if (!command)
-      return message.channel
-        .send(
-          fn.embed(
-            client,
-            `I can't recognize this command! Do ${prefix}help and I'll DM you a list of my commands.`
-          )
+    if (!command) {
+      message.channel.send(
+        fn.embed(
+          client,
+          `I can't recognize this command! Do ${prefix}help and I'll DM you a list of my commands.`
         )
-        .then(m => m.delete(5000));
+      );
+      return message.delete().then(m => m.delete(5000));
+    }
 
-    if (command.botStaffOnly && !user.botStaff)
-      return message.channel
-        .send(
-          fn.embed(client, "You do not have permissions to use this command!")
-        )
-        .then(m => m.delete(5000));
-    if (command.guildPerms && !message.member.hasPermission(command.guildPerms))
-      return message.channel
-        .send(
-          fn.embed(client, "You do not have permissions to use this command!")
-        )
-        .then(m => m.delete(5000));
+    if (command.botStaffOnly && !user.botStaff) {
+      message.channel.send(
+        fn.embed(client, "You do not have permissions to use this command!")
+      );
+      return message.delete().then(m => m.delete(5000));
+    }
+    if (
+      command.guildPerms &&
+      !message.member.hasPermission(command.guildPerms)
+    ) {
+      message.channel.send(
+        fn.embed(client, "You do not have permissions to use this command!")
+      );
+      return message.delete().then(m => m.delete(5000));
+    }
 
     shared.user = user;
     shared.guild = guild;
@@ -243,57 +248,6 @@ client.on("message", async message => {
 
     message.delete().catch(error => {});
   }
-});
-
-// for DMs
-client.on("message", async message => {
-  if (message.author.bot || message.channel.type != "dm") return;
-
-  console.log(`${fn.time()} | ${message.author.tag} > ${message.cleanContent}`);
-
-  if (!userData.has(message.author.id)) {
-    let newUserData = {
-      botStaff: false,
-      blacklisted: false,
-      commandsUsed: 0,
-      createdTimestamp: moment()
-    };
-    userData.set(message.author.id, newUserData);
-  }
-  let user = userData.get(message.author.id);
-
-  const msg = message.content.toLowerCase();
-
-  let shared = {};
-
-  var args = message.content.split(/\s+/u);
-
-  const commandName = args.shift().toLowerCase();
-  shared.commandName = commandName;
-  const command =
-    client.commands.get(commandName) ||
-    client.commands.find(
-      cmd => cmd.aliases && cmd.aliases.includes(commandName)
-    );
-
-  if (!command) return;
-
-  if (command.botStaffOnly && !user.botStaff)
-    return msg.reply("you do not have the permissions to use this command!");
-  if (command.guildPerms)
-    return msg.reply("this command is only available on servers!");
-
-  shared.user = user;
-  shared.defaultPrefix = config.defaultPrefix;
-  shared.embedColor = config.embedColor;
-
-  try {
-    await command.run(client, message, args, shared);
-  } catch (error) {
-    console.log(error);
-  }
-
-  message.delete().catch();
 });
 
 // invite link detection
