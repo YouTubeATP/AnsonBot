@@ -68,5 +68,7 @@ module.exports = client => {
             .setTimestamp()
         );
     }
+    
+    if (oldMember.voiceChannel != newMember.voiceChannel) return console.log('detected')
   });
 };
