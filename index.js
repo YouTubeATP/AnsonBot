@@ -120,7 +120,8 @@ client.on("guildMemberRemove", async member => {
 
 // for guilds
 client.on("message", async message => {
-  if (message.channel.type != "text" || message.guild.id !== config.server) return;
+  if (message.channel.type != "text" || message.guild.id !== config.server)
+    return;
 
   console.log(
     `${fn.time()} | ${message.guild.name} #${message.channel.name} | ${
@@ -135,7 +136,8 @@ client.on("message", async message => {
     message.channel.id !== "653091798498934825" &&
     message.channel.id !== "653133031292403742" &&
     message.channel.id !== "662243626050519060" &&
-    message.channel.id !== "653130414847688705"
+    message.channel.id !== "653130414847688705" &&
+    message.channel.id !== "662273284322230282"
   )
     return message.delete();
 

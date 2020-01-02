@@ -15,15 +15,15 @@ const configItems = [{
   type: "string"
 }, {
   name: "modlog",
-  displayName: "Moderator Log",
+  displayName: "Moderator Logs",
   type: "channel"
 }, {
   name: "botlog",
-  displayName: "Action Log",
+  displayName: "Action Logs",
   type: "channel"
 }, {
   name: "memberlog",
-  displayName: "Member Log",
+  displayName: "Member Logs",
   type: "channel"
 }, {
   name: "muteRole",
