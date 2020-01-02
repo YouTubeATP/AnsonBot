@@ -68,7 +68,11 @@ module.exports = client => {
             .setTimestamp()
         );
     }
-    
-    if (oldMember.voiceChannel != newMember.voiceChannel) return console.log('detected')
+
+    if (oldMember.voiceChannel != newMember.voiceChannel) {
+      if (!oldMember.voiceChannel) return console.log("joined a channel");
+      else if (!newMember.voiceChannel) return console.log("left a channel");
+      else return console.log("switched channels");
+    }
   });
 };
