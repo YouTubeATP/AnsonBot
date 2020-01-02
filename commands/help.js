@@ -6,7 +6,7 @@ const config = require("/app/util/config"),
 module.exports = {
   name: "help",
   usage: "help [command]",
-  description: "Commands information.",
+  description: "Shows command information.",
   category: "Utility",
   run: async (client, message, args, shared) => {
     const { commands } = message.client;

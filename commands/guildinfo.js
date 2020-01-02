@@ -31,14 +31,10 @@ module.exports = {
       .setThumbnail(guild.iconURL)
       .addField("Name", `${guild}`, true)
       .addField("Owner", `${guild.owner}`, true)
+      .addField("Region", `${guild.region}`, true)
       .addField(
-        "Created",
+        "Time of Birth",
         `${fn.date(guild.createdAt)}\n${fn.ago(guild.createdAt)}`,
-        true
-      )
-      .addField(
-        "Joined",
-        `${fn.date(guild.joinedAt)}\n${fn.ago(guild.joinedAt)}`,
         true
       )
       .addField(
