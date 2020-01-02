@@ -7,7 +7,7 @@ const config = require("/app/util/config"),
   fn = require("/app/util/fn");
 
 module.exports = client => {
-  client.on("guildMemberUpdate", async (oldMember, newMember) => {
+  client.on("voiceStateUpdate", async (oldMember, newMember) => {
     let logChannelID = guildData.get(`${newMember.guild.id}.botlog`);
     let logChannel = client.channels.get(logChannelID);
     if (!logChannel) return;
