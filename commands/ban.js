@@ -1,79 +1,120 @@
-const index = require('../index.js');
-const fs = require('fs');
-const Discord = require('discord.js');
+const index = require("../index.js");
+const fs = require("fs");
+
+const Discord = require('discord.js'),
+      db = require('quick.db')
+
+const config = require('/app/util/config'),
+      fn = require('/app/util/fn')
 
 module.exports = {
   name: "ban",
   usage: "ban <user> [reason]",
   description: "Bans a user from the guild.",
   requirements: "Ban Members",
-  run: async (bot, message, args, shared) => {
-    
-    var reason = args.slice(1).join(" ")
-    
-    if (!message.member.hasPermission("BAN_MEMBERS")) {
-      
-      return message.reply("you don't have sufficient permissions!")
-        .then(message.delete())
-        .catch(console.error)
-        
-    };
-    
-    if (!message.guild.me.hasPermission("BAN_MEMBERS")) {
-      
-      message.delete();
-      return message.channel.send({embed: {
-      color: 0x00bdf2,
-      title: "I do not have sufficient permissions!",
-      description:(`I cannot ban or unban members in this guild, so I cannot carry out this command.`),
-      footer: {
-          icon_url: bot.user.avatarURL,
-          text: "MusEmbed™ | Clean Embeds, Crisp Music"
-      }
-  }})
-      
-    };
-    
-    var mem = message.mentions.members.first();
-    
-    if (!mem) {
-      var embed = new Discord.RichEmbed()
-        .setColor(0x00bdf2)
-        .setTitle("Hmm... Who am I supposed to ban?")
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-      
-      return message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
-    }
-    
-    if (mem.hasPermission("MANAGE_MESSAGES") || mem.hasPermission("BAN_MEMBERS") || mem.hasPermission("KICK_MEMBERS") || mem.hasPermission("ADMINISTRATOR")) {
-      
-      var embed = new Discord.RichEmbed()
-        .setColor(0x00bdf2)
-        .setTitle("Hmm... You are not supposed to ban another moderator!")
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
-      
-      return message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
-    }
-    
-    mem.ban(reason).then(() => {
-      var embed = new Discord.RichEmbed()
-        .setColor(0x00bdf2)
-        .setAuthor(`${mem.user.tag} has been successfully banned!`, mem.user.avatarURL)
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bot.user.avatarURL)
+  run: async (client, message, args, shared) => {
+    if (!args[0])
+      return message.channel.send(
+        fn.embed(client, "Please mention the user you want to ban.")
+      );
+    let target = message.mentions.members
+      .filter(member => member.user.id != client.user.id)
+      .first();
+    if (!target) target = fn.getMember(message.guild, args[0]);
+    if (!target)
+      return message.channel.send(
+        fn.embed(client, "Please mention the user you want to ban.")
+      );
 
-      if (reason) embed.addField("Reason", reason)
+    if (
+      target.hasPermission("BAN_MEMBERS") ||
+      target.hasPermission("KICK_MEMBERS") ||
+      (target.hasPermission("ADMINISTRATOR") &&
+        message.guild.ownerID != message.author.id)
+    )
+      return message.channel.send(
+        fn.embed(client, "You cannot ban a moderator!")
+      );
 
-      return message.channel.send(embed)
-        .then(message.delete())
-        .catch(console.error)
+    if (
+      target.highestRole.comparePositionTo(message.member.highestRole) >= 0 &&
+      message.guild.ownerID != message.author.id
+    )
+      return message.channel.send(
+        fn.embed(
+          client,
+          `You do not have permissions to ban ${target.user.username}!`
+        )
+      );
+    if (!target.bannable)
+      return message.channel.send(
+        fn.embed(
+          client,
+          `I do not have permissions to ban ${target.user.username}!`
+        )
+      );
 
-    }).catch(e => {
-      shared.printError(message, e, `I couldn't ban ${mem.user.tag}!`)
-    })
-    
+    let modlog = message.guild.channels.find(
+      channel => channel.id == shared.guild.modlog
+    );
+
+    let cases = [];
+    if (modCases.has(message.guild.id)) cases = modCases.get(message.guild.id);
+
+    let reason = args.slice(1).join(" ") || "Unspecified";
+
+    let modCase = new fn.ModCase(
+      client,
+      cases.length + 1,
+      "BAN",
+      target,
+      message,
+      reason
+    );
+    let embed = fn.modCaseEmbed(client, modCase);
+
+    target.user.send(
+      fn.embed(client, `You have been banned from ${message.guild.name}!`)
+    );
+    target.user
+      .send(embed)
+      .catch(error =>
+        message.channel.send(
+          fn.embed(client, `I cannot DM ${target.user.tag}!`)
+        )
+      )
+      .then(() => {
+        target
+          .ban(reason)
+          .then(() => {
+            modCases.push(message.guild.id, modCase);
+
+            console.log(
+              `${message.guild.name} | Banned ${target.user.tag} (${target.user.id})`
+            );
+
+            message.channel.send(
+              fn.embed(client, `${target.user.tag} has been banned!`)
+            );
+            message.channel.send(embed);
+
+            if (modlog) {
+              modlog
+                .send(embed)
+                .catch(() =>
+                  message.channel.send(
+                    fn.embed(client, `I cannot log in ${modlog}!`)
+                  )
+                );
+            }
+          })
+          .catch(error => {
+            message.channel.send(
+              fn.error(client, `I cannot ban ${target.user.tag}!`, error)
+            );
+          });
+      });
+
+    return undefined;
   }
-}
+};

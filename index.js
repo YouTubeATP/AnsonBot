@@ -33,24 +33,6 @@ shared.youtube1 = youtube1;
 shared.youtube2 = youtube2;
 shared.handler = handler;
 
-// Handle Events
-const { scan, ensureDir } = require("fs-nextra");
-const { relative, join, sep, extname } = require("path");
-(async (directory = join(__dirname, "/events/")) => {
-  const files = await scan(directory, {
-    filter: (stats, path) => stats.isFile() && extname(path) === ".js"
-  }).catch(() => ensureDir(directory));
-  if (!files) return true;
-  return [...files.keys()].map(key => {
-    const event = require(join(
-      directory,
-      ...relative(directory, key).split(sep)
-    ));
-    if (!event || event.disabled) return;
-    bot.on(event.name, event.run.bind(null, bot));
-  });
-})();
-
 // other variables
 
 var i;
