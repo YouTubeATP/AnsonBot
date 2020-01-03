@@ -310,8 +310,12 @@ function clean(text) {
 
 // temporary channel system
 
-client.on("voiceStateUpdate", async (oldMember, newMember, guild) => {
-  const channels = client.tempChannels.ensure(guild.id, defaultSettings);
+client.on("voiceStateUpdate", async (oldMember, newMember) => {
+  
+  const channels = client.tempChannels.ensure(
+    newMember.guild.id,
+    defaultSettings
+  );
   let joinVoiceChannel = client.channels.get("653131416703336469");
   if (
     channels.list.prototype.includes(oldMember.voiceChannel) &&
@@ -323,8 +327,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember, guild) => {
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
-    const category = guild.channels.get("653088922649362443");
-    guild
+    const category = newMember.guild.channels.get("653088922649362443");
+    newMember.guild
       .createChannel(`Public Lounge #${parseInt(channels.list.size + 1)}`, {
         type: "voice",
         parent: category
