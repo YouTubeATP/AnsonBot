@@ -7,7 +7,8 @@ const Discord = require("discord.js"),
   fs = require("fs"),
   http = require("http"),
   moment = require("moment"),
-  db = require("quick.db");
+  db = require("quick.db"),
+  Enmap = require("enmap");
 
 /* --- ALL PACKAGES --- */
 
@@ -41,6 +42,16 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
+
+client.tempChannels = new Enmap({
+  name: "tempChannels",
+  fetchAll: false,
+  autoFetch: true,
+  cloneLevel: "deep"
+});
+const defaultSettings = {
+  list: []
+};
 
 const token = process.env.DISCORD_BOT_TOKEN;
 
@@ -300,10 +311,13 @@ function clean(text) {
 // temporary channel system
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
+  const  = client.tempChannels.ensure(message.guild.id, defaultSettings);
   let joinVoiceChannel = client.channels.get("653131416703336469");
-  if (newMember.voiceChannel != joinVoiceChannel) return console.log ("not correct channel");
+  if (newMember.voiceChannel != joinVoiceChannel)
+    return console.log("not correct channel");
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
-    
-    return console.log ("correct channel");
+    return console.log("correct channel");
   }
 });
+
+
