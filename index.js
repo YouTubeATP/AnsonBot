@@ -310,8 +310,8 @@ function clean(text) {
 
 // temporary channel system
 
-client.on("voiceStateUpdate", async (oldMember, newMember) => {
-  const  = client.tempChannels.ensure(message.guild.id, defaultSettings);
+client.on("voiceStateUpdate", async (oldMember, newMember, guild) => {
+  const channels = client.tempChannels.ensure(guild.id, defaultSettings);
   let joinVoiceChannel = client.channels.get("653131416703336469");
   if (newMember.voiceChannel != joinVoiceChannel)
     return console.log("not correct channel");
