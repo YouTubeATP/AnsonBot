@@ -313,10 +313,13 @@ function clean(text) {
 client.on("voiceStateUpdate", async (oldMember, newMember, guild) => {
   const channels = client.tempChannels.ensure(guild.id, defaultSettings);
   let joinVoiceChannel = client.channels.get("653131416703336469");
-  if (channels.list.prototype.includes(oldMember.voiceChannel)) channels.remove("list", oldMember.voiceChannel)
+  if (channels.list.prototype.includes(oldMember.voiceChannel) && oldMember.voiceChannel && oldMember.voiceChannel.members.size <= 0) {
+    channels.remove("list", oldMember.voiceChannel);
+    oldMember.voiceChannel.delete("Served its purpose")
+  }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
-    //channels.push("list", "")
-    return console.log("correct channel");
+    guild.createChannel(`Public Lounge #${Math.round(channels.list.size + 1)}`)
+    channels.push("list", "")
   }
 });
