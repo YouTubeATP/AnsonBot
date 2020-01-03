@@ -70,9 +70,45 @@ module.exports = client => {
     }
 
     if (oldMember.voiceChannel != newMember.voiceChannel) {
-      if (!oldMember.voiceChannel) return console.log("joined a channel");
-      else if (!newMember.voiceChannel) return console.log("left a channel");
-      else return console.log("switched channels");
+      if (!oldMember.voiceChannel)
+        return logChannel.send(
+          new Discord.RichEmbed()
+            .setColor(config.embedColor)
+            .setAuthor("Voice Connected")
+            .setThumbnail(newMember.user.displayAvatarURL)
+            .addField(
+              newMember.user.bot ? "Bot" : "User",
+              `${newMember} (${newMember.user.tag})`
+            )
+            .setFooter(client.user.username, client.user.avatarURL)
+            .setTimestamp()
+        );
+      else if (!newMember.voiceChannel)
+        return logChannel.send(
+          new Discord.RichEmbed()
+            .setColor(config.embedColor)
+            .setAuthor("Voice Disconnected")
+            .setThumbnail(newMember.user.displayAvatarURL)
+            .addField(
+              newMember.user.bot ? "Bot" : "User",
+              `${newMember} (${newMember.user.tag})`
+            )
+            .setFooter(client.user.username, client.user.avatarURL)
+            .setTimestamp()
+        );
+      else
+        return logChannel.send(
+          new Discord.RichEmbed()
+            .setColor(config.embedColor)
+            .setAuthor("Channel Switched")
+            .setThumbnail(newMember.user.displayAvatarURL)
+            .addField(
+              newMember.user.bot ? "Bot" : "User",
+              `${newMember} (${newMember.user.tag})`
+            )
+            .setFooter(client.user.username, client.user.avatarURL)
+            .setTimestamp()
+        );
     }
   });
 };
