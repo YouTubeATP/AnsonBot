@@ -82,10 +82,9 @@ module.exports = client => {
             )
             .addField(
               "Voice Channel",
-              `${newMember.user.voiceChannel} (${newMember.user.voiceChannel.name})`,
+              `${newMember.voiceChannel.name}`,
               true
             )
-            .addField("ID", newMember.user.voiceChannel.id, true)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
@@ -101,10 +100,9 @@ module.exports = client => {
             )
             .addField(
               "Voice Channel",
-              `${oldMember.user.voiceChannel} (${oldMember.user.voiceChannel})`,
+              `${oldMember.voiceChannel.name}`,
               true
             )
-            .addField("ID", oldMember.user.voiceChannel.id, true)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
@@ -120,16 +118,14 @@ module.exports = client => {
             )
             .addField(
               "Previous Voice Channel",
-              `${oldMember.user.voiceChannel} (${oldMember.user.voiceChannel.name})`,
+              `${oldMember.voiceChannel.name}`,
               true
             )
-            .addField("ID of Previous Channel", oldMember.user.voiceChannel.id, true)
             .addField(
               "Current Voice Channel",
-              `${newMember.user.voiceChannel} (${newMember.user.voiceChannel.name})`,
+              `${newMember.voiceChannel.name}`,
               true
             )
-            .addField("ID of Current Channel", newMember.user.voiceChannel.id, true)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
