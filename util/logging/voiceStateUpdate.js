@@ -80,6 +80,18 @@ module.exports = client => {
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
             )
+            .addField(
+              newMember.channel.type == "text" ||
+                newMember.channel.type == "news" ||
+                newMember.channel.type == "store"
+                ? "Text Channel"
+                : newMember.channel.type == "voice"
+                ? "Voice Channel"
+                : "Category",
+              `${newMember.channel} (${newMember.channel.name})`,
+              true
+            )
+            .addField("ID", newMember.channel.id, true)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
@@ -93,6 +105,18 @@ module.exports = client => {
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
             )
+            .addField(
+              oldMember.channel.type == "text" ||
+                oldMember.channel.type == "news" ||
+                oldMember.channel.type == "store"
+                ? "Text Channel"
+                : oldMember.channel.type == "voice"
+                ? "Voice Channel"
+                : "Category",
+              `${oldMember.channel} (${oldMember.channel.name})`,
+              true
+            )
+            .addField("ID", oldMember.channel.id, true)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
