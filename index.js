@@ -301,8 +301,9 @@ function clean(text) {
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
   let joinVoiceChannel = client.channels.get("653131416703336469");
-  if (oldMember.voiceChannel != joinVoiceChannel.name) return;
-  if (oldMember.voiceChannel != newMember.voiceChannel) {
-    return;
+  if (newMember.voiceChannel != joinVoiceChannel) return console.log ("not correct channel");
+  else if (oldMember.voiceChannel != newMember.voiceChannel) {
+    
+    return console.log ("correct channel");
   }
 });
