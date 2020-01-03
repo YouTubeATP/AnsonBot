@@ -33,7 +33,7 @@ module.exports = {
       .addField("Owner", `${guild.owner}`, true)
       .addField("Region", `${guild.region}`, true)
       .addField(
-        "Time of Birth",
+        "Created",
         `${fn.date(guild.createdAt)}\n${fn.ago(guild.createdAt)}`,
         true
       )

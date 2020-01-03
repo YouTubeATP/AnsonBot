@@ -46,7 +46,6 @@ module.exports = {
       .addField(
         target.user.bot ? "Created" : "Joined Discord",
         fn.date(target.user.createdAt),
-        true
       )
       .addField(
         "Current Status",
@@ -70,24 +69,6 @@ module.exports = {
         `ID: ${target.id} | ${client.user.username}`,
         client.user.avatarURL
       );
-    if (!target.user.bot)
-      embed
-        .addField(
-          `${client.user.username} Tags`,
-          user.botStaff || user.blacklisted
-            ? user.botStaff
-              ? "Bot Staff"
-              : "" + "\n" + user.blacklisted
-              ? "Blacklisted"
-              : ""
-            : "None",
-          true
-        )
-        .addField(
-          `${client.user.username} Commands Used`,
-          user.commandsUsed,
-          true
-        );
     if (target.roles.size > 1)
       embed.addField(
         `Role${target.roles.size == 2 ? "" : "s"} [${target.roles.size - 1}]`,
@@ -99,8 +80,7 @@ module.exports = {
           .map(r => `${r}`)
           .slice(1)
           .reverse()
-          .join(" "),
-        true
+          .join(" ")
       );
 
     message.channel.send(embed);
