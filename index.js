@@ -119,6 +119,7 @@ client.on("guildMemberRemove", async member => {
 });
 
 // message detection
+
 client.on("message", async message => {
   if (message.channel.type != "text" || message.guild.id !== config.server)
     return;
