@@ -300,66 +300,9 @@ function clean(text) {
 // temporary channel system
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
-    let joinVoiceChannel = client.channels.get("653131416703336469");
-    if (oldMember.voiceChannel != newMember.voiceChannel) {
-      if (!oldMember.voiceChannel)
-        return joinVoiceChannel.send(
-          new Discord.RichEmbed()
-            .setColor(config.embedColor)
-            .setAuthor("Voice Connected")
-            .setThumbnail(newMember.user.displayAvatarURL)
-            .addField(
-              newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`
-            )
-            .addField(
-              "Voice Channel",
-              `${newMember.voiceChannel.name}`,
-              true
-            )
-            .setFooter(client.user.username, client.user.avatarURL)
-            .setTimestamp()
-        );
-      else if (!newMember.voiceChannel)
-        return joinVoiceChannel.send(
-          new Discord.RichEmbed()
-            .setColor(config.embedColor)
-            .setAuthor("Voice Disconnected")
-            .setThumbnail(newMember.user.displayAvatarURL)
-            .addField(
-              newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`
-            )
-            .addField(
-              "Voice Channel",
-              `${oldMember.voiceChannel.name}`,
-              true
-            )
-            .setFooter(client.user.username, client.user.avatarURL)
-            .setTimestamp()
-        );
-      else
-        return joinVoiceChannel.send(
-          new Discord.RichEmbed()
-            .setColor(config.embedColor)
-            .setAuthor("Channel Switched")
-            .setThumbnail(newMember.user.displayAvatarURL)
-            .addField(
-              newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`
-            )
-            .addField(
-              "Previous Voice Channel",
-              `${oldMember.voiceChannel.name}`,
-              true
-            )
-            .addField(
-              "Current Voice Channel",
-              `${newMember.voiceChannel.name}`,
-              true
-            )
-            .setFooter(client.user.username, client.user.avatarURL)
-            .setTimestamp()
-        );
-    }
-  });
+  let joinVoiceChannel = client.channels.get("653131416703336469");
+  if (oldMember.voiceChannel != joinVoiceChannel.name) return;
+  if (oldMember.voiceChannel != newMember.voiceChannel) {
+    return;
+  }
+});
