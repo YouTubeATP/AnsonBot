@@ -16,7 +16,15 @@ module.exports = client => {
     logChannel.send(
       new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor("Channel Created", channel.guild.iconURL)
+        .setAuthor(
+          channel.type == "text" ||
+            channel.type == "news" ||
+            channel.type == "store" ||
+            channel.type == "voice"
+            ? "Channel Created"
+            : "Category Created",
+          channel.guild.iconURL
+        )
         .addField(
           channel.type == "text" ||
             channel.type == "news" ||
@@ -25,7 +33,13 @@ module.exports = client => {
             : channel.type == "voice"
             ? "Voice Channel"
             : "Category",
-          `${channel} (${channel.name})`,
+          channel.type == "text" ||
+            channel.type == "news" ||
+            channel.type == "store"
+            ? `${channel} (${channel.name})`
+            : channel.type == "voice"
+            ? `${channel.name}`
+            : `${channel.name}`,
           true
         )
         .addField("ID", channel.id, true)

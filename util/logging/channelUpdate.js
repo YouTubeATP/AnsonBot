@@ -17,7 +17,16 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Channel Name Updated", newChannel.guild.iconURL)
-          .addField("Channel", `${newChannel} (${newChannel.name})`)
+          .addField(
+            "Channel",
+            newChannel.type == "text" ||
+              newChannel.type == "news" ||
+              newChannel.type == "store"
+              ? `${newChannel} (${newChannel.name})`
+              : newChannel.type == "voice"
+              ? `${newChannel.name}`
+              : `${newChannel.name}`
+          )
           .addField("Before", `${oldChannel.name}`, true)
           .addField("After", `${newChannel.name}`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -68,7 +77,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Voice Channel Bitrate Updated", newChannel.guild.iconURL)
-          .addField("Channel", `${newChannel} (${newChannel.name})`)
+          .addField("Channel", `${newChannel.name}`)
           .addField("Before", `${oldChannel.bitrate} kbps`, true)
           .addField("After", `${newChannel.bitrate} kbps`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -86,7 +95,7 @@ module.exports = client => {
             "Voice Channel User Limit Updated",
             newChannel.guild.iconURL
           )
-          .addField("Channel", `${newChannel} (${newChannel.name})`)
+          .addField("Channel", `${newChannel.name}`)
           .addField("Before", `${oldChannel.userLimit} users`, true)
           .addField("After", `${newChannel.userLimit} users`, true)
           .setFooter(client.user.username, client.user.avatarURL)
