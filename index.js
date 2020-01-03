@@ -304,7 +304,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   let joinVoiceChannel = client.channels.get("662705904449224725");
   if (
     oldMember.voiceChannel &&
-    oldMember.voiceChannel != joinVoiceChannel &&
+    oldMember.voiceChannel === client.channels.find("name", `Public Lounge`) &&
     oldMember.voiceChannel.members.size <= 0
   )
     oldMember.voiceChannel.delete("Served its purpose");
@@ -314,8 +314,6 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     guild.createChannel(`Public Lounge`, {
       type: "voice",
       parent: category
-    });
-    const newChannel = client.channels.find("name", `Public Lounge`);
-    newMember.setVoiceChannel(newChannel);
+    }).then(newChannel => newMember.setVoiceChannel(newChannel));
   }
 });
