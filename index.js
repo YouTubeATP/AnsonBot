@@ -311,30 +311,30 @@ function clean(text) {
 // temporary channel system
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
+  let index = 0
   const guild = newMember.guild;
   const channels = client.tempChannels.ensure(guild.id, defaultSettings);
   let joinVoiceChannel = client.channels.get("653131416703336469");
-  if (oldMember.voiceChannel) {
-    if (
-      channels.list.prototype.includes(oldMember.voiceChannel.name) &&
-      oldMember.voiceChannel.members.size <= 0
-    ) {
-      client.tempChannels.remove("list", oldMember.voiceChannel.name);
-      oldMember.voiceChannel.delete("Served its purpose");
-    }
+  if (
+    oldMember.voiceChannel &&
+    channels.list.prototype.includes(index) &&
+    oldMember.voiceChannel.members.size <= 0
+  ) {
+    client.tempChannels.remove("list", oldMember.voiceChannel.name);
+    oldMember.voiceChannel.delete("Served its purpose");
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
     const category = guild.channels.get("653088922649362443");
-    guild.createChannel(
-      `Public Lounge #${parseInt(channels.list.size + 1)}`,
-      {
-        type: "voice",
-        parent: category
-      }
+    guild.createChannel(`Public Lounge #${index}`, {
+      type: "voice",
+      parent: category
+    });
+    const newChannel = client.channels.find(
+      "name",
+      `Public Lounge #${index}`
     );
-    const newChannel = 
     newMember.setVoiceChannel(newChannel);
-    return client.tempChannels.push(newChannel.name);
+    return client.tempChannels.push("list", index);
   }
 });
