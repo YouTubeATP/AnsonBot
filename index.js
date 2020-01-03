@@ -7,8 +7,7 @@ const Discord = require("discord.js"),
   fs = require("fs"),
   http = require("http"),
   moment = require("moment"),
-  db = require("quick.db"),
-  Enmap = require("enmap");
+  db = require("quick.db");
 
 /* --- ALL PACKAGES --- */
 
@@ -42,16 +41,6 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
-
-client.tempChannels = new Enmap({
-  name: "tempChannels",
-  fetchAll: false,
-  autoFetch: true,
-  cloneLevel: "deep"
-});
-const defaultSettings = {
-  list: []
-};
 
 const token = process.env.DISCORD_BOT_TOKEN;
 
@@ -311,30 +300,22 @@ function clean(text) {
 // temporary channel system
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
-  let index = 0
   const guild = newMember.guild;
-  const channels = client.tempChannels.ensure(guild.id, defaultSettings);
-  let joinVoiceChannel = client.channels.get("653131416703336469");
+  let joinVoiceChannel = client.channels.get("662705904449224725");
   if (
     oldMember.voiceChannel &&
-    channels.list.prototype.includes(index) &&
+    oldMember.voiceChannel != joinVoiceChannel &&
     oldMember.voiceChannel.members.size <= 0
-  ) {
-    client.tempChannels.remove("list", oldMember.voiceChannel.name);
+  )
     oldMember.voiceChannel.delete("Served its purpose");
-  }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
     const category = guild.channels.get("653088922649362443");
-    guild.createChannel(`Public Lounge #${index}`, {
+    guild.createChannel(`Public Lounge`, {
       type: "voice",
       parent: category
     });
-    const newChannel = client.channels.find(
-      "name",
-      `Public Lounge #${index}`
-    );
+    const newChannel = client.channels.find("name", `Public Lounge`);
     newMember.setVoiceChannel(newChannel);
-    return client.tempChannels.push("list", index);
   }
 });
