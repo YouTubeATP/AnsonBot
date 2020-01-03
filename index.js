@@ -313,9 +313,12 @@ function clean(text) {
 client.on("voiceStateUpdate", async (oldMember, newMember, guild) => {
   const channels = client.tempChannels.ensure(guild.id, defaultSettings);
   let joinVoiceChannel = client.channels.get("653131416703336469");
-  if (newMember.voiceChannel != joinVoiceChannel)
-    return console.log("not correct channel");
+  
+  if (channels.list.prototype.contains = newMember.voiceChannel) 
+  
+  if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
+    //channels.push("list", "")
     return console.log("correct channel");
   }
 });
