@@ -304,16 +304,25 @@ function clean(text) {
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
   const guild = newMember.guild;
   let joinVoiceChannel = client.channels.get("662837599857278987");
-  if (guild.channels.find("name", `Public Lounge #1`) && index === 1) {
-    index = 2;
+  if (
+    await guild.channels.find("name", `Public Lounge #1`) &&
+    guild.channels.find("name", `Public Lounge #1`).members.size <= 0
+  ) {
+    guild.channels.find("name", `Public Lounge #1`).delete("Served its purpose");
     console.log(index);
   }
-  if (guild.channels.find("name", `Public Lounge #2`) && index === 1) {
-    index = 2;
+  if (
+    await guild.channels.find("name", `Public Lounge #2`) &&
+    guild.channels.find("name", `Public Lounge #2`).members.size <= 0
+  ) {
+    guild.channels.find("name", `Public Lounge #2`).delete("Served its purpose");
     console.log(index);
   }
-  if (guild.channels.find("name", `Public Lounge #3`) && index === 1) {
-    index = 2;
+  if (
+    await guild.channels.find("name", `Public Lounge #3`) &&
+    guild.channels.find("name", `Public Lounge #3`).members.size <= 0
+  ) {
+    guild.channels.find("name", `Public Lounge #3`).delete("Served its purpose");
     console.log(index);
   }
   if (guild.channels.find("name", `Public Lounge #1`) && index === 1) {
