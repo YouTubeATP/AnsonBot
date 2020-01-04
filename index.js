@@ -33,6 +33,8 @@ const listener = app.listen(process.env.PORT, function() {
   }, 225000);
 });
 
+let index = 0;
+
 client.commands = new Discord.Collection();
 const commandFiles = fs
   .readdirSync("./commands")
@@ -304,15 +306,18 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   let joinVoiceChannel = client.channels.get("662705904449224725");
   if (
     oldMember.voiceChannel &&
-    oldMember.voiceChannel === client.channels.find("name", `Public Lounge`) &&
+    oldMember.voiceChannel ===
+      client.channels.find("name", `Public Lounge ${parseInt(index - 1)}`) &&
     oldMember.voiceChannel.members.size <= 0
-  )
+  ) {
     oldMember.voiceChannel.delete("Served its purpose");
+    console.log(index--);
+  } else index++;
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
     const category = guild.channels.get("653088922649362443");
     guild
-      .createChannel(`Public Lounge`, {
+      .createChannel(`Public Lounge #${index++}`, {
         type: "voice",
         parent: category
       })
