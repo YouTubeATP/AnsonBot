@@ -326,6 +326,10 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       .find("name", `Public Lounge #2`)
       .delete("Served its purpose");
     console.log(index);
+  } else if (guild.channels.find("name", `Public Lounge #2`) && index === 1) {
+    index = 2;
+    guild.channels.find("name", `Public Lounge #2`).setName(`Public Lounge #1`);
+    console.log(index);
   } else if (guild.channels.find("name", `Public Lounge #2`) && index === 2) {
     index = 3;
     console.log(index);
@@ -342,26 +346,13 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   } else if (guild.channels.find("name", `Public Lounge #3`) && index === 3) {
     index = 4;
     console.log(index);
-  } else if (
-    !guild.channels.find("name", `Public Lounge #1`) &&
-    guild.channels.find("name", `Public Lounge #2`) &&
-    index === 1
-  ) {
-    index = 2;
-    guild.channels
-      .find("name", `Public Lounge #2`)
-      .setName(`Public Lounge #1`);
+  } else if (guild.channels.find("name", `Public Lounge #3`) && index === 2) {
+    index = 3;
+    guild.channels.find("name", `Public Lounge #3`).setName(`Public Lounge #2`);
     console.log(index);
-  } else if (
-    !guild.channels.find("name", `Public Lounge #1`) &&
-    !guild.channels.find("name", `Public Lounge #2`) &&
-    guild.channels.find("name", `Public Lounge #3`) &&
-    index === 1
-  ) {
+  } else if (guild.channels.find("name", `Public Lounge #3`) && index === 1) {
     index = 2;
-    guild.channels
-      .find("name", `Public Lounge #3`)
-      .setName(`Public Lounge #1`);
+    guild.channels.find("name", `Public Lounge #3`).setName(`Public Lounge #1`);
     console.log(index);
   }
   if (
@@ -371,12 +362,11 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     index === 2
   ) {
     index = 3;
-    guild.channels
-      .find("name", `Public Lounge #3`)
-      .setName(`Public Lounge #2`);
+    guild.channels.find("name", `Public Lounge #3`).setName(`Public Lounge #2`);
     console.log(index);
   }
-  if (
+  try {
+    if (
     oldMember.voiceChannel &&
     oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
     oldMember.voiceChannel.members.size <= 0
@@ -396,6 +386,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         .find("name", `Public Lounge #3`)
         .setName(`Public Lounge #2`);
   }
+  }.catch()
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 3) {
     const category = guild.channels.get("653088922649362443");
