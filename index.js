@@ -311,18 +311,18 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     oldMember.voiceChannel.members.size <= 0
   ) {
     oldMember.voiceChannel.delete("Served its purpose");
-    if (index = 2 && oldMember.voiceChannel.name.includes(1)))
+    console.log(index--);
+    if (index >= 2 && oldMember.voiceChannel.name.includes(1))
       guild.channels
         .find("name", `Public Lounge #2`)
         .setName(`Public Lounge #1`);
-    if (index = 3 && oldMember.voiceChannel.name.includes(2))
+    if (index >= 3 && (oldMember.voiceChannel.name.includes(1) || oldMember.voiceChannel.name.includes(2)))
       guild.channels
         .find("name", `Public Lounge #3`)
         .setName(`Public Lounge #2`);
-    console.log(index--);
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
-  else if (oldMember.voiceChannel != newMember.voiceChannel && index < 3) {
+  else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 3) {
     const category = guild.channels.get("653088922649362443");
     guild
       .createChannel(`Public Lounge #${index++}`, {
@@ -330,5 +330,5 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         parent: category
       })
       .then(newChannel => newMember.setVoiceChannel(newChannel));
-  } else newMember.setVoiceChannel(undefined);
+  } else return newMember.voiceChannel.disconnect();
 });
