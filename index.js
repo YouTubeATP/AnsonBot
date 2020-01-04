@@ -303,11 +303,31 @@ function clean(text) {
   else return text;
 }
 
-// temporary channel system
+// temporary channel system & AFK notification
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
   const guild = newMember.guild;
   let joinVoiceChannel = client.channels.get("662837599857278987");
+  try {
+    if (
+      newMember.voiceChannel ===
+      client.channels.get(newMember.guild.afkChannelID)
+    ) {
+      newMember.setVoiceChannel(null);
+      let afk = new Discord.RichEmbed()
+        .setColor(config.embedColor)
+        .setTitle(`You were disconnected `)
+        .setDescription(
+          `Only 3 public lounges may be present in **${guild}** at a time. Consider joing one of them instead!`
+        )
+        .setThumbnail(guild.iconURL)
+        .setFooter(client.user.username, client.user.avatarURL)
+        .setTimestamp();
+      newMember.send(afk);
+    }
+  } catch (e) {
+    console.log("Couldn't disconnect user from AFK channel");
+  }
   try {
     if (
       (await guild.channels.find("name", `Public Lounge #1`)) &&
