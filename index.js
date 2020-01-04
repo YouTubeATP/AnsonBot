@@ -305,25 +305,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   const guild = newMember.guild;
   let i;
   let joinVoiceChannel = client.channels.get("662837599857278987");
-  
-  if (guild.channels.find("name", `Public Lounge #1`)
-  if (guild.channels.find("name", `Public Lounge #1`).members.size <= 0)
-    guild.channels
-      .find("name", `Public Lounge #1`)
-      .delete("Served its purpose");
-  if (guild.channels.find("name", `Public Lounge #2`).members.size <= 0)
-    guild.channels
-      .find("name", `Public Lounge #2`)
-      .delete("Served its purpose");
-  if (guild.channels.find("name", `Public Lounge #3`).members.size <= 0)
-    guild.channels
-      .find("name", `Public Lounge #3`)
-      .delete("Served its purpose");
-}
 
   if (guild.channels.find("name", `Public Lounge #1`) && index === 1) index = 2;
-  if (guild.channels.find("name", `Public Lounge #2`) && index === 2) index = 3;
-  if (guild.channels.find("name", `Public Lounge #3`) && index === 3) index = 4;
   if (guild.channels.find("name", `Public Lounge #2`) && index === 1) {
     index = 2;
     guild.channels
@@ -336,6 +319,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       .find("name", `Public Lounge #3`)
       .setName.setName(`Public Lounge #1`);
   }
+  if (guild.channels.find("name", `Public Lounge #2`) && index === 2) index = 3;
+  if (guild.channels.find("name", `Public Lounge #3`) && index === 3) index = 4;
   if (guild.channels.find("name", `Public Lounge #3`) && index === 2) {
     index = 3;
     guild.channels
