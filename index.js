@@ -257,6 +257,15 @@ client.on("message", async message => {
   }
 });
 
+// nitro boost detection and announcement
+
+client.on("guildMemberUpdate", async (oldMember, newMember) => {
+  if (newMember.premiumSinceTimestamp != null)
+    return newMember.guild.channels
+      .get(653091798498934825)
+      .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
+});
+
 // invite link detection
 
 client.on("message", message => {
@@ -316,9 +325,9 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       newMember.setVoiceChannel(null);
       let afk = new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setTitle(`You were disconnected `)
+        .setTitle(`Voice Disconnected for Inactivity`)
         .setDescription(
-          `Only 3 public lounges may be present in **${guild}** at a time. Consider joing one of them instead!`
+          `You have been idle in the voice channel **${oldMember.voiceChannel}** in **${guild}** for more than 5 minutes, so you were automatically disconnected.`
         )
         .setThumbnail(guild.iconURL)
         .setFooter(client.user.username, client.user.avatarURL)
