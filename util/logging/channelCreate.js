@@ -22,8 +22,7 @@ module.exports = client => {
             channel.type == "store" ||
             channel.type == "voice"
             ? "Channel Created"
-            : "Category Created",
-          channel.guild.iconURL
+            : "Category Created"
         )
         .addField(
           channel.type == "text" ||

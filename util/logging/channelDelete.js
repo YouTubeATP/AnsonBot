@@ -22,8 +22,7 @@ module.exports = client => {
             channel.type == "store" ||
             channel.type == "voice"
             ? "Channel Deleted"
-            : "Category Deleted",
-          channel.guild.iconURL
+            : "Category Deleted"
         )
         .addField(
           channel.type == "text" ||
