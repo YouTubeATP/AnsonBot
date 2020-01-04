@@ -17,6 +17,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Server AFK Channel Updated", newGuild.iconURL)
+          .setThumbnail(newGuild.iconURL)
           .addField("Before", `${oldGuild.afkChannel}`, true)
           .addField("After", `${newGuild.afkChannel}`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -28,6 +29,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Server AFK Timeout Updated", newGuild.iconURL)
+          .setThumbnail(newGuild.iconURL)
           .addField("Before", `${oldGuild.afkTimeout / 60} minutes`, true)
           .addField("After", `${newGuild.afkTimeout / 60} minutes`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -39,6 +41,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Server Icon Updated")
+          .setThumbnail(newGuild.iconURL)
           .addField("Before", `[Link](${oldGuild.iconURL})`, true)
           .addField("After", `[Link](${newGuild.iconURL})`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -50,6 +53,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Server Name Updated")
+          .setThumbnail(newGuild.iconURL)
           .addField("Before", `${oldGuild.name}`, true)
           .addField("After", `${newGuild.name}`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -61,6 +65,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Server Owner Updated")
+          .setThumbnail(newGuild.iconURL)
           .addField(
             "Before",
             `${oldGuild.owner} (${oldGuild.owner.user.tag})`,
@@ -79,7 +84,8 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Server Splash Updated")
+          .setAuthor("Server Splash Background Updated")
+          .setThumbnail(newGuild.iconURL)
           .addField("Before", `[Link](${oldGuild.splashURL})`, true)
           .addField("After", `[Link](${newGuild.splashURL})`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -90,7 +96,8 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Server AFK Channel Updated")
+          .setAuthor("System Channel Updated")
+          .setThumbnail(newGuild.iconURL)
           .addField("Before", `${oldGuild.systemChannel}`, true)
           .addField("After", `${newGuild.systemChannel}`, true)
           .setFooter(client.user.username, client.user.avatarURL)

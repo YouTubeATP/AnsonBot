@@ -16,6 +16,7 @@ module.exports = client => {
       new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setAuthor("Messages Bulk Deleted")
+        .setThumbnail(messages.first().guild.iconURL)
         .setDescription(
           `${messages.size} messages bulk deleted in ${
             messages.first().channel

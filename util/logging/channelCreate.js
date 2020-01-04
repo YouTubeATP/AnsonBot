@@ -16,6 +16,7 @@ module.exports = client => {
     logChannel.send(
       new Discord.RichEmbed()
         .setColor(config.embedColor)
+        .setThumbnail(channel.guild.iconURL)
         .setAuthor(
           channel.type == "text" ||
             channel.type == "news" ||
@@ -38,10 +39,9 @@ module.exports = client => {
             ? `${channel} (${channel.name})`
             : channel.type == "voice"
             ? `${channel.name}`
-            : `${channel.name}`,
-          true
+            : `${channel.name}`
         )
-        .addField("ID", channel.id, true)
+        .addField("ID", channel.id)
         .addField("Created", fn.time(channel.createdTimestamp))
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp()

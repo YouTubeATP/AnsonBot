@@ -22,8 +22,7 @@ module.exports = client => {
             .setThumbnail(newMember.user.displayAvatarURL)
             .addField(
               newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`,
-              true
+              `${newMember} (${newMember.user.tag})`
             )
             .addField("Role", `${role} (${role.name})`, true)
             .setFooter(client.user.username, client.user.avatarURL)

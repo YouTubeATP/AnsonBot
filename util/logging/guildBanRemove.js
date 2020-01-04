@@ -17,8 +17,8 @@ module.exports = client => {
         .setColor(config.embedColor)
         .setAuthor("User Unbanned")
         .setThumbnail(user.displayAvatarURL)
-        .addField(user.bot ? "Bot" : "User", `${user} (${user.tag})`, true)
-        .addField("ID", user.id, true)
+        .addField(user.bot ? "Bot" : "User", `${user} (${user.tag})`)
+        .addField("ID", user.id)
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp()
     );

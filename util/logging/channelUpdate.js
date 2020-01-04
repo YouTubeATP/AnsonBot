@@ -17,6 +17,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Channel Name Updated")
+          .setThumbnail(newChannel.guild.iconURL)
           .addField(
             "Channel",
             newChannel.type == "text" ||
@@ -38,6 +39,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Text Channel Topic Updated")
+          .setThumbnail(newChannel.guild.iconURL)
           .addField("Channel", `${newChannel} (#${newChannel.name})`)
           .addField("Before", `${oldChannel.topic}`, true)
           .addField("After", `${newChannel.topic}`, true)
@@ -50,6 +52,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Text Channel NSFW Updated")
+          .setThumbnail(newChannel.guild.iconURL)
           .addField("Channel", `${newChannel} (#${newChannel.name})`)
           .addField("Before", `${oldChannel.nsfw ? "Yes" : "No"}`, true)
           .addField("After", `${newChannel.nsfw ? "Yes" : "No"}`, true)
@@ -65,6 +68,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Text Channel Slowmode Updated")
+          .setThumbnail(newChannel.guild.iconURL)
           .addField("Channel", `${newChannel} (#${newChannel.name})`)
           .addField("Before", `${oldChannel.rateLimitPerUser} seconds`, true)
           .addField("After", `${newChannel.rateLimitPerUser} seconds`, true)
@@ -77,6 +81,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Voice Channel Bitrate Updated")
+          .setThumbnail(newChannel.guild.iconURL)
           .addField("Channel", `${newChannel.name}`)
           .addField("Before", `${oldChannel.bitrate} kbps`, true)
           .addField("After", `${newChannel.bitrate} kbps`, true)
@@ -92,6 +97,7 @@ module.exports = client => {
         new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setAuthor("Voice Channel User Limit Updated")
+          .setThumbnail(newChannel.guild.iconURL)
           .addField("Channel", `${newChannel.name}`)
           .addField("Before", `${oldChannel.userLimit} users`, true)
           .addField("After", `${newChannel.userLimit} users`, true)
