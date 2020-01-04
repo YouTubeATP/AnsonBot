@@ -23,6 +23,7 @@ module.exports = client => {
               `${newMember} (${newMember.user.tag})`
             )
             .addField("Voice Channel", `${newMember.voiceChannel.name}`, true)
+            .addField("ID", `${newMember.voiceChannel.id}`, true)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
@@ -37,6 +38,7 @@ module.exports = client => {
               `${newMember} (${newMember.user.tag})`
             )
             .addField("Voice Channel", `${oldMember.voiceChannel.name}`, true)
+            .addField("Voice Channel", `${oldMember.voiceChannel.id}`, true)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );

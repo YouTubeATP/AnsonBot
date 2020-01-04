@@ -22,7 +22,7 @@ module.exports = client => {
             newChannel.type == "text" ||
               newChannel.type == "news" ||
               newChannel.type == "store"
-              ? `${newChannel} (${newChannel.name})`
+              ? `${newChannel} (#${newChannel.name})`
               : newChannel.type == "voice"
               ? `${newChannel.name}`
               : `${newChannel.name}`
