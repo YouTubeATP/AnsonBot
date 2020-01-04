@@ -312,8 +312,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     oldMember.voiceChannel.delete("Served its purpose");
     console.log(index--);
     if (
-      index >= 2 &&
-      !guild.channels.find("name", `Public Lounge #${parseInt(index - 1)}`)
+      index > 1 &&
+      oldMember.voiceChannel.name.includes(index - 1)
     )
       guild.channels
         .find("name", `Public Lounge #${index}`)
