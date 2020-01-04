@@ -306,7 +306,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   let joinVoiceChannel = client.channels.get("662837599857278987");
   if (
     oldMember.voiceChannel &&
-    oldMember.voiceChannel ===
+    oldMember.voiceChannel.name.contains ===
       client.channels.find("name", `Public Lounge #${parseInt(index - 1)}`) &&
     oldMember.voiceChannel.members.size <= 0
   ) {
