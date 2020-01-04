@@ -17,7 +17,8 @@ module.exports = client => {
     logChannel.send(
       new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor("Message Deleted", message.author.displayAvatarURL)
+        .setAuthor("Message Deleted")
+        .setThumbnail(message.author.displayAvatarURL)
         .setDescription(
           `Message by ${message.author} (${message.author.tag}) deleted in ${message.channel}.`
         )

@@ -18,7 +18,8 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Role Given", newMember.user.displayAvatarURL)
+            .setAuthor("Role Given")
+            .setThumbnail(newMember.user.displayAvatarURL)
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`,
@@ -37,7 +38,8 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Role Removed", newMember.user.displayAvatarURL)
+            .setAuthor("Role Removed")
+            .setThumbnail(newMember.user.displayAvatarURL)
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`,
@@ -54,7 +56,8 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("User Tag Updated", newMember.user.displayAvatarURL)
+          .setAuthor("User Tag Updated")
+          .setThumbnail(newMember.user.displayAvatarURL)
           .addField(
             newMember.user.bot ? "Bot" : "User",
             `${newMember} (${newMember.user.tag})`
@@ -69,7 +72,8 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Member Nickname Updated", newMember.user.displayAvatarURL)
+          .setAuthor("Member Nickname Updated")
+          .setThumbnail(newMember.user.displayAvatarURL)
           .addField(
             newMember.user.bot ? "Bot" : "User",
             `${newMember} (${newMember.user.tag})`
@@ -84,7 +88,8 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("User Avatar Updated", newMember.user.displayAvatarURL)
+          .setAuthor("User Avatar Updated")
+          .setThumbnail(newMember.user.displayAvatarURL)
           .addField(
             newMember.user.bot ? "Bot" : "User",
             `${newMember} (${newMember.user.tag})`

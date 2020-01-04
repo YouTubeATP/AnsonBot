@@ -24,7 +24,7 @@ module.exports = client => {
       logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Member Joined", member.guild.iconURL)
+          .setAuthor("Member Joined")
           .setThumbnail(member.user.displayAvatarURL)
           .setDescription(
             `There are now ${member.guild.members.size} members in ${member.guild}.`
@@ -46,7 +46,7 @@ module.exports = client => {
       memberLog.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Member Joined", member.guild.iconURL)
+          .setAuthor("Member Joined")
           .setThumbnail(member.user.displayAvatarURL)
           .setDescription(
             `There are now ${member.guild.members.size} members in ${member.guild}.`

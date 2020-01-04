@@ -213,6 +213,15 @@ client.on("message", async message => {
       );
 
     if (!command) {
+      let embed = new Discord.RichEmbed()
+      .setColor(config.embedColor)
+      .setTitle(`I can't recognize this command!`)
+      .setDescription(
+        `Only 3 public lounges may be present in **${guild}** at a time. Consider joing one of them instead!`
+      )
+      .setThumbnail(guild.iconURL)
+      .setFooter(client.user.username, client.user.avatarURL)
+      .setTimestamp();
       message.channel.send(
         fn.embed(
           client,

@@ -15,7 +15,7 @@ module.exports = client => {
     logChannel.send(
       new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor("User Unbanned", guild.iconURL)
+        .setAuthor("User Unbanned")
         .setThumbnail(user.displayAvatarURL)
         .addField(user.bot ? "Bot" : "User", `${user} (${user.tag})`, true)
         .addField("ID", user.id, true)

@@ -38,7 +38,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Server Icon Updated", newGuild.iconURL)
+          .setAuthor("Server Icon Updated")
           .addField("Before", `[Link](${oldGuild.iconURL})`, true)
           .addField("After", `[Link](${newGuild.iconURL})`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -49,7 +49,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Server Name Updated", newGuild.iconURL)
+          .setAuthor("Server Name Updated")
           .addField("Before", `${oldGuild.name}`, true)
           .addField("After", `${newGuild.name}`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -60,7 +60,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Server Name Updated", newGuild.iconURL)
+          .setAuthor("Server Owner Updated")
           .addField(
             "Before",
             `${oldGuild.owner} (${oldGuild.owner.user.tag})`,
@@ -79,7 +79,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Server Splash Updated", newGuild.iconURL)
+          .setAuthor("Server Splash Updated")
           .addField("Before", `[Link](${oldGuild.splashURL})`, true)
           .addField("After", `[Link](${newGuild.splashURL})`, true)
           .setFooter(client.user.username, client.user.avatarURL)
@@ -90,7 +90,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Server AFK Channel Updated", newGuild.iconURL)
+          .setAuthor("Server AFK Channel Updated")
           .addField("Before", `${oldGuild.systemChannel}`, true)
           .addField("After", `${newGuild.systemChannel}`, true)
           .setFooter(client.user.username, client.user.avatarURL)
