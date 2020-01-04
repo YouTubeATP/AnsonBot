@@ -373,25 +373,29 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   } catch (e) {
     console.log("Public Lounge #3 already deleted");
   }
-  if (
-    oldMember.voiceChannel &&
-    oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
-    oldMember.voiceChannel.members.size <= 0
-  ) {
-    oldMember.voiceChannel.delete("Served its purpose");
-    console.log(index--);
-    if (index >= 2 && oldMember.voiceChannel.name.includes(1))
-      guild.channels
-        .find("name", `Public Lounge #2`)
-        .setName(`Public Lounge #1`);
+  try {
     if (
-      index >= 3 &&
-      (oldMember.voiceChannel.name.includes(1) ||
-        oldMember.voiceChannel.name.includes(2))
-    )
-      guild.channels
-        .find("name", `Public Lounge #3`)
-        .setName(`Public Lounge #2`);
+      oldMember.voiceChannel &&
+      oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
+      oldMember.voiceChannel.members.size <= 0
+    ) {
+      oldMember.voiceChannel.delete("Served its purpose");
+      console.log(index--);
+      if (index >= 2 && oldMember.voiceChannel.name.includes(1))
+        guild.channels
+          .find("name", `Public Lounge #2`)
+          .setName(`Public Lounge #1`);
+      if (
+        index >= 3 &&
+        (oldMember.voiceChannel.name.includes(1) ||
+          oldMember.voiceChannel.name.includes(2))
+      )
+        guild.channels
+          .find("name", `Public Lounge #3`)
+          .setName(`Public Lounge #2`);
+    }
+  } catch (e) {
+    console.log("Enpty lounges already deleted");
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 3) {
@@ -407,7 +411,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     return newMember.send(
       fn.embed(
         client,
-        "There may only be 3 public lounges present at a time! Consider joining one of them instead."
+        "You may not create a new lounge as there may only be 3 public lounges present at a time! Consider joining one of them instead."
       )
     );
   }
