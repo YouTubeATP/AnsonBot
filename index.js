@@ -308,6 +308,18 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     index = 2;
     console.log(index);
   }
+  if (guild.channels.find("name", `Public Lounge #2`) && index === 1) {
+    index = 2;
+    console.log(index);
+  }
+  if (guild.channels.find("name", `Public Lounge #3`) && index === 1) {
+    index = 2;
+    console.log(index);
+  }
+  if (guild.channels.find("name", `Public Lounge #1`) && index === 1) {
+    index = 2;
+    console.log(index);
+  }
   if (guild.channels.find("name", `Public Lounge #2`) && index === 2) {
     index = 3;
     console.log(index);
