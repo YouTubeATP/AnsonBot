@@ -16,7 +16,7 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Voice Connected")
+            .setTitle("Voice Connected")
             .setThumbnail(newMember.user.displayAvatarURL)
             .addField(
               newMember.user.bot ? "Bot" : "User",
@@ -31,7 +31,7 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Voice Disconnected")
+            .setTitle("Voice Disconnected")
             .setThumbnail(newMember.user.displayAvatarURL)
             .addField(
               newMember.user.bot ? "Bot" : "User",
@@ -46,7 +46,7 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Channel Switched")
+            .setTitle("Channel Switched")
             .setThumbnail(newMember.user.displayAvatarURL)
             .addField(
               newMember.user.bot ? "Bot" : "User",

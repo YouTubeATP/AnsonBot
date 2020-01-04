@@ -53,7 +53,7 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Role Unmentionable")
+            .setTitle("Role Unmentionable")
             .setThumbnail(newRole.guild.iconURL)
             .addField("Role", `${newRole} (${newRole.name})`)
             .setFooter(client.user.username, client.user.avatarURL)
