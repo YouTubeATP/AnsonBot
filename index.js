@@ -311,9 +311,11 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
     const category = guild.channels.get("653088922649362443");
-    guild.createChannel(`Public Lounge`, {
-      type: "voice",
-      parent: category
-    }).then(newChannel => newMember.setVoiceChannel(newChannel));
+    guild
+      .createChannel(`Public Lounge`, {
+        type: "voice",
+        parent: category
+      })
+      .then(newChannel => newMember.setVoiceChannel(newChannel));
   }
 });
