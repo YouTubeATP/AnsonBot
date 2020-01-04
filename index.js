@@ -304,69 +304,76 @@ function clean(text) {
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
   const guild = newMember.guild;
   let joinVoiceChannel = client.channels.get("662837599857278987");
-  if (
-    (await guild.channels.find("name", `Public Lounge #1`)) &&
-    guild.channels.find("name", `Public Lounge #1`).members.size <= 0 &&
-    index === 1
-  ) {
-    guild.channels
-      .find("name", `Public Lounge #1`)
-      .delete("Served its purpose");
-    console.log(index);
-  } else if (guild.channels.find("name", `Public Lounge #1`) && index === 1) {
-    index = 2;
-    console.log(index);
-  }
-  if (
-    (await guild.channels.find("name", `Public Lounge #2`)) &&
-    guild.channels.find("name", `Public Lounge #2`).members.size <= 0 &&
-    index === 1
-  ) {
-    guild.channels
-      .find("name", `Public Lounge #2`)
-      .delete("Served its purpose");
-    console.log(index);
-  } else if (guild.channels.find("name", `Public Lounge #2`) && index === 1) {
-    index = 2;
-    guild.channels.find("name", `Public Lounge #2`).setName(`Public Lounge #1`);
-    console.log(index);
-  } else if (guild.channels.find("name", `Public Lounge #2`) && index === 2) {
-    index = 3;
-    console.log(index);
-  }
-  if (
-    (await guild.channels.find("name", `Public Lounge #3`)) &&
-    guild.channels.find("name", `Public Lounge #3`).members.size <= 0 &&
-    index === 1
-  ) {
-    guild.channels
-      .find("name", `Public Lounge #3`)
-      .delete("Served its purpose");
-    console.log(index);
-  } else if (guild.channels.find("name", `Public Lounge #3`) && index === 3) {
-    index = 4;
-    console.log(index);
-  } else if (guild.channels.find("name", `Public Lounge #3`) && index === 2) {
-    index = 3;
-    guild.channels.find("name", `Public Lounge #3`).setName(`Public Lounge #2`);
-    console.log(index);
-  } else if (guild.channels.find("name", `Public Lounge #3`) && index === 1) {
-    index = 2;
-    guild.channels.find("name", `Public Lounge #3`).setName(`Public Lounge #1`);
-    console.log(index);
-  }
-  if (
-    !guild.channels.find("name", `Public Lounge #1`) &&
-    guild.channels.find("name", `Public Lounge #2`) &&
-    guild.channels.find("name", `Public Lounge #3`) &&
-    index === 2
-  ) {
-    index = 3;
-    guild.channels.find("name", `Public Lounge #3`).setName(`Public Lounge #2`);
-    console.log(index);
+  try {
+    if (
+      (await guild.channels.find("name", `Public Lounge #1`)) &&
+      guild.channels.find("name", `Public Lounge #1`).members.size <= 0 &&
+      index === 1
+    ) {
+      guild.channels
+        .find("name", `Public Lounge #1`)
+        .delete("Served its purpose");
+      console.log(index);
+    } else if (guild.channels.find("name", `Public Lounge #1`) && index === 1) {
+      index = 2;
+      console.log(index);
+    }
+  } catch (e) {
+    console.log("Public Lounge #1 already deleted");
   }
   try {
     if (
+      (await guild.channels.find("name", `Public Lounge #2`)) &&
+      guild.channels.find("name", `Public Lounge #2`).members.size <= 0 &&
+      index === 1
+    ) {
+      guild.channels
+        .find("name", `Public Lounge #2`)
+        .delete("Served its purpose");
+      console.log(index);
+    } else if (guild.channels.find("name", `Public Lounge #2`) && index === 1) {
+      index = 2;
+      guild.channels
+        .find("name", `Public Lounge #2`)
+        .setName(`Public Lounge #1`);
+      console.log(index);
+    } else if (guild.channels.find("name", `Public Lounge #2`) && index === 2) {
+      index = 3;
+      console.log(index);
+    }
+  } catch (e) {
+    console.log("Public Lounge #2 already deleted");
+  }
+  try {
+    if (
+      (await guild.channels.find("name", `Public Lounge #3`)) &&
+      guild.channels.find("name", `Public Lounge #3`).members.size <= 0 &&
+      index === 1
+    ) {
+      guild.channels
+        .find("name", `Public Lounge #3`)
+        .delete("Served its purpose");
+      console.log(index);
+    } else if (guild.channels.find("name", `Public Lounge #3`) && index === 3) {
+      index = 4;
+      console.log(index);
+    } else if (guild.channels.find("name", `Public Lounge #3`) && index === 2) {
+      index = 3;
+      guild.channels
+        .find("name", `Public Lounge #3`)
+        .setName(`Public Lounge #2`);
+      console.log(index);
+    } else if (guild.channels.find("name", `Public Lounge #3`) && index === 1) {
+      index = 2;
+      guild.channels
+        .find("name", `Public Lounge #3`)
+        .setName(`Public Lounge #1`);
+      console.log(index);
+    }
+  } catch (e) {
+    console.log("Public Lounge #3 already deleted");
+  }
+  if (
     oldMember.voiceChannel &&
     oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
     oldMember.voiceChannel.members.size <= 0
@@ -386,7 +393,6 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         .find("name", `Public Lounge #3`)
         .setName(`Public Lounge #2`);
   }
-  }.catch()
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 3) {
     const category = guild.channels.get("653088922649362443");
