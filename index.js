@@ -260,9 +260,12 @@ client.on("message", async message => {
 // nitro boost detection and announcement
 
 client.on("guildMemberUpdate", async (oldMember, newMember) => {
-  if (newMember.premiumSinceTimestamp != null)
+  if (
+    newMember.premiumSinceTimestamp != null &&
+    newMember.premiumSinceTimestamp != oldMember.premiumSinceTimestamp
+  )
     return newMember.guild.channels
-      .get(653091798498934825)
+      .get('653091798498934825')
       .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
 });
 
@@ -327,7 +330,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         .setColor(config.embedColor)
         .setTitle(`Voice Disconnected for Inactivity`)
         .setDescription(
-          `You have been idle in the voice channel **${oldMember.voiceChannel}** in **${guild}** for more than 5 minutes, so you were automatically disconnected.`
+          `You have been idle in the voice channel **${oldMember.voiceChannel.name}** in **${guild}** for more than 5 minutes, so you were automatically disconnected.`
         )
         .setThumbnail(guild.iconURL)
         .setFooter(client.user.username, client.user.avatarURL)

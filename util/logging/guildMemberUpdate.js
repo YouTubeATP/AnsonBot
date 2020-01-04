@@ -97,7 +97,10 @@ module.exports = client => {
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp()
       );
-    if (newMember.premiumSinceTimestamp != null)
+    if (
+      newMember.premiumSinceTimestamp != null &&
+      newMember.premiumSinceTimestamp != oldMember.premiumSinceTimestamp
+    )
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
@@ -107,13 +110,12 @@ module.exports = client => {
             newMember.user.bot ? "Bot" : "User",
             `${newMember} (${newMember.user.tag})`
           )
-          .addField("Before", `[Link](${oldMember.user.avatarURL})`, true)
-          .addField("After", `[Link](${newMember.user.avatarURL})`, true)
+          .addField("ID", newMember.user.id)
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp()
       );
-      return newMember.guild.channels
-        .get(653091798498934825)
-        .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
+    return newMember.guild.channels
+      .get(653091798498934825)
+      .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
   });
 };
