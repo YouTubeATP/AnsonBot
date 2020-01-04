@@ -411,7 +411,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     return newMember.send(
       fn.embed(
         client,
-        "You may not create a new lounge as there may only be 3 public lounges present at a time! Consider joining one of them instead."
+        "You may not create a new lounge at the moment! Only 3 public lounges may be present at a time, so consider joining one of them instead."
       )
     );
   }
