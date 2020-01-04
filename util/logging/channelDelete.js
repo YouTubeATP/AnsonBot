@@ -17,7 +17,7 @@ module.exports = client => {
       new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setThumbnail(channel.guild.iconURL)
-        .setAuthor(
+        .setTitle(
           channel.type == "text" ||
             channel.type == "news" ||
             channel.type == "store" ||

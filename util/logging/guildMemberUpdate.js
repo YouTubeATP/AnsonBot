@@ -18,13 +18,13 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Role Given")
+            .setTitle("Role Given")
             .setThumbnail(newMember.user.displayAvatarURL)
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
             )
-            .addField("Role", `${role} (${role.name})`, true)
+            .addField("Role", `${role} (${role.name})`)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
@@ -37,14 +37,13 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Role Removed")
+            .setTitle("Role Removed")
             .setThumbnail(newMember.user.displayAvatarURL)
             .addField(
               newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`,
-              true
+              `${newMember} (${newMember.user.tag})`
             )
-            .addField("Role", `${role} (${role.name})`, true)
+            .addField("Role", `${role} (${role.name})`)
             .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
@@ -55,7 +54,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("User Tag Updated")
+          .setTitle("User Tag Updated")
           .setThumbnail(newMember.user.displayAvatarURL)
           .addField(
             newMember.user.bot ? "Bot" : "User",
@@ -71,7 +70,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Member Nickname Updated")
+          .setTitle("Member Nickname Updated")
           .setThumbnail(newMember.user.displayAvatarURL)
           .addField(
             newMember.user.bot ? "Bot" : "User",
@@ -87,7 +86,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("User Avatar Updated")
+          .setTitle("User Avatar Updated")
           .setThumbnail(newMember.user.displayAvatarURL)
           .addField(
             newMember.user.bot ? "Bot" : "User",

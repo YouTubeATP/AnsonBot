@@ -68,13 +68,11 @@ module.exports = client => {
           .setThumbnail(newGuild.iconURL)
           .addField(
             "Before",
-            `${oldGuild.owner} (${oldGuild.owner.user.tag})`,
-            true
+            `${oldGuild.owner} (${oldGuild.owner.user.tag})`
           )
           .addField(
             "After",
-            `${newGuild.owner} (${newGuild.owner.user.tag})`,
-            true
+            `${newGuild.owner} (${newGuild.owner.user.tag})`
           )
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp()
@@ -84,7 +82,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Server Splash Background Updated")
+          .setTitle("Server Splash Background Updated")
           .setThumbnail(newGuild.iconURL)
           .addField("Before", `[Link](${oldGuild.splashURL})`, true)
           .addField("After", `[Link](${newGuild.splashURL})`, true)
@@ -96,7 +94,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("System Channel Updated")
+          .setTitle("System Channel Updated")
           .setThumbnail(newGuild.iconURL)
           .addField("Before", `${oldGuild.systemChannel}`, true)
           .addField("After", `${newGuild.systemChannel}`, true)

@@ -17,7 +17,7 @@ module.exports = client => {
     logChannel.send(
       new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor("Message Edited")
+        .setTitle("Message Edited")
         .setThumbnail(newMessage.author.displayAvatarURL)
         .setDescription(
           `${newMessage.author} (${newMessage.author.tag}) edited a [message](${newMessage.url}) in ${newMessage.channel}.`

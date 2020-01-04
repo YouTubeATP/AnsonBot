@@ -15,10 +15,10 @@ module.exports = client => {
     logChannel.send(
       new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor("Role Deleted")
+        .setTitle("Role Deleted")
         .setThumbnail(role.guild.iconURL)
-        .addField("Role", `${role} (${role.name})`, true)
-        .addField("ID", role.id, true)
+        .addField("Role", `${role} (${role.name})`)
+        .addField("ID", role.id)
         .addField("Created", fn.time(role.createdTimestamp))
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp()

@@ -16,7 +16,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Role Name Updated")
+          .setTitle("Role Name Updated")
           .setThumbnail(newRole.guild.iconURL)
           .addField("Role", `${newRole} (${newRole.name})`)
           .addField("Before", `${oldRole.name}`, true)
@@ -29,7 +29,7 @@ module.exports = client => {
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor("Role Color Updated")
+          .setTitle("Role Color Updated")
           .setThumbnail(newRole.guild.iconURL)
           .addField("Role", `${newRole} (${newRole.name})`)
           .addField("Before", `${oldRole.hexColor}`, true)
@@ -43,7 +43,7 @@ module.exports = client => {
         return logChannel.send(
           new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor("Role Mentionable")
+            .setTitle("Role Mentionable")
             .setThumbnail(newRole.guild.iconURL)
             .addField("Role", `${newRole} (${newRole.name})`)
             .setFooter(client.user.username, client.user.avatarURL)
