@@ -303,6 +303,7 @@ function clean(text) {
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
   const guild = newMember.guild;
+  let i;
   let joinVoiceChannel = client.channels.get("662837599857278987");
   if (
     oldMember.voiceChannel &&
@@ -311,14 +312,15 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   ) {
     oldMember.voiceChannel.delete("Served its purpose");
     console.log(index--);
+    for (i = 2; i <= index; i++) {
     if (
-      index > 1 &&
-      oldMember.voiceChannel.name.includes(index - 1)
+      i > 1 &&
+      oldMember.voiceChannel.name.includes(i - 1)
     )
       guild.channels
-        .find("name", `Public Lounge #${index}`)
-        .setName(`Public Lounge #${index - 1}`);
-  }
+        .find("name", `Public Lounge #${i}`)
+        .setName(`Public Lounge #${i - 1}`);
+  }}
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
     const category = guild.channels.get("653088922649362443");
