@@ -312,11 +312,11 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     oldMember.voiceChannel.delete("Served its purpose");
     console.log(index--);
     if (
-      index > 1 &&
-      guild.channels.get("name", `Public Lounge #${index - 1}`) == undefined
+      index >= 2 &&
+      !guild.channels.find("name", `Public Lounge #${parseInt(index - 1)}`)
     )
       guild.channels
-        .get("name", `Public Lounge #${index}`)
+        .find("name", `Public Lounge #${index}`)
         .setName(`Public Lounge #${index - 1}`);
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
