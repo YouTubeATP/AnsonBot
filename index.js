@@ -305,6 +305,20 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   const guild = newMember.guild;
   let i;
   let joinVoiceChannel = client.channels.get("662837599857278987");
+  if (guild.channels.find("name", `Public Lounge #1`) && index === 1) index = 2;
+  if (
+    guild.channels.find("name", `Public Lounge #1`) &&
+    guild.channels.find("name", `Public Lounge #2`) &&
+    index === 1 | index 2
+  )
+    index = 3;
+  if (
+    guild.channels.find("name", `Public Lounge #1`) &&
+    guild.channels.find("name", `Public Lounge #2`) &&
+    guild.channels.find("name", `Public Lounge #3`) &&
+    index === 1 | 2 | 3
+  )
+    index = 4;
   if (
     oldMember.voiceChannel &&
     oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
@@ -316,7 +330,11 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       guild.channels
         .find("name", `Public Lounge #2`)
         .setName(`Public Lounge #1`);
-    if (index >= 3 && (oldMember.voiceChannel.name.includes(1) || oldMember.voiceChannel.name.includes(2)))
+    if (
+      index >= 3 &&
+      (oldMember.voiceChannel.name.includes(1) ||
+        oldMember.voiceChannel.name.includes(2))
+    )
       guild.channels
         .find("name", `Public Lounge #3`)
         .setName(`Public Lounge #2`);
@@ -333,7 +351,10 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   } else {
     newMember.setVoiceChannel(null);
     return newMember.send(
-      fn.embed(client, "There may only be 3 public lounges present at a time! Consider joining one of them instead.")
-    )
+      fn.embed(
+        client,
+        "There may only be 3 public lounges present at a time! Consider joining one of them instead."
+      )
+    );
   }
 });
