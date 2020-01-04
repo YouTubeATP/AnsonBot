@@ -330,5 +330,10 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         parent: category
       })
       .then(newChannel => newMember.setVoiceChannel(newChannel));
-  } else return newMember.voiceChannel.disconnect();
+  } else {
+    newMember.setVoiceChannel(null);
+    return newMember.send(
+      fn.embed(client, "There may only be 3 public lounges present at a time! Consider joining one of them instead.")
+    )
+  }
 });
