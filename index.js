@@ -311,6 +311,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   ) {
     oldMember.voiceChannel.delete("Served its purpose");
     console.log(index--);
+    
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel) {
