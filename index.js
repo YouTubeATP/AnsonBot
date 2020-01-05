@@ -342,6 +342,12 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     console.log("Couldn't disconnect user from AFK channel");
   }
   try {
+    for (i)
+    
+  } catch (e) {
+    console.log("Public Lounges already deleted")
+  }
+  try {
     if (
       (await guild.channels.find("name", `Public Lounge #1`)) &&
       guild.channels.find("name", `Public Lounge #1`).members.size <= 0 &&
