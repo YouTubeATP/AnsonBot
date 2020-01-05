@@ -265,7 +265,7 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
     newMember.premiumSinceTimestamp != oldMember.premiumSinceTimestamp
   )
     return newMember.guild.channels
-      .get('653091798498934825')
+      .get("653091798498934825")
       .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
 });
 
@@ -322,8 +322,9 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   let joinVoiceChannel = client.channels.get("662837599857278987");
   try {
     if (
+      oldMember.voiceChannel != null &&
       newMember.voiceChannel ===
-      client.channels.get(newMember.guild.afkChannelID)
+        client.channels.get(newMember.guild.afkChannelID)
     ) {
       newMember.setVoiceChannel(null);
       let afk = new Discord.RichEmbed()
