@@ -35,6 +35,7 @@ const listener = app.listen(process.env.PORT, function() {
 
 let i,
   j,
+  k,
   index = 0,
   maxChannels = 5;
 
@@ -347,23 +348,24 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     console.log("Couldn't disconnect user from AFK channel");
   }
   try {
-    if (
-      (await oldMember.voiceChannel) &&
-      (await oldMember.voiceChannel.name.includes(`Public Lounge #`)) &&
-      (await oldMember.voiceChannel.members.size) <= 0
-    )
-      console.log(index--);
-    for (j = i - 1; j > 0; j--) {
-      if (
-        i - j > 0 &&
-        !guild.channels.find("name", `Public Lounge #${i - j}`)
-      ) {
-        guild.channels
-          .find("name", `Public Lounge #${i}`)
-          .setName(`Public Lounge #${i - j}`);
-      }
-    }
     for (i = 1; i <= maxChannels; i++) {
+      if (
+        oldMember.voiceChannel &&
+        oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
+        oldMember.voiceChannel.members.size <= 0
+      ) {
+        console.log(index--);
+        for (j = i - 1; j > 0; j--) {
+          if (
+            i - j > 0 &&
+            !guild.channels.find("name", `Public Lounge #${i - j}`)
+          ) {
+            guild.channels
+              .find("name", `Public Lounge #${i}`)
+              .setName(`Public Lounge #${i - j}`);
+          }
+        }
+      }
       if (
         guild.channels.find("name", `Public Lounge #${i}`) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
@@ -376,14 +378,14 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         guild.channels.find("name", `Public Lounge #${i}`) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
       ) {
-        for (j = i - 1; j > 0; j--) {
+        for (k = i - 1; k > 0; k--) {
           if (
             i - j > 0 &&
-            !guild.channels.find("name", `Public Lounge #${i - j}`)
+            !guild.channels.find("name", `Public Lounge #${i - k}`)
           ) {
             guild.channels
               .find("name", `Public Lounge #${i}`)
-              .setName(`Public Lounge #${i - j}`);
+              .setName(`Public Lounge #${i - k}`);
           }
         }
         index = i;
