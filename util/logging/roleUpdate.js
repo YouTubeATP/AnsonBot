@@ -11,9 +11,6 @@ module.exports = client => {
     let logChannelID = guildData.get(`${newRole.id}.botlog`);
     let logChannel = client.channels.get(logChannelID);
     if (!logChannel) return;
-    
-    console.log(oldRole);
-    console.log();
 
     if (oldRole.name !== newRole.name)
       return logChannel.send(
