@@ -350,26 +350,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   try {
     for (i = 1; i <= maxChannels; i++) {
       if (
-        oldMember.voiceChannel &&
-        oldMember.voiceChannel !== newMember.voiceChannel &&
-        oldMember.voiceChannel.name. &&
-        oldMember.voiceChannel.members.size <= 0
-      ) {
-        oldMember.voiceChannel.delete("Served its purpose");
-        console.log(index--);
-        for (j = 1; j < i; j++) {
-          if (
-            guild.channels.find("name", `Public Lounge #${i}`) &&
-            !guild.channels.find("name", `Public Lounge #${j}`)
-          ) {
-            guild.channels
-              .find("name", `Public Lounge #${i}`)
-              .setName(`Public Lounge #${j}`);
-          }
-        }
-      } else if (
         index === 0 &&
-        guild.channels.find("name", `Public Lounge #${i}`) &&
+        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
       ) {
         guild.channels
@@ -378,7 +360,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         console.log(index);
       } else if (
         index === 0 &&
-        guild.channels.find("name", `Public Lounge #${i}`) &&
+        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
       ) {
         for (k = 1; k < i; k++) {
@@ -386,9 +368,28 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
             guild.channels.find("name", `Public Lounge #${i}`) &&
             !guild.channels.find("name", `Public Lounge #${k}`)
           ) {
-            guild.channels
+            return guild.channels
               .find("name", `Public Lounge #${i}`)
               .setName(`Public Lounge #${k}`);
+          }
+        }
+        if (
+          oldMember.voiceChannel &&
+          oldMember.voiceChannel !== newMember.voiceChannel &&
+          oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
+          oldMember.voiceChannel.members.size <= 0
+        ) {
+          oldMember.voiceChannel.delete("Served its purpose");
+          console.log(index--);
+          for (j = 1; j < i; j++) {
+            if (
+              guild.channels.find("name", `Public Lounge #${i}`) &&
+              !guild.channels.find("name", `Public Lounge #${j}`)
+            ) {
+              return guild.channels
+                .find("name", `Public Lounge #${i}`)
+                .setName(`Public Lounge #${j}`);
+            }
           }
         }
         index = i;
