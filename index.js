@@ -362,12 +362,18 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
           .find("name", `Public Lounge #${i}`)
           .delete("Served its purpose");
         console.log(index);
-      };
-      if (guild.channels.find("name", `Public Lounge #${i}`)) {
-        for (j = 0; j < i; j++) {
-          if (!guild.channels.find("name", `Public Lounge #${i - j}`)) {
+      }
+      if (
+        guild.channels.find("name", `Public Lounge #${i}`) &&
+        guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
+      ) {
+        for (j = i - 1; j > 0; j--) {
+          if (
+            i - j > 0 &&
+            !guild.channels.find("name", `Public Lounge #${i - j}`)
+          ) {
             guild.channels
-              .find("name", `Public Lounge #${i - j + 1}`)
+              .find("name", `Public Lounge #${i}`)
               .setName(`Public Lounge #${i - j}`);
           }
         }
