@@ -34,6 +34,7 @@ const listener = app.listen(process.env.PORT, function() {
 });
 
 let i,
+  j,
   index = 0,
   maxChannels = 5;
 
@@ -344,25 +345,25 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     console.log("Couldn't disconnect user from AFK channel");
   }
   try {
-    for (i = 0; i < index; i++) {
+    for (i = 1; i < maxChannels; i++) {
       if (
-        (await guild.channels.find("name", `Public Lounge #${i + 1}`)) &&
-        guild.channels.find("name", `Public Lounge #${i + 1}`).members.size <= 0
+        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
+        guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
       ) {
         guild.channels
-          .find("name", `Public Lounge #${index}`)
+          .find("name", `Public Lounge #${i}`)
           .delete("Served its purpose");
         console.log(index);
-      } else if (
-        guild.channels.find("name", `Public Lounge #${i + 1}`) &&
-        !guild.channels.find("name", `Public Lounge #${i - 1}`)
-      ) {
-        if (i > 1) {
-          guild.channels
-            .find("name", `Public Lounge #${i}`)
-            .setName(`Public Lounge #${i - 1}`);
+      } else if (guild.channels.find("name", `Public Lounge #${i}`)) {
+        for (j = 0; j < i; j++) {
+          if (!guild.channels.find("name", `Public Lounge #${i - j}`)) {
+            guild.channels
+              .find("name", `Public Lounge #${i}`)
+              .setName(`Public Lounge #${i - 1}`);
+          }
         }
-        console.log(index++);
+        index = i;
+        console.log(index);
       }
     }
   } catch (e) {
@@ -538,7 +539,10 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     console.log("Enpty lounges already deleted");
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
-  else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 5) {
+  else if (
+    oldMember.voiceChannel != newMember.voiceChannel &&
+    index < maxChannels
+  ) {
     const category = guild.channels.get("653088922649362443");
     guild
       .createChannel(`Public Lounge #${index++}`, {
@@ -552,7 +556,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       .setColor(config.embedColor)
       .setTitle(`You can't create a new lounge right now!`)
       .setDescription(
-        `Only 5 public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
+        `Only **${maxChannels}** public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
       )
       .setThumbnail(guild.iconURL)
       .setFooter(client.user.username, client.user.avatarURL)
