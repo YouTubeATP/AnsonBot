@@ -351,19 +351,24 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     for (i = 1; i <= maxChannels; i++) {
       if (
         oldMember.voiceChannel &&
-        oldMember.voiceChannel.name === `Public Lounge #${i}` &&
+        oldMember.voiceChannel !== newMember.voiceChannel &&
+        oldMember.voiceChannel.name. &&
         oldMember.voiceChannel.members.size <= 0
       ) {
         oldMember.voiceChannel.delete("Served its purpose");
         console.log(index--);
-        for (j = 1; j < maxChannels; j++) {
-          if (!guild.channels.find("name", `Public Lounge #${j}`) && i > j) {
+        for (j = 1; j < i; j++) {
+          if (
+            guild.channels.find("name", `Public Lounge #${i}`) &&
+            !guild.channels.find("name", `Public Lounge #${j}`)
+          ) {
             guild.channels
               .find("name", `Public Lounge #${i}`)
               .setName(`Public Lounge #${j}`);
           }
         }
       } else if (
+        index === 0 &&
         guild.channels.find("name", `Public Lounge #${i}`) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
       ) {
@@ -372,14 +377,18 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
           .delete("Served its purpose");
         console.log(index);
       } else if (
+        index === 0 &&
         guild.channels.find("name", `Public Lounge #${i}`) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
       ) {
-        for (k = 1; k < maxChannels; k++) {
-          if (!guild.channels.find("name", `Public Lounge #${k}`) && i > j) {
+        for (k = 1; k < i; k++) {
+          if (
+            guild.channels.find("name", `Public Lounge #${i}`) &&
+            !guild.channels.find("name", `Public Lounge #${k}`)
+          ) {
             guild.channels
               .find("name", `Public Lounge #${i}`)
-              .setName(`Public Lounge #${j}`);
+              .setName(`Public Lounge #${k}`);
           }
         }
         index = i;
@@ -387,7 +396,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       }
     }
   } catch (e) {
-    console.log("Lounges updated");
+    console.log("Lounges not updated");
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (
