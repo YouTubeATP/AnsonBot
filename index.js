@@ -346,32 +346,35 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   }
   try {
     if (
-      oldMember.voiceChannel !== newMember.voiceChannel &&
-      newMember.voiceChannel === null
-    )
-      for (i = 1; i < maxChannels; i++) {
-        if (
-          (await guild.channels.find("name", `Public Lounge #${i}`)) &&
-          guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
-        ) {
-          guild.channels
-            .find("name", `Public Lounge #${i}`)
-            .delete("Served its purpose");
-          console.log(index--);
-        } else if (guild.channels.find("name", `Public Lounge #${i}`)) {
-          for (j = 0; j < i; j++) {
-            if (!guild.channels.find("name", `Public Lounge #${i - j}`)) {
-              guild.channels
-                .find("name", `Public Lounge #${i}`)
-                .setName(`Public Lounge #${i - j}`);
-            }
+      oldMember.voiceChannel &&
+      oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
+      oldMember.voiceChannel.members.size <= 0
+    ) {
+      console.log(index--);
+    }
+    for (i = 1; i <= maxChannels; i++) {
+      if (
+        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
+        guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
+      ) {
+        guild.channels
+          .find("name", `Public Lounge #${i}`)
+          .delete("Served its purpose");
+        console.log(index);
+      } else if (guild.channels.find("name", `Public Lounge #${i}`)) {
+        for (j = 0; j < i; j++) {
+          if (!guild.channels.find("name", `Public Lounge #${i - j}`)) {
+            guild.channels
+              .find("name", `Public Lounge #${i}`)
+              .setName(`Public Lounge #${i - j}`);
           }
-          index = i;
-          console.log(index);
         }
+        index = i;
+        console.log(index);
       }
+    }
   } catch (e) {
-    console.log("Public Lounges already deleted");
+    console.log("Lounges updated");
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (
