@@ -430,12 +430,20 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         guild.channels
           .find("name", `Public Lounge #3`)
           .setName(`Public Lounge #2`);
+      if (
+        (index >= 4 && oldMember.voiceChannel.name.includes(1)) ||
+        oldMember.voiceChannel.name.includes(2) ||
+        oldMember.voiceChannel.name.includes(3)
+      )
+        guild.channels
+          .find("name", `Public Lounge #4`)
+          .setName(`Public Lounge #3`);
     }
   } catch (e) {
     console.log("Enpty lounges already deleted");
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
-  else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 3) {
+  else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 5) {
     const category = guild.channels.get("653088922649362443");
     guild
       .createChannel(`Public Lounge #${index++}`, {
@@ -449,7 +457,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       .setColor(config.embedColor)
       .setTitle(`You can't create a new lounge right now!`)
       .setDescription(
-        `Only 3 public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
+        `Only 5 public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
       )
       .setThumbnail(guild.iconURL)
       .setFooter(client.user.username, client.user.avatarURL)
