@@ -34,7 +34,8 @@ const listener = app.listen(process.env.PORT, function() {
 });
 
 let i,
-  index = 1;
+  index = 0,
+  maxChannels = 5;
 
 client.commands = new Discord.Collection();
 const commandFiles = fs
@@ -345,22 +346,23 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   try {
     for (i = 0; i < index; i++) {
       if (
-        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
-        guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0 &&
-        index === i
+        (await guild.channels.find("name", `Public Lounge #${i + 1}`)) &&
+        guild.channels.find("name", `Public Lounge #${i + 1}`).members.size <= 0
       ) {
         guild.channels
           .find("name", `Public Lounge #${index}`)
           .delete("Served its purpose");
         console.log(index);
-      } else if (guild.channels.find("name", `Public Lounge #${i}`) && !guild.channels.find("name", `Public Lounge #${i - 1}`)) {
-        if (i !== 1) {
+      } else if (
+        guild.channels.find("name", `Public Lounge #${i + 1}`) &&
+        !guild.channels.find("name", `Public Lounge #${i - 1}`)
+      ) {
+        if (i > 1) {
           guild.channels
             .find("name", `Public Lounge #${i}`)
             .setName(`Public Lounge #${i - 1}`);
         }
-        index = parseInt(i + 1);
-        console.log(index);
+        console.log(index++);
       }
     }
   } catch (e) {
