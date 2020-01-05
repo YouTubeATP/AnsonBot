@@ -346,22 +346,23 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   }
   try {
     if (
-      oldMember.voiceChannel &&
-      oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
-      oldMember.voiceChannel.members.size <= 0
+      (await oldMember.voiceChannel) &&
+      (await oldMember.voiceChannel.name.includes(`Public Lounge #`)) &&
+      (await oldMember.voiceChannel.members.size) <= 0
     ) {
+      oldMember.voiceChannel.delete("Served its purpose");
       console.log(index--);
     }
     for (i = 1; i <= maxChannels; i++) {
       if (
-        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
+        guild.channels.find("name", `Public Lounge #${i}`) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
       ) {
         guild.channels
           .find("name", `Public Lounge #${i}`)
           .delete("Served its purpose");
         console.log(index);
-      } else if (guild.channels.find("name", `Public Lounge #${i}`)) {
+      } else if (await guild.channels.find("name", `Public Lounge #${i}`)) {
         for (j = 0; j < i; j++) {
           if (!guild.channels.find("name", `Public Lounge #${i - j}`)) {
             guild.channels
