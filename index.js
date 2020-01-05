@@ -33,7 +33,8 @@ const listener = app.listen(process.env.PORT, function() {
   }, 225000);
 });
 
-let index = 1;
+let i,
+  index = 1;
 
 client.commands = new Discord.Collection();
 const commandFiles = fs
@@ -342,27 +343,28 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     console.log("Couldn't disconnect user from AFK channel");
   }
   try {
-    for (i)
-    
-  } catch (e) {
-    console.log("Public Lounges already deleted")
-  }
-  try {
-    if (
-      (await guild.channels.find("name", `Public Lounge #1`)) &&
-      guild.channels.find("name", `Public Lounge #1`).members.size <= 0 &&
-      index === 1
-    ) {
-      guild.channels
-        .find("name", `Public Lounge #1`)
-        .delete("Served its purpose");
-      console.log(index);
-    } else if (guild.channels.find("name", `Public Lounge #1`) && index === 1) {
-      index = 2;
-      console.log(index);
+    for (i = 0; i < index; i++) {
+      if (
+        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
+        guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0 &&
+        index === i
+      ) {
+        guild.channels
+          .find("name", `Public Lounge #${index}`)
+          .delete("Served its purpose");
+        console.log(index);
+      } else if (guild.channels.find("name", `Public Lounge #${i}`) && !guild.channels.find("name", `Public Lounge #${i - 1}`)) {
+        if (i !== 1) {
+          guild.channels
+            .find("name", `Public Lounge #${i}`)
+            .setName(`Public Lounge #${i - 1}`);
+        }
+        index = parseInt(i + 1);
+        console.log(index);
+      }
     }
   } catch (e) {
-    console.log("Public Lounge #1 already deleted");
+    console.log("Public Lounges already deleted");
   }
   try {
     if (
