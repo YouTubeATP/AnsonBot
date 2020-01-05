@@ -354,19 +354,19 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
         oldMember.voiceChannel.members.size <= 0
       ) {
+        oldMember.voiceChannel.delete("Served its purpose");
         console.log(index--);
-        for (j = i - 1; j > 0; j--) {
+        for (j = 1; j < maxChannels; j++) {
           if (
-            i - j > 0 &&
-            !guild.channels.find("name", `Public Lounge #${i - j}`)
+            j - 1 > 0 &&
+            !guild.channels.find("name", `Public Lounge #${j}`)
           ) {
             guild.channels
               .find("name", `Public Lounge #${i}`)
-              .setName(`Public Lounge #${i - j}`);
+              .setName(`Public Lounge #${j}`);
           }
         }
-      }
-      if (
+      } else if (
         guild.channels.find("name", `Public Lounge #${i}`) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
       ) {
