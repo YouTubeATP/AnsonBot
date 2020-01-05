@@ -321,6 +321,8 @@ function clean(text) {
 // temporary channel system & AFK notification
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
+  if (index < 0) index = 0;
+  if (index > maxChannels) index = maxChannels;
   const guild = newMember.guild;
   let joinVoiceChannel = client.channels.get("662837599857278987");
   try {
@@ -349,10 +351,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       (await oldMember.voiceChannel) &&
       (await oldMember.voiceChannel.name.includes(`Public Lounge #`)) &&
       (await oldMember.voiceChannel.members.size) <= 0
-    ) {
-      oldMember.voiceChannel.delete("Served its purpose");
+    )
       console.log(index--);
-    }
     for (i = 1; i <= maxChannels; i++) {
       if (
         guild.channels.find("name", `Public Lounge #${i}`) &&
@@ -362,11 +362,12 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
           .find("name", `Public Lounge #${i}`)
           .delete("Served its purpose");
         console.log(index);
-      } else if (await guild.channels.find("name", `Public Lounge #${i}`)) {
+      };
+      if (guild.channels.find("name", `Public Lounge #${i}`)) {
         for (j = 0; j < i; j++) {
           if (!guild.channels.find("name", `Public Lounge #${i - j}`)) {
             guild.channels
-              .find("name", `Public Lounge #${i}`)
+              .find("name", `Public Lounge #${i - j + 1}`)
               .setName(`Public Lounge #${i - j}`);
           }
         }
