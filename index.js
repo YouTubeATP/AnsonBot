@@ -36,7 +36,7 @@ const listener = app.listen(process.env.PORT, function() {
 let i,
   j,
   k,
-  index = 0,
+  index = 1,
   maxChannels = 5;
 
 client.commands = new Discord.Collection();
@@ -442,7 +442,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 3) {
-    const category = guild.channels.get("662559431422246952");
+    const category = guild.channels.get("653088922649362443");
     guild
       .createChannel(`Public Lounge #${index++}`, {
         type: "voice",
