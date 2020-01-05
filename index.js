@@ -449,7 +449,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       .setColor(config.embedColor)
       .setTitle(`You can't create a new lounge right now!`)
       .setDescription(
-        `Only 3 public lounges may be present in **${guild}** at a time. Consider joing one of them instead!`
+        `Only 3 public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
       )
       .setThumbnail(guild.iconURL)
       .setFooter(client.user.username, client.user.avatarURL)
