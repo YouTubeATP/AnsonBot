@@ -11,8 +11,11 @@ module.exports = client => {
     let logChannelID = guildData.get(`${newRole.id}.botlog`);
     let logChannel = client.channels.get(logChannelID);
     if (!logChannel) return;
+    
+    console.log(oldRole);
+    console.log();
 
-    if (oldRole.name != newRole.name)
+    if (oldRole.name !== newRole.name)
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
@@ -25,7 +28,7 @@ module.exports = client => {
           .setTimestamp()
       );
 
-    if (oldRole.color != newRole.color)
+    if (oldRole.color !== newRole.color)
       return logChannel.send(
         new Discord.RichEmbed()
           .setColor(config.embedColor)
@@ -38,7 +41,7 @@ module.exports = client => {
           .setTimestamp()
       );
 
-    if (oldRole.mentionable != newRole.mentionable) {
+    if (oldRole.mentionable !== newRole.mentionable) {
       if (newRole.mentionable)
         return logChannel.send(
           new Discord.RichEmbed()
