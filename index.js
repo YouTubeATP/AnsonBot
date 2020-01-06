@@ -39,7 +39,8 @@ let i,
   index = 0,
   maxChannels = 5,
   modified = false,
-  semiModified = false;
+  semiModified = false,
+  verySemiModified = false;
 
 client.commands = new Discord.Collection();
 const commandFiles = fs
@@ -321,13 +322,10 @@ function clean(text) {
   else return text;
 }
 
-// temporary channel system & AFK notification
+// AFK notification
 
 client.on("voiceStateUpdate", async (oldMember, newMember) => {
-  if (index < 0) index = 0;
-  if (index > maxChannels) index = maxChannels;
   const guild = newMember.guild;
-  let joinVoiceChannel = client.channels.get("662837599857278987");
   try {
     if (
       oldMember.voiceChannel != null &&
@@ -349,6 +347,15 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   } catch (e) {
     console.log("Couldn't disconnect user from AFK channel");
   }
+});
+
+// temporary channel system
+
+client.on("voiceStateUpdate", (oldMember, newMember) => {
+  if (index < 0) index = 0;
+  if (index > maxChannels) index = maxChannels;
+  const guild = newMember.guild;
+  let joinVoiceChannel = client.channels.get("662837599857278987");
   /*  
   try {
     if (
@@ -471,9 +478,10 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     modified = false;
     for (i = 1; i <= maxChannels; i++) {
       semiModified = false;
+      verySemiModified = false;
       if (
         index < i &&
-        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
+        guild.channels.find("name", `Public Lounge #${i}`) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
       ) {
         guild.channels
@@ -482,7 +490,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         console.log(index);
       } else if (
         index < i &&
-        (await guild.channels.find("name", `Public Lounge #${i}`)) &&
+        guild.channels.find("name", `Public Lounge #${i}`) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
       ) {
         for (k = 1; k < i; k++) {
@@ -495,7 +503,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
               .find("name", `Public Lounge #${i}`)
               .setName(`Public Lounge #${k}`);
             console.log(index++);
-            semiModified = !modified;
+            semiModified = !semiModified;
           }
         }
       }
@@ -505,14 +513,16 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         oldMember.voiceChannel.members.size <= 0
       ) {
         oldMember.voiceChannel.delete("Served its purpose");
-        if (
-          (i < index) & oldMember.voiceChannel &&
-          oldMember.voiceChannel.name.includes(i)
-        ) {
-          for (j = i; j < index; j++) {
+        for (j = 1; j <= i; j++) {
+          if (
+            !verySemiModified &&
+            index >= i &&
+            oldMember.voiceChannel.name.includes(j)
+          ) {
             guild.channels
               .find("name", `Public Lounge #${j + 1}`)
               .setName(`Public Lounge #${j}`);
+            verySemiModified = !verySemiModified;
           }
         }
         if (!modified) {
