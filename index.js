@@ -168,7 +168,7 @@ client.on("message", async message => {
       !message.content.toLowerCase().includes("p!catch") &&
       !message.content.toLowerCase().includes("p!hint"))
   )
-    return message.delete();
+    message.delete();
 
   if (!userData.has(message.author.id)) {
     let newUserData = {
