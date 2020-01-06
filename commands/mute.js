@@ -11,7 +11,7 @@ const userData = new db.table("USERDATA"),
 
 module.exports = {
   name: "mute",
-  usage: "mute <user> [reason]",
+  usage: "mute <user> [time] [reason]",
   description: "Mute rule-breakers.",
   category: "Moderation",
   guildPerms: ["KICK_MEMBERS"],
@@ -95,16 +95,10 @@ module.exports = {
     let cases = [];
     if (modCases.has(message.guild.id)) cases = modCases.get(message.guild.id);
 
-    let time = args[1];
-    if (!time)
-      return message.channel.send(
-        fn.embed(client, {
-          title: `You did not state a time length to mute ${target.user.tag}!`,
-          description:
-            "`d` for days, `h` for hours, `m` for minutes\nExample: `3d12h` = 3 days and 12 hours"
-        })
-      );
-
+    let time = args[1],
+      reason;
+    if (!time) reason = "Unspecified";
+    else {}
     var days = parseInt(time.toLowerCase().match(/\d+d/g));
     var hours = parseInt(time.toLowerCase().match(/\d+h/g));
     var mins = parseInt(time.toLowerCase().match(/\d+m/g));
@@ -114,89 +108,136 @@ module.exports = {
     var length = ((days * 24 + hours) * 60 + mins) * 60 * 1000;
 
     if (Number.isNaN(length) || length == 0)
-      return message.channel.send(
-        fn.embed(client, {
-          title: `You did not state a time length to mute ${target}!`,
-          description:
-            "- `3d` for 3 days\n- `12h` for 12 hours\n- `30m` for 30 minutes\nStacking of different units is allowed, i.e. `3d12h` = 3 days and 12 hours"
-        })
+      reason = args.slice(1).join(" ") || "Unspecified";
+    else reason = args.slice(2).join(" ") || "Unspecified";
+
+    if (Number.isNaN(length) || length == 0) {
+      let modCase = new fn.ModCase(
+        client,
+        cases.length + 1,
+        "MUTE",
+        target,
+        message.member,
+        reason
       );
+      let embed = fn.modCaseEmbed(client, modCase);
 
-    let reason = args.slice(2).join(" ") || "Unspecified";
+      target
+        .addRole(muteRole)
+        .then(() => {
+          modCases.push(message.guild.id, modCase);
 
-    let modCase = new fn.ModCase(
-      client,
-      cases.length + 1,
-      "MUTE",
-      target,
-      message,
-      reason,
-      length
-    );
-    let embed = fn.modCaseEmbed(client, modCase);
+          console.log(
+            `${message.guild.name} | Muted ${target.user.tag} (${target.user.id})`
+          );
 
-    target
-      .addRole(muteRole)
-      .then(() => {
-        modCases.push(message.guild.id, modCase);
-        if (!guildData.has(`${message.guild.id}.tempmutes`))
-          guildData.set(`${message.guild.id}.tempmutes`, []);
-        guildData.push(`${message.guild.id}.tempmutes`, {
-          case: modCase.id,
-          user: target.user.id,
-          unmute: moment().add(length / 1000 / 60, "m")
+          if (shared.commandName != "smute") {
+            message.channel.send(fn.embed(client, `${target} has been muted!`));
+            message.channel.send(embed);
+          }
+
+          target.user.send(
+            fn.embed(client, `You have been muted from ${message.guild.name}!`)
+          );
+          target.user
+            .send(embed)
+            .catch(error =>
+              message.channel.send(
+                fn.embed(client, `I cannot DM ${target.user.tag}!`)
+              )
+            );
+
+          let modlog = message.guild.channels.find(
+            channel => channel.id == shared.guild.modlog
+          );
+
+          if (modlog) {
+            modlog
+              .send(embed)
+              .catch(() =>
+                message.channel.send(
+                  fn.embed(client, `I cannot log in ${modlog}!`)
+                )
+              );
+          }
+        })
+        .catch(error => {
+          message.channel.send(
+            fn.error(client, `I was unable to give ${muteRole} to ${target}!`)
+          );
         });
 
-        console.log(
-          `${message.guild.name} | Tempmuted ${target.user.tag} (${
-            target.user.id
-          }) for ${length / 1000 / 60} minutes.`
-        );
+      return undefined;
+    } else {
+      let modCase = new fn.ModCase(
+        client,
+        cases.length + 1,
+        "MUTE",
+        target,
+        message.member,
+        reason,
+        length
+      );
+      let embed = fn.modCaseEmbed(client, modCase);
 
-        if (
-          shared.commandName != "stmute" &&
-          shared.commandName != "stempmute"
-        ) {
+      target
+        .addRole(muteRole)
+        .then(() => {
+          modCases.push(message.guild.id, modCase);
+          if (!guildData.has(`${message.guild.id}.tempmutes`))
+            guildData.set(`${message.guild.id}.tempmutes`, []);
+          guildData.push(`${message.guild.id}.tempmutes`, {
+            case: modCase.id,
+            user: target.user.id,
+            unmute: moment().add(length / 1000 / 60, "m")
+          });
+
+          console.log(
+            `${message.guild.name} | Muted ${target.user.tag} (${
+              target.user.id
+            }) for ${length / 1000 / 60} minutes.`
+          );
+
           message.channel.send(
             fn.embed(client, `${target} has been temporarily muted!`)
           );
           message.channel.send(embed);
-        }
 
-        target.user.send(
-          fn.embed(
-            client,
-            `You have been temporarily muted from ${message.guild.name}!`
-          )
-        );
-        target.user
-          .send(embed)
-          .catch(error =>
-            message.channel.send(
-              fn.embed(client, `I cannot DM ${target.user.tag}!`)
+          target.user.send(
+            fn.embed(
+              client,
+              `You have been temporarily muted from **${message.guild.name}**!`
             )
           );
-
-        let modlog = message.guild.channels.find(
-          channel => channel.id == shared.guild.modlog
-        );
-
-        if (modlog) {
-          modlog
+          target.user
             .send(embed)
-            .catch(() =>
+            .catch(error =>
               message.channel.send(
-                fn.embed(client, `I cannot log in ${modlog}!`)
+                fn.embed(client, `I cannot DM ${target.user.tag}!`)
               )
             );
-        }
-      })
-      .catch(error => {
-        message.channel.send(
-          fn.error(client, `I was unable to give ${muteRole} to ${target}!`)
-        );
-      });
 
-    return undefined;
+          let modlog = message.guild.channels.find(
+            channel => channel.id == shared.guild.modlog
+          );
+
+          if (modlog) {
+            modlog
+              .send(embed)
+              .catch(() =>
+                message.channel.send(
+                  fn.embed(client, `I cannot log in ${modlog}!`)
+                )
+              );
+          }
+        })
+        .catch(error => {
+          message.channel.send(
+            fn.error(client, `I was unable to give ${muteRole} to ${target}!`)
+          );
+        });
+
+      return undefined;
+    }
   }
 };
