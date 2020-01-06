@@ -37,7 +37,7 @@ let i,
   j,
   k,
   modified = false,
-  index = 1,
+  index = 0,
   maxChannels = 5;
 
 client.commands = new Discord.Collection();
@@ -504,7 +504,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       ) {
         oldMember.voiceChannel.delete("Served its purpose");
         if (
-          index >= i &&
+          i < index &
           oldMember.voiceChannel &&
           oldMember.voiceChannel.name.includes(i)
         ) {
