@@ -347,6 +347,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   } catch (e) {
     console.log("Couldn't disconnect user from AFK channel");
   }
+/*  
   try {
     if (
       (await guild.channels.find("name", `Public Lounge #1`)) &&
@@ -462,7 +463,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       .setTimestamp();
     return newMember.send(embed);
   }
-  /*  
+*/ 
   try {
     for (i = 1; i <= maxChannels; i++) {
       if (
@@ -537,5 +538,4 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       .setTimestamp();
     return newMember.send(embed);
   }
-*/
 });
