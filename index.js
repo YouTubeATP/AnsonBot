@@ -150,16 +150,17 @@ client.on("message", async message => {
     message.channel.id !== "653133031292403742" &&
     message.channel.id !== "662243626050519060" &&
     message.channel.id !== "653130414847688705" &&
-    message.channel.id !== "662273284322230282"
+    message.channel.id !== "662273284322230282" &&
+    message.channel.id !== "663694873227952128"
   )
     return message.delete();
 
   if (
+    message.channel.id === "663694873227952128" &&
     message.guild.id === config.server &&
     message.author.bot &&
     message.author.id !== client.user.id &&
-    message.author.id !== "365975655608745985" &&
-    message.channel.id !== "663694873227952128"
+    message.author.id !== "365975655608745985"
   ) return message.delete();
     if (!userData.has(message.author.id)) {
       let newUserData = {
