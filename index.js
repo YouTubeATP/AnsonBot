@@ -148,6 +148,10 @@ client.on("message", async message => {
     message.content.toLowerCase().includes(`<@!414440610418786314>`) ||
     message.content.toLowerCase().includes(`<@371704154705362944>`) ||
     message.content.toLowerCase().includes(`<@!371704154705362944>`) ||
+    message.content.toLowerCase().includes(`<@333422871567400961>`) ||
+    message.content.toLowerCase().includes(`<@!333422871567400961>`) ||
+    message.content.toLowerCase().includes(`<@365975655608745985>`) ||
+    message.content.toLowerCase().includes(`<@!365975655608745985>`) ||
     message.content.toLowerCase().includes(`em/`) ||
     message.content.toLowerCase().includes(`fm/`) ||
     message.content.toLowerCase().includes(`h!`) ||
