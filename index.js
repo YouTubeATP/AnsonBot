@@ -36,6 +36,7 @@ const listener = app.listen(process.env.PORT, function() {
 let i,
   j,
   k,
+  modified = false,
   index = 1,
   maxChannels = 5;
 
@@ -347,7 +348,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   } catch (e) {
     console.log("Couldn't disconnect user from AFK channel");
   }
-/*  
+  /*  
   try {
     if (
       (await guild.channels.find("name", `Public Lounge #1`)) &&
@@ -463,7 +464,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       .setTimestamp();
     return newMember.send(embed);
   }
-*/ 
+*/
+
   try {
     for (i = 1; i <= maxChannels; i++) {
       if (
@@ -482,16 +484,17 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       ) {
         for (k = 1; k < i; k++) {
           if (
+            !modified &&
             guild.channels.find("name", `Public Lounge #${i}`) &&
             !guild.channels.find("name", `Public Lounge #${k}`)
           ) {
-            return guild.channels
+            guild.channels
               .find("name", `Public Lounge #${i}`)
               .setName(`Public Lounge #${k}`);
+            console.log(index++);
+            modified = !modified;
           }
         }
-        index = i;
-        console.log(index);
       }
       if (
         oldMember.voiceChannel &&
@@ -499,7 +502,11 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         oldMember.voiceChannel.members.size <= 0
       ) {
         oldMember.voiceChannel.delete("Served its purpose");
-        if (index >= i && oldMember.voiceChannel && oldMember.voiceChannel.name.includes(i)) {
+        if (
+          index >= i &&
+          oldMember.voiceChannel &&
+          oldMember.voiceChannel.name.includes(i)
+        ) {
           for (j = i; j < index; j++) {
             guild.channels
               .find("name", `Public Lounge #${j + 1}`)
