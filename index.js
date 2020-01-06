@@ -361,7 +361,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
     for (i = 1; i <= maxChannels; i++) {
       semiModified = false;
       verySemiModified = false;
-      /*try {
+      try {
         if (
           index < i &&
           guild.channels.find("name", `Public Lounge #${i}`) &&
@@ -392,7 +392,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         }
       } catch (e) {
         console.log(e);
-      }*/
+      }
       try {
         if (
           oldMember.voiceChannel &&
@@ -400,34 +400,24 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
           oldMember.voiceChannel.members.size <= 0
         ) {
           oldMember.voiceChannel.delete("Served its purpose");
-          if (
-            guild.channels.find("name", `Public Lounge #${i + 1}`) &&
-            !guild.channels.find("name", `Public Lounge #${i}`) &&
-            !verySemiModified &&
-            index >= i &&
-            oldMember.voiceChannel.name.includes(i)
-          ) {
-            guild.channels
-              .find("name", `Public Lounge #${j}`)
-              .setName(`Public Lounge #${j - 1}`);
-          }
-          /*for (j = i + 1; j <= maxChannels; j++) {
+          for (j = i + 1; j <= maxChannels; j++) {
             try {
               if (
-                guild.channels.find("name", `Public Lounge #${j}`) &&
+                guild.channels.find("name", `Public Lounge #${i + 1}`) &&
+                !guild.channels.find("name", `Public Lounge #${j}`) &&
                 !verySemiModified &&
                 index >= i &&
                 oldMember.voiceChannel.name.includes(i)
               ) {
                 guild.channels
-                  .find("name", `Public Lounge #${j}`)
-                  .setName(`Public Lounge #${j - 1}`);
+                  .find("name", `Public Lounge #${i + 1}`)
+                  .setName(`Public Lounge #${i}`);
                 verySemiModified = true;
               }
             } catch (e) {
-              "Couldn't rename channels", e;
+              console.log("Couldn't rename channels", e);
             }
-          }*/
+          }
           if (!modified) {
             console.log(`Index changed from ${index--} to ${index}`);
             modified = true;
