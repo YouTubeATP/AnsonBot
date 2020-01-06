@@ -142,30 +142,36 @@ client.on("message", async message => {
   if (message.guild === null) return;
 
   if (
-    message.guild.id === config.server &&
-    message.author.bot &&
-    message.author.id !== client.user.id &&
-    message.channel.id !== "653091741351542825" &&
-    message.channel.id !== "653091798498934825" &&
-    message.channel.id !== "653133031292403742" &&
-    message.channel.id !== "662243626050519060" &&
-    message.channel.id !== "653130414847688705" &&
-    message.channel.id !== "662273284322230282" &&
-    message.channel.id !== "663694873227952128"
-  )
-    return message.delete();
-
-  if (
-    (message.channel.id === "663694873227952128" &&
+    message.content.toLowerCase().includes(`<@431247481267814410>`) ||
+    message.content.toLowerCase().includes(`<@!431247481267814410>`) ||
+    message.content.toLowerCase().includes(`<@414440610418786314>`) ||
+    message.content.toLowerCase().includes(`<@!414440610418786314>`) ||
+    message.content.toLowerCase().includes(`<@371704154705362944>`) ||
+    message.content.toLowerCase().includes(`<@!371704154705362944>`) ||
+    message.content.toLowerCase().includes(`em/`) ||
+    message.content.toLowerCase().includes(`fm/`) ||
+    message.content.toLowerCase().includes(`h!`) ||
+    message.content.toLowerCase().includes(`p!`)
+  ) return message.delete();
+    if (
       message.guild.id === config.server &&
       message.author.bot &&
       message.author.id !== client.user.id &&
-      message.author.id !== "365975655608745985") ||
-    (message.channel.id === "663694873227952128" &&
-      message.guild.id === config.server.id &&
-      message.author.id !== client.user.id &&
-      !message.content.toLowerCase().includes("p!catch") &&
-      !message.content.toLowerCase().includes("p!hint"))
+      message.channel.id !== "653091741351542825" &&
+      message.channel.id !== "653091798498934825" &&
+      message.channel.id !== "653133031292403742" &&
+      message.channel.id !== "662243626050519060" &&
+      message.channel.id !== "653130414847688705" &&
+      message.channel.id !== "662273284322230282" &&
+      message.channel.id !== "663694873227952128"
+    )
+      return message.delete();
+
+  if (
+    message.channel.id === "663694873227952128" &&
+    message.guild.id === config.server &&
+    message.author.id !== client.user.id &&
+    message.author.id !== "365975655608745985"
   )
     return message.delete();
 
