@@ -345,7 +345,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       newMember.send(afk);
     }
   } catch (e) {
-    console.log("Couldn't disconnect user from AFK channel");
+    console.log("Couldn't disconnect user from AFK channel", e);
   }
 });
 
@@ -356,124 +356,6 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
   if (index > maxChannels) index = maxChannels;
   const guild = newMember.guild;
   let joinVoiceChannel = client.channels.get("662837599857278987");
-  /*  
-  try {
-    if (
-      (await guild.channels.find("name", `Public Lounge #1`)) &&
-      guild.channels.find("name", `Public Lounge #1`).members.size <= 0 &&
-      index === 1
-    ) {
-      guild.channels
-        .find("name", `Public Lounge #1`)
-        .delete("Served its purpose");
-      console.log(index);
-    } else if (guild.channels.find("name", `Public Lounge #1`) && index === 1) {
-      index = 2;
-      console.log(index);
-    }
-  } catch (e) {
-    console.log("Public Lounge #1 already deleted");
-  }
-  try {
-    if (
-      (await guild.channels.find("name", `Public Lounge #2`)) &&
-      guild.channels.find("name", `Public Lounge #2`).members.size <= 0 &&
-      index === 1
-    ) {
-      guild.channels
-        .find("name", `Public Lounge #2`)
-        .delete("Served its purpose");
-      console.log(index);
-    } else if (guild.channels.find("name", `Public Lounge #2`) && index === 1) {
-      index = 2;
-      guild.channels
-        .find("name", `Public Lounge #2`)
-        .setName(`Public Lounge #1`);
-      console.log(index);
-    } else if (guild.channels.find("name", `Public Lounge #2`) && index === 2) {
-      index = 3;
-      console.log(index);
-    }
-  } catch (e) {
-    console.log("Public Lounge #2 already deleted");
-  }
-  try {
-    if (
-      (await guild.channels.find("name", `Public Lounge #3`)) &&
-      guild.channels.find("name", `Public Lounge #3`).members.size <= 0 &&
-      index === 1
-    ) {
-      guild.channels
-        .find("name", `Public Lounge #3`)
-        .delete("Served its purpose");
-      console.log(index);
-    } else if (guild.channels.find("name", `Public Lounge #3`) && index === 3) {
-      index = 4;
-      console.log(index);
-    } else if (guild.channels.find("name", `Public Lounge #3`) && index === 2) {
-      index = 3;
-      guild.channels
-        .find("name", `Public Lounge #3`)
-        .setName(`Public Lounge #2`);
-      console.log(index);
-    } else if (guild.channels.find("name", `Public Lounge #3`) && index === 1) {
-      index = 2;
-      guild.channels
-        .find("name", `Public Lounge #3`)
-        .setName(`Public Lounge #1`);
-      console.log(index);
-    }
-  } catch (e) {
-    console.log("Public Lounge #3 already deleted");
-  }
-  try {
-    if (
-      oldMember.voiceChannel &&
-      oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
-      oldMember.voiceChannel.members.size <= 0
-    ) {
-      oldMember.voiceChannel.delete("Served its purpose");
-      console.log(index--);
-      if (index >= 2 && oldMember.voiceChannel.name.includes(1))
-        guild.channels
-          .find("name", `Public Lounge #2`)
-          .setName(`Public Lounge #1`);
-      if (
-        index >= 3 &&
-        (oldMember.voiceChannel.name.includes(1) ||
-          oldMember.voiceChannel.name.includes(2))
-      )
-        guild.channels
-          .find("name", `Public Lounge #3`)
-          .setName(`Public Lounge #2`);
-    }
-  } catch (e) {
-    console.log("Enpty lounges already deleted");
-  }
-  if (newMember.voiceChannel != joinVoiceChannel) return;
-  else if (oldMember.voiceChannel != newMember.voiceChannel && index <= 3) {
-    const category = guild.channels.get("653088922649362443");
-    guild
-      .createChannel(`Public Lounge #${index++}`, {
-        type: "voice",
-        parent: category
-      })
-      .then(newChannel => newMember.setVoiceChannel(newChannel));
-  } else {
-    newMember.setVoiceChannel(null);
-    let embed = new Discord.RichEmbed()
-      .setColor(config.embedColor)
-      .setTitle(`You can't create a new lounge right now!`)
-      .setDescription(
-        `Only 3 public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
-      )
-      .setThumbnail(guild.iconURL)
-      .setFooter(client.user.username, client.user.avatarURL)
-      .setTimestamp();
-    return newMember.send(embed);
-  }
-*/
-
   try {
     modified = false;
     for (i = 1; i <= maxChannels; i++) {
@@ -487,7 +369,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         guild.channels
           .find("name", `Public Lounge #${i}`)
           .delete("Served its purpose");
-        console.log(index);
+        console.log(`${index} not changed`);
       } else if (
         index < i &&
         guild.channels.find("name", `Public Lounge #${i}`) &&
@@ -502,7 +384,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
             guild.channels
               .find("name", `Public Lounge #${i}`)
               .setName(`Public Lounge #${k}`);
-            console.log(index++);
+            console.log(`Index changed from ${index++} to ${index}`);
             semiModified = !semiModified;
           }
         }
@@ -515,6 +397,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         oldMember.voiceChannel.delete("Served its purpose");
         for (j = 1; j <= i; j++) {
           if (
+            guild.channels.find("name", `Public Lounge #${j + 1}`) &&
             !verySemiModified &&
             index >= i &&
             oldMember.voiceChannel.name.includes(j)
@@ -526,20 +409,20 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
           }
         }
         if (!modified) {
-          console.log(index--);
+          console.log(`Index changed from ${index--} to ${index}`);
           modified = !modified;
         }
       }
     }
   } catch (e) {
-    console.log("Lounges not updated");
+    console.log("Lounges not updated", e);
   }
   if (newMember.voiceChannel != joinVoiceChannel) return;
   else if (
     oldMember.voiceChannel != newMember.voiceChannel &&
     index < maxChannels
   ) {
-    console.log(index++);
+    console.log(`Index changed from ${index++} to ${index}`);
     const category = guild.channels.get("653088922649362443");
     guild
       .createChannel(`Public Lounge #${index}`, {
