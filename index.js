@@ -400,14 +400,12 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
           oldMember.voiceChannel.members.size <= 0
         ) {
           oldMember.voiceChannel.delete("Served its purpose");
-          for (j = i + 1; j <= maxChannels; j++) {
+          for (j = i + 1; j < maxChannels; j++) {
             try {
               if (
                 guild.channels.find("name", `Public Lounge #${i + 1}`) &&
                 !guild.channels.find("name", `Public Lounge #${j}`) &&
-                !verySemiModified &&
-                index >= i &&
-                oldMember.voiceChannel.name.includes(i)
+                !verySemiModified
               ) {
                 guild.channels
                   .find("name", `Public Lounge #${i + 1}`)
