@@ -361,57 +361,69 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
     for (i = 1; i <= maxChannels; i++) {
       semiModified = false;
       verySemiModified = false;
-      if (
-        index < i &&
-        guild.channels.find("name", `Public Lounge #${i}`) &&
-        guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
-      ) {
-        guild.channels
-          .find("name", `Public Lounge #${i}`)
-          .delete("Served its purpose");
-        console.log(`${index} not changed`);
-      } else if (
-        index < i &&
-        guild.channels.find("name", `Public Lounge #${i}`) &&
-        guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
-      ) {
-        for (k = 1; k < i; k++) {
-          if (
-            !semiModified &&
-            guild.channels.find("name", `Public Lounge #${i}`) &&
-            !guild.channels.find("name", `Public Lounge #${k}`)
-          ) {
-            guild.channels
-              .find("name", `Public Lounge #${i}`)
-              .setName(`Public Lounge #${k}`);
-            console.log(`Index changed from ${index++} to ${index}`);
-            semiModified = !semiModified;
+      try {
+        if (
+          index < i &&
+          guild.channels.find("name", `Public Lounge #${i}`) &&
+          guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
+        ) {
+          guild.channels
+            .find("name", `Public Lounge #${i}`)
+            .delete("Served its purpose");
+          console.log(`${index} not changed`);
+        } else if (
+          index < i &&
+          guild.channels.find("name", `Public Lounge #${i}`) &&
+          guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
+        ) {
+          for (k = 1; k < i; k++) {
+            if (
+              !semiModified &&
+              guild.channels.find("name", `Public Lounge #${i}`) &&
+              !guild.channels.find("name", `Public Lounge #${k}`)
+            ) {
+              guild.channels
+                .find("name", `Public Lounge #${i}`)
+                .setName(`Public Lounge #${k}`);
+              console.log(`Index changed from ${index++} to ${index}`);
+              semiModified = !semiModified;
+            }
           }
         }
+      } catch (e) {
+        console.log(e);
       }
-      if (
-        oldMember.voiceChannel &&
-        oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
-        oldMember.voiceChannel.members.size <= 0
-      ) {
-        oldMember.voiceChannel.delete("Served its purpose");
-        for (j = 1; j <= i; j++) {
-          if (
-            guild.channels.find("name", `Public Lounge #${j + 1}`) &&
-            !verySemiModified &&
-            index >= i &&
-            oldMember.voiceChannel.name.includes(j)
-          ) {
-            guild.channels
-              .find("name", `Public Lounge #${j + 1}`)
-              .setName(`Public Lounge #${j}`);
-            verySemiModified = !verySemiModified;
+      try {
+        if (
+          oldMember.voiceChannel &&
+          oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
+          oldMember.voiceChannel.members.size <= 0
+        ) {
+          oldMember.voiceChannel.delete("Served its purpose");
+          for (j = 1; j <= i; j++) {
+            try {
+              if (
+                guild.channels.find("name", `Public Lounge #${j + 1}`) &&
+                !verySemiModified &&
+                index >= i &&
+                oldMember.voiceChannel.name.includes(j)
+              ) {
+                guild.channels
+                  .find("name", `Public Lounge #${j + 1}`)
+                  .setName(`Public Lounge #${j}`);
+                verySemiModified = !verySemiModified;
+              }
+            } catch (e) {
+              "Couldn't rename channels", e;
+            }
+          }
+          if (!modified) {
+            console.log(`Index changed from ${index--} to ${index}`);
+            modified = !modified;
           }
         }
-        if (!modified) {
-          console.log(`Index changed from ${index--} to ${index}`);
-          modified = !modified;
-        }
+      } catch (e) {
+        console.log(e);
       }
     }
   } catch (e) {
