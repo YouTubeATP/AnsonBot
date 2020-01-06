@@ -43,8 +43,8 @@ module.exports = {
     return await message.channel.send(
       new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor(user.tag, message.guild.iconURL)
-        .setThumbnail(user.displayAvatarURL)
+        .setAuthor(user.tag, user.displayAvatarURL)
+        .setThumbnail(message.guild.iconURL)
         .addField(
           "Last 24 Hours",
           cases.filter(c => moment() < moment(c.time) + 1000 * 60 * 60 * 24)
@@ -66,11 +66,10 @@ module.exports = {
           "Last 10 Records",
           cases
             .splice(-10, 10)
-            .map(
-              c => `#${c.id} **[${c.type}] ${c.reason}** (${fn.ago(c.time)})`
-            )
+            .map(c => `- **[${c.type}] ${c.reason}** (${fn.ago(c.time)})`)
             .join("\n")
         )
+        .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp()
     );
   }

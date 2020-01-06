@@ -40,13 +40,14 @@ module.exports = {
       for (var i in userCommands) {
         embeds.push(
           new Discord.RichEmbed()
-            .setTitle(`${client.user.username} | ${i} Commands`)
+            .setTitle(`${i} Commands`)
             .setColor(shared.embedColor)
             .setThumbnail(client.user.avatarURL)
             .setDescription(
               userCommands[i].join("") +
                 "\nDo `help [command]` to get information about specific commands!"
             )
+            .setFooter(client.user.username, client.user.avatarURL)
             .setTimestamp()
         );
       }
@@ -77,7 +78,11 @@ module.exports = {
 
       var embed = new Discord.RichEmbed()
         .setColor(shared.embedColor)
-        .setAuthor(`${shared.prefix}${command.name}`, client.user.avatarURL);
+        .setTitle(`Detailed Command Information`)
+        .setAuthor(`${shared.prefix}${command.name}`)
+        .setThumbnail(client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL)
+        .setTimestamp();
 
       if (command.aliases)
         embed.addField(`Aliases`, command.aliases.join(", "));
