@@ -400,7 +400,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
           oldMember.voiceChannel.members.size <= 0
         ) {
           oldMember.voiceChannel.delete("Served its purpose");
-          for (j = i + 1; j <= maxChannels; j++) {
+          for (j = i + 1; j <= parseInt(maxChannels + 1); j++) {
             try {
               if (
                 guild.channels.find("name", `Public Lounge #${i + 1}`) &&
@@ -428,31 +428,35 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
   } catch (e) {
     console.log("Lounges not updated", e);
   }
-  if (newMember.voiceChannel != joinVoiceChannel) return;
-  else if (
-    oldMember.voiceChannel != newMember.voiceChannel &&
-    index < maxChannels
-  ) {
-    console.log(`Index changed from ${index++} to ${index}`);
-    const category = guild.channels.get("653088922649362443");
-    return guild
-      .createChannel(`Public Lounge #${index}`, {
-        type: "voice",
-        parent: category
-      })
-      .then(newChannel => newMember.setVoiceChannel(newChannel));
-  } else if (index >= maxChannels) {
-    newMember.setVoiceChannel(null);
-    (`${index} not changed`);
-    let embed = new Discord.RichEmbed()
-      .setColor(config.embedColor)
-      .setTitle(`You can't create a new lounge right now!`)
-      .setDescription(
-        `Only **${maxChannels}** public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
-      )
-      .setThumbnail(guild.iconURL)
-      .setFooter(client.user.username, client.user.avatarURL)
-      .setTimestamp();
-    return newMember.send(embed);
+  try {
+    if (newMember.voiceChannel != joinVoiceChannel) return;
+    else if (
+      oldMember.voiceChannel != newMember.voiceChannel &&
+      index < maxChannels
+    ) {
+      console.log(`Index changed from ${index++} to ${index}`);
+      const category = guild.channels.get("653088922649362443");
+      return guild
+        .createChannel(`Public Lounge #${index}`, {
+          type: "voice",
+          parent: category
+        })
+        .then(newChannel => newMember.setVoiceChannel(newChannel));
+    } else if (index >= maxChannels) {
+      newMember.setVoiceChannel(null);
+      console.log(`${index} not changed`);
+      let embed = new Discord.RichEmbed()
+        .setColor(config.embedColor)
+        .setTitle(`You can't create a new lounge right now!`)
+        .setDescription(
+          `Only **${maxChannels}** public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
+        )
+        .setThumbnail(guild.iconURL)
+        .setFooter(client.user.username, client.user.avatarURL)
+        .setTimestamp();
+      return newMember.send(embed);
+    }
+  } catch (e) {
+    console.log("Couldn't move users", e);
   }
 });
