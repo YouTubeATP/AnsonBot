@@ -158,9 +158,9 @@ client.on("message", async message => {
   if (
     message.channel.id === "663694873227952128" &&
     message.guild.id === config.server &&
-    message.author.bot &&
+    ((message.author.bot &&
     message.author.id !== client.user.id &&
-    message.author.id !== "365975655608745985"
+    message.author.id !== "365975655608745985"))
   ) return message.delete();
     if (!userData.has(message.author.id)) {
       let newUserData = {
