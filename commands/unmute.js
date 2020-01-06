@@ -87,12 +87,17 @@ module.exports = {
       .then(() => {
         modCases.push(message.guild.id, modCase);
 
-        message.channel.send(fn.embed(client, `${target} has been unmuted!`))
+        message.channel.send(fn.embed(client, `${target} has been unmuted!`));
         message.channel.send(embed);
 
-        //target.user.send(fn.embed(client, `You have been unmuted from ${message.guild.name}!`))
+        target.user.send(
+          fn.embed(
+            client,
+            `You have been unmuted from **${message.guild.name}**!`
+          )
+        );
         target.user
-          .send(`You are unmuted in **${message.guild.name}**!`, embed)
+          .send(embed)
           .catch(error =>
             message.channel.send(
               fn.embed(client, `I cannot DM ${target.user.tag}!`)
