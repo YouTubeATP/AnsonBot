@@ -358,7 +358,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
   let joinVoiceChannel = client.channels.get("662837599857278987");
   try {
     modified = false;
-    for (i = 1; i <= maxChannels + 1; i++) {
+    for (i = 1; i <= parseInt(maxChannels + 1); i++) {
       semiModified = false;
       verySemiModified = false;
       try {
@@ -435,14 +435,15 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
   ) {
     console.log(`Index changed from ${index++} to ${index}`);
     const category = guild.channels.get("653088922649362443");
-    guild
+    return guild
       .createChannel(`Public Lounge #${index}`, {
         type: "voice",
         parent: category
       })
       .then(newChannel => newMember.setVoiceChannel(newChannel));
-  } else {
+  } else if (index >= maxChannels) {
     newMember.setVoiceChannel(null);
+    (`${index} not changed`);
     let embed = new Discord.RichEmbed()
       .setColor(config.embedColor)
       .setTitle(`You can't create a new lounge right now!`)
