@@ -79,7 +79,7 @@ module.exports = {
       var embed = new Discord.RichEmbed()
         .setColor(shared.embedColor)
         .setTitle(`Detailed Command Information`)
-        .setAuthor(`${shared.prefix}${command.name}`)
+        .setDescription(`**${shared.prefix}${command.name}**`)
         .setThumbnail(client.user.avatarURL)
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
