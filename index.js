@@ -358,7 +358,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
   let joinVoiceChannel = client.channels.get("662837599857278987");
   try {
     modified = false;
-    for (i = 1; i <= maxChannels; i++) {
+    for (i = 1; i <= maxChannels + 1; i++) {
       semiModified = false;
       verySemiModified = false;
       try {
@@ -400,7 +400,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
           oldMember.voiceChannel.members.size <= 0
         ) {
           oldMember.voiceChannel.delete("Served its purpose");
-          for (j = i + 1; j < maxChannels; j++) {
+          for (j = i + 1; j <= maxChannels; j++) {
             try {
               if (
                 guild.channels.find("name", `Public Lounge #${i + 1}`) &&
