@@ -468,6 +468,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
 
   try {
     for (i = 1; i <= maxChannels; i++) {
+      if (modified) modified = !modified;
       if (
         index === 0 &&
         (await guild.channels.find("name", `Public Lounge #${i}`)) &&
