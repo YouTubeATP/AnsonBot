@@ -78,6 +78,7 @@ module.exports = {
 
       var embed = new Discord.RichEmbed()
         .setColor(shared.embedColor)
+        .setAuthor(message.author.tag, message.author.avatarURL)
         .setTitle(`Detailed Command Information`)
         .setDescription(`**${shared.prefix}${command.name}**`)
         .setThumbnail(client.user.avatarURL)
