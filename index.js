@@ -38,7 +38,6 @@ let i,
   k,
   modified,
   semiModified,
-  verySemiModified,
   index = 0,
   maxChannels = 5;
 
@@ -360,7 +359,6 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
     modified = false;
     for (i = 1; i <= maxChannels; i++) {
       semiModified = false;
-      verySemiModified = false;
       try {
         if (
           index < i &&
@@ -400,17 +398,15 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
           oldMember.voiceChannel.members.size <= 0
         ) {
           oldMember.voiceChannel.delete("Served its purpose");
-          for (j = i + 1; j < maxChannels; j++) {
+          for (j = i + 1; j <= i; j++) {
             try {
               if (
-                guild.channels.find("name", `Public Lounge #${i + 1}`) &&
-                !guild.channels.find("name", `Public Lounge #${j}`) &&
-                !verySemiModified
+                guild.channels.find("name", `Public Lounge #${i}`) &&
+                !guild.channels.find("name", `Public Lounge #${j}`)
               ) {
                 guild.channels
-                  .find("name", `Public Lounge #${i + 1}`)
-                  .setName(`Public Lounge #${i}`);
-                verySemiModified = true;
+                  .find("name", `Public Lounge #${i}`)
+                  .setName(`Public Lounge #${i - 1}`);
               }
             } catch (e) {
               console.log("Couldn't rename channels", e);
