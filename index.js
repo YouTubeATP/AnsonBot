@@ -36,11 +36,11 @@ const listener = app.listen(process.env.PORT, function() {
 let i,
   j,
   k,
+  modified,
+  semiModified,
+  verySemiModified,
   index = 0,
-  maxChannels = 5,
-  modified = false,
-  semiModified = false,
-  verySemiModified = false;
+  maxChannels = 5;
 
 client.commands = new Discord.Collection();
 const commandFiles = fs
@@ -361,7 +361,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
     for (i = 1; i <= maxChannels; i++) {
       semiModified = false;
       verySemiModified = false;
-      try {
+      /*try {
         if (
           index < i &&
           guild.channels.find("name", `Public Lounge #${i}`) &&
@@ -386,13 +386,13 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
                 .find("name", `Public Lounge #${i}`)
                 .setName(`Public Lounge #${k}`);
               console.log(`Index changed from ${index++} to ${index}`);
-              semiModified = !semiModified;
+              semiModified = true;
             }
           }
         }
       } catch (e) {
         console.log(e);
-      }
+      }*/
       try {
         if (
           oldMember.voiceChannel &&
@@ -411,7 +411,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
                 guild.channels
                   .find("name", `Public Lounge #${j + 1}`)
                   .setName(`Public Lounge #${j}`);
-                verySemiModified = !verySemiModified;
+                verySemiModified = true;
               }
             } catch (e) {
               "Couldn't rename channels", e;
@@ -419,7 +419,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
           }
           if (!modified) {
             console.log(`Index changed from ${index--} to ${index}`);
-            modified = !modified;
+            modified = true;
           }
         }
       } catch (e) {
