@@ -36,9 +36,10 @@ const listener = app.listen(process.env.PORT, function() {
 let i,
   j,
   k,
-  modified = false,
   index = 0,
-  maxChannels = 5;
+  maxChannels = 5,
+  modified = false,
+  semiModified = false;
 
 client.commands = new Discord.Collection();
 const commandFiles = fs
@@ -467,10 +468,11 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
 */
 
   try {
+    modified = false;
     for (i = 1; i <= maxChannels; i++) {
-      if (modified) modified = !modified;
+      semiModified = false;
       if (
-        index === 0 &&
+        index < i &&
         (await guild.channels.find("name", `Public Lounge #${i}`)) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
       ) {
@@ -479,13 +481,13 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
           .delete("Served its purpose");
         console.log(index);
       } else if (
-        index === 0 &&
+        index < i &&
         (await guild.channels.find("name", `Public Lounge #${i}`)) &&
         guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
       ) {
         for (k = 1; k < i; k++) {
           if (
-            !modified &&
+            !semiModified &&
             guild.channels.find("name", `Public Lounge #${i}`) &&
             !guild.channels.find("name", `Public Lounge #${k}`)
           ) {
@@ -493,7 +495,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
               .find("name", `Public Lounge #${i}`)
               .setName(`Public Lounge #${k}`);
             console.log(index++);
-            modified = !modified;
+            semiModified = !modified;
           }
         }
       }
@@ -504,8 +506,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
       ) {
         oldMember.voiceChannel.delete("Served its purpose");
         if (
-          i < index &
-          oldMember.voiceChannel &&
+          (i < index) & oldMember.voiceChannel &&
           oldMember.voiceChannel.name.includes(i)
         ) {
           for (j = i; j < index; j++) {
@@ -514,7 +515,10 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
               .setName(`Public Lounge #${j}`);
           }
         }
-        console.log(index--);
+        if (!modified) {
+          console.log(index--);
+          modified = !modified;
+        }
       }
     }
   } catch (e) {
