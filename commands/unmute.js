@@ -87,8 +87,8 @@ module.exports = {
       .then(() => {
         modCases.push(message.guild.id, modCase);
 
-        //message.channel.send(fn.embed(client, `${target} has been unmuted!`))
-        message.channel.send(`${target} is unmuted.`, embed);
+        message.channel.send(fn.embed(client, `${target} has been unmuted!`))
+        message.channel.send(embed);
 
         //target.user.send(fn.embed(client, `You have been unmuted from ${message.guild.name}!`))
         target.user

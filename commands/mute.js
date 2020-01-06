@@ -98,26 +98,27 @@ module.exports = {
     let time = args[1],
       reason;
     if (!time) reason = "Unspecified";
-    else {}
-    var days = parseInt(time.toLowerCase().match(/\d+d/g));
-    var hours = parseInt(time.toLowerCase().match(/\d+h/g));
-    var mins = parseInt(time.toLowerCase().match(/\d+m/g));
-    if (Number.isNaN(days)) days = 0;
-    if (Number.isNaN(hours)) hours = 0;
-    if (Number.isNaN(mins)) mins = 0;
-    var length = ((days * 24 + hours) * 60 + mins) * 60 * 1000;
+    else {
+      var days = parseInt(time.toLowerCase().match(/\d+d/g));
+      var hours = parseInt(time.toLowerCase().match(/\d+h/g));
+      var mins = parseInt(time.toLowerCase().match(/\d+m/g));
+      if (Number.isNaN(days)) days = 0;
+      if (Number.isNaN(hours)) hours = 0;
+      if (Number.isNaN(mins)) mins = 0;
+      var length = ((days * 24 + hours) * 60 + mins) * 60 * 1000;
 
-    if (Number.isNaN(length) || length == 0)
-      reason = args.slice(1).join(" ") || "Unspecified";
-    else reason = args.slice(2).join(" ") || "Unspecified";
+      if (Number.isNaN(length) || length == 0)
+        reason = args.slice(1).join(" ") || "Unspecified";
+      else reason = args.slice(2).join(" ") || "Unspecified";
+    }
 
-    if (Number.isNaN(length) || length == 0) {
+    if (!time || Number.isNaN(length) || length == 0) {
       let modCase = new fn.ModCase(
         client,
         cases.length + 1,
         "MUTE",
         target,
-        message.member,
+        message,
         reason
       );
       let embed = fn.modCaseEmbed(client, modCase);
@@ -137,7 +138,7 @@ module.exports = {
           }
 
           target.user.send(
-            fn.embed(client, `You have been muted from ${message.guild.name}!`)
+            fn.embed(client, `You have been permanently muted from ${message.guild.name}!`)
           );
           target.user
             .send(embed)
@@ -174,7 +175,7 @@ module.exports = {
         cases.length + 1,
         "MUTE",
         target,
-        message.member,
+        message,
         reason,
         length
       );
