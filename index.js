@@ -154,15 +154,22 @@ client.on("message", async message => {
   )
     return message.delete();
 
-  if (!userData.has(message.author.id)) {
-    let newUserData = {
-      botStaff: false,
-      blacklisted: false,
-      commandsUsed: 0,
-      createdTimestamp: moment()
-    };
-    userData.set(message.author.id, newUserData);
-  }
+  if (
+    message.guild.id === config.server &&
+    message.author.bot &&
+    message.author.id !== client.user.id &&
+    message.author.id !== "365975655608745985" &&
+    message.channel.id !== "663694873227952128"
+  ) return message.delete();
+    if (!userData.has(message.author.id)) {
+      let newUserData = {
+        botStaff: false,
+        blacklisted: false,
+        commandsUsed: 0,
+        createdTimestamp: moment()
+      };
+      userData.set(message.author.id, newUserData);
+    }
   let user = userData.get(message.author.id);
 
   if (!guildData.has(message.guild.id)) {
