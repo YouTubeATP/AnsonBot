@@ -12,7 +12,8 @@ const userData = new db.table("USERDATA"),
 module.exports = {
   name: "mute",
   usage: "mute <user> [duration] [reason]",
-  description: "Mute rule-breakers. For duration, use `d` for days, `h` for hours and `m` for minutes without spacing. User is permanently muted if duration is not provided.",
+  description:
+    "Mute rule-breakers. For duration, use `d` for days, `h` for hours and `m` for minutes without spacing. User is permanently muted if duration is not provided.",
   category: "Moderation",
   guildPerms: ["KICK_MEMBERS"],
   run: async (client, message, args, shared) => {
@@ -138,7 +139,10 @@ module.exports = {
           }
 
           target.user.send(
-            fn.embed(client, `You have been permanently muted from **${message.guild.name}**!`)
+            fn.embed(
+              client,
+              `You have been permanently muted from **${message.guild.name}**!`
+            )
           );
           target.user
             .send(embed)
