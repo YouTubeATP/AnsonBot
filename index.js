@@ -156,21 +156,20 @@ client.on("message", async message => {
     message.content.toLowerCase().includes(`fm/`) ||
     message.content.toLowerCase().includes(`h!`) ||
     message.content.toLowerCase().includes(`p!`)
-  )
-    return message.delete();
-  if (
-    message.guild.id === config.server &&
-    message.author.bot &&
-    message.author.id !== client.user.id &&
-    message.channel.id !== "653091741351542825" &&
-    message.channel.id !== "653091798498934825" &&
-    message.channel.id !== "653133031292403742" &&
-    message.channel.id !== "662243626050519060" &&
-    message.channel.id !== "653130414847688705" &&
-    message.channel.id !== "662273284322230282" &&
-    message.channel.id !== "663694873227952128"
-  )
-    return message.delete();
+  ) return message.delete();
+    if (
+      message.guild.id === config.server &&
+      message.author.bot &&
+      message.author.id !== client.user.id &&
+      message.channel.id !== "653091741351542825" &&
+      message.channel.id !== "653091798498934825" &&
+      message.channel.id !== "653133031292403742" &&
+      message.channel.id !== "662243626050519060" &&
+      message.channel.id !== "653130414847688705" &&
+      message.channel.id !== "662273284322230282" &&
+      message.channel.id !== "663694873227952128"
+    )
+      return message.delete();
 
   if (
     message.channel.id === "663694873227952128" &&
