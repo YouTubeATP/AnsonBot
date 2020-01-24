@@ -55,16 +55,6 @@ module.exports = {
             let modlog = message.guild.channels.find(
               channel => channel.id == shared.guild.modlog
             );
-
-            if (modlog) {
-              modlog
-                .send(embed)
-                .catch(() =>
-                  message.channel.send(
-                    fn.embed(client, `I cannot log in ${modlog}!`)
-                  )
-                );
-            }
             return undefined;
           })
           .catch(error => {
