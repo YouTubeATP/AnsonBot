@@ -101,7 +101,7 @@ let modCaseEmbed = (client, thisCase) => {
 
   let embed = new Discord.RichEmbed()
     .setColor(embedColor)
-    .setAuthor(`[${thisCase.type}] ${user.tag}`, user.displayAvatarURL)
+    .setTitle(thisCase.type === mute: "Muted"`${thisCase.type} ${user.tag}`, user.displayAvatarURL)
     .addField(user.bot ? "Bot" : "User", user, true)
     .addField("Moderator", moderator, true);
   if (thisCase.period)
