@@ -99,6 +99,16 @@ module.exports = {
               fn.embed(client, `${target.user.tag} has been banned!`)
             );
             message.channel.send(embed);
+
+            if (modlog) {
+              modlog
+                .send(embed)
+                .catch(() =>
+                  message.channel.send(
+                    fn.embed(client, `I cannot log in ${modlog}!`)
+                  )
+                );
+            }
           })
           .catch(error => {
             message.channel.send(
