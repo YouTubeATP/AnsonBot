@@ -39,12 +39,10 @@ const antiSpam = new AntiSpam({
   kickThreshold: 7, // Amount of messages sent in a row that will cause a ban.
   banThreshold: 12, // Amount of messages sent in a row that will cause a ban.
   maxInterval: 1000, // Amount of time (in milliseconds) in which messages are considered spam.
-  warnMessage: fn.embed(
-    client,
-    "{@user}, please refrain from spamming the chat. Further infractions will result in a kick or ban."
-  ), // Message that will be sent in chat upon warning a user.
-  kickMessage: fn.embed(client, "**{user_tag}** has been kicked for spamming."), // Message that will be sent in chat upon kicking a user.
-  banMessage: fn.embed(client, "**{user_tag}** has been banned for spamming."), // Message that will be sent in chat upon banning a user.
+  warnMessage:
+    "{@user}, please refrain from spamming the chat. Further infractions will result in a kick or ban.", // Message that will be sent in chat upon warning a user.
+  kickMessage: "**{user_tag}** has been kicked for spamming.", // Message that will be sent in chat upon kicking a user.
+  banMessage: "**{user_tag}** has been banned for spamming.", // Message that will be sent in chat upon banning a user.
   maxDuplicatesWarning: 5, // Amount of duplicate messages that trigger a warning.
   maxDuplicatesKick: 7, // Amount of duplicate messages that trigger a warning.
   maxDuplicatesBan: 12, // Amount of duplicate messages that trigger a warning.
@@ -154,7 +152,9 @@ client.on("message", async message => {
   if (
     message.channel.type != "text" ||
     message.guild.id !== config.server ||
-    message.guild === null
+    message.guild === null ||
+    message.member === null ||
+    client.user === null
   )
     return;
 
@@ -330,8 +330,16 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
 // invite link detection
 
 client.on("message", message => {
-  if (message.channel.name == undefined) return;
-  if (message.guild.id !== config.server) return;
+  if (
+    message.channel.type != "text" ||
+    message.guild.id !== config.server ||
+    message.guild === null ||
+    message.member === null ||
+    client.user === null ||
+    message.channel.name == undefined
+  )
+    return;
+
   if (message.author.id === "344335337889464357") return;
   if (message.channel.id === "662249455847735306") return;
 
