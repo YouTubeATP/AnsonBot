@@ -7,7 +7,8 @@ const Discord = require("discord.js"),
   fs = require("fs"),
   http = require("http"),
   moment = require("moment"),
-  db = require("quick.db");
+  db = require("quick.db"),
+  AntiSpam = require("discord-anti-spam");
 
 /* --- ALL PACKAGES --- */
 
@@ -31,6 +32,26 @@ const listener = app.listen(process.env.PORT, function() {
   setInterval(() => {
     http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
   }, 225000);
+});
+
+const antiSpam = new AntiSpam({
+  warnThreshold: 5, // Amount of messages sent in a row that will cause a warning.
+  kickThreshold: 7, // Amount of messages sent in a row that will cause a ban.
+  banThreshold: 12, // Amount of messages sent in a row that will cause a ban.
+  maxInterval: 1000, // Amount of time (in milliseconds) in which messages are considered spam.
+  warnMessage: fn.embed(
+    client,
+    "{@user}, please refrain from spamming the chat. Further infractions will result in a kick or ban."
+  ), // Message that will be sent in chat upon warning a user.
+  kickMessage: fn.embed(client, "**{user_tag}** has been kicked for spamming."), // Message that will be sent in chat upon kicking a user.
+  banMessage: fn.embed(client, "**{user_tag}** has been banned for spamming."), // Message that will be sent in chat upon banning a user.
+  maxDuplicatesWarning: 5, // Amount of duplicate messages that trigger a warning.
+  maxDuplicatesKick: 7, // Amount of duplicate messages that trigger a warning.
+  maxDuplicatesBan: 12, // Amount of duplicate messages that trigger a warning.
+  exemptPermissions: ["ADMINISTRATOR"], // Bypass users with any of these permissions.
+  ignoreBots: true, // Ignore bot messages.
+  verbose: true, // Extended Logs from module.
+  ignoredUsers: [] // Array of User IDs that get ignored.
 });
 
 let i,
@@ -130,7 +151,11 @@ client.on("guildMemberRemove", async member => {
 // message detection
 
 client.on("message", async message => {
-  if (message.channel.type != "text" || message.guild.id !== config.server)
+  if (
+    message.channel.type != "text" ||
+    message.guild.id !== config.server ||
+    message.guild === null
+  )
     return;
 
   console.log(
@@ -139,7 +164,7 @@ client.on("message", async message => {
     } > ${message.cleanContent}`
   );
 
-  if (message.guild === null) return;
+  antiSpam.message(message);
 
   if (
     message.content.toLowerCase().includes(`<@431247481267814410>`) ||
@@ -156,20 +181,21 @@ client.on("message", async message => {
     message.content.toLowerCase().includes(`fm/`) ||
     message.content.toLowerCase().includes(`h!`) ||
     message.content.toLowerCase().includes(`p!`)
-  ) return message.delete();
-    if (
-      message.guild.id === config.server &&
-      message.author.bot &&
-      message.author.id !== client.user.id &&
-      message.channel.id !== "653091741351542825" &&
-      message.channel.id !== "653091798498934825" &&
-      message.channel.id !== "653133031292403742" &&
-      message.channel.id !== "662243626050519060" &&
-      message.channel.id !== "653130414847688705" &&
-      message.channel.id !== "662273284322230282" &&
-      message.channel.id !== "663694873227952128"
-    )
-      return message.delete();
+  )
+    return message.delete();
+  if (
+    message.guild.id === config.server &&
+    message.author.bot &&
+    message.author.id !== client.user.id &&
+    message.channel.id !== "653091741351542825" &&
+    message.channel.id !== "653091798498934825" &&
+    message.channel.id !== "653133031292403742" &&
+    message.channel.id !== "662243626050519060" &&
+    message.channel.id !== "653130414847688705" &&
+    message.channel.id !== "662273284322230282" &&
+    message.channel.id !== "663694873227952128"
+  )
+    return message.delete();
 
   if (
     message.channel.id === "663694873227952128" &&
