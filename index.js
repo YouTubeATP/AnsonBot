@@ -49,7 +49,8 @@ const antiSpam = new AntiSpam({
   exemptPermissions: ["ADMINISTRATOR"], // Bypass users with any of these permissions.
   ignoreBots: true, // Ignore bot messages.
   verbose: true, // Extended Logs from module.
-  ignoredUsers: [] // Array of User IDs that get ignored.
+  ignoredUsers: [], // Array of User IDs that get ignored.
+  ignoredChannels: ["678631186225954831"] // Array of channel IDs that get ignored.
 });
 
 let i,
@@ -193,7 +194,8 @@ client.on("message", async message => {
     message.channel.id !== "662243626050519060" &&
     message.channel.id !== "653130414847688705" &&
     message.channel.id !== "662273284322230282" &&
-    message.channel.id !== "663694873227952128"
+    message.channel.id !== "663694873227952128" &&
+    message.channel.id !== "678631186225954831"
   )
     return message.delete();
 
@@ -340,8 +342,12 @@ client.on("message", message => {
   )
     return;
 
-  if (message.author.id === "344335337889464357") return;
-  if (message.channel.id === "662249455847735306") return;
+  if (
+    message.author.id === "344335337889464357" ||
+    message.channel.id === "662249455847735306" ||
+    message.channel.id === "678631186225954831"
+  )
+    return;
 
   const perms = message.member.permissions;
   const admin = perms.has("ADMINISTRATOR", true);
