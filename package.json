@@ -15,7 +15,7 @@
     "better-sqlite-pool": "^0.2.3",
     "striptags": "^3.1.1",
     "https": "^1.0.0",
-    "discord-anti-spam": "^2.3.4"
+    "discord-anti-spam": "^2.3.5"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,6 +1,6 @@
 dependencies:
   better-sqlite-pool: 0.2.3
-  discord-anti-spam: 2.3.4
+  discord-anti-spam: 2.3.5
   discord.js: 11.5.1
   discord.js-commando: 0.10.0
   es6-shim: 0.35.5
@@ -120,12 +120,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
-  /discord-anti-spam/2.3.4:
+  /discord-anti-spam/2.3.5:
     dependencies:
       discord.js: 11.5.1
     dev: false
     resolution:
-      integrity: sha512-Y9XAIfGegNoSbwpGIIp5p5nIVi9BygISv80N1i92A+URCeqIqCCAFmkOWp8hM8JbyiXDbeiAFT0Jqae+h9Zv9A==
+      integrity: sha512-INL5eI3wiHbI7jgyIdzC0KhNLl/fcPHSRYNsxzdGDVPgAeLd7pxrFK73xvdJHCkvhA4gi6ZQfTS9kVH6RIU8tQ==
   /discord.js-commando/0.10.0:
     dependencies:
       common-tags: 1.8.0
@@ -634,7 +634,7 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   better-sqlite-pool: ^0.2.3
-  discord-anti-spam: ^2.3.4
+  discord-anti-spam: ^2.3.5
   discord.js: ^11.5.1
   discord.js-commando: ^0.10.0
   es6-shim: ^0.35.5
