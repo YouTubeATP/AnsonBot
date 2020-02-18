@@ -37,8 +37,8 @@ let shared = {},
   playlist = false;
 
 shared.queue = queue;
-shared.youtube1 = process.env.youtube1;
-shared.youtube2 = process.env.youtube2;
+shared.youtube1 = new YouTube (process.env.YTAPI1);
+shared.youtube2 = new YouTube (process.env.YTAPI2);
 shared.handler = handler;
 shared.stopping = stopping;
 shared.voteSkipPass = voteSkipPass;
