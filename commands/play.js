@@ -12,7 +12,7 @@ module.exports = {
   name: "play",
   usage: "play <song name/url>",
   description: "Searches for the song you requested.",
-  category: "Utility",
+  category: "Music",
   run: async (client, message, args, shared) => {
     const queue = shared.queue;
     const serverQueue = queue.get(message.guild.id);
@@ -41,6 +41,7 @@ module.exports = {
               color: 0x00bdf2,
               title: "I do not have sufficient permissions!",
               description: `I cannot connect to voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
+              timestamp: new Date(),
               footer: {
                 icon_url: client.user.avatarURL,
                 text: client.user.username
@@ -60,9 +61,10 @@ module.exports = {
               color: 0x00bdf2,
               title: "I do not have sufficient permissions!",
               description: `I cannot speak in voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
+              timestamp: new Date(),
               footer: {
                 icon_url: client.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
+                text: client.user.username
               }
             }
           });
@@ -79,9 +81,10 @@ module.exports = {
               color: 0x00bdf2,
               title: "I do not have sufficient permissions!",
               description: `I cannot add reactions to messages in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
+              timestamp: new Date(),
               footer: {
                 icon_url: client.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
+                text: client.user.username
               }
             }
           });
@@ -105,10 +108,8 @@ module.exports = {
           .setDescription(
             "You've already opened a music selection menu! Either make a selection, manually cancel it or wait for it to expire before trying again."
           )
-          .setFooter(
-            "MusEmbed™ | Clean Embeds, Crisp Music",
-            client.user.avatarURL
-          );
+          .setFooter(client.user.username, client.user.avatarURL)
+          .setTimestamp();
 
         return message.channel
           .send(alreadySelection)
@@ -164,10 +165,8 @@ module.exports = {
               .setDescription(
                 `Check if you've inputted your search string correctly.`
               )
-              .setFooter(
-                "MusEmbed™ | Clean Embeds, Crisp Music",
-                client.user.avatarURL
-              );
+              .setFooter(client.user.username, client.user.avatarURL)
+              .setTimestamp();
 
             return message.channel.send(noresult).then(m => m.delete(10000));
           }
@@ -225,7 +224,8 @@ module.exports = {
                 " to cancel.",
               searchResult
             )
-            .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon);
+            .setFooter(client.user.username, bicon)
+            .setTimestamp();
 
           async function detectSelection() {
             message.channel.fetchMessage(mid).then(m => m.delete());
@@ -244,10 +244,8 @@ module.exports = {
                 .setDescription(
                   "Your music selection menu timed out. To maintain quality preformance, all music selection menus expire after 60 seconds."
                 )
-                .setFooter(
-                  "MusEmbed™ | Clean Embeds, Crisp Music",
-                  client.user.avatarURL
-                );
+                .setFooter(client.user.username, client.user.avatarURL)
+                .setTimestamp();
 
               return message.channel.send(timeout).then(m => m.delete(10000));
             } else if (vindex === "cancel") {
@@ -259,10 +257,8 @@ module.exports = {
                 .setDescription(
                   "You have manually cancelled your music selection menu."
                 )
-                .setFooter(
-                  "MusEmbed™ | Clean Embeds, Crisp Music",
-                  client.user.avatarURL
-                );
+                .setFooter(client.user.username, client.user.avatarURL)
+                .setTimestamp();
 
               return message.channel.send(cancelmsg).then(m => m.delete(10000));
             } else {
@@ -343,10 +339,8 @@ module.exports = {
             .setThumbnail(client.user.displayAvatarURL)
             .setTitle("An error occured whilst searching for your music!")
             .setDescription(error)
-            .setFooter(
-              "MusEmbed™ | Clean Embeds, Crisp Music",
-              client.user.avatarURL
-            );
+            .setFooter(client.user.username, client.user.avatarURL)
+            .setTimestamp();
 
           return message.channel.send(searchError).then(m => m.delete(10000));
         }
@@ -430,9 +424,10 @@ module.exports = {
             embed: {
               color: 0x00bdf2,
               description: "An error occured!",
+              timestamp: new Date(),
               footer: {
                 icon_url: client.user.avatarURL,
-                text: "MusEmbed™ | Clean Embeds, Crisp Music"
+                text: client.user.username
               }
             }
           });
@@ -459,7 +454,8 @@ module.exports = {
             `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`,
             true
           )
-          .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon);
+          .setFooter(client.user.username, bicon)
+          .setTimestamp();
         return message.channel.send(queueemb);
       }
       return undefined;
@@ -482,7 +478,8 @@ module.exports = {
           `\`${song.durationd}\` Days, \`${song.durationh}\` Hours, \`${song.durationm}\` Minutes and \`${song.durations}\` Seconds`,
           true
         )
-        .setFooter("MusEmbed™ | Clean Embeds, Crisp Music", bicon);
+        .setFooter(client.user.username, bicon)
+        .setTimestamp();
 
       serverQueue.textChannel.send(embed);
     }
@@ -505,10 +502,8 @@ module.exports = {
           .setDescription(
             `All queued songs in \`${message.guild.name}\` have been played, and I have left the voice channel.`
           )
-          .setFooter(
-            "MusEmbed™ | Clean Embeds, Crisp Music",
-            client.user.avatarURL
-          );
+          .setFooter(client.user.username, client.user.avatarURL)
+          .setTimestamp();
 
         return serverQueue.textChannel.send(nosong);
       }
