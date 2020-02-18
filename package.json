@@ -15,7 +15,13 @@
     "better-sqlite-pool": "^0.2.3",
     "striptags": "^3.1.1",
     "https": "^1.0.0",
-    "discord-anti-spam": "^2.3.5"
+    "discord-anti-spam": "^2.3.5",
+    "discord.js-arbitrary-ffmpeg": "^1.0.0",
+    "ffmpeg": "^0.0.4",
+    "node-opus": "^0.3.2",
+    "simple-youtube-api": "^5.2.1",
+    "ytdl-core": "^1.0.9",
+    "reaction-core": "^2.3.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -8,7 +8,11 @@ const Discord = require("discord.js"),
   http = require("http"),
   moment = require("moment"),
   db = require("quick.db"),
-  AntiSpam = require("discord-anti-spam");
+  AntiSpam = require("discord-anti-spam"),
+  ytdl = require("ytdl-core"),
+  opus = require("node-opus"),
+  YouTube = require("simple-youtube-api"),
+  RC = require("reaction-core");
 
 /* --- ALL PACKAGES --- */
 
@@ -19,7 +23,13 @@ const client = new Discord.Client(),
   fn = require("/app/util/fn"),
   userData = new db.table("USERDATA"),
   guildData = new db.table("GUILDDATA"),
-  botData = new db.table("BOTDATA");
+  botData = new db.table("BOTDATA"),
+  handler = new RC.Handler();
+
+shared.queue = queue;
+shared.youtube1 = youtube1;
+shared.youtube2 = youtube2;
+shared.handler = handler;
 
 const app = express();
 app.use(express.static("public"));
@@ -327,6 +337,34 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
     return newMember.guild.channels
       .get("653091798498934825")
       .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
+});
+
+// detect reaction-adding
+
+client.on("messageReactionAdd", (messageReaction, user) =>
+  handler.handle(messageReaction, user)
+);
+
+// profanity filter and command detection
+client.on("message", async message => {
+  if (message.channel.type === "dm") {
+    if (message.author.bot() && message.embeds.length > 0)
+      channel.send(
+        message.author.id + " | " + message.author.username + " | <embed>"
+      );
+    const channel = client.channels.get("605785120976404560");
+    message.content = message.content.replace(
+      new RegExp("@everyone|@here", "gi"),
+      "@mention"
+    );
+    channel.send(
+      message.author.id +
+        " | " +
+        message.author.username +
+        " | " +
+        message.content
+    );
+  }
 });
 
 // invite link detection
