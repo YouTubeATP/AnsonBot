@@ -11,7 +11,7 @@ const config = require("/app/util/config"),
 module.exports = {
   name: "resume",
   usage: "resume",
-  description: "Pauses the current song.",
+  description: "Resumes a paused song.",
   category: "Music",
   run: async (client, message, args, shared) => {
     const queue = shared.queue,
@@ -35,23 +35,24 @@ module.exports = {
         "You need to be in my voice channel to execute this command!"
       );
 
-    if (serverQueue && serverQueue.playing) {
-      serverQueue.playing = false;
-      serverQueue.connection.dispatcher.pause();
-
+    if (serverQueue && !serverQueue.playing) {
+      serverQueue.playing = true;
+      serverQueue.connection.dispatcher.resume();
       var embed = new Discord.RichEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL)
         .setThumbnail(message.guild.iconURL)
-        .setTitle("Music paused!")
+        .setTitle("Music resumed!")
         .setDescription(
-          `Use the command \`${shared.prefix}resume\` to resume playing.`
+          `Use the command \`${shared.prefix}pause\` to pause the music.`
         )
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
 
       return message.channel.send(embed);
     }
-    return message.channel.send("Nothing is playing!");
+    return message.channel.send(
+      `Something is currently playing! Use ${shared.prefix}pause to pause the music.`
+    );
   }
 };
