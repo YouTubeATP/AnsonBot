@@ -24,12 +24,28 @@ const client = new Discord.Client(),
   userData = new db.table("USERDATA"),
   guildData = new db.table("GUILDDATA"),
   botData = new db.table("BOTDATA"),
-  handler = new RC.Handler();
+  handler = new RC.Handler(),
+  mutedSet = new Set(),
+  queue = new Map();
+
+let shared = {},
+  stopping = false,
+  voteSkipPass = 0,
+  voted = 0,
+  playerVoted = [],
+  activeMusicSelection = [],
+  playlist = false;
 
 shared.queue = queue;
-shared.youtube1 = youtube1;
-shared.youtube2 = youtube2;
+shared.youtube1 = process.env.youtube1;
+shared.youtube2 = process.env.youtube2;
 shared.handler = handler;
+shared.stopping = stopping;
+shared.voteSkipPass = voteSkipPass;
+shared.voted = voted;
+shared.playerVoted = playerVoted;
+shared.activeMusicSelection = activeMusicSelection;
+shared.playlist = playlist;
 
 const app = express();
 app.use(express.static("public"));
@@ -244,8 +260,6 @@ client.on("message", async message => {
   const prefix = guild.prefix || config.defaultPrefix,
     mention = `<@${client.user.id}> `,
     mention1 = `<@!${client.user.id}> `;
-
-  let shared = {};
 
   if (
     message.content.startsWith(prefix) ||
