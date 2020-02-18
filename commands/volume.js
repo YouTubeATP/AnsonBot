@@ -10,7 +10,7 @@ const config = require("/app/util/config"),
 
 module.exports = {
   name: "volume",
-  usage: "volume",
+  usage: "volume [integral value 0-10]",
   description:
     "Changes volume to the provided number. Shows current volume if arguments are not provided.",
   category: "Music",
