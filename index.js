@@ -346,29 +346,6 @@ client.on("messageReactionAdd", (messageReaction, user) =>
   handler.handle(messageReaction, user)
 );
 
-// command detection
-
-client.on("message", async message => {
-  const channel = client.channels.get("605785120976404560");
-  if (message.channel.type === "dm") {
-    if (message.author.bot && message.embeds.length > 0)
-      channel.send(
-        message.author.id + " | " + message.author.username + " | <embed>"
-      );
-    message.content = message.content.replace(
-      new RegExp("@everyone|@here", "gi"),
-      "@mention"
-    );
-    channel.send(
-      message.author.id +
-        " | " +
-        message.author.username +
-        " | " +
-        message.content
-    );
-  }
-});
-
 // invite link detection
 
 client.on("message", message => {

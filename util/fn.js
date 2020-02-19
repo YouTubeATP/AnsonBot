@@ -145,7 +145,9 @@ let paginator = async (author, msg, embeds, pageNow) => {
         ["◀", "▶", "⏪", "⏩"].includes(reaction.emoji.name),
       { time: 30 * 1000, max: 1, errors: ["time"] }
     )
-    .catch(() => msg.clearReactions().catch(() => {}));
+    .catch(err => {
+      return msg.delete();
+    });
   reaction = reaction.first();
   if (reaction.emoji.name == "◀") {
     let m = await msg.channel.send(embeds[Math.max(pageNow - 1, 0)]);
