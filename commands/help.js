@@ -54,11 +54,26 @@ module.exports = {
       await message.author
         .send(embeds[0])
         .then(msg => {
-          fn.embed(client, "Check your DMs!", "I've sent my help menu to your DMs.");
+          let sentEmbed = new Discord.RichEmbed()
+            .setColor(shared.embedColor)
+            .setAuthor(message.author.tag, message.author.avatarURL)
+            .setTitle(`Check your DMs!`)
+            .setDescription(
+              `My interactive help menu has been sent to your DMs.`
+            )
+            .setThumbnail(client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL)
+            .setTimestamp();
+          message.channel.send(sentEmbed);
           fn.paginator(message.author.id, msg, embeds, 0, client);
         })
         .catch(err => {
-           fn.embed(client, "I couldn't send my help menu to your DMs! Make sure I have permissions to do so.")
+          message.channel.send(
+            fn.embed(
+              client,
+              "I couldn't send my help menu to your DMs! Make sure I have permissions to do so."
+            )
+          );
         });
     } else {
       const name = args[0].toLowerCase();
@@ -70,7 +85,7 @@ module.exports = {
         return message.reply("that's not a valid command!");
       }
 
-      var embed = new Discord.RichEmbed()
+      let embed = new Discord.RichEmbed()
         .setColor(shared.embedColor)
         .setAuthor(message.author.tag, message.author.avatarURL)
         .setTitle(`Detailed Command Information`)

@@ -77,9 +77,10 @@ module.exports = {
             : "None"
         )
         .addField("Library", "discord.js")
-        .addField("ID", client.user.id)
-        .setFooter(client.user.username, client.user.avatarURL)
-        .setTimestamp();
+        .setFooter(
+          `ID: ${client.user.id} | ${client.user.username}`,
+          client.user.avatarURL
+        );
 
       message.channel
         .send(embed)
