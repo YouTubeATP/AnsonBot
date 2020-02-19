@@ -301,7 +301,7 @@ client.on("message", async message => {
 
     if (command.botStaffOnly && !user.botStaff) {
       message.channel.send(
-        fn.embed(client, "You do not have permissions to use this command!")
+        fn.embed(client, "You do not have permission to use this command!")
       );
       return message.delete().then(m => m.delete(5000));
     }
@@ -310,7 +310,7 @@ client.on("message", async message => {
       !message.member.hasPermission(command.guildPerms)
     ) {
       message.channel.send(
-        fn.embed(client, "You do not have permissions to use this command!")
+        fn.embed(client, "You do not have permission to use this command!")
       );
       return message.delete().then(m => m.delete(5000));
     }

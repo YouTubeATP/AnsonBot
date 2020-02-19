@@ -84,8 +84,19 @@ module.exports = {
       if (!command) {
         return message.reply("that's not a valid command!");
       }
-      
-      
+
+      if (command.botStaffOnly && !shared.user.botStaff)
+        return message.channel.send(
+          fn.embed(client, "You do not have permission to use this command!")
+        );
+
+      if (
+        command.guildPerms &&
+        !message.member.hasPermission(command.guildPerms)
+      )
+        return message.channel.send(
+          fn.embed(client, "You do not have permission to use this command!")
+        );
 
       let embed = new Discord.RichEmbed()
         .setColor(shared.embedColor)
