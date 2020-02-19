@@ -152,7 +152,7 @@ let paginator = async (author, msg, embeds, pageNow) => {
     .catch(err => {
       let delembed = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(reaction.users.first().tag, reaction.users.first().avatarURL)
+        .setAuthor(Array.from(reaction.users.keys())[1].tag, Array.from(reaction.users.keys())[1].avatarURL)
         .setThumbnail(client.user.displayAvatarURL)
         .setTitle("Help menu deleted!")
         .setDescription(
@@ -185,7 +185,7 @@ let paginator = async (author, msg, embeds, pageNow) => {
   } else if (reaction.emoji.id == "662296249717751869") {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
-      .setAuthor(reaction.users.first().tag, reaction.users.first().avatarURL)
+      .setAuthor(Array.from(reaction.users.keys())[1].tag, Array.from(reaction.users.keys())[1].avatarURL)
       .setThumbnail(client.user.displayAvatarURL)
       .setTitle("Help menu deleted!")
       .setDescription("You have manually deleted your help menu.")
