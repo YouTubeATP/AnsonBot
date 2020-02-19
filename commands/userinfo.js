@@ -20,7 +20,7 @@ let statuses = {
 module.exports = {
   name: "userinfo",
   usage: "userinfo [user]",
-  description: "User Information",
+  description: "Shows information about the provided user, or yourself if none is provided.",
   category: "Utility",
   run: async (client, message, args, shared) => {
     let target = message.member;
