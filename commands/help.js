@@ -84,6 +84,8 @@ module.exports = {
       if (!command) {
         return message.reply("that's not a valid command!");
       }
+      
+      
 
       let embed = new Discord.RichEmbed()
         .setColor(shared.embedColor)
