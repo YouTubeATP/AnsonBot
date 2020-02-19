@@ -183,17 +183,14 @@ client.on("message", async message => {
   antiSpam.message(message);
 
   if (
-    message.content.toLowerCase().includes(`<@431247481267814410> `) ||
-    message.content.toLowerCase().includes(`<@!431247481267814410> `) ||
-    message.content.toLowerCase().includes(`<@414440610418786314> `) ||
-    message.content.toLowerCase().includes(`<@!414440610418786314> `) ||
+    message.content.toLowerCase().startsWith(`<@431247481267814410> `) ||
+    message.content.toLowerCase().startsWith(`<@!431247481267814410> `) ||
     message.content.toLowerCase().includes(`<@371704154705362944> `) ||
     message.content.toLowerCase().includes(`<@!371704154705362944> `) ||
     message.content.toLowerCase().includes(`<@333422871567400961> `) ||
     message.content.toLowerCase().includes(`<@!333422871567400961> `) ||
     message.content.toLowerCase().includes(`<@365975655608745985> `) ||
     message.content.toLowerCase().includes(`<@!365975655608745985> `) ||
-    message.content.toLowerCase().includes(`em/`) ||
     message.content.toLowerCase().includes(`fm/`) ||
     message.content.toLowerCase().includes(`h!`) ||
     message.content.toLowerCase().includes(`p!`)
