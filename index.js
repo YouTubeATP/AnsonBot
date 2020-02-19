@@ -47,19 +47,6 @@ shared.playerVoted = playerVoted;
 shared.activeMusicSelection = activeMusicSelection;
 shared.playlist = playlist;
 
-const app = express();
-app.use(express.static("public"));
-
-app.get("/", function(request, response) {
-  response.sendFile(__dirname + "/views/index.html");
-});
-
-const listener = app.listen(process.env.PORT, function() {
-  setInterval(() => {
-    http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-  }, 225000);
-});
-
 const antiSpam = new AntiSpam({
   warnThreshold: 3, // Amount of messages sent in a row that will cause a warning.
   kickThreshold: 5, // Amount of messages sent in a row that will cause a ban.

@@ -9,7 +9,7 @@ const userData = new db.table("USERDATA"),
   guildData = new db.table("GUILDDATA"),
   modCases = new db.table("MODCASES");
 
-let activities = ["Playing", "Streaming", "Listening", "Watching", ""];
+let activities = ["Playing", "Streaming", "Listening to", "Watching", ""];
 let statuses = {
   online: "Online",
   idle: "Idle",
