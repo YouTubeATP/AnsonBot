@@ -51,20 +51,15 @@ module.exports = {
             .setTimestamp()
         );
       }
-      await message.author
+      await message.channel
         .send(embeds[0])
         .then(msg => {
           fn.paginator(message.author.id, msg, embeds, 0);
-          message.channel
-            .send(fn.embed(client, "Check your DMs!"))
-            .then(m => m.delete(5000));
         })
         .catch(err => {
-          message.channel.send(embed).catch(error => {
             message.channel.send(
-              "I can't DM you, nor can I send my help information here!\nThe `Embed Links` permissions is crucial to me, so please enable it whereever I should be!"
+              "I can't send my help information here!\nThe `Embed Links` permissions is crucial to me, so please enable it whereever I am!"
             );
-          });
         });
     } else {
       const name = args[0].toLowerCase();

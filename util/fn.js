@@ -138,14 +138,23 @@ let paginator = async (author, msg, embeds, pageNow) => {
     await msg.react("▶");
     await msg.react("⏩");
   }
+  await msg.react("662296249717751869");
   let reaction = await msg
     .awaitReactions(
       (reaction, user) =>
         user.id == author &&
-        ["◀", "▶", "⏪", "⏩"].includes(reaction.emoji.name),
-      { time: 30 * 1000, max: 1, errors: ["time"] }
+        ["◀", "▶", "⏪", "⏩", "<:no:662296249717751869>"].includes(
+          reaction.emoji.name
+        ),
+      { time: 60 * 1000, max: 1, errors: ["time"] }
     )
     .catch(err => {
+      new Discord.RichEmbed()
+      .setColor(embedColor)
+      .setDescription(content)
+      .setFooter(client.user.username, client.user.avatarURL)
+      .setTimestamp();
+      msg.channel.send(delembed)
       return msg.delete();
     });
   reaction = reaction.first();
@@ -167,6 +176,8 @@ let paginator = async (author, msg, embeds, pageNow) => {
     let m = await msg.channel.send(embeds[embeds.length - 1]);
     msg.delete();
     paginator(author, m, embeds, embeds.length - 1);
+  } else if (reaction.emoji.name == "<:no:662296249717751869>") {
+    return msg.delete();
   }
 };
 
