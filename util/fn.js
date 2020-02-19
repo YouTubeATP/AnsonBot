@@ -131,6 +131,8 @@ let modCaseEmbed = (client, thisCase) => {
 };
 
 let paginator = async (author, msg, embeds, pageNow) => {
+  const client = index.client;
+  const useritem = client.fetchUser(author);
   if (pageNow != 0) {
     await msg.react("⏪");
     await msg.react("◀");
@@ -152,15 +154,15 @@ let paginator = async (author, msg, embeds, pageNow) => {
       let delembed = new Discord.RichEmbed()
         .setColor("RED")
         .setAuthor(
-          author.user.tag,
-          author.user.avatarURL
+          useritem.tag,
+          useritem.avatarURL
         )
-        .setThumbnail(index.client.user.displayAvatarURL)
+        .setThumbnail(client.user.displayAvatarURL)
         .setTitle("Help menu deleted!")
         .setDescription(
           "Your help menu timed out. To maintain quality performance, all help menus expire after 60 seconds."
         )
-        .setFooter(index.client.user.username, index.client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
       msg.channel.send(delembed);
       return msg.delete();
@@ -188,13 +190,13 @@ let paginator = async (author, msg, embeds, pageNow) => {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
       .setAuthor(
-        author.user.tag,
-        author.avatarURL
+        useritem.tag,
+        useritem.avatarURL
       )
-      .setThumbnail(index.client.user.displayAvatarURL)
+      .setThumbnail(client.user.displayAvatarURL)
       .setTitle("Help menu deleted!")
       .setDescription("You have manually deleted your help menu.")
-      .setFooter(index.client.user.username, index.client.user.avatarURL)
+      .setFooter(client.user.username, client.user.avatarURL)
       .setTimestamp();
     msg.channel.send(cancelembed);
     return msg.delete();
