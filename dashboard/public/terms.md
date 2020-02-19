@@ -2,28 +2,28 @@
 
 ## Welcome to the Musical Dashboard
 
-These terms and conditions outline the rules and regulations for the use of the Musical Dashboard, .
+These terms and conditions outline the rules and regulations for the use of the Musical Dashboard, a dashboard for the Discord server **MusicSounds's Hangout**.
 
-By accessing this website we assume you accept these terms and conditions in full. Do not continue to use {{botName}} Dashboard's website if you do not accept all of the terms and conditions stated on this page.
+By accessing this website we assume you accept these terms and conditions in full. Do not continue to use the Musical Dashboard if you do not accept all of the terms and conditions stated on this page.
 
 The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and any or all Agreements: “Client”, “You” and “Your” refers to you, the person accessing this website and accepting the Company’s terms and conditions. “The Company”, “Ourselves”, “We”, “Our” and “Us”, refers to our Company. “Party”, “Parties”, or “Us”, refers to both the Client and ourselves, or either the Client or ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner, whether by formal meetings of a fixed duration, or any other means, for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services/products, in accordance with and subject to, prevailing law of South Africa. Any use of the above terminology or other words in the singular, plural, capitalisation and/or he/she or they, are taken as interchangeable and therefore as referring to same.
 
 ## Cookies
 
-We employ the use of cookies. By using {{botName}} Dashboard's website you consent to the use of cookies in accordance with {{botName}} Dashboard’s privacy policy.
+We employ the use of cookies. By using the Musical Dashboard you consent to the use of cookies in accordance with the Musical Dashboard’s privacy policy.
 
 Most of the modern day interactive web sites use cookies to enable us to retrieve user details for each visit. Cookies are used in some areas of our site to enable the functionality of this area and ease of use for those people visiting. Some of our affiliate / advertising partners may also use cookies.
 
 ## License
 
-Unless otherwise stated, {{botName}} Dashboard and/or it’s licensors own the intellectual property rights for all material on {{botName}} Dashboard. All intellectual property rights are reserved. You may view and/or print pages from this Site for your own personal use subject to restrictions set in these terms and conditions.
+Unless otherwise stated, the Musical Dashboardand/or it’s licensors own the intellectual property rights for all material on the Musical Dashboard. All intellectual property rights are reserved. You may view and/or print pages from this Site for your own personal use subject to restrictions set in these terms and conditions.
 
 You must not:
 
 1.  Republish material from this Site
 2.  Sell, rent or sub-license material from this Site
 3.  Reproduce, duplicate or copy material from this Site
-4.  Redistribute content from {{botName}} Dashboard (unless content is specifically made for redistribution).
+4.  Redistribute content from the Musical Dashboard (unless content is specifically made for redistribution).
 
 ## Hyperlinking to our Content
 
@@ -56,7 +56,7 @@ Approved organizations may hyperlink to our Web site as follows:
 2.  By use of the uniform resource locator (Web address) being linked to; or
 3.  By use of any other description of our Web site or material being linked to that makes sense within the context and format of content on the linking party's site.
 
-No use of {{botName}} Dashboard’s logo or other artwork will be allowed for linking absent a trademark license agreement.
+No use of the Musical Dashboard’s logo or other artwork will be allowed for linking absent a trademark license agreement.
 
 ## Iframes
 
@@ -91,4 +91,4 @@ To the extent that the website and the information and services on the website a
 
 ## Contact Information
 
-You may contact us by email ([{{email}}](mailto:{{email}}))
+You may contact us by email ([musicsounds1011@gmail.com](mailto:musicsounds1011@gmail.com)
