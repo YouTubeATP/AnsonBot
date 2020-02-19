@@ -6,7 +6,7 @@ const config = require("/app/util/config"),
 module.exports = {
   name: "botinfo",
   usage: "botinfo",
-  aliases: ["info", "status"],
+  aliases: ["bot", "info", "status"],
   description: "Shows information about the bot.",
   category: "Utility",
   run: async (client, message, args, shared) => {
