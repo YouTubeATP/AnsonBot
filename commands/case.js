@@ -12,6 +12,7 @@ module.exports = {
   usage: "case <id>",
   description: "View mod cases.",
   aliases: ["modcase", "cases"],
+  guildPerms: ["VIEW_AUDIT_LOG"],
   category: "Moderation",
   run: async (client, message, args, shared) => {
     let cases = modCases.get(message.guild.id);

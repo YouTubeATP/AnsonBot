@@ -12,6 +12,7 @@ module.exports = {
   usage: "infractions <user>",
   description: "View the infraction record of a member.",
   aliases: ["warns", "warnings"],
+  guildPerms: ["VIEW_AUDIT_LOG"],
   category: "Moderation",
   run: async (client, message, args, shared) => {
     let target = message.member;

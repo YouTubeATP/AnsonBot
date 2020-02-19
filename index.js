@@ -37,8 +37,8 @@ let shared = {},
   playlist = false;
 
 shared.queue = queue;
-shared.youtube1 = new YouTube (process.env.YTAPI1);
-shared.youtube2 = new YouTube (process.env.YTAPI2);
+shared.youtube1 = new YouTube(process.env.YTAPI1);
+shared.youtube2 = new YouTube(process.env.YTAPI2);
 shared.handler = handler;
 shared.stopping = stopping;
 shared.voteSkipPass = voteSkipPass;
@@ -340,20 +340,21 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
       .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
 });
 
-// detect reaction-adding
+// reaction detection
 
 client.on("messageReactionAdd", (messageReaction, user) =>
   handler.handle(messageReaction, user)
 );
 
-// profanity filter and command detection
+// command detection
+
 client.on("message", async message => {
+  const channel = client.channels.get("605785120976404560");
   if (message.channel.type === "dm") {
-    if (message.author.bot() && message.embeds.length > 0)
+    if (message.author.bot && message.embeds.length > 0)
       channel.send(
         message.author.id + " | " + message.author.username + " | <embed>"
       );
-    const channel = client.channels.get("605785120976404560");
     message.content = message.content.replace(
       new RegExp("@everyone|@here", "gi"),
       "@mention"
