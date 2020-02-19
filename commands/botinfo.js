@@ -62,15 +62,9 @@ module.exports = {
           client.user.bot ? "Created" : "Joined Discord",
           `${fn.date(client.user.createdAt)} (${fn.ago(client.user.createdAt)})`
         )
+        .addField("Status", `${statuses[client.user.presence.status]}`, true)
         .addField(
-          "Current Status",
-          `${statuses[client.user.presence.status]}`,
-          true
-        )
-        .addField(
-          client.user.presence.game.type == 4
-            ? "Custom Status"
-            : "Current Activity",
+          "Presence",
           client.user.presence.game
             ? `${activities[client.user.presence.game.type]} ${
                 client.user.presence.game.type == 4
