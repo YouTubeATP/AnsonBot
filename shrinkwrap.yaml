@@ -1,6 +1,5 @@
 dependencies:
   better-sqlite-pool: 0.2.3
-  bot-dashboard: 1.0.5
   discord-anti-spam: 2.3.5
   discord.js: 11.5.1
   discord.js-arbitrary-ffmpeg: 1.0.0
@@ -82,13 +81,6 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
-  /bot-dashboard/1.0.5:
-    dependencies:
-      circular-json: 0.5.9
-      express: 4.17.1
-    dev: false
-    resolution:
-      integrity: sha512-adwtXzFj1zAXbr29IIBih8uXNsg7zIWlD/svhB4YMvtiD/hKvcHF37z+dwOZLnzx0fZxK9S8knN28Nv3lPJfEA==
   /bytes/3.1.0:
     dev: false
     engines:
@@ -99,11 +91,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-i70fVHhmV3DtTl6nqvZOnIjbY0Pe4kAUjwHj8z0zAdgBtYrJyYwLKCCuRBQ5ppkyL0AkN7HKRnETdmdp1zqNXw==
-  /circular-json/0.5.9:
-    deprecated: 'CircularJSON is in maintenance only, flatted is its successor.'
-    dev: false
-    resolution:
-      integrity: sha512-4ivwqHpIFJZBuhN3g/pEcdbnGUywkBblloGbkglyloVjjR3uT6tieI89MVOfbP2tHX5sgb01FuLgAOzebNlJNQ==
   /commander/2.20.3:
     dev: false
     resolution:
@@ -799,7 +786,6 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   better-sqlite-pool: ^0.2.3
-  bot-dashboard: ^1.0.5
   discord-anti-spam: ^2.3.5
   discord.js: ^11.5.1
   discord.js-arbitrary-ffmpeg: ^1.0.0

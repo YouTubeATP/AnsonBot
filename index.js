@@ -26,8 +26,7 @@ const client = new Discord.Client(),
   botData = new db.table("BOTDATA"),
   handler = new RC.Handler(),
   mutedSet = new Set(),
-  queue = new Map(),
-  dash = require("bot-dashboard").init(client, 8080);
+  queue = new Map();
 
 let shared = {},
   stopping = false,
