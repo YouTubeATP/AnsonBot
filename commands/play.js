@@ -38,7 +38,7 @@ module.exports = {
         .then(user => {
           user.send({
             embed: {
-              color: 0x00bdf2,
+              color: shared.embedColor,
               title: "I do not have sufficient permissions!",
               description: `I cannot connect to voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
               timestamp: new Date(),
@@ -58,7 +58,7 @@ module.exports = {
         .then(user => {
           user.send({
             embed: {
-              color: 0x00bdf2,
+              color: shared.embedColor,
               title: "I do not have sufficient permissions!",
               description: `I cannot speak in voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
               timestamp: new Date(),
@@ -78,7 +78,7 @@ module.exports = {
         .then(user => {
           user.send({
             embed: {
-              color: 0x00bdf2,
+              color: shared.embedColor,
               title: "I do not have sufficient permissions!",
               description: `I cannot add reactions to messages in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
               timestamp: new Date(),
@@ -214,7 +214,7 @@ module.exports = {
 
           let bicon = client.user.displayAvatarURL;
           let videosEmbed = new Discord.RichEmbed()
-            .setColor(0x00bdf2)
+            .setColor(shared.embedColor)
             .setTitle("Music Selection")
             .setAuthor(message.author.tag, message.author.avatarURL)
             .setThumbnail(client.user.displayAvatarURL)
@@ -422,7 +422,7 @@ module.exports = {
           queue.delete(message.guild.id);
           return message.channel.send({
             embed: {
-              color: 0x00bdf2,
+              color: shared.embedColor,
               description: "An error occured!",
               timestamp: new Date(),
               footer: {
@@ -438,7 +438,7 @@ module.exports = {
 
         let bicon = client.user.displayAvatarURL;
         let queueemb = new Discord.RichEmbed()
-          .setColor(0x00bdf2)
+          .setColor(shared.embedColor)
           .setTitle(`Song added to queue!`)
           .setAuthor(song.guild.name, song.guild.iconURL)
           .setDescription(
@@ -465,7 +465,7 @@ module.exports = {
       let song = serverQueue.songs[0];
       let bicon = client.user.displayAvatarURL;
       let embed = new Discord.RichEmbed()
-        .setColor(0x00bdf2)
+        .setColor(shared.embedColor)
         .setAuthor(song.guild.name, song.guild.iconURL)
         .setTitle(`Now Playing`)
         .setDescription(`[${song.title}](${song.url})`)
@@ -495,7 +495,7 @@ module.exports = {
         serverQueue.voiceChannel.leave();
         queue.delete(guild.id);
         var nosong = new Discord.RichEmbed()
-          .setColor(0x00bdf2)
+          .setColor(shared.embedColor)
           .setAuthor(message.author.tag, message.author.avatarURL)
           .setThumbnail(message.guild.iconURL)
           .setTitle("Music Concluded")
