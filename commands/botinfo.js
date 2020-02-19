@@ -65,6 +65,11 @@ module.exports = {
         .addField("Users", `\`${totalMembers}\``, true)
         .addField("Memory Used", `\`${getMemoryUsage()}\`MB`, true)
         .addField(
+          "Current Status",
+          `${statuses[client.user.presence.status]}`,
+          true
+        )
+        .addField(
           client.user.presence.game.type == 4
             ? "Custom Status"
             : "Current Activity",
@@ -74,7 +79,8 @@ module.exports = {
                   ? client.user.presence.game.state
                   : client.user.presence.game.name
               }`
-            : "None"
+            : "None",
+          true
         )
         .addField("Library", "discord.js")
         .setFooter(
