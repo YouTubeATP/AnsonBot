@@ -54,7 +54,7 @@ module.exports = {
       await message.channel
         .send(embeds[0])
         .then(msg => {
-          fn.paginator(message.author.id, msg, embeds, 0);
+          fn.paginator(message.author.id, msg, embeds, 0, client);
         })
         .catch(err => {
             message.channel.send(

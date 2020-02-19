@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 const moment = require("moment");
 
-const { defaultPrefix, embedColor } = require("./config.js");
+const { defaultPrefix, embedColor } = require("./config.js"),
+      index = require("/app/util/fn");;
 
 let time = (date = moment()) => {
   return moment(date)
@@ -143,18 +144,18 @@ let paginator = async (author, msg, embeds, pageNow) => {
     .awaitReactions(
       (reaction, user) =>
         user.id == author &&
-        ["◀", "▶", "⏪", "⏩", "<:no:662296249717751869>"].includes(
+        ["◀", "▶", "⏪", "⏩"].includes(
           reaction.emoji.name
         ),
       { time: 60 * 1000, max: 1, errors: ["time"] }
     )
     .catch(err => {
-      new Discord.RichEmbed()
-      .setColor(embedColor)
-      .setDescription(content)
-      .setFooter(client.user.username, client.user.avatarURL)
-      .setTimestamp();
-      msg.channel.send(delembed)
+      let delembed = new Discord.RichEmbed()
+        .setColor(embedColor)
+        .setDescription("Help menu timed out.")
+        .setFooter(client.user.username, client.user.avatarURL)
+        .setTimestamp();
+      msg.channel.send(delembed);
       return msg.delete();
     });
   reaction = reaction.first();
@@ -176,8 +177,6 @@ let paginator = async (author, msg, embeds, pageNow) => {
     let m = await msg.channel.send(embeds[embeds.length - 1]);
     msg.delete();
     paginator(author, m, embeds, embeds.length - 1);
-  } else if (reaction.emoji.name == "<:no:662296249717751869>") {
-    return msg.delete();
   }
 };
 
