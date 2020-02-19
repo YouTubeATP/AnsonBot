@@ -47,6 +47,8 @@ shared.playerVoted = playerVoted;
 shared.activeMusicSelection = activeMusicSelection;
 shared.playlist = playlist;
 
+exports.client = client
+
 const antiSpam = new AntiSpam({
   warnThreshold: 3, // Amount of messages sent in a row that will cause a warning.
   kickThreshold: 5, // Amount of messages sent in a row that will cause a ban.
@@ -542,7 +544,3 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
     console.log("Couldn't move users", e);
   }
 });
-
-module.exports = {
-  client: client
-};

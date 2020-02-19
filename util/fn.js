@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const moment = require("moment");
 
 const { defaultPrefix, embedColor } = require("./config.js"),
-  { client } = require("/app/index.js");
+  index = require("/app/index.js");
 
 let time = (date = moment()) => {
   return moment(date)
@@ -144,19 +144,23 @@ let paginator = async (author, msg, embeds, pageNow) => {
     .awaitReactions(
       (reaction, user) =>
         user.id == author &&
-        ["◀", "▶", "⏪", "⏩"].includes(reaction.emoji.name) && ["662296249717751869"].includes(reaction.emoji.id),
+        (["◀", "▶", "⏪", "⏩"].includes(reaction.emoji.name) ||
+          ["662296249717751869"].includes(reaction.emoji.id)),
       { time: 60 * 1000, max: 1, errors: ["time"] }
     )
     .catch(err => {
       let delembed = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(msg.author.tag, msg.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(
+          index.client.fetchUser(author).tag,
+          index.client.fetchUser(author).avatarURL
+        )
+        .setThumbnail(index.client.user.displayAvatarURL)
         .setTitle("Help menu deleted!")
         .setDescription(
           "Your help menu timed out. To maintain quality performance, all help menus expire after 60 seconds."
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(index.client.user.username, index.client.user.avatarURL)
         .setTimestamp();
       msg.channel.send(delembed);
       return msg.delete();
@@ -183,11 +187,14 @@ let paginator = async (author, msg, embeds, pageNow) => {
   } else if (reaction.emoji.id == "662296249717751869") {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
-      .setAuthor(msg.author.tag, msg.author.avatarURL)
-      .setThumbnail(client.user.displayAvatarURL)
+      .setAuthor(
+        index.client.fetchUser(author).tag,
+        index.client.fetchUser(author).avatarURL
+      )
+      .setThumbnail(index.client.user.displayAvatarURL)
       .setTitle("Help menu deleted!")
       .setDescription("You have manually deleted your help menu.")
-      .setFooter(client.user.username, client.user.avatarURL)
+      .setFooter(index.client.user.username, index.client.user.avatarURL)
       .setTimestamp();
     msg.channel.send(cancelembed);
     return msg.delete();
