@@ -152,8 +152,8 @@ let paginator = async (author, msg, embeds, pageNow) => {
       let delembed = new Discord.RichEmbed()
         .setColor("RED")
         .setAuthor(
-          index.client.fetchUser(author).tag,
-          index.client.fetchUser(author).avatarURL
+          author.user.tag,
+          author.user.avatarURL
         )
         .setThumbnail(index.client.user.displayAvatarURL)
         .setTitle("Help menu deleted!")
@@ -188,8 +188,8 @@ let paginator = async (author, msg, embeds, pageNow) => {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
       .setAuthor(
-        index.client.fetchUser(author).tag,
-        index.client.fetchUser(author).avatarURL
+        author.user.tag,
+        author.avatarURL
       )
       .setThumbnail(index.client.user.displayAvatarURL)
       .setTitle("Help menu deleted!")
