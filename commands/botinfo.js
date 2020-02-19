@@ -44,7 +44,8 @@ module.exports = {
         return Math.round(Number(total_rss) / 1e6);
       }
 
-      let bicon = client.user.displayAvatarURL;
+      const bicon = client.user.displayAvatarURL;
+      const bot = fn.getMember(message.guild, client.user);
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setTitle(`${client.user.tag} | Information`)
@@ -80,8 +81,8 @@ module.exports = {
           true
         )
         .addField(
-          `Role${message..roles.size == 2 ? "" : "s"} [${client.roles.size - 1}]`,
-          client.roles
+          `Role${bot.roles.size == 2 ? "" : "s"} [${bot.roles.size - 1}]`,
+          bot.roles
             .sort((a, b) => {
               if (a.position < b.position) return -1;
               if (a.position > b.position) return 1;
