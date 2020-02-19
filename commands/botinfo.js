@@ -48,13 +48,18 @@ module.exports = {
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setTitle(`${client.user.tag} | Information`)
+        .setAuthor(message.author.tag, message.author.avatarURL)
         .setThumbnail(bicon)
         .addField(client.user.bot ? "Bot" : "User", `${client.user}`, true)
         .addField("Custom Prefix", "`" + shared.prefix + "`", true)
-        .addField("Developers", "<@344335337889464357>, <@336389636878368770>", true)
+        .addField(
+          "Developers",
+          "<@344335337889464357>, <@336389636878368770>",
+          true
+        )
         .addField(
           client.user.bot ? "Created" : "Joined Discord",
-          `${fn.date(client.user.createdAt)}\n(${fn.ago(client.user.createdAt)})`
+          `${fn.date(client.user.createdAt)} (${fn.ago(client.user.createdAt)})`
         )
         .addField("Guilds", `\`${totalGuilds}\``, true)
         .addField("Users", `\`${totalMembers}\``, true)

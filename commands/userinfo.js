@@ -20,7 +20,8 @@ let statuses = {
 module.exports = {
   name: "userinfo",
   usage: "userinfo [user]",
-  description: "Shows information about the provided user, or yourself if none is provided.",
+  description:
+    "Shows information about the provided user, or yourself if none is provided.",
   category: "Utility",
   run: async (client, message, args, shared) => {
     let target = message.member;
@@ -41,11 +42,12 @@ module.exports = {
     let embed = new Discord.RichEmbed()
       .setColor(config.embedColor)
       .setTitle(`${target.user.tag} | Information`)
+      .setAuthor(message.author.tag, message.author.avatarURL)
       .setThumbnail(target.user.displayAvatarURL)
       .addField(target.user.bot ? "Bot" : "User", `${target}`, true)
       .addField(
         target.user.bot ? "Created" : "Joined Discord",
-        `${fn.date(target.user.createdAt)}\n(${fn.ago(target.user.createdAt)})`,
+        `${fn.date(target.user.createdAt)} (${fn.ago(target.user.createdAt)})`
       )
       .addField(
         "Current Status",

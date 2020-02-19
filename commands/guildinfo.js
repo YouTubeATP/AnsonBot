@@ -34,8 +34,7 @@ module.exports = {
       .addField("Region", `${guild.region}`, true)
       .addField(
         "Created",
-        `${fn.date(guild.createdAt)}\n(${fn.ago(guild.createdAt)})`,
-        true
+        `${fn.date(guild.createdAt)} (${fn.ago(guild.createdAt)})`
       )
       .addField(
         `Member${guild.members.size == 1 ? "" : "s"} [${guild.members.size}]`,
@@ -100,8 +99,7 @@ module.exports = {
                 .map(r => `${r}`)
                 .join(" ")
             : guild.roles.size - 1
-        }`,
-        true
+        }`
       )
       .setFooter(
         `ID: ${guild.id} | ${client.user.username}`,

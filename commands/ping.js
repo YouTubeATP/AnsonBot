@@ -11,8 +11,7 @@ module.exports = {
   category: "Utility",
   run: async (client, message, args, shared) => {
     message.channel.send("Pinging...").then(m => {
-      let pingMessage = `Latency: \`${Math.round(client.ping)}\`ms.`;
-
+      let pingMessage = `Latency: \`${Math.round(client.ping)}\`ms`;
       let embed = new Discord.RichEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL)
@@ -24,9 +23,10 @@ module.exports = {
 
       message.channel
         .send(embed)
-        .then(m => {
+        .then(msg => {
+          m.delete();
           message.delete();
-          m.delete(5000);
+          msg.delete(5000);
         })
         .catch(console.error);
     });
