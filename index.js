@@ -47,6 +47,10 @@ shared.playerVoted = playerVoted;
 shared.activeMusicSelection = activeMusicSelection;
 shared.playlist = playlist;
 
+module.exports = {
+  client: client
+};
+
 const antiSpam = new AntiSpam({
   warnThreshold: 3, // Amount of messages sent in a row that will cause a warning.
   kickThreshold: 5, // Amount of messages sent in a row that will cause a ban.
