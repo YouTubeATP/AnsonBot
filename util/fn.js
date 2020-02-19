@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const moment = require("moment");
 
 const { defaultPrefix, embedColor } = require("./config.js"),
-      index = require("/app/util/fn");;
+  index = require("/app/index.js");
 
 let time = (date = moment()) => {
   return moment(date)
@@ -144,16 +144,19 @@ let paginator = async (author, msg, embeds, pageNow) => {
     .awaitReactions(
       (reaction, user) =>
         user.id == author &&
-        ["◀", "▶", "⏪", "⏩"].includes(
-          reaction.emoji.name
-        ),
+        ["◀", "▶", "⏪", "⏩"].includes(reaction.emoji.name),
       { time: 60 * 1000, max: 1, errors: ["time"] }
     )
     .catch(err => {
       let delembed = new Discord.RichEmbed()
-        .setColor(embedColor)
-        .setDescription("Help menu timed out.")
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setColor("RED")
+        .setAuthor(msg.author.tag, msg.author.avatarURL)
+        .setThumbnail(index.client.user.displayAvatarURL)
+        .setTitle("Help menu deleted!")
+        .setDescription(
+          "Your help menu timed out. To maintain quality performance, all help menus expire after 60 seconds."
+        )
+        .setFooter(index.client.user.username, index.client.user.avatarURL)
         .setTimestamp();
       msg.channel.send(delembed);
       return msg.delete();
@@ -177,6 +180,17 @@ let paginator = async (author, msg, embeds, pageNow) => {
     let m = await msg.channel.send(embeds[embeds.length - 1]);
     msg.delete();
     paginator(author, m, embeds, embeds.length - 1);
+  } else if (reaction.emoji.id == "662296249717751869") {
+    let cancelembed = new Discord.RichEmbed()
+      .setColor("RED")
+      .setAuthor(msg.author.tag, msg.author.avatarURL)
+      .setThumbnail(index.client.user.displayAvatarURL)
+      .setTitle("Help menu deleted!")
+      .setDescription("You have manually deleted your help menu.")
+      .setFooter(index.client.user.username, index.client.user.avatarURL)
+      .setTimestamp();
+    msg.channel.send(cancelembed);
+    return msg.delete();
   }
 };
 

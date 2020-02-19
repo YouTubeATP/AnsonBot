@@ -23,7 +23,7 @@ module.exports = {
     const voiceChannel = message.member.voiceChannel;
     const botVoiceConnection = message.guild.voiceConnection;
 
-    var cancelled;
+    let cancelled;
 
     if (!voiceChannel)
       return message.channel.send(
@@ -236,20 +236,20 @@ module.exports = {
             }
 
             if (vindex === "time") {
-              var timeout = new Discord.RichEmbed()
+              let timeout = new Discord.RichEmbed()
                 .setColor("RED")
                 .setAuthor(message.author.tag, message.author.avatarURL)
                 .setThumbnail(client.user.displayAvatarURL)
                 .setTitle("Music selection cancelled!")
                 .setDescription(
-                  "Your music selection menu timed out. To maintain quality preformance, all music selection menus expire after 60 seconds."
+                  "Your music selection menu timed out. To maintain quality performance, all music selection menus expire after 60 seconds."
                 )
                 .setFooter(client.user.username, client.user.avatarURL)
                 .setTimestamp();
 
               return message.channel.send(timeout).then(m => m.delete(10000));
             } else if (vindex === "cancel") {
-              var cancelmsg = new Discord.RichEmbed()
+              let cancelmsg = new Discord.RichEmbed()
                 .setColor("RED")
                 .setAuthor(message.author.tag, message.author.avatarURL)
                 .setThumbnail(client.user.displayAvatarURL)
@@ -264,7 +264,7 @@ module.exports = {
             } else {
               const videoIndex = parseInt(vindex);
 
-              var video;
+              let video;
               try {
                 video = await shared.youtube1.getVideoByID(
                   videos[videoIndex - 1].id
