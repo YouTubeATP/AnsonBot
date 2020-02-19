@@ -185,15 +185,15 @@ client.on("message", async message => {
   if (
     message.content.toLowerCase().startsWith(`<@431247481267814410> `) ||
     message.content.toLowerCase().startsWith(`<@!431247481267814410> `) ||
-    message.content.toLowerCase().includes(`<@371704154705362944> `) ||
-    message.content.toLowerCase().includes(`<@!371704154705362944> `) ||
-    message.content.toLowerCase().includes(`<@333422871567400961> `) ||
-    message.content.toLowerCase().includes(`<@!333422871567400961> `) ||
-    message.content.toLowerCase().includes(`<@365975655608745985> `) ||
-    message.content.toLowerCase().includes(`<@!365975655608745985> `) ||
-    message.content.toLowerCase().includes(`fm/`) ||
-    message.content.toLowerCase().includes(`h!`) ||
-    message.content.toLowerCase().includes(`p!`)
+    message.content.toLowerCase().startsWith(`<@371704154705362944> `) ||
+    message.content.toLowerCase().startsWith(`<@!371704154705362944> `) ||
+    message.content.toLowerCase().startsWith(`<@333422871567400961> `) ||
+    message.content.toLowerCase().startsWith(`<@!333422871567400961> `) ||
+    message.content.toLowerCase().startsWith(`<@365975655608745985> `) ||
+    message.content.toLowerCase().startsWith(`<@!365975655608745985> `) ||
+    message.content.toLowerCase().startsWith(`fm/`) ||
+    message.content.toLowerCase().startsWith(`h!`) ||
+    message.content.toLowerCase().startsWith(`p!`)
   )
     return message.delete();
   if (
