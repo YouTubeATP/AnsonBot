@@ -147,16 +147,15 @@ let paginator = async (author, msg, embeds, pageNow) => {
         user.id == author &&
         (["◀", "▶", "⏪", "⏩"].includes(reaction.emoji.name) ||
           ["662296249717751869"].includes(reaction.emoji.id)),
-      { time: 60 * 1000, max: 1, errors: ["time"] }
+      { time: 90 * 1000, max: 1, errors: ["time"] }
     )
     .catch(err => {
       let delembed = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(Array.from(reaction.users.keys())[1].tag, Array.from(reaction.users.keys())[1].avatarURL)
         .setThumbnail(client.user.displayAvatarURL)
         .setTitle("Help menu deleted!")
         .setDescription(
-          "Your help menu timed out. To maintain quality performance, all help menus expire after 60 seconds."
+          "Your help menu timed out. To maintain quality performance, all help menus expire after 90 seconds."
         )
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
@@ -185,7 +184,6 @@ let paginator = async (author, msg, embeds, pageNow) => {
   } else if (reaction.emoji.id == "662296249717751869") {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
-      .setAuthor(Array.from(reaction.users.keys())[1].tag, Array.from(reaction.users.keys())[1].avatarURL)
       .setThumbnail(client.user.displayAvatarURL)
       .setTitle("Help menu deleted!")
       .setDescription("You have manually deleted your help menu.")
