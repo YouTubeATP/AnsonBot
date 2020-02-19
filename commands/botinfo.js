@@ -61,9 +61,6 @@ module.exports = {
           client.user.bot ? "Created" : "Joined Discord",
           `${fn.date(client.user.createdAt)} (${fn.ago(client.user.createdAt)})`
         )
-        .addField("Guilds", `\`${totalGuilds}\``, true)
-        .addField("Users", `\`${totalMembers}\``, true)
-        .addField("Memory Used", `\`${getMemoryUsage()}\`MB`, true)
         .addField(
           "Current Status",
           `${statuses[client.user.presence.status]}`,
@@ -82,6 +79,21 @@ module.exports = {
             : "None",
           true
         )
+        .addField(
+          `Role${message..roles.size == 2 ? "" : "s"} [${client.roles.size - 1}]`,
+          client.roles
+            .sort((a, b) => {
+              if (a.position < b.position) return -1;
+              if (a.position > b.position) return 1;
+            })
+            .map(r => `${r}`)
+            .slice(1)
+            .reverse()
+            .join(" ")
+        )
+        .addField("Guilds", `\`${totalGuilds}\``, true)
+        .addField("Users", `\`${totalMembers}\``, true)
+        .addField("Memory Used", `\`${getMemoryUsage()}\`MB`, true)
         .addField("Library", "discord.js")
         .setFooter(
           `ID: ${client.user.id} | ${client.user.username}`,
