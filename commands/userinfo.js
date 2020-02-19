@@ -45,7 +45,7 @@ module.exports = {
       .addField(target.user.bot ? "Bot" : "User", `${target}`, true)
       .addField(
         target.user.bot ? "Created" : "Joined Discord",
-        fn.date(target.user.createdAt),
+        `${fn.date(target.user.createdAt)}\n(${fn.ago(target.user.createdAt)})`,
       )
       .addField(
         "Current Status",

@@ -49,15 +49,16 @@ module.exports = {
         .setColor(config.embedColor)
         .setTitle(`${client.user.tag} | Information`)
         .setThumbnail(bicon)
-        .addField(client.user.bot ? "Bot" : "User", `${client.user.tag}`, true)
-        .addField("Prefix for this Server", "`" + shared.prefix + "`", true)
-        .addField("Developers", "<@344335337889464357>", true)
+        .addField(client.user.bot ? "Bot" : "User", `${client.user}`, true)
+        .addField("Custom Prefix", "`" + shared.prefix + "`", true)
+        .addField("Developers", "<@344335337889464357>, <@336389636878368770>", true)
         .addField(
           client.user.bot ? "Created" : "Joined Discord",
-          fn.date(client.user.createdAt)
+          `${fn.date(client.user.createdAt)}\n(${fn.ago(client.user.createdAt)})`
         )
         .addField("Guilds", `\`${totalGuilds}\``, true)
         .addField("Users", `\`${totalMembers}\``, true)
+        .addField("Memory Used", `\`${getMemoryUsage()}\`MB`, true)
         .addField(
           client.user.presence.game.type == 4
             ? "Custom Status"
@@ -68,10 +69,8 @@ module.exports = {
                   ? client.user.presence.game.state
                   : client.user.presence.game.name
               }`
-            : "None",
-          true
+            : "None"
         )
-        .addField("Memory Used", `\`${getMemoryUsage()}\`MB`)
         .addField("Library", "discord.js")
         .addField("ID", client.user.id)
         .setFooter(client.user.username, client.user.avatarURL)

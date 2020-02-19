@@ -24,9 +24,9 @@ module.exports = {
 
       message.channel
         .send(embed)
-        .then(() => {
+        .then(m => {
           message.delete();
-          m.delete();
+          m.delete(5000);
         })
         .catch(console.error);
     });
