@@ -132,7 +132,6 @@ let modCaseEmbed = (client, thisCase) => {
 
 let paginator = async (author, msg, embeds, pageNow) => {
   const client = index.client;
-  const useritem = client.fetchUser(author);
   if (pageNow != 0) {
     await msg.react("⏪");
     await msg.react("◀");
@@ -153,10 +152,7 @@ let paginator = async (author, msg, embeds, pageNow) => {
     .catch(err => {
       let delembed = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(
-          useritem.tag,
-          useritem.avatarURL
-        )
+        .setAuthor(reaction.users.first().tag, reaction.users.first().avatarURL)
         .setThumbnail(client.user.displayAvatarURL)
         .setTitle("Help menu deleted!")
         .setDescription(
@@ -189,10 +185,7 @@ let paginator = async (author, msg, embeds, pageNow) => {
   } else if (reaction.emoji.id == "662296249717751869") {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
-      .setAuthor(
-        useritem.tag,
-        useritem.avatarURL
-      )
+      .setAuthor(reaction.users.first().tag, reaction.users.first().avatarURL)
       .setThumbnail(client.user.displayAvatarURL)
       .setTitle("Help menu deleted!")
       .setDescription("You have manually deleted your help menu.")
