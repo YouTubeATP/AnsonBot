@@ -20,6 +20,7 @@ let statuses = {
 module.exports = {
   name: "userinfo",
   usage: "userinfo [user]",
+  aliases: ["user"],
   description:
     "Shows information about the provided user, or yourself if none is provided.",
   category: "Utility",
