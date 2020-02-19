@@ -26,7 +26,8 @@ const client = new Discord.Client(),
   botData = new db.table("BOTDATA"),
   handler = new RC.Handler(),
   mutedSet = new Set(),
-  queue = new Map();
+  queue = new Map(),
+  dash = require("bot-dashboard").init(client, 8080);
 
 let shared = {},
   stopping = false,
@@ -47,7 +48,7 @@ shared.playerVoted = playerVoted;
 shared.activeMusicSelection = activeMusicSelection;
 shared.playlist = playlist;
 
-exports.client = client
+exports.client = client;
 
 const antiSpam = new AntiSpam({
   warnThreshold: 3, // Amount of messages sent in a row that will cause a warning.
