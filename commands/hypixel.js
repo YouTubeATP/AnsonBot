@@ -25,23 +25,28 @@ module.exports = {
     }
 
     let username = args.shift();
+    checkUsername(username);
 
     function checkUsername(username) {
       hypixel.getPlayer.byName(username, (err, player) => {
         if (err) {
-          hypixel.getPlayer.byUuid(username, (err, player) => {
-            if (err) {
-              return message.channel
-                .send(
-                  fn.embed(client, {
-                    title: "Username/UUID not found!",
-                    description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-                  })
-                )
-                .then(() => message.delete());
-            }
-            checkGamemode(player);
-          });
+          checkUuid(username);
+        }
+        checkGamemode(player);
+      });
+    }
+
+    function checkUuid(username) {
+      hypixel.getPlayer.byUuid(username, (err, player) => {
+        if (err) {
+          return message.channel
+            .send(
+              fn.embed(client, {
+                title: "Username/UUID not found!",
+                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+              })
+            )
+            .then(() => message.delete());
         }
         checkGamemode(player);
       });
@@ -62,7 +67,5 @@ module.exports = {
         message.channel.send(embed).then(() => message.delete());
       }
     }
-
-    checkUsername(username);
   }
 };
