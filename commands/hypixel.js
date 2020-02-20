@@ -178,8 +178,9 @@ module.exports = {
           .addField("Rank", `\`${rank}\``, true)
           .addField("Level", `\`${netlvl}\``, true)
           .addField("Karma", `\`${player.karma}\``, true)
-          .addField("First/Last Login", `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)}) / ${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``)
-          .addField()
+          .addField("First Login", `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``)
+          .addField("Last Login", `\`${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``)
+          .addField("Discord", player.socialMedia.links.DISCORD, true)
           .addField(
             "Guild",
             `[${guildName}](https://hypixel.net/guilds/${guildName.replace(
@@ -188,6 +189,7 @@ module.exports = {
             )})`,
             true
           )
+          .addField("Forums", `[View forum account](${player.socialMedia.links.HYPIXEL})`)
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
             client.user.avatarURL
