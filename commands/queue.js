@@ -44,7 +44,7 @@ module.exports = {
       !Array.isArray(serverQueue.songs.slice(1)) ||
       !serverQueue.songs.slice(1).length
     )
-      queueValue = `There are no queued songs right now! To add another song to the queue, use the command \`${shared.prefix}play <song name/url>\` and make a selection.`;
+      queueValue = `There are no queued songs right now! To add another song to the queue, use the command \`${shared.customPrefix}play <song name/url>\` and make a selection.`;
     else
       queueValue = serverQueue.songs.slice(1).map(
         s =>

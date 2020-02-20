@@ -73,7 +73,7 @@ module.exports = {
           .setAuthor(message.author.tag, message.author.avatarURL)
           .setThumbnail(bicon)
           .addField(client.user.bot ? "Bot" : "User", `${client.user}`, true)
-          .addField("Custom Prefix", "`" + shared.prefix + "`", true)
+          .addField("Custom Prefix", "`" + shared.customPrefix + "`", true)
           .addField(
             "Developers",
             "<@344335337889464357>, <@336389636878368770>",

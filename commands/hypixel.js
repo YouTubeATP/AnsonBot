@@ -20,5 +20,6 @@ module.exports = {
     let gamemode = message.content
       .slice(shared.prefix.length + username.length)
       .trim();
+    
   }
 };

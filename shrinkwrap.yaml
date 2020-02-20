@@ -10,6 +10,7 @@ dependencies:
   fs: 0.0.2
   http: 0.0.0
   https: 1.0.0
+  hypixeljs: 1.4.0
   moment: 2.24.0
   node-opus: 0.3.3
   path: 0.12.7
@@ -336,6 +337,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-PDfHrhqO65ZpBKKtHpdaGUt+06Q=
+  /hypixeljs/1.4.0:
+    dev: false
+    resolution:
+      integrity: sha512-5QktLMl+uxqSyVnVcAJ0jzlc5J7qYe6jMyhJ4wca3I6wsPyko5PulYh6CLcQl6heoGbnh/9Uk/xsyvcJZ+ISDA==
   /iconv-lite/0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -796,6 +801,7 @@ specifiers:
   fs: ^0.0.2
   http: ^0.0.0
   https: ^1.0.0
+  hypixeljs: ^1.4.0
   moment: ^2.24.0
   node-opus: ^0.3.2
   path: ^0.12.7

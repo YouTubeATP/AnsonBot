@@ -102,7 +102,7 @@ module.exports = {
         .setColor(shared.embedColor)
         .setAuthor(message.author.tag, message.author.avatarURL)
         .setTitle(`Detailed Command Information`)
-        .setDescription(`**${shared.prefix}${command.name}**`)
+        .setDescription(`**${shared.customPrefix}${command.name}**`)
         .setThumbnail(client.user.avatarURL)
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();

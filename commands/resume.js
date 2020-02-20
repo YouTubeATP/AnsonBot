@@ -44,15 +44,25 @@ module.exports = {
         .setThumbnail(message.guild.iconURL)
         .setTitle("Music resumed!")
         .setDescription(
-          `Use the command \`${shared.prefix}pause\` to pause the music.`
+          `Use the command \`${shared.customPrefix}pause\` to pause the music.`
         )
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
 
       return message.channel.send(embed);
-    }
-    return message.channel.send(
-      `Something is currently playing! Use ${shared.prefix}pause to pause the music.`
-    );
+    } else {
+      var embed = new Discord.RichEmbed()
+        .setColor("RED")
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setThumbnail(message.guild.iconURL)
+        .setTitle("Music already playing!")
+        .setDescription(
+          `Use the command \`${shared.customPrefix}pause\` to pause the music.`
+        )
+        .setFooter(client.user.username, client.user.avatarURL)
+        .setTimestamp();
+
+      return message.channel.send(embed);
+    };
   }
 };
