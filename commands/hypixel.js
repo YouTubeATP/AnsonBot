@@ -162,7 +162,7 @@ module.exports = {
       let gamemode = message.content
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
-      if (!player[gamemode] || !gamemode) {
+      if (!player.stats[gamemode] || !gamemode) {
         let netlvl =
           Math.round(
             ((Math.sqrt(player.networkExp + 15312.5) - 125 / Math.sqrt(2)) /
