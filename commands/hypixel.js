@@ -6,6 +6,8 @@ const Discord = require("discord.js"),
 const config = require("/app/util/config"),
   fn = require("/app/util/fn");
 
+const talkedRecently = new Set();
+
 const MinecraftUUID = new Enmap({
   name: "link",
   fetchAll: false,
@@ -27,13 +29,28 @@ module.exports = {
     let nameOrID = args[0],
       rawcontent = message.content.slice(shared.prefix.length + 8).trim();
 
-    await MinecraftUUID.defer;
-    console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
-    await hypixel1.getKeyInfo((err, info) => {
-      if (err) hypixel = hypixel2;
-      else hypixel = hypixel1;
-      init();
-    });
+    if (talkedRecently.has(message.author.id)) {
+      message.channel.send(
+        fn.embed(client, {
+          title: "Woah! Slow down!",
+          description:
+            "This command has a cooldown. Wait a bit before trying again."
+        })
+      );
+    } else {
+      talkedRecently.add(message.author.id);
+      await MinecraftUUID.defer;
+      console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
+
+      await hypixel1.getKeyInfo((err, info) => {
+        if (err) hypixel = hypixel2;
+        else hypixel = hypixel1;
+        init();
+      });
+      setTimeout(() => {
+        talkedRecently.delete(message.author.id);
+      }, 10000);
+    }
 
     function init() {
       if (!rawcontent) {
