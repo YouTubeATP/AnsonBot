@@ -6,7 +6,7 @@ const config = require("/app/util/config"),
 module.exports = {
   name: "reload",
   usage: "reload",
-  aliases: ["restart"],
+  aliases: ["restart", "reboot"],
   description: "Reloads commands and functions of the bot.",
   category: "Bot Staff",
   botStaffOnly: true,

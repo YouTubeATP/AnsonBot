@@ -152,19 +152,24 @@ module.exports = {
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
       if (!player[gamemode] || !gamemode) {
+        getGuildName(username)
+        let netlvl =
+          Math.round(
+            ((Math.sqrt(player.networkExp + 15312.5) - 125 / Math.sqrt(2)) /
+              (25 * Math.sqrt(2))) *
+              10
+          ) / 10;
         let embed = new Discord.RichEmbed()
           .setColor(rankcolor)
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank}] ${username}`)
           .setURL(`https://hypixel.net/player/${username}`)
           .addField("Rank", `\`${rank}\``, true)
-          .addField("Level", `\`${player.karma}\``, true)
+          .addField("Level", `\`${netlvl}\``, true)
           .addField("Karma", `\`${player.karma}\``, true)
           .addField(
             "Guild",
-            `[${
-              player.karma
-            }](https://hypixel.net/guilds/${player.karma})`,
+            `[${player.karma}](https://hypixel.net/guilds/${player.karma})`,
             true
           )
           .addField("First/Last Login", `\`${player.karma}\``, true)
@@ -172,6 +177,10 @@ module.exports = {
           .setTimestamp();
         return message.channel.send(embed);
       }
+    }
+    
+    function getGuildName{
+      
     }
   }
 };
