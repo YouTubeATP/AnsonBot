@@ -6,16 +6,12 @@ const Discord = require("discord.js"),
 const config = require("/app/util/config"),
   fn = require("/app/util/fn");
 
-const DiscordLink = new Enmap({
+const MinecraftUUID = new Enmap({
   name: "link",
   fetchAll: false,
   autoFetch: true,
   cloneLevel: "deep"
 });
-
-const linkConfig = {
-  Discor
-}
 
 let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
@@ -35,7 +31,7 @@ module.exports = {
     });
 
     function init(hypixel) {
-      DiscordLink.ensure(message.member.id, linkConfig)
+      MinecraftUUID.ensure(message.member.id, null);
       let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
       if (!rawcontent) {
         return message.channel.send(
@@ -198,6 +194,9 @@ module.exports = {
               disc = client.users
                 .filterArray(u => u.discriminator === nameargs[1])
                 .find(x => x.tag.includes(nameargs[0]));
+              MinecraftUUID.get(message.member.id);
+              if (disc.id === message.member.id)
+                MinecraftUUID.set(message.member.id, uuid);
             } catch (err) {
               disc = player.socialMedia.links.DISCORD;
             }
