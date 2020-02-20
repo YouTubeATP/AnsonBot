@@ -152,7 +152,7 @@ module.exports = {
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
       if (!player[gamemode] || !gamemode) {
-        getGuildName(username)
+        getGuildInfo(player);
         let netlvl =
           Math.round(
             ((Math.sqrt(player.networkExp + 15312.5) - 125 / Math.sqrt(2)) /
@@ -173,14 +173,21 @@ module.exports = {
             true
           )
           .addField("First/Last Login", `\`${player.karma}\``, true)
-          .setFooter(client.user.username, client.user.avatarURL)
-          .setTimestamp();
+          .setFooter(
+            `UUID: ${player.uuid} | ${client.user.username}`,
+            client.user.avatarURL
+          );
         return message.channel.send(embed);
       }
     }
-    
-    function getGuildName{
-      
+    function getGuildInfo(player) {
+      client.findGuildByPlayer(player.uuid, (err, guildId) => {
+        if (err || guildId === null) console.log(err);
+        client.getGuild(guildId, (err, guild) => {
+          if (err || guildId === null) console.log(err);
+          guildInfo = guild
+        });
+      });
     }
   }
 };
