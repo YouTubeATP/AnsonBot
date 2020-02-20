@@ -252,8 +252,8 @@ client.on("message", async message => {
     message.content.startsWith(mention) ||
     message.content.startsWith(mention1)
   ) {
-    var args;
-
+    let args;
+    shared.customPrefix = prefix;
     if (msg.startsWith(prefix)) {
       args = message.content
         .trim()
