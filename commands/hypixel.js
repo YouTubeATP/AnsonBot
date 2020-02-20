@@ -43,13 +43,7 @@ module.exports = {
         } else {
           MojangAPI.nameToUuid(username, function(err, res) {
             if (err) console.log(err);
-            else hypixel.findGuildByPlayer(res[0].id, (err, guildId) => {
-                if (err || guildId === null || guildId === undefined) console.log(err);
-                else hypixel.getGuild(guildId, (err, guild) => {
-                    if (err || guild === null || guild === undefined) console.log(err);
-                    else checkGamemode(res[0].name, player);
-                  });
-              });
+            else checkGuildInfo(res[0].name, res[0].id, player);
           });
         }
       });
@@ -67,15 +61,20 @@ module.exports = {
         } else {
           MojangAPI.profile(Uuid, function(err, res) {
             if (err) console.log(err);
-            else hypixel.findGuildByPlayer(res.id, (err, guildId) => {
-                if (err || guildId === null || guildId === undefined) console.log(err);
-                else hypixel.getGuild(guildId, (err, guild) => {
-                    if (err || guild === null || guild === undefined) console.log(err);
-                    else checkGamemode(res.name, player, guild);
-                  });
-              });
+            else checkGuildInfo(res.name, res.id, player);
           });
         }
+      });
+    }
+
+    function checkGuildInfo(username, uuid, player) {
+      hypixel.findGuildByPlayer(uuid, (err, guildId) => {
+        if (err || guildId === null || guildId === undefined) console.log(err);
+        else
+          hypixel.getGuild(guildId, (err, guild) => {
+            if (err || guild === null || guild === undefined) console.log(err);
+            else checkGamemode(username, player, guild);
+          });
       });
     }
 
@@ -179,6 +178,8 @@ module.exports = {
           .addField("Rank", `\`${rank}\``, true)
           .addField("Level", `\`${netlvl}\``, true)
           .addField("Karma", `\`${player.karma}\``, true)
+          .addField("First/Last Login", `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)}) / ${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``)
+          .addField()
           .addField(
             "Guild",
             `[${guildName}](https://hypixel.net/guilds/${guildName.replace(
@@ -187,7 +188,6 @@ module.exports = {
             )})`,
             true
           )
-          .addField("First/Last Login", `\`${player.karma}\``, true)
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
             client.user.avatarURL
