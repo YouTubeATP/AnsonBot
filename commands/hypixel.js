@@ -170,7 +170,15 @@ module.exports = {
               10
           ) / 10;
         let guildName = guildInfo.name;
-        client.users.filter(u => u.discriminator === "...")
+        let nameargs = player.socialMedia.links.DISCORD.split("#");
+        let disc;
+        try {
+          disc = client.users
+            .filterArray(u => u.discriminator === nameargs[1])
+            .find(x => x.tag.includes(nameargs[0]));
+        } catch (err) {
+          disc = player.socialMedia.links.DISCORD;
+        }
         let embed = new Discord.RichEmbed()
           .setColor(rankcolor)
           .setThumbnail(thumbnailURL)
@@ -179,9 +187,15 @@ module.exports = {
           .addField("Rank", `\`${rank}\``, true)
           .addField("Level", `\`${netlvl}\``, true)
           .addField("Karma", `\`${player.karma}\``, true)
-          .addField("First Login", `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``)
-          .addField("Last Login", `\`${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``)
-          .addField("Discord", player.socialMedia.links.DISCORD, true)
+          .addField(
+            "First Login",
+            `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``
+          )
+          .addField(
+            "Last Login",
+            `\`${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``
+          )
+          .addField("Discord", disc, true)
           .addField(
             "Guild",
             `[${guildName}](https://hypixel.net/guilds/${guildName.replace(
@@ -190,7 +204,11 @@ module.exports = {
             )})`,
             true
           )
-          .addField("Forums", `[View forum account](${player.socialMedia.links.HYPIXEL})`)
+          .addField(
+            "Forums",
+            `[View forum account](${player.socialMedia.links.HYPIXEL})`
+          )
+          .setImage("")
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
             client.user.avatarURL
