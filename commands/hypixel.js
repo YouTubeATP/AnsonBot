@@ -93,14 +93,19 @@ module.exports = {
     }
 
     function checkGamemode(username, player, guildInfo, uuid) {
-      let gamemode;
-      if (rawcontent && MinecraftUUID.get(message.member.id) === uuid) {
+      let gamemode,
+        syncID = MinecraftUUID.get(message.member.id);
+      if (rawcontent && syncID === uuid) {
         gamemode = rawcontent;
-        if (gamemode === username) gamemode = null;
-      } else
+        if (gamemode === username)
+          gamemode = message.content
+            .slice(shared.prefix.length + 8 + nameOrID.length)
+            .trim();
+      } else if (nameOrID) {
         gamemode = message.content
           .slice(shared.prefix.length + 8 + nameOrID.length)
           .trim();
+      }
       let rank,
         rankcolor,
         thumbnailURL =
