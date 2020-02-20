@@ -68,27 +68,39 @@ module.exports = {
     }
 
     function checkGamemode(username, player) {
-      console.log(player.rank);
+      console.log(player.prefix);
       let rank,
         rankcolor,
         thumbnailURL =
           "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2FHypixel-Thumbnail.png?v=1582188330345";
-      if (player.prefix === "§d[PIG§b+++§d]") {
+      if (player.prefix === "§c[OWNER]") {
+        rank = "[OWNER]";
+        rankcolor = "RED";
+      } else if (player.prefix === "§c[SLOTH]") {
+        rank = "[SLOTH]";
+        rankcolor = "RED";
+      } else if (player.prefix === "§6[APPLE]") {
+        rank = "[APPLE]";
+        rankcolor = "0xFF6347";
+      } else if (player.prefix === "§d[PIG§b+++§d]") {
         rank = "[PIG+++]";
         rankcolor = "0xFF69B4";
         thumbnailURL;
       } else if (player.rank !== "NORMAL") {
         if (player.rank === "HELPER") {
           rank = "[HELPER]";
-          rankcolor = "BLUE";
+          rankcolor = "DARK_BLUE";
         } else if (player.rank === "MODERATOR") {
           rank = "[MOD]";
           rankcolor = "DARK_GREEN";
-        } else if (player.rank === "YOUTUBER") rank = "[YOUTUBE]";
-        else {
+        } else if (player.rank === "YOUTUBER") {
+          rank = "[YOUTUBE]";
+          rankcolor = "RED";
+        } else {
           rank = `[${player.rank}]`;
-        rankcolor = "RED";
-        thumbnailURL;
+          rankcolor = "RED";
+          thumbnailURL;
+        }
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
         rank = "[MVP++]";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
@@ -118,6 +130,7 @@ module.exports = {
           .setColor(rankcolor)
           .setThumbnail(client.user.avatarURL)
           .setTitle(`${rank} ${username}`)
+          .setURL(`https://hypixel.net/player/${username}`)
           .setDescription("test")
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp();
