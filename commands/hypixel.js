@@ -383,14 +383,32 @@ module.exports = {
         gamemode.toLowerCase() === "vampirez"
       )
         gamemode = "VampireZ";
-        else if (
-        gamemode.toLowerCase() === "speeduhc" ||
-        gamemode.toLowerCase() === "speed uhc" ||
-        gamemode.toLowerCase() === "speed"
+      else if (
+        gamemode.toLowerCase() === "the walls" ||
+        gamemode.toLowerCase() === "walls" ||
+        gamemode.toLowerCase() === "thewalls"
       )
-        gamemode = "SpeedUHC";
+        gamemode = "Walls";
+      else if (
+        gamemode.toLowerCase() === "warlords" ||
+        gamemode.toLowerCase() === "warlord"
+      )
+        gamemode = "Warlords";
+      else
+        return message.channel.send(
+          fn.embed(client, {
+            title: "Gamemode not found!",
+            description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+          })
+        );
       let thumbnailURL = `https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/${gamemode}-64.png`;
       let stats = player.stats[gamemode];
+      return message.channel.send(
+            fn.embed(client, {
+              title: "Coming soon!",
+              description: `Game-specific stats are still a work in progress. Sorry for the inconvenience caused!`
+            })
+          );
     }
   }
 };
