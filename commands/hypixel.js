@@ -24,7 +24,7 @@ module.exports = {
     "Shows Hypixel statistics. Provide a gamemode for game-specific stats.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
-    let username = args[0],
+    let nameOrID = args[0],
       rawcontent = message.content.slice(shared.prefix.length + 8).trim();
 
     await MinecraftUUID.defer;
@@ -37,24 +37,23 @@ module.exports = {
 
     function init() {
       if (!rawcontent) {
-        if (MinecraftUUID.get(message.member.id) === null) {}
+        if (MinecraftUUID.get(message.member.id) === null) {
           return message.channel.send(
             fn.embed(client, {
               title: "Command used incorrectly!",
               description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
             })
           );
-        else checkUuid(MinecraftUUID.get(message.member.id));
-      }
-      checkUsername(username);
+        } else checkUuid(MinecraftUUID.get(message.member.id));
+      } else checkUsername(nameOrID);
     }
 
-    function checkUsername(username) {
-      hypixel.getPlayerByUsername(username, (err, player) => {
+    function checkUsername(nameOrID) {
+      hypixel.getPlayerByUsername(nameOrID, (err, player) => {
         if (err || player === null) {
-          checkUuid(username);
+          checkUuid(nameOrID);
         } else {
-          MojangAPI.nameToUuid(username, function(err, res) {
+          MojangAPI.nameToUuid(nameOrID, function(err, res) {
             if (err) console.log(err);
             else checkGuildInfo(res[0].name, res[0].id, player);
           });
@@ -65,14 +64,14 @@ module.exports = {
     function checkUuid(Uuid) {
       hypixel.getPlayer(Uuid, (err, player) => {
         if (err || player === null) {
-          if (MinecraftUUID.get(message.member.id) === null)
+          if (MinecraftUUID.get(message.member.id) === null) {
             return message.channel.send(
               fn.embed(client, {
                 title: "Username/UUID not found!",
                 description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
               })
             );
-          else checkUuid(MinecraftUUID.get(message.member.id));
+          } else checkUuid(MinecraftUUID.get(message.member.id));
         } else {
           MojangAPI.profile(Uuid, function(err, res) {
             if (err) console.log(err);
@@ -95,10 +94,12 @@ module.exports = {
 
     function checkGamemode(username, player, guildInfo, uuid) {
       let gamemode;
-      if (MinecraftUUID.get(message.member.id) === uuid) gamemode = rawcontent;
-      else
+      if (rawcontent && MinecraftUUID.get(message.member.id) === uuid) {
+        gamemode = rawcontent;
+        if (gamemode === username) gamemode = null;
+      } else
         gamemode = message.content
-          .slice(shared.prefix.length + 8 + username.length)
+          .slice(shared.prefix.length + 8 + nameOrID.length)
           .trim();
       let rank,
         rankcolor,
