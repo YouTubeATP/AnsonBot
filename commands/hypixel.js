@@ -65,9 +65,9 @@ module.exports = {
     }
 
     function checkGamemode(username, player) {
-      return console.log(player.prefix);
       let rank;
-      if (player.prefix === "§d[PIG§b+++§d]") rank = "[PIG+++]"
+      if (player.prefix === "§d[PIG§b+++§d]") rank = "[PIG+++]";
+      if (player.rank === "YOUTUBER") rank = "[YouTube]"
       if (player.monthlyPackageRank === "SUPERSTAR") rank = "[MVP++]";
       if (player.newPackageRank === "MVP_PLUS") rank = "[MVP+]";
       else if (player.newPackageRank === "MVP") rank = "[MVP]";
