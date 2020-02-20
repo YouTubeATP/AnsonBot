@@ -53,7 +53,7 @@ module.exports = {
 
     function init() {
       if (!rawcontent) {
-        if (MinecraftUUID.get(message.member.id) === null) {
+        if (!MinecraftUUID.get(message.member.id)) {
           return message.channel.send(
             fn.embed(client, {
               title: "Command used incorrectly!",
@@ -66,7 +66,7 @@ module.exports = {
 
     function checkUsername(nameOrID) {
       hypixel.getPlayerByUsername(nameOrID, (err, player) => {
-        if (err || player === null) {
+        if (err || !player) {
           checkUuid(nameOrID);
         } else checkGuildInfo(player.displayname, player.uuid, player);
       });
@@ -74,8 +74,8 @@ module.exports = {
 
     function checkUuid(Uuid) {
       hypixel.getPlayer(Uuid, (err, player) => {
-        if (err || player === null) {
-          if (MinecraftUUID.get(message.member.id) === null) {
+        if (err || !player) {
+          if (!MinecraftUUID.get(message.member.id)) {
             return message.channel.send(
               fn.embed(client, {
                 title: "Username/UUID not found!",
@@ -89,10 +89,10 @@ module.exports = {
 
     function checkGuildInfo(username, uuid, player) {
       hypixel.findGuildByPlayer(uuid, (err, guildId) => {
-        if (err || guildId === null || guildId === undefined) console.log(err);
+        if (err || !guildId) console.log(err);
         else
           hypixel.getGuild(guildId, (err, guild) => {
-            if (err || guild === null || guild === undefined) console.log(err);
+            if (err || !guild) console.log(err);
             else checkGamemode(username, player, guild, uuid);
           });
       });
@@ -160,7 +160,7 @@ module.exports = {
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
         rank = "MVP++";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
-        else if ((player.rankPlusColor === undefined) | null)
+        else if (!player.rankPlusColor)
           rankcolor = "0xFF4f4f";
         else rankcolor = player.rankPlusColor;
         thumbnailURL =
@@ -168,7 +168,7 @@ module.exports = {
       } else if (player.newPackageRank === "MVP_PLUS") {
         rank = "MVP+";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
-        else if ((player.rankPlusColor === undefined) | null)
+        else if (!player.rankPlusColor)
           rankcolor = "0xFF4f4f";
         else rankcolor = player.rankPlusColor;
         thumbnailURL =
@@ -215,11 +215,11 @@ module.exports = {
                 .filterArray(u => u.discriminator === nameargs[1])
                 .find(x => x.tag.includes(nameargs[0]));
               if (disc.id === message.member.id)
-                if (MinecraftUUID.get(message.member.id) === null)
+                if (!MinecraftUUID.get(message.member.id))
                   message.channel.send(
                     fn.embed(client, {
                       title: "Mojang account linked!",
-                      description: `Your Minecraft Java account, ${username}, has been linked.`
+                      description: `The Minecraft Java user \`${username}\` is now associated with ${message.author}.`
                     })
                   );
               MinecraftUUID.set(message.member.id, uuid);
