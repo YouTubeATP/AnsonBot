@@ -221,11 +221,26 @@ module.exports = {
         if (forums !== undefined) embed.addField("Forums", forums, true);
         if (disc !== undefined) embed.addField("Discord", disc);
         return message.channel.send(embed);
-      } else if (player.stats[gamemode]) specificGame(username, player, guildInfo, uuid, rank);
+      } else if (player.stats[gamemode])
+        specificGame(username, player, guildInfo, uuid, gamemode, rank, rankcolor);
     }
 
-    function specificGame(username, player, guildInfo, uuid, gamemode, rank) {
-      
+    function specificGame(username, player, guildInfo, uuid, gamemode, rank, rankcolor) {
+      let embeds = [];
+      for (var i in gamemode) {
+        embeds.push(
+          new Discord.RichEmbed()
+            .setColor(rankcolor)
+            .setThumbnail(thumbnailURL)
+            .setTitle(`[${rank}] ${username}`)
+            .setDescription(
+              gamemode[i].join("") +
+                "\nDo `help [command]` to get information about specific commands!"
+            )
+            .setFooter(client.user.username, client.user.avatarURL)
+            .setTimestamp()
+        );
+      }
     }
   }
 };
