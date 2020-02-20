@@ -52,7 +52,15 @@ module.exports = {
         .slice(shared.prefix.length + 7 + username.length)
         .trim();
       if (!player[gamemode] || !gamemode) {
-        
+        let embed = new Discord.RichEmbed()
+          .setColor(shared.embedColor)
+          .setAuthor(message.author.tag, message.author.avatarURL)
+          .setThumbnail(client.user.avatarURL)
+          .setTitle("Ping Received!")
+          .setDescription("test")
+          .setFooter(client.user.username, client.user.avatarURL)
+          .setTimestamp();
+        message.channel.send(embed).then(() => message.delete());
       }
     }
   }
