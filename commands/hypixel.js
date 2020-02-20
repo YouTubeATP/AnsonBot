@@ -81,12 +81,15 @@ module.exports = {
         rankcolor = "RED";
       } else if (player.prefix === "§6[APPLE]") {
         rank = "[APPLE]";
-        rankcolor = "0xFF6347";
+        rankcolor = "RED";
+      } else if (player.prefix === "§6[MOJANG]") {
+        rank = "[MOJANG]";
+        rankcolor = "RED";
       } else if (player.prefix === "§d[PIG§b+++§d]") {
         rank = "[PIG+++]";
         rankcolor = "0xFF69B4";
         thumbnailURL;
-      } else if (player.rank !== "NORMAL") {
+      } else if (player.rank && player.rank !== "NORMAL") {
         if (player.rank === "HELPER") {
           rank = "[HELPER]";
           rankcolor = "DARK_BLUE";
@@ -108,6 +111,8 @@ module.exports = {
       } else if (player.newPackageRank === "MVP_PLUS") {
         rank = "[MVP+]";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
+        else if ((player.rankPlusColor === undefined) | null)
+          rankcolor = "0xFF4f4f";
         else rankcolor = player.rankPlusColor;
       } else if (player.newPackageRank === "MVP") {
         rank = "[MVP]";
