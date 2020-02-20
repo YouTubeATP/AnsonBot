@@ -113,14 +113,14 @@ module.exports = {
       let gamemode,
         syncID = MinecraftUUID.get(message.member.id);
       if (rawcontent && syncID === uuid) {
-        gamemode = rawcontent;
-        if (gamemode === username)
+        if (rawcontent.includes(username) || rawcontent.includes(username))
           gamemode = message.content
-            .slice(shared.prefix.length + 8 + nameOrID.length)
+            .slice(shared.prefix.length + 9 + nameOrID.length)
             .trim();
+        else gamemode = rawcontent;
       } else if (nameOrID) {
         gamemode = message.content
-          .slice(shared.prefix.length + 8 + nameOrID.length)
+          .slice(shared.prefix.length + 9 + nameOrID.length)
           .trim();
       }
       let rank,
