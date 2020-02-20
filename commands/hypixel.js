@@ -61,13 +61,20 @@ module.exports = {
         } else {
           MojangAPI.profile(Uuid, function(err, res) {
             if (err) console.log(err);
-            else checkGamemode(res.name, player);
+            else
+              hypixel.findGuildByPlayer(res.uuid, (err, guildId) => {
+                if (err || guildId === null) console.log(err);
+                hypixel.getGuild(guildId, (err, guild) => {
+                  if (err || guildId === null) console.log(err);
+                  checkGamemode(res.name, player, guild);
+                });
+              });
           });
         }
       });
     }
 
-    function checkGamemode(username, player) {
+    function checkGamemode(username, player, guildInfo) {
       let rank,
         rankcolor,
         thumbnailURL =
@@ -152,13 +159,13 @@ module.exports = {
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
       if (!player[gamemode] || !gamemode) {
-        getGuildInfo(player);
         let netlvl =
           Math.round(
             ((Math.sqrt(player.networkExp + 15312.5) - 125 / Math.sqrt(2)) /
               (25 * Math.sqrt(2))) *
               10
           ) / 10;
+        let guildName = guildInfo.name;
         let embed = new Discord.RichEmbed()
           .setColor(rankcolor)
           .setThumbnail(thumbnailURL)
@@ -169,7 +176,10 @@ module.exports = {
           .addField("Karma", `\`${player.karma}\``, true)
           .addField(
             "Guild",
-            `[${player.karma}](https://hypixel.net/guilds/${player.karma})`,
+            `[${guildName}](https://hypixel.net/guilds/${guildName.replace(
+              " ",
+              "%20"
+            )})`,
             true
           )
           .addField("First/Last Login", `\`${player.karma}\``, true)
@@ -179,15 +189,6 @@ module.exports = {
           );
         return message.channel.send(embed);
       }
-    }
-    function getGuildInfo(player) {
-      client.findGuildByPlayer(player.uuid, (err, guildId) => {
-        if (err || guildId === null) console.log(err);
-        client.getGuild(guildId, (err, guild) => {
-          if (err || guildId === null) console.log(err);
-          guildInfo = guild
-        });
-      });
     }
   }
 };
