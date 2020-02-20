@@ -15,7 +15,7 @@ module.exports = {
   description: "Shows Hypixel statistics.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
-    let rawcontent = message.content.slice(shared.prefix.length + 7).trim();
+    let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
     if (!rawcontent) {
       return message.channel
         .send(
@@ -28,28 +28,31 @@ module.exports = {
     }
 
     let username = args.shift();
-    hypixel.getPlayer.byName(username, (err, player) => {
-      if (err) {
-        hypixel.getPlayer.byUuid(username, (err, player) => {
-          if (err) {
-            return message.channel
-              .send(
-                fn.embed(client, {
-                  title: "Username/UUID not found!",
-                  description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-                })
-              )
-              .then(() => message.delete());
-          }
-          checkGamemode(player);
-        });
-      }
-      checkGamemode(player);
-    });
 
-    async function checkGamemode(player) {
+    function checkUsername(username) {
+      hypixel.getPlayer.byName(username, (err, player) => {
+        if (err) {
+          hypixel.getPlayer.byUuid(username, (err, player) => {
+            if (err) {
+              return message.channel
+                .send(
+                  fn.embed(client, {
+                    title: "Username/UUID not found!",
+                    description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+                  })
+                )
+                .then(() => message.delete());
+            }
+            checkGamemode(player);
+          });
+        }
+        checkGamemode(player);
+      });
+    }
+
+    function checkGamemode(player) {
       let gamemode = message.content
-        .slice(shared.prefix.length + 7 + username.length)
+        .slice(shared.prefix.length + 8 + username.length)
         .trim();
       if (!player[gamemode] || !gamemode) {
         let embed = new Discord.RichEmbed()
@@ -62,5 +65,7 @@ module.exports = {
         message.channel.send(embed).then(() => message.delete());
       }
     }
+    
+    checkUsername(username)
   }
 };
