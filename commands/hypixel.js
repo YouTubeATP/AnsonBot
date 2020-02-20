@@ -23,14 +23,12 @@ module.exports = {
     function init(hypixel) {
       let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
       if (!rawcontent) {
-        return message.channel
-          .send(
-            fn.embed(client, {
-              title: "Command used incorrectly!",
-              description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-            })
-          )
-          .then(() => message.delete());
+        return message.channel.send(
+          fn.embed(client, {
+            title: "Command used incorrectly!",
+            description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+          })
+        );
       }
 
       let username = args.shift();
@@ -39,29 +37,27 @@ module.exports = {
 
     function checkUsername(username) {
       hypixel.getPlayerByUsername(username, (err, player) => {
-        if (err) {
-          hypixel.getPlayer(username, (err, player) => {
-            if (err) {
-              return message.channel
-                .send(
-                  fn.embed(client, {
-                    title: "Username/UUID not found!",
-                    description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-                  })
-                )
-                .then(() => message.delete());
-            } else {
-              checkGamemode(player.name, player);
-            }
-          });
+        if (err || player === null) {
+          checkUuid(username);
         } else {
           checkGamemode(username, player);
         }
       });
     }
-    
+
     function checkUuid(Uuid) {
-      
+      hypixel.getPlayer(Uuid, (err, player) => {
+        if (err || player === null) {
+          return message.channel.send(
+            fn.embed(client, {
+              title: "Username/UUID not found!",
+              description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+            })
+          );
+        } else {
+          checkGamemode(player, player);
+        }
+      });
     }
 
     function checkGamemode(username, player) {
@@ -76,7 +72,7 @@ module.exports = {
           .setDescription("test")
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp();
-        message.channel.send(embed).then(() => message.delete());
+        return message.channel.send(embed);
       }
     }
   }
