@@ -74,30 +74,42 @@ module.exports = {
         thumbnailURL =
           "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2FHypixel-Thumbnail.png?v=1582188330345";
       if (player.prefix === "§c[OWNER]") {
-        rank = "[OWNER]";
+        rank = "OWNER";
         rankcolor = "RED";
       } else if (player.prefix === "§c[SLOTH]") {
-        rank = "[SLOTH]";
+        rank = "SLOTH";
+        rankcolor = "RED";
+      } else if (player.prefix === "§c[ANGUS]") {
+        rank = "ANGUS";
+        rankcolor = "RED";
+      } else if (player.prefix === "§3[MIXER]") {
+        rank = "MIXER";
         rankcolor = "RED";
       } else if (player.prefix === "§6[APPLE]") {
-        rank = "[APPLE]";
+        rank = "APPLE";
         rankcolor = "RED";
+      } else if (player.prefix === "§6[EVENTS]") {
+        rank = "EVENTS";
+        rankcolor = "GOLD";
       } else if (player.prefix === "§6[MOJANG]") {
-        rank = "[MOJANG]";
-        rankcolor = "RED";
+        rank = "MOJANG";
+        rankcolor = "GOLD";
       } else if (player.prefix === "§d[PIG§b+++§d]") {
-        rank = "[PIG+++]";
+        rank = "PIG+++";
         rankcolor = "0xFF69B4";
         thumbnailURL;
-      } else if (player.rank && player.rank !== "NORMAL") {
+      } else if (player.prefix === "§3[BUILD TEAM]") {
+                 rank = "BUILD TEAM";
+        rankcolor = "DARK_AQUA";
+                 } else if (player.rank && player.rank !== "NORMAL") {
         if (player.rank === "HELPER") {
-          rank = "[HELPER]";
+          rank = "HELPER";
           rankcolor = "DARK_BLUE";
         } else if (player.rank === "MODERATOR") {
-          rank = "[MOD]";
+          rank = "MOD";
           rankcolor = "DARK_GREEN";
         } else if (player.rank === "YOUTUBER") {
-          rank = "[YOUTUBE]";
+          rank = "YOUTUBE";
           rankcolor = "RED";
         } else {
           rank = `[${player.rank}]`;
@@ -105,26 +117,26 @@ module.exports = {
           thumbnailURL;
         }
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
-        rank = "[MVP++]";
+        rank = "MVP++";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
         else rankcolor = player.rankPlusColor;
       } else if (player.newPackageRank === "MVP_PLUS") {
-        rank = "[MVP+]";
+        rank = "MVP+";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
         else if ((player.rankPlusColor === undefined) | null)
           rankcolor = "0xFF4f4f";
         else rankcolor = player.rankPlusColor;
       } else if (player.newPackageRank === "MVP") {
-        rank = "[MVP]";
+        rank = "MVP";
         rankcolor = "AQUA";
       } else if (player.newPackageRank === "VIP_PLUS") {
-        rank = "[VIP+]";
+        rank = "VIP+";
         rankcolor = "GREEN";
       } else if (player.newPackageRank === "VIP") {
-        rank = "[VIP]";
+        rank = "VIP";
         rankcolor = "GREEN";
       } else {
-        rank = "[NON]";
+        rank = "NON";
         rankcolor = "0x505050";
       }
       let gamemode = message.content
@@ -134,9 +146,11 @@ module.exports = {
         let embed = new Discord.RichEmbed()
           .setColor(rankcolor)
           .setThumbnail(client.user.avatarURL)
-          .setTitle(`${rank} ${username}`)
+          .setTitle(`[${rank}] ${username}`)
           .setURL(`https://hypixel.net/player/${username}`)
-          .setDescription("test")
+          .addField("Rank", , true)
+          .addField("Level", , true)
+          .addField("Karma", , true)
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp();
         return message.channel.send(embed);
