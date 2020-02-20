@@ -65,7 +65,14 @@ module.exports = {
     }
 
     function checkGamemode(username, player) {
-      return console.log (player);
+      return console.log(player);
+      let rank;
+      if (monthlyPackageRank === "SUPERSTAR") rank = "[MVP++]"
+      if (player.newPackageRank === "MVP_PLUS") rank = "[MVP+]";
+      else if (player.newPackageRank === "MVP") rank = "[MVP]";
+      else if (player.newPackageRank === "VIP_PLUS") rank = "[VIP+]";
+      else if (player.newPackageRank === "VIP") rank = "[VIP]";
+      else rank = "[DEFAULT]"
       let gamemode = message.content
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
@@ -73,7 +80,7 @@ module.exports = {
         let embed = new Discord.RichEmbed()
           .setColor(shared.embedColor)
           .setThumbnail(client.user.avatarURL)
-          .setTitle(`${player.rank}${username}`)
+          .setTitle(`${rank} ${username}`)
           .setDescription("test")
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp();
