@@ -68,6 +68,7 @@ module.exports = {
     }
 
     function checkGamemode(username, player) {
+      console.log(player.rank);
       let rank,
         rankcolor,
         thumbnailURL =
@@ -76,8 +77,9 @@ module.exports = {
         rank = "[PIG+++]";
         rankcolor = "0xFF69B4";
         thumbnailURL;
-      } else if (player.rank === "YOUTUBER") {
-        rank = "[YouTube]";
+      } else if (player.rank) {
+        if (player.rank === "YOUTUBER") rank = "[YOUTUBE]"
+        else rank = `[${rank}]`;
         rankcolor = "RED";
         thumbnailURL;
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
@@ -98,7 +100,7 @@ module.exports = {
         rank = "[VIP]";
         rankcolor = "GREEN";
       } else {
-        rank = "[Default]";
+        rank = "[NON]";
         rankcolor = "0x505050";
       }
       let gamemode = message.content
