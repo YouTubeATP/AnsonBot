@@ -68,8 +68,6 @@ module.exports = {
     }
 
     function checkGamemode(username, player) {
-      fn.log(player);
-      
       let rank,
         rankcolor,
         thumbnailURL =
@@ -160,8 +158,16 @@ module.exports = {
           .setTitle(`[${rank}] ${username}`)
           .setURL(`https://hypixel.net/player/${username}`)
           .addField("Rank", `\`${rank}\``, true)
-          .addField("Level", `\`${player.networklevel}\``, true)
+          .addField("Level", `\`${player.lvl}\``, true)
           .addField("Karma", `\`${player.karma}\``, true)
+          .addField(
+            "Guild",
+            `[${
+              player.stats.guild.name
+            }](https://hypixel.net/guilds/${player.stats.guild.name(" ", "%20")})`,
+            true
+          )
+          .addField("First/Last Login", `\`${player.karma}\``, true)
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp();
         return message.channel.send(embed);
