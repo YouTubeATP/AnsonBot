@@ -169,7 +169,7 @@ module.exports = {
               (25 * Math.sqrt(2))) *
               10
           ) / 10;
-        let guildmsg;
+        let disc, guildmsg, forums;
         if (guildInfo.name) {
           let guildName = guildInfo.name;
           guildmsg = `[${guildName}](https://hypixel.net/guilds/${guildName.replace(
@@ -177,21 +177,23 @@ module.exports = {
             "%20"
           )})`;
         } else guildmsg = "None";
-        if (player.socialMedia.links.DISCORD) {
-          let nameargs = player.socialMedia.links.DISCORD.split("#");
-          let disc;
-        }
-
-        try {
-          disc = client.users
-            .filterArray(u => u.discriminator === nameargs[1])
-            .find(x => x.tag.includes(nameargs[0]));
-        } catch (err) {
-          try {
-            disc = player.socialMedia.links.DISCORD;
-          } catch (err) {
-            disc = "None";
-          }
+        if (player.socialMedia) {
+          if (player.socialMedia.links.DISCORD) {
+            let nameargs = player.socialMedia.links.DISCORD.split("#");
+            try {
+              disc = client.users
+                .filterArray(u => u.discriminator === nameargs[1])
+                .find(x => x.tag.includes(nameargs[0]));
+            } catch (err) {
+              disc = player.socialMedia.links.DISCORD;
+            }
+          } else disc = null;
+          if (player.socialMedia.links.HYPIXEL)
+            forums = `[View forum account](${player.socialMedia.links.HYPIXEL})`;
+          else forums = "None";
+        } else {
+          disc = "None";
+          forums = "None";
         }
         let embed = new Discord.RichEmbed()
           .setColor(rankcolor)
@@ -209,17 +211,14 @@ module.exports = {
             "Last Login",
             `${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})`
           )
-          .addField("Discord", disc, true)
-          .addField("Guild", guildmsg, true)
-          .addField(
-            "Forums",
-            `[View forum account](${player.socialMedia.links.HYPIXEL})`
-          )
           .setImage(`https://visage.surgeplay.com/full/${uuid}`)
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
             client.user.avatarURL
           );
+          if () embed.addField("Discord", disc, true);
+          embed.addField("Guild", guildmsg, true);
+          embed.addField("Forums", forums, true);
         return message.channel.send(embed);
       }
     }
