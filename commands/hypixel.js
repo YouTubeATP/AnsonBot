@@ -68,6 +68,8 @@ module.exports = {
     }
 
     function checkGamemode(username, player) {
+      fn.log(player);
+      
       let rank,
         rankcolor,
         thumbnailURL =

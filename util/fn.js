@@ -195,6 +195,11 @@ let paginator = async (author, msg, embeds, pageNow) => {
   }
 };
 
+function log(msg) {
+   console.log(msg);
+   fs.writeFileSync("/app/templogs.txt");
+}
+
 module.exports = {
   time: time,
   utcTime: utcTime,
@@ -207,5 +212,6 @@ module.exports = {
   getRole: getRole,
   ModCase: ModCase,
   modCaseEmbed: modCaseEmbed,
-  paginator: paginator
+  paginator: paginator,
+  log: log
 };
