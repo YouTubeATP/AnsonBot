@@ -170,6 +170,7 @@ module.exports = {
               10
           ) / 10;
         let guildName = guildInfo.name;
+        client.users.filter(u => u.discriminator === "...")
         let embed = new Discord.RichEmbed()
           .setColor(rankcolor)
           .setThumbnail(thumbnailURL)
