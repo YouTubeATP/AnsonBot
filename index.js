@@ -292,8 +292,10 @@ client.on("message", async message => {
         .setThumbnail(guild.iconURL)
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
-      message.channel.send(embed);
-      return message.delete().then(m => m.delete(5000));
+      return message.channel.send(embed).then(m => {
+        message.delete();
+        m.delete(5000);
+      });
     }
 
     if (command.botStaffOnly && !user.botStaff) {
