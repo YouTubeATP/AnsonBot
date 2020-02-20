@@ -73,12 +73,12 @@ module.exports = {
         else
           hypixel.getGuild(guildId, (err, guild) => {
             if (err || guild === null || guild === undefined) console.log(err);
-            else checkGamemode(username, player, guild);
+            else checkGamemode(username, player, guild, uuid);
           });
       });
     }
 
-    function checkGamemode(username, player, guildInfo) {
+    function checkGamemode(username, player, guildInfo, uuid) {
       let rank,
         rankcolor,
         thumbnailURL =
@@ -169,46 +169,53 @@ module.exports = {
               (25 * Math.sqrt(2))) *
               10
           ) / 10;
-        let guildName = guildInfo.name;
-        let nameargs = player.socialMedia.links.DISCORD.split("#");
-        let disc;
+        let guildmsg;
+        if (guildInfo.name) {
+          let guildName = guildInfo.name;
+          guildmsg = `[${guildName}](https://hypixel.net/guilds/${guildName.replace(
+            " ",
+            "%20"
+          )})`;
+        } else guildmsg = "None";
+        if (player.socialMedia.links.DISCORD) {
+          let nameargs = player.socialMedia.links.DISCORD.split("#");
+          let disc;
+        }
+
         try {
           disc = client.users
             .filterArray(u => u.discriminator === nameargs[1])
             .find(x => x.tag.includes(nameargs[0]));
         } catch (err) {
-          disc = player.socialMedia.links.DISCORD;
+          try {
+            disc = player.socialMedia.links.DISCORD;
+          } catch (err) {
+            disc = "None";
+          }
         }
         let embed = new Discord.RichEmbed()
           .setColor(rankcolor)
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank}] ${username}`)
           .setURL(`https://hypixel.net/player/${username}`)
-          .addField("Rank", `\`${rank}\``, true)
-          .addField("Level", `\`${netlvl}\``, true)
-          .addField("Karma", `\`${player.karma}\``, true)
+          .addField("Rank", rank, true)
+          .addField("Level", netlvl, true)
+          .addField("Karma", player.karma, true)
           .addField(
             "First Login",
-            `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``
+            `${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})`
           )
           .addField(
             "Last Login",
-            `\`${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``
+            `${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})`
           )
           .addField("Discord", disc, true)
-          .addField(
-            "Guild",
-            `[${guildName}](https://hypixel.net/guilds/${guildName.replace(
-              " ",
-              "%20"
-            )})`,
-            true
-          )
+          .addField("Guild", guildmsg, true)
           .addField(
             "Forums",
             `[View forum account](${player.socialMedia.links.HYPIXEL})`
           )
-          .setImage("")
+          .setImage(`https://visage.surgeplay.com/full/${uuid}`)
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
             client.user.avatarURL
