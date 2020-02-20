@@ -3,7 +3,8 @@ const Discord = require("discord.js"),
   Enmap = require("enmap");
 
 const config = require("/app/util/config"),
-  fn = require("/app/util/fn");
+  fn = require("/app/util/fn"),
+  shared = require("/app/index.js");
 
 const talkedRecently = new Set();
 
@@ -21,7 +22,7 @@ let hypixel,
 module.exports = {
   name: "skin",
   usage: "skin <username/UUID>",
-  description: "Shows the Minecraft skin of the provided user.",
+  description: `Shows the Minecraft skin of the provided Java Edition user. Those who have linked their Mojang accounts to the bot can get their skin when omitting \`<username/UUID>\`.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Jave Edition, join \`mc.hypixel.net\`.\n2.Switch to slot 2 (My Profile) and right click.\n3.Click on the icon at row 3, column 4 (Social Media).\n4. Click on the icon at row 4, column 8 (Discord) use the command \`${shared.customPrefix}hypixel <your username>\`.`,
   category: "Minecraft",
   run: async (client, message, args, shared) => {
     let nameOrID = args[0],

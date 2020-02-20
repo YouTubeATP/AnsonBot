@@ -3,7 +3,8 @@ const Discord = require("discord.js"),
   Enmap = require("enmap");
 
 const config = require("/app/util/config"),
-  fn = require("/app/util/fn");
+  fn = require("/app/util/fn"),
+  shared = require("/app/index.js");
 
 const talkedRecently = new Set();
 
