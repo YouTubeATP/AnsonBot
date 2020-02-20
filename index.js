@@ -287,7 +287,7 @@ client.on("message", async message => {
         .setColor(config.embedColor)
         .setTitle(`I can't recognize this command!`)
         .setDescription(
-          `Maybe a typo? Do ${prefix}help for a list of available commands.`
+          `Maybe a typo? Do \`${prefix}help\` for a list of available commands.`
         )
         .setThumbnail(guild.iconURL)
         .setFooter(client.user.username, client.user.avatarURL)

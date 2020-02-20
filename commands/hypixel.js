@@ -12,14 +12,22 @@ hypixel.login([
 module.exports = {
   name: "hypixel",
   usage: "hypixel <username> [gamemode]",
-  aliases: ["h"],
   description: "Shows Hypixel statistics.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
+    let rawcontent = message.content.slice(shared.prefix.length + 7).trim();
+    if (!rawcontent) {
+      message.delete();
+      return message.channel.send(
+        fn.embed(client, {
+          title: "Command used incorrectly!",
+          description: `Please follow the format as shown below:\n\`${shared.customPrefix}hypixel <username> [gamemode]\``
+        })
+      );
+    }
     let username = args.shift();
     let gamemode = message.content
-      .slice(shared.prefix.length + username.length)
+      .slice(shared.prefix.length + 7 + username.length)
       .trim();
-    
   }
 };
