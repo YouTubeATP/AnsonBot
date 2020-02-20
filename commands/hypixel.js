@@ -43,7 +43,7 @@ module.exports = {
         } else {
           MojangAPI.nameToUuid(username, function(err, res) {
             if (err) console.log(err);
-            else checkGamemode(username, player);
+            else checkGamemode(res[0].name, player);
           });
         }
       });
@@ -68,20 +68,25 @@ module.exports = {
     }
 
     function checkGamemode(username, player) {
-      let rank, rankcolor;
+      let rank,
+        rankcolor,
+        thumbnailURL =
+          "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2FHypixel-Thumbnail.png?v=1582188330345";
       if (player.prefix === "§d[PIG§b+++§d]") {
         rank = "[PIG+++]";
-        rankcolor = "PINK";
+        rankcolor = "0xFF69B4";
+        thumbnailURL;
       } else if (player.rank === "YOUTUBER") {
         rank = "[YouTube]";
         rankcolor = "RED";
+        thumbnailURL;
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
         rank = "[MVP++]";
-        if (player.rankPlusColor === "WHITE") rankcolor = "fefefe";
+        if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
         else rankcolor = player.rankPlusColor;
       } else if (player.newPackageRank === "MVP_PLUS") {
         rank = "[MVP+]";
-        if (player.rankPlusColor === "WHITE") rankcolor = "fefefe";
+        if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
         else rankcolor = player.rankPlusColor;
       } else if (player.newPackageRank === "MVP") {
         rank = "[MVP]";
@@ -94,7 +99,7 @@ module.exports = {
         rankcolor = "GREEN";
       } else {
         rank = "[Default]";
-        rankcolor = "GRAY";
+        rankcolor = "0x505050";
       }
       let gamemode = message.content
         .slice(shared.prefix.length + 8 + username.length)
