@@ -176,7 +176,7 @@ module.exports = {
             " ",
             "%20"
           )})`;
-        } else guildmsg = "None";
+        } else guildmsg = undefined;
         if (player.socialMedia) {
           if (player.socialMedia.links.DISCORD) {
             let nameargs = player.socialMedia.links.DISCORD.split("#");
@@ -187,38 +187,38 @@ module.exports = {
             } catch (err) {
               disc = player.socialMedia.links.DISCORD;
             }
-          } else disc = null;
+          } else disc = undefined;
           if (player.socialMedia.links.HYPIXEL)
             forums = `[View forum account](${player.socialMedia.links.HYPIXEL})`;
-          else forums = "None";
+          else forums = undefined;
         } else {
-          disc = "None";
-          forums = "None";
+          disc = undefined;
+          forums = undefined;
         }
         let embed = new Discord.RichEmbed()
           .setColor(rankcolor)
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank}] ${username}`)
           .setURL(`https://hypixel.net/player/${username}`)
-          .addField("Rank", rank, true)
-          .addField("Level", netlvl, true)
-          .addField("Karma", player.karma, true)
+          .addField("Rank", `\`${rank}\``, true)
+          .addField("Level", `\`${netlvl}\``, true)
+          .addField("Karma", `\`${player.karma}\``, true)
           .addField(
             "First Login",
-            `${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})`
+            `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``
           )
           .addField(
             "Last Login",
-            `${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})`
+            `\`${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``
           )
           .setImage(`https://visage.surgeplay.com/full/${uuid}`)
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
             client.user.avatarURL
           );
-          if () embed.addField("Discord", disc, true);
-          embed.addField("Guild", guildmsg, true);
-          embed.addField("Forums", forums, true);
+          if (guildmsg !== undefined) embed.addField("Guild", guildmsg, true);
+          if (forums !== undefined) embed.addField("Forums", forums, true);
+          if (disc !== undefined) embed.addField("Discord", disc);
         return message.channel.send(embed);
       }
     }
