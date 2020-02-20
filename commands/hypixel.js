@@ -1,9 +1,21 @@
 const Discord = require("discord.js"),
   Hypixel = require("hypixel"),
-  MojangAPI = require("mojang-api");
+  MojangAPI = require("mojang-api"),
+  Enmap = require("enmap");
 
 const config = require("/app/util/config"),
   fn = require("/app/util/fn");
+
+const DiscordLink = new Enmap({
+  name: "link",
+  fetchAll: false,
+  autoFetch: true,
+  cloneLevel: "deep"
+});
+
+const linkConfig = {
+  Discor
+}
 
 let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
@@ -23,6 +35,7 @@ module.exports = {
     });
 
     function init(hypixel) {
+      DiscordLink.ensure(message.member.id, linkConfig)
       let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
       if (!rawcontent) {
         return message.channel.send(
@@ -404,11 +417,11 @@ module.exports = {
       let thumbnailURL = `https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/${gamemode}-64.png`;
       let stats = player.stats[gamemode];
       return message.channel.send(
-            fn.embed(client, {
-              title: "Coming soon!",
-              description: `Game-specific stats are still a work in progress. Sorry for the inconvenience caused!`
-            })
-          );
+        fn.embed(client, {
+          title: "Coming soon!",
+          description: `Game-specific stats are still a work in progress. Sorry for the inconvenience caused!`
+        })
+      );
     }
   }
 };
