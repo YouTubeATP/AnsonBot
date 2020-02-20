@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 
 const config = require("/app/util/config"),
-  fn = require("/app/util/fn");
+  fn = require("/app/util/fn"),
+  shared = require("/app/index.js");
 
 module.exports = {
   name: "help",
@@ -82,7 +83,19 @@ module.exports = {
         commands.find(c => c.aliases && c.aliases.includes(name));
 
       if (!command) {
-        return message.reply("that's not a valid command!");
+        let embed = new Discord.RichEmbed()
+          .setColor(config.embedColor)
+          .setTitle(`I can't recognize this command!`)
+          .setDescription(
+            `Maybe a typo? Do \`${shared.customPrefix}help\` for a list of available commands.`
+          )
+          .setThumbnail(message.guild.iconURL)
+          .setFooter(client.user.username, client.user.avatarURL)
+          .setTimestamp();
+        return message.channel.send(embed).then(m => {
+          message.delete();
+          m.delete(5000);
+        });
       }
 
       if (command.botStaffOnly && !shared.user.botStaff)

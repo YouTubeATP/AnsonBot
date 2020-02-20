@@ -22,7 +22,7 @@ let hypixel,
 module.exports = {
   name: "hypixel",
   usage: "hypixel <username/UUID> [gamemode]",
-  description: `Shows Hypixel statistics. Provide a gamemode for game-specific stats. If your Mojang account is linked, the argument \`<username/UUID>\` may be omitted when requesting your own stats.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Jave Edition, join \`mc.hypixel.net\`.\n2.Switch to slot 2 (My Profile) and right click.\n3.Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`${shared.customPrefix}hypixel <your username>\`.`,
+  description: `Shows Hypixel statistics. Provide a gamemode for game-specific stats. If your Mojang account is linked, the argument \`<username/UUID>\` may be omitted when requesting your own stats.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Jave Edition, join \`mc.hypixel.net\`.\n2.Switch to slot 2 (My Profile) and right click.\n3.Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`hypixel <your username>\`.`,
   category: "Minecraft",
   run: async (client, message, args, shared) => {
     let nameOrID = args[0],
@@ -160,16 +160,14 @@ module.exports = {
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
         rank = "MVP++";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
-        else if (!player.rankPlusColor)
-          rankcolor = "0xFF4f4f";
+        else if (!player.rankPlusColor) rankcolor = "0xFF4f4f";
         else rankcolor = player.rankPlusColor;
         thumbnailURL =
           "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2FMVP%2B%2B.png?v=1582193229141";
       } else if (player.newPackageRank === "MVP_PLUS") {
         rank = "MVP+";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
-        else if (!player.rankPlusColor)
-          rankcolor = "0xFF4f4f";
+        else if (!player.rankPlusColor) rankcolor = "0xFF4f4f";
         else rankcolor = player.rankPlusColor;
         thumbnailURL =
           "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2FMVP%2B.png?v=1582193204722";
