@@ -41,22 +41,19 @@ module.exports = {
               )
               .then(() => message.delete());
           }
+          checkGamemode(player);
         });
       }
+      checkGamemode(player);
     });
-    if (!username) {
-      return message.channel
-        .send(
-          fn.embed(client, {
-            title: "Username/UUID not found!",
-            description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-          })
-        )
-        .then(() => message.delete());
-    }
 
-    let gamemode = message.content
-      .slice(shared.prefix.length + 7 + username.length)
-      .trim();
+    async function checkGamemode(player) {
+      let gamemode = message.content
+        .slice(shared.prefix.length + 7 + username.length)
+        .trim();
+      if (!player[gamemode] || !gamemode) {
+        
+      }
+    }
   }
 };
