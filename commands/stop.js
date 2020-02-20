@@ -44,7 +44,7 @@ module.exports = {
     serverQueue.voiceChannel.leave();
 
     var stop = new Discord.RichEmbed()
-      .setColor(shared.embedColor)
+      .setColor(config.embedColor)
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setThumbnail(message.guild.iconURL)
       .setTitle("Music Terminated")

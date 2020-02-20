@@ -41,7 +41,7 @@ module.exports = {
         embeds.push(
           new Discord.RichEmbed()
             .setTitle(`${i} Commands`)
-            .setColor(shared.embedColor)
+            .setColor(config.embedColor)
             .setThumbnail(client.user.avatarURL)
             .setDescription(
               userCommands[i].join("") +
@@ -55,7 +55,7 @@ module.exports = {
         .send(embeds[0])
         .then(msg => {
           let sentEmbed = new Discord.RichEmbed()
-            .setColor(shared.embedColor)
+            .setColor(config.embedColor)
             .setAuthor(message.author.tag, message.author.avatarURL)
             .setTitle(`Check your DMs!`)
             .setDescription(
@@ -99,7 +99,7 @@ module.exports = {
         );
 
       let embed = new Discord.RichEmbed()
-        .setColor(shared.embedColor)
+        .setColor(config.embedColor)
         .setAuthor(message.author.tag, message.author.avatarURL)
         .setTitle(`Detailed Command Information`)
         .setDescription(`**${shared.customPrefix}${command.name}**`)

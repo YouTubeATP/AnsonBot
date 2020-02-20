@@ -91,11 +91,11 @@ module.exports = {
         modelURL = `https://visage.surgeplay.com/full/${uuid}`,
         skinURL = `https://visage.surgeplay.com/skin/${uuid}`;
       let embed = new Discord.RichEmbed()
-        .setColor(shared.embedcolor)
+        .setColor(config.embedColor)
         .setThumbnail(thumbnailURL)
         .setTitle(username)
         .setURL(skinURL)
-        .setDescription("Click on the hyperlink above to download skin.")
+        .setDescription("Click on the hyperlink above to download this skin.")
         .setImage(modelURL)
         .setFooter(
           `UUID: ${player.uuid} | ${client.user.username}`,
