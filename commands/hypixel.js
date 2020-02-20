@@ -38,12 +38,30 @@ module.exports = {
     }
 
     function checkUsername(username) {
-      hypixel.getPlayer(username, (err, player) => {
+      hypixel.getPlayerByUsername(username, (err, player) => {
         if (err) {
-          console.log(err);
+          hypixel.getPlayer(username, (err, player) => {
+            if (err) {
+              return message.channel
+                .send(
+                  fn.embed(client, {
+                    title: "Username/UUID not found!",
+                    description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+                  })
+                )
+                .then(() => message.delete());
+            } else {
+              checkGamemode(player.name, player);
+            }
+          });
+        } else {
+          checkGamemode(username, player);
         }
-        checkGamemode(player.username, player);
       });
+    }
+    
+    function checkUuid(Uuid) {
+      
     }
 
     function checkGamemode(username, player) {
