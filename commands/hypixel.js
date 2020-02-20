@@ -24,22 +24,26 @@ module.exports = {
     "Shows Hypixel statistics. Provide a gamemode for game-specific stats.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
+    MinecraftUUID.ensure(message.member.id, null);
+
     hypixel1.getKeyInfo((err, info) => {
       if (err) hypixel = hypixel2;
       else hypixel = hypixel1;
-      init(hypixel);
     });
 
-    function init(hypixel) {
-      MinecraftUUID.ensure(message.member.id, null);
+    init();
+
+    function init() {
       let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
       if (!rawcontent) {
-        return message.channel.send(
-          fn.embed(client, {
-            title: "Command used incorrectly!",
-            description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-          })
-        );
+        if (MinecraftUUID.get(message.member.id) === null)
+          return message.channel.send(
+            fn.embed(client, {
+              title: "Command used incorrectly!",
+              description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+            })
+          );
+        else discordInit(MinecraftUUID.get(message.member.id))
       }
 
       let username = args.shift();
@@ -62,12 +66,14 @@ module.exports = {
     function checkUuid(Uuid) {
       hypixel.getPlayer(Uuid, (err, player) => {
         if (err || player === null) {
-          return message.channel.send(
-            fn.embed(client, {
-              title: "Username/UUID not found!",
-              description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-            })
-          );
+          if (MinecraftUUID.get(message.member.id) === null)
+            return message.channel.send(
+              fn.embed(client, {
+                title: "Username/UUID not found!",
+                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+              })
+            );
+          else discordInit(MinecraftUUID.get(message.member.id));
         } else {
           MojangAPI.profile(Uuid, function(err, res) {
             if (err) console.log(err);
@@ -194,11 +200,10 @@ module.exports = {
               disc = client.users
                 .filterArray(u => u.discriminator === nameargs[1])
                 .find(x => x.tag.includes(nameargs[0]));
-              MinecraftUUID.get(message.member.id);
               if (disc.id === message.member.id)
                 MinecraftUUID.set(message.member.id, uuid);
             } catch (err) {
-              disc = player.socialMedia.links.DISCORD;
+              disc = undefined;
             }
           } else disc = undefined;
           if (player.socialMedia.links.HYPIXEL)
