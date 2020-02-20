@@ -24,7 +24,10 @@ module.exports = {
     "Shows Hypixel statistics. Provide a gamemode for game-specific stats.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
-    MinecraftUUID.ensure(message.member.id, null);
+    await MinecraftUUID.defer;
+    console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
+
+    let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
 
     hypixel1.getKeyInfo((err, info) => {
       if (err) hypixel = hypixel2;
@@ -34,7 +37,6 @@ module.exports = {
     init();
 
     function init() {
-      let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
       if (!rawcontent) {
         if (MinecraftUUID.get(message.member.id) === null)
           return message.channel.send(
@@ -43,11 +45,9 @@ module.exports = {
               description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
             })
           );
-        else discordInit(MinecraftUUID.get(message.member.id))
+        else checkUuid(MinecraftUUID.get(message.member.id));
       }
-
-      let username = args.shift();
-      checkUsername(username);
+      checkUsername(args.shift());
     }
 
     function checkUsername(username) {
@@ -73,7 +73,7 @@ module.exports = {
                 description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
               })
             );
-          else discordInit(MinecraftUUID.get(message.member.id));
+          else checkUuid(MinecraftUUID.get(message.member.id));
         } else {
           MojangAPI.profile(Uuid, function(err, res) {
             if (err) console.log(err);
@@ -95,6 +95,12 @@ module.exports = {
     }
 
     function checkGamemode(username, player, guildInfo, uuid) {
+      let gamemode;
+      if (MinecraftUUID.get(message.member.id) === uuid) gamemode = rawcontent;
+      else
+        gamemode = message.content
+          .slice(shared.prefix.length + 8 + username.length)
+          .trim();
       let rank,
         rankcolor,
         thumbnailURL =
@@ -175,9 +181,6 @@ module.exports = {
         rank = "NON";
         rankcolor = "0x505050";
       }
-      let gamemode = message.content
-        .slice(shared.prefix.length + 8 + username.length)
-        .trim();
       if (!gamemode) {
         let netlvl =
           Math.round(
