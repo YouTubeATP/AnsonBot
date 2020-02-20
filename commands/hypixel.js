@@ -77,9 +77,14 @@ module.exports = {
         rank = "[PIG+++]";
         rankcolor = "0xFF69B4";
         thumbnailURL;
+      } else if (player.rank === "NORMAL") {
+        if (player.rank === "YOUTUBER") rank = "[YOUTUBE]"
+        else rank = `[${player.rank}]`;
+        rankcolor = "RED";
+        thumbnailURL;
       } else if (player.rank) {
         if (player.rank === "YOUTUBER") rank = "[YOUTUBE]"
-        else rank = `[${rank}]`;
+        else rank = `[${player.rank}]`;
         rankcolor = "RED";
         thumbnailURL;
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
