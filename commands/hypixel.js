@@ -222,10 +222,37 @@ module.exports = {
         if (disc !== undefined) embed.addField("Discord", disc);
         return message.channel.send(embed);
       } else if (player.stats[gamemode])
-        specificGame(username, player, guildInfo, uuid, gamemode, rank, rankcolor);
+        specificGame(
+          username,
+          player,
+          guildInfo,
+          uuid,
+          gamemode,
+          rank,
+          rankcolor
+        );
     }
 
-    function specificGame(username, player, guildInfo, uuid, gamemode, rank, rankcolor) {
+    function specificGame(
+      username,
+      player,
+      guildInfo,
+      uuid,
+      gamemode,
+      rank,
+      rankcolor
+    ) {
+      if (
+        gamemode.toLowerCase() === "bw" ||
+        gamemode.toLowerCase() === "bedwars"
+      )
+        gamemode = "Bedwars";
+      else if (
+        gamemode.toLowerCase() === "sw" ||
+        gamemode.toLowerCase() === "skywars"
+      )
+        gamemode = "Skywars";
+      let thumbnailURL = `https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/${gamemode}-64.png`;
       let embeds = [];
       for (var i in gamemode) {
         embeds.push(
