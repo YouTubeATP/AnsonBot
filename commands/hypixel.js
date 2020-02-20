@@ -54,9 +54,8 @@ module.exports = {
       if (!player[gamemode] || !gamemode) {
         let embed = new Discord.RichEmbed()
           .setColor(shared.embedColor)
-          .setAuthor(message.author.tag, message.author.avatarURL)
           .setThumbnail(client.user.avatarURL)
-          .setTitle("Ping Received!")
+          .setTitle(`${player.rank}${username}`)
           .setDescription("test")
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp();
