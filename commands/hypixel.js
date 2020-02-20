@@ -41,7 +41,10 @@ module.exports = {
         if (err || player === null) {
           checkUuid(username);
         } else {
-          checkGamemode(username, player);
+          MojangAPI.nameToUuid(username, function(err, res) {
+            if (err) console.log(err);
+            else checkGamemode(username, player);
+          });
         }
       });
     }
@@ -65,21 +68,40 @@ module.exports = {
     }
 
     function checkGamemode(username, player) {
-      let rank;
-      if (player.prefix === "§d[PIG§b+++§d]") rank = "[PIG+++]";
-      if (player.rank === "YOUTUBER") rank = "[YouTube]"
-      if (player.monthlyPackageRank === "SUPERSTAR") rank = "[MVP++]";
-      if (player.newPackageRank === "MVP_PLUS") rank = "[MVP+]";
-      else if (player.newPackageRank === "MVP") rank = "[MVP]";
-      else if (player.newPackageRank === "VIP_PLUS") rank = "[VIP+]";
-      else if (player.newPackageRank === "VIP") rank = "[VIP]";
-      else rank = "[DEFAULT]"
+      let rank, rankcolor;
+      if (player.prefix === "§d[PIG§b+++§d]") {
+        rank = "[PIG+++]";
+        rankcolor = "PINK";
+      } else if (player.rank === "YOUTUBER") {
+        rank = "[YouTube]";
+        rankcolor = "RED";
+      } else if (player.monthlyPackageRank === "SUPERSTAR") {
+        rank = "[MVP++]";
+        if (player.rankPlusColor === "WHITE") rankcolor = "fefefe";
+        else rankcolor = player.rankPlusColor;
+      } else if (player.newPackageRank === "MVP_PLUS") {
+        rank = "[MVP+]";
+        if (player.rankPlusColor === "WHITE") rankcolor = "fefefe";
+        else rankcolor = player.rankPlusColor;
+      } else if (player.newPackageRank === "MVP") {
+        rank = "[MVP]";
+        rankcolor = "AQUA";
+      } else if (player.newPackageRank === "VIP_PLUS") {
+        rank = "[VIP+]";
+        rankcolor = "GREEN";
+      } else if (player.newPackageRank === "VIP") {
+        rank = "[VIP]";
+        rankcolor = "GREEN";
+      } else {
+        rank = "[Default]";
+        rankcolor = "GRAY";
+      }
       let gamemode = message.content
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
       if (!player[gamemode] || !gamemode) {
         let embed = new Discord.RichEmbed()
-          .setColor(player.rankPlusColor)
+          .setColor(rankcolor)
           .setThumbnail(client.user.avatarURL)
           .setTitle(`${rank} ${username}`)
           .setDescription("test")
