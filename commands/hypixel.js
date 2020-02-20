@@ -1,5 +1,6 @@
 const Discord = require("discord.js"),
-  Hypixel = require("hypixel");
+  Hypixel = require("hypixel"),
+  MojangAPI = require("mojang-api");
 
 const config = require("/app/util/config"),
   fn = require("/app/util/fn");
@@ -55,12 +56,16 @@ module.exports = {
             })
           );
         } else {
-          checkGamemode(player, player);
+          MojangAPI.profile(Uuid, function(err, res) {
+            if (err) console.log(err);
+            else checkGamemode(res.name, player);
+          });
         }
       });
     }
 
     function checkGamemode(username, player) {
+      return console.log (player);
       let gamemode = message.content
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
