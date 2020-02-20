@@ -115,7 +115,7 @@ module.exports = client => {
           .setTimestamp()
       );
     return newMember.guild.channels
-      .get(653091798498934825)
+      .get("653091798498934825")
       .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
   });
 };
