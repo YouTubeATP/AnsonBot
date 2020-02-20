@@ -4,10 +4,7 @@ const Discord = require("discord.js"),
 const config = require("/app/util/config"),
   fn = require("/app/util/fn");
 
-hypixel.login([
-  "e41bf3c0-fc9a-4e72-b5ae-54135818622a",
-  "493776b7-4ac3-43a2-bf52-b051a34ee654"
-]);
+hypixel.login([process.env.HYAPI1, process.env.HYAPI2]);
 
 module.exports = {
   name: "hypixel",
@@ -65,7 +62,7 @@ module.exports = {
         message.channel.send(embed).then(() => message.delete());
       }
     }
-    
-    checkUsername(username)
+
+    checkUsername(username);
   }
 };
