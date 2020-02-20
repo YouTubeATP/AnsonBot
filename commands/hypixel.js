@@ -163,7 +163,7 @@ module.exports = {
       let gamemode = message.content
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
-      if (!player.stats[gamemode] || !gamemode) {
+      if (!gamemode) {
         let netlvl =
           Math.round(
             ((Math.sqrt(player.networkExp + 15312.5) - 125 / Math.sqrt(2)) /
@@ -221,7 +221,7 @@ module.exports = {
         if (forums !== undefined) embed.addField("Forums", forums, true);
         if (disc !== undefined) embed.addField("Discord", disc);
         return message.channel.send(embed);
-      } else if (player.stats[gamemode])
+      } else
         specificGame(
           username,
           player,
@@ -244,30 +244,59 @@ module.exports = {
     ) {
       if (
         gamemode.toLowerCase() === "bw" ||
-        gamemode.toLowerCase() === "bedwars"
+        gamemode.toLowerCase() === "bedwars" ||
+        gamemode.toLowerCase() === "bed wars"
       )
         gamemode = "Bedwars";
       else if (
         gamemode.toLowerCase() === "sw" ||
-        gamemode.toLowerCase() === "skywars"
+        gamemode.toLowerCase() === "skywars" ||
+        gamemode.toLowerCase() === "sky wars"
       )
         gamemode = "Skywars";
+      else if (
+        gamemode.toLowerCase() === "murder mystery" ||
+        gamemode.toLowerCase() === "mm" ||
+        gamemode.toLowerCase() === "murder" ||
+        gamemode.toLowerCase() === "murdermystery"
+      )
+        gamemode = "MurderMystery";
+      else if (
+        gamemode.toLowerCase() === "arcade" ||
+        gamemode.toLowerCase() === "arcade games"
+      )
+        gamemode = "Arcade";
+      else if (
+        gamemode.toLowerCase() === "uhc" ||
+        gamemode.toLowerCase() === "ultra hardcore"
+      )
+        gamemode = "UHC";
+      else if (
+        gamemode.toLowerCase() === "arena" ||
+        gamemode.toLowerCase() === "arena brawl" ||
+        gamemode.toLowerCase() === "brawl"
+      )
+        gamemode = "Arena";
+      else if (
+        gamemode.toLowerCase() === "bb" ||
+        gamemode.toLowerCase() === "buildbattle" ||
+        gamemode.toLowerCase() === "build battle" ||
+        gamemode.toLowerCase() === "guess the build" ||
+        gamemode.toLowerCase() === "guessthebuild" ||
+        gamemode.toLowerCase() === "gtb"
+      )
+        gamemode = "BuildBattle";
+      else if (
+        gamemode.toLowerCase() === "cvc" ||
+        gamemode.toLowerCase() === "cops" ||
+        gamemode.toLowerCase() === "cops and crims" ||
+        gamemode.toLowerCase() === "cops vs crims" ||
+        gamemode.toLowerCase() === "copsandcrims" ||
+        gamemode.toLowerCase() === "copsvscrims"
+      )
+        gamemode = "CVC";
       let thumbnailURL = `https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/${gamemode}-64.png`;
-      let embeds = [];
-      for (var i in gamemode) {
-        embeds.push(
-          new Discord.RichEmbed()
-            .setColor(rankcolor)
-            .setThumbnail(thumbnailURL)
-            .setTitle(`[${rank}] ${username}`)
-            .setDescription(
-              gamemode[i].join("") +
-                "\nDo `help [command]` to get information about specific commands!"
-            )
-            .setFooter(client.user.username, client.user.avatarURL)
-            .setTimestamp()
-        );
-      }
+      let stats = player.stats[gamemode];
     }
   }
 };
