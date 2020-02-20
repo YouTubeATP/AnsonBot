@@ -12,7 +12,8 @@ let hypixel,
 module.exports = {
   name: "hypixel",
   usage: "hypixel <username/UUID> [gamemode]",
-  description: "Shows Hypixel statistics.",
+  description:
+    "Shows Hypixel statistics. Provide a gamemode for game-specific stats.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
     hypixel1.getKeyInfo((err, info) => {
@@ -216,11 +217,15 @@ module.exports = {
             `UUID: ${player.uuid} | ${client.user.username}`,
             client.user.avatarURL
           );
-          if (guildmsg !== undefined) embed.addField("Guild", guildmsg, true);
-          if (forums !== undefined) embed.addField("Forums", forums, true);
-          if (disc !== undefined) embed.addField("Discord", disc);
+        if (guildmsg !== undefined) embed.addField("Guild", guildmsg, true);
+        if (forums !== undefined) embed.addField("Forums", forums, true);
+        if (disc !== undefined) embed.addField("Discord", disc);
         return message.channel.send(embed);
-      }
+      } else if (player.stats[gamemode]) specificGame(username, player, guildInfo, uuid, rank);
+    }
+
+    function specificGame(username, player, guildInfo, uuid, gamemode, rank) {
+      
     }
   }
 };

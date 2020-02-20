@@ -154,9 +154,9 @@ let paginator = async (author, msg, embeds, pageNow) => {
       let delembed = new Discord.RichEmbed()
         .setColor("RED")
         .setThumbnail(client.user.displayAvatarURL)
-        .setTitle("Help menu deleted!")
+        .setTitle("Menu deleted!")
         .setDescription(
-          "Your help menu timed out. To maintain quality performance, all help menus expire after 90 seconds."
+          "Your menu timed out. To maintain quality performance, all menus expire after 90 seconds."
         )
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
@@ -186,8 +186,8 @@ let paginator = async (author, msg, embeds, pageNow) => {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
       .setThumbnail(client.user.displayAvatarURL)
-      .setTitle("Help menu deleted!")
-      .setDescription("You have manually deleted your help menu.")
+      .setTitle("Menu deleted!")
+      .setDescription("You have manually deleted your menu.")
       .setFooter(client.user.username, client.user.avatarURL)
       .setTimestamp();
     msg.channel.send(cancelembed);
