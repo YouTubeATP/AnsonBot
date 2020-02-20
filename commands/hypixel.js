@@ -43,7 +43,13 @@ module.exports = {
         } else {
           MojangAPI.nameToUuid(username, function(err, res) {
             if (err) console.log(err);
-            else checkGamemode(res[0].name, player);
+            else hypixel.findGuildByPlayer(res[0].id, (err, guildId) => {
+                if (err || guildId === null || guildId === undefined) console.log(err);
+                else hypixel.getGuild(guildId, (err, guild) => {
+                    if (err || guild === null || guild === undefined) console.log(err);
+                    else checkGamemode(res[0].name, player);
+                  });
+              });
           });
         }
       });
@@ -61,13 +67,12 @@ module.exports = {
         } else {
           MojangAPI.profile(Uuid, function(err, res) {
             if (err) console.log(err);
-            else
-              hypixel.findGuildByPlayer(res.uuid, (err, guildId) => {
-                if (err || guildId === null) console.log(err);
-                hypixel.getGuild(guildId, (err, guild) => {
-                  if (err || guildId === null) console.log(err);
-                  checkGamemode(res.name, player, guild);
-                });
+            else hypixel.findGuildByPlayer(res.id, (err, guildId) => {
+                if (err || guildId === null || guildId === undefined) console.log(err);
+                else hypixel.getGuild(guildId, (err, guild) => {
+                    if (err || guild === null || guild === undefined) console.log(err);
+                    else checkGamemode(res.name, player, guild);
+                  });
               });
           });
         }
