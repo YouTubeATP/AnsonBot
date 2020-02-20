@@ -158,13 +158,13 @@ module.exports = {
           .setTitle(`[${rank}] ${username}`)
           .setURL(`https://hypixel.net/player/${username}`)
           .addField("Rank", `\`${rank}\``, true)
-          .addField("Level", `\`${player.lvl}\``, true)
+          .addField("Level", `\`${player.karma}\``, true)
           .addField("Karma", `\`${player.karma}\``, true)
           .addField(
             "Guild",
             `[${
-              player.stats.guild.name
-            }](https://hypixel.net/guilds/${player.stats.guild.name(" ", "%20")})`,
+              player.karma
+            }](https://hypixel.net/guilds/${player.karma})`,
             true
           )
           .addField("First/Last Login", `\`${player.karma}\``, true)
