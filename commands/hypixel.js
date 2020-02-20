@@ -24,21 +24,20 @@ module.exports = {
     "Shows Hypixel statistics. Provide a gamemode for game-specific stats.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
+    let username = args[0],
+      rawcontent = message.content.slice(shared.prefix.length + 8).trim();
+
     await MinecraftUUID.defer;
     console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
-
-    let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
-
-    hypixel1.getKeyInfo((err, info) => {
+    await hypixel1.getKeyInfo((err, info) => {
       if (err) hypixel = hypixel2;
       else hypixel = hypixel1;
+      init();
     });
-
-    init();
 
     function init() {
       if (!rawcontent) {
-        if (MinecraftUUID.get(message.member.id) === null)
+        if (MinecraftUUID.get(message.member.id) === null) {}
           return message.channel.send(
             fn.embed(client, {
               title: "Command used incorrectly!",
@@ -47,7 +46,7 @@ module.exports = {
           );
         else checkUuid(MinecraftUUID.get(message.member.id));
       }
-      checkUsername(args.shift());
+      checkUsername(username);
     }
 
     function checkUsername(username) {
