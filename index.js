@@ -289,7 +289,7 @@ client.on("message", async message => {
         .setDescription(
           `Maybe a typo? Do \`${prefix}help\` for a list of available commands.`
         )
-        .setThumbnail(guild.iconURL)
+        .setThumbnail(message.guild.iconURL)
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
       return message.channel.send(embed).then(m => {
