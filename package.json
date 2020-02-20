@@ -22,7 +22,7 @@
     "simple-youtube-api": "^5.2.1",
     "ytdl-core": "^1.0.9",
     "reaction-core": "^2.3.0",
-    "hypixeljs": "^1.4.0"
+    "hypixel": "^1.0.3"
   },
   "devDependencies": {},
   "scripts": {

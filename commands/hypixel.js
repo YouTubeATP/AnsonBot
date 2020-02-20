@@ -1,10 +1,12 @@
 const Discord = require("discord.js"),
-  hypixel = require("hypixeljs");
+  Hypixel = require("hypixel");
 
 const config = require("/app/util/config"),
   fn = require("/app/util/fn");
 
-hypixel.login([process.env.HYAPI1, process.env.HYAPI2]);
+let hypixel,
+  hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
+  hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
 
 module.exports = {
   name: "hypixel",
@@ -12,47 +14,39 @@ module.exports = {
   description: "Shows Hypixel statistics.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
-    let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
-    if (!rawcontent) {
-      return message.channel
-        .send(
-          fn.embed(client, {
-            title: "Command used incorrectly!",
-            description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-          })
-        )
-        .then(() => message.delete());
-    }
+    hypixel1.getKeyInfo((err, info) => {
+      if (err) hypixel = hypixel2;
+      else hypixel = hypixel1;
+      init(hypixel);
+    });
 
-    let username = args.shift();
-    checkUsername(username);
+    function init(hypixel) {
+      let rawcontent = message.content.slice(shared.prefix.length + 8).trim();
+      if (!rawcontent) {
+        return message.channel
+          .send(
+            fn.embed(client, {
+              title: "Command used incorrectly!",
+              description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+            })
+          )
+          .then(() => message.delete());
+      }
+
+      let username = args.shift();
+      checkUsername(username);
+    }
 
     function checkUsername(username) {
-      hypixel.getPlayer.byName(username, (err, player) => {
+      hypixel.getPlayer(username, (err, player) => {
         if (err) {
-          checkUuid(username);
+          console.log(err);
         }
-        checkGamemode(player);
+        checkGamemode(player.username, player);
       });
     }
 
-    function checkUuid(username) {
-      hypixel.getPlayer.byUuid(username, (err, player) => {
-        if (err) {
-          return message.channel
-            .send(
-              fn.embed(client, {
-                title: "Username/UUID not found!",
-                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-              })
-            )
-            .then(() => message.delete());
-        }
-        checkGamemode(player);
-      });
-    }
-
-    function checkGamemode(player) {
+    function checkGamemode(username, player) {
       let gamemode = message.content
         .slice(shared.prefix.length + 8 + username.length)
         .trim();
