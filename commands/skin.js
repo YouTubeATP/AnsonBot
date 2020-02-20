@@ -19,10 +19,10 @@ let hypixel,
   hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
 
 module.exports = {
-  name: "hypixel",
-  usage: "hypixel <username/UUID> [gamemode]",
+  name: "skin",
+  usage: "skin <username/UUID>",
   description:
-    "Shows Hypixel statistics. Provide a gamemode for game-specific stats.",
+    "Shows the Minecraft skin of the provided user.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
     let nameOrID = args[0],

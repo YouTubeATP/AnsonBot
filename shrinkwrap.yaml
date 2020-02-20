@@ -12,7 +12,6 @@ dependencies:
   http: 0.0.0
   https: 1.0.0
   hypixel: 1.0.3
-  mojang-api: 0.0.2
   moment: 2.24.0
   node-opus: 0.3.3
   path: 0.12.7
@@ -677,12 +676,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
-  /mojang-api/0.0.2:
-    dependencies:
-      request: 2.88.2
-    dev: false
-    resolution:
-      integrity: sha1-xiS5SHy+5qfOhIIs+WZ1fnwvxmU=
   /moment/2.24.0:
     dev: false
     resolution:
@@ -1127,7 +1120,6 @@ specifiers:
   http: ^0.0.0
   https: ^1.0.0
   hypixel: ^1.0.3
-  mojang-api: ^0.0.2
   moment: ^2.24.0
   node-opus: ^0.3.2
   path: ^0.12.7
