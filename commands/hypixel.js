@@ -11,21 +11,50 @@ hypixel.login([
 
 module.exports = {
   name: "hypixel",
-  usage: "hypixel <username> [gamemode]",
+  usage: "hypixel <username/UUID> [gamemode]",
   description: "Shows Hypixel statistics.",
   category: "Minecraft",
   run: async (client, message, args, shared) => {
     let rawcontent = message.content.slice(shared.prefix.length + 7).trim();
     if (!rawcontent) {
-      message.delete();
-      return message.channel.send(
-        fn.embed(client, {
-          title: "Command used incorrectly!",
-          description: `Please follow the format as shown below:\n\`${shared.customPrefix}hypixel <username> [gamemode]\``
-        })
-      );
+      return message.channel
+        .send(
+          fn.embed(client, {
+            title: "Command used incorrectly!",
+            description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+          })
+        )
+        .then(() => message.delete());
     }
+
     let username = args.shift();
+    hypixel.getPlayer.byName(username, (err, player) => {
+      if (err) {
+        hypixel.getPlayer.byUuid(username, (err, player) => {
+          if (err) {
+            return message.channel
+              .send(
+                fn.embed(client, {
+                  title: "Username/UUID not found!",
+                  description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+                })
+              )
+              .then(() => message.delete());
+          }
+        });
+      }
+    });
+    if (!username) {
+      return message.channel
+        .send(
+          fn.embed(client, {
+            title: "Username/UUID not found!",
+            description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+          })
+        )
+        .then(() => message.delete());
+    }
+
     let gamemode = message.content
       .slice(shared.prefix.length + 7 + username.length)
       .trim();
