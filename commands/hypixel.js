@@ -15,7 +15,7 @@ const MinecraftUUID = new Enmap({
   cloneLevel: "deep"
 });
 
-let id, hypixel,
+let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
   hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
 
@@ -71,16 +71,18 @@ module.exports = {
       });
     }
 
-    function checkUuid(Uuid) {
+    function checkUuid(Uuid, discID) {
       hypixel.getPlayer(Uuid, (err, player) => {
         if (err || !player) {
           if (MinecraftUUID.get(nameOrID)) {
-            id = MinecraftUUID.get(nameOrID);
-            checkUuid(id);
+            let id = MinecraftUUID.get(nameOrID);
+            checkUuid(id, nameOrID);
           } else if (MinecraftUUID.get(message.mentions.members.first().id)) {
-            id = MinecraftUUID.get(message.mentions.members.first().id);
-            checkUuid(id);
-        } else if (!MinecraftUUID.get(message.member.id)) {
+            checkUuid(
+              MinecraftUUID.get(message.mentions.members.first().id),
+              message.mentions.members.first().id
+            );
+          } else if (!MinecraftUUID.get(message.member.id)) {
             return message.channel.send(
               fn.embed(client, {
                 title: "Username/UUID not found!",
@@ -88,26 +90,26 @@ module.exports = {
               })
             );
           } else checkUuid(MinecraftUUID.get(message.member.id));
-        } else checkGuildInfo(player.displayname, player.uuid, player);
+        } else checkGuildInfo(player.displayname, player.uuid, player, discID);
       });
     }
 
-    function checkGuildInfo(username, uuid, player) {
+    function checkGuildInfo(username, uuid, player, discID) {
       hypixel.findGuildByPlayer(uuid, (err, guildId) => {
         if (err || !guildId) console.log(err);
         else
           hypixel.getGuild(guildId, (err, guild) => {
             if (err || !guild) console.log(err);
-            else checkGamemode(username, player, guild, uuid);
+            else checkGamemode(username, player, guild, uuid, discID);
           });
       });
     }
 
-    function checkGamemode(username, player, guildInfo, uuid) {
+    function checkGamemode(username, player, guildInfo, uuid, discID) {
       let gamemode,
         syncID = MinecraftUUID.get(message.member.id);
       if (rawcontent && syncID === uuid) {
-        if (rawcontent.includes(username) || rawcontent.includes(id))
+        if (rawcontent.includes(username) || rawcontent.includes(discID))
           gamemode = message.content
             .slice(shared.prefix.length + 9 + nameOrID.length)
             .trim();
