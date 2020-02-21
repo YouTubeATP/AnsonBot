@@ -61,15 +61,8 @@ module.exports = {
             })
           );
         } else checkUuid(MinecraftUUID.get(message.member.id));
-      } else checkDiscord(nameOrID);
-    }
-    
-    function checkDiscord(nameOrID) {
-      if (MinecraftUUID.get(nameOrID) || MinecraftUUID.get(message.mentions.members.first().id)) {
-        
       } else checkUsername(nameOrID);
     }
-
     function checkUsername(nameOrID) {
       hypixel.getPlayerByUsername(nameOrID, (err, player) => {
         if (err || !player) {
@@ -81,7 +74,11 @@ module.exports = {
     function checkUuid(Uuid) {
       hypixel.getPlayer(Uuid, (err, player) => {
         if (err || !player) {
-          if (!MinecraftUUID.get(message.member.id)) {
+          if (MinecraftUUID.get(nameOrID))
+            checkUuid(MinecraftUUID.get(nameOrID));
+          else if (MinecraftUUID.get(message.mentions.members.first().id))
+            checkUuid(MinecraftUUID.get(message.mentions.members.first().id));
+          else if (!MinecraftUUID.get(message.member.id)) {
             return message.channel.send(
               fn.embed(client, {
                 title: "Username/UUID not found!",
@@ -108,7 +105,7 @@ module.exports = {
       let gamemode,
         syncID = MinecraftUUID.get(message.member.id);
       if (rawcontent && syncID === uuid) {
-        if (rawcontent.includes(username) || rawcontent.includes(username))
+        if (rawcontent.includes(username) || rawcontent.includes(message.mentions.members.first().id))
           gamemode = message.content
             .slice(shared.prefix.length + 9 + nameOrID.length)
             .trim();
