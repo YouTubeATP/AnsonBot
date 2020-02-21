@@ -77,7 +77,7 @@ module.exports = {
           if (MinecraftUUID.get(nameOrID)) {
             let id = MinecraftUUID.get(nameOrID);
             checkUuid(id, nameOrID);
-          } else if (MinecraftUUID.get(message.mentions.members.first().id)) {
+          } else if (message.mentions.members.first() && MinecraftUUID.get(message.mentions.members.first().id)) {
             checkUuid(
               MinecraftUUID.get(message.mentions.members.first().id),
               message.mentions.members.first().id
