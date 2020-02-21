@@ -65,8 +65,9 @@ module.exports = {
     }
     
     function checkDiscord(nameOrID) {
-      if (MinecraftUUID.get(nameOrID) || MinecraftUUID.get(nameOrID))
-      checkUsername(nameOrID);
+      if (MinecraftUUID.get(nameOrID) || MinecraftUUID.get(message.mentions.members.first().id)) {
+        
+      } else checkUsername(nameOrID);
     }
 
     function checkUsername(nameOrID) {
