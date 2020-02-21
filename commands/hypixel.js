@@ -15,7 +15,7 @@ const MinecraftUUID = new Enmap({
   cloneLevel: "deep"
 });
 
-let hypixel,
+let id, hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
   hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
 
@@ -74,11 +74,13 @@ module.exports = {
     function checkUuid(Uuid) {
       hypixel.getPlayer(Uuid, (err, player) => {
         if (err || !player) {
-          if (MinecraftUUID.get(nameOrID))
-            checkUuid(MinecraftUUID.get(nameOrID));
-          else if (MinecraftUUID.get(message.mentions.members.first().id))
-            checkUuid(MinecraftUUID.get(message.mentions.members.first().id));
-          else if (!MinecraftUUID.get(message.member.id)) {
+          if (MinecraftUUID.get(nameOrID)) {
+            id = MinecraftUUID.get(nameOrID);
+            checkUuid(id);
+          } else if (MinecraftUUID.get(message.mentions.members.first().id)) {
+            id = MinecraftUUID.get(message.mentions.members.first().id);
+            checkUuid(id);
+        } else if (!MinecraftUUID.get(message.member.id)) {
             return message.channel.send(
               fn.embed(client, {
                 title: "Username/UUID not found!",
@@ -105,7 +107,7 @@ module.exports = {
       let gamemode,
         syncID = MinecraftUUID.get(message.member.id);
       if (rawcontent && syncID === uuid) {
-        if (rawcontent.includes(username) || rawcontent.includes(message.mentions.members.first().id))
+        if (rawcontent.includes(username) || rawcontent.includes(id))
           gamemode = message.content
             .slice(shared.prefix.length + 9 + nameOrID.length)
             .trim();
