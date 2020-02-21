@@ -61,7 +61,12 @@ module.exports = {
             })
           );
         } else checkUuid(MinecraftUUID.get(message.member.id));
-      } else checkUsername(nameOrID);
+      } else checkDiscord(nameOrID);
+    }
+    
+    function checkDiscord(nameOrID) {
+      if (MinecraftUUID.get(nameOrID) || MinecraftUUID.get(nameOrID))
+      checkUsername(nameOrID);
     }
 
     function checkUsername(nameOrID) {
