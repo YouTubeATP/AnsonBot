@@ -42,14 +42,14 @@ module.exports = {
       console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
       if (MinecraftUUID.get(message.author.id)) {
         MinecraftUUID.delete(message.author.id);
-        return message.channel.send(
+        message.channel.send(
           fn.embed(client, {
             title: "Mojang account unlinked!",
             description: `The Minecraft Java user associated with ${message.author} is no longer linked.`
           })
         );
       } else
-        return message.channel.send(
+        message.channel.send(
           fn.embed(client, {
             title: "No Mojang account linked!",
             description: `No Minecraft Java user was found associated with ${message.author}.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Java Edition, join \`mc.hypixel.net\`.\n2. Switch to slot 2 (My Profile) and right click.\n3. Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`hypixel <your username>\`.`
