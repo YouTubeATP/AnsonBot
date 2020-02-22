@@ -40,12 +40,7 @@ module.exports = {
       talkedRecently.add(message.author.id);
       await MinecraftUUID.defer;
       console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
-
-      await hypixel1.getKeyInfo((err, info) => {
-        if (err) hypixel = hypixel2;
-        else hypixel = hypixel1;
-        init();
-      });
+      
       setTimeout(() => {
         talkedRecently.delete(message.author.id);
       }, 5000);
