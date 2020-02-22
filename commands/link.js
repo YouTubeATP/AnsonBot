@@ -20,9 +20,9 @@ let hypixel,
   hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
 
 module.exports = {
-  name: "skin",
-  usage: "skin <username/UUID>",
-  description: `Shows the Minecraft skin of the provided Java Edition user. If your Mojang account is linked, the argument \`<username/UUID>\` may be omitted when requesting your own skin.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Jave Edition, join \`mc.hypixel.net\`.\n2.Switch to slot 2 (My Profile) and right click.\n3.Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`link <your username>\`.`,
+  name: "link",
+  usage: "link <username/UUID>",
+  description: `If your Mojang account is linked to your Discord account, it will be unlinked.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Jave Edition, join \`mc.hypixel.net\`.\n2.Switch to slot 2 (My Profile) and right click.\n3.Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`link <your username>\`.`,
   category: "Minecraft",
   run: async (client, message, args, shared) => {
     let nameOrID = args[0],
@@ -53,7 +53,7 @@ module.exports = {
 
     function init() {
       if (!rawcontent) {
-        if (MinecraftUUID.get(message.member.id) === null) {
+        if (!MinecraftUUID.get(message.member.id)) {
           return message.channel.send(
             fn.embed(client, {
               title: "Command used incorrectly!",
@@ -63,19 +63,29 @@ module.exports = {
         } else checkUuid(MinecraftUUID.get(message.member.id));
       } else checkUsername(nameOrID);
     }
-
     function checkUsername(nameOrID) {
       hypixel.getPlayerByUsername(nameOrID, (err, player) => {
-        if (err || player === null) {
+        if (err || !player) {
           checkUuid(nameOrID);
-        } else skin(player.displayname, player.uuid, player);
+        } else link(player.displayname, player.uuid);
       });
     }
 
-    function checkUuid(Uuid) {
+    function checkUuid(Uuid, discID) {
       hypixel.getPlayer(Uuid, (err, player) => {
-        if (err || player === null) {
-          if (MinecraftUUID.get(message.member.id) === null) {
+        if (err || !player) {
+          if (MinecraftUUID.get(nameOrID)) {
+            let id = MinecraftUUID.get(nameOrID);
+            checkUuid(id, nameOrID);
+          } else if (
+            message.mentions.members.first() &&
+            MinecraftUUID.get(message.mentions.members.first().id)
+          ) {
+            checkUuid(
+              MinecraftUUID.get(message.mentions.members.first().id),
+              message.mentions.members.first().id
+            );
+          } else if (!MinecraftUUID.get(message.member.id)) {
             return message.channel.send(
               fn.embed(client, {
                 title: "Username/UUID not found!",
@@ -83,26 +93,22 @@ module.exports = {
               })
             );
           } else checkUuid(MinecraftUUID.get(message.member.id));
-        } else skin(player.displayname, player.uuid, player);
+        } else link(player.displayname, player.uuid);
       });
     }
 
-    function skin(username, uuid, player) {
-      let thumbnailURL = `https://visage.surgeplay.com/face/${uuid}`,
-        modelURL = `https://visage.surgeplay.com/full/${uuid}`,
-        skinURL = `https://visage.surgeplay.com/skin/${uuid}`;
-      let embed = new Discord.RichEmbed()
-        .setColor(config.embedColor)
-        .setThumbnail(thumbnailURL)
-        .setTitle(username)
-        .setURL(skinURL)
-        .setDescription("Click on the hyperlink above to download this skin.")
-        .setImage(modelURL)
-        .setFooter(
-          `UUID: ${player.uuid} | ${client.user.username}`,
-          client.user.avatarURL
-        );
-      return message.channel.send(embed);
+    function link(username, uuid) {
+      let disc;
+      if (disc.id === message.member.id) {
+        if (!MinecraftUUID.get(message.member.id))
+          message.channel.send(
+            fn.embed(client, {
+              title: "Mojang account linked!",
+              description: `The Minecraft Java user \`${username}\` is now associated with ${message.author}.`
+            })
+          );
+        MinecraftUUID.set(message.member.id, uuid);
+      }
     }
   }
 };
