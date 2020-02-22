@@ -219,11 +219,9 @@ module.exports = {
           if (player.socialMedia.links.DISCORD) {
             let nameargs = player.socialMedia.links.DISCORD.split("#");
             try {
-              if (message.author.tag === player.socialMedia.links.DISCORD) {
-                disc = client.users
-                  .filterArray(u => u.discriminator === nameargs[1])
-                  .find(x => x.tag.includes(nameargs[0]));
-              } else disc = undefined;
+              disc = client.users
+                .filterArray(u => u.discriminator === nameargs[1])
+                .find(x => x.tag.includes(nameargs[0]));
             } catch (err) {
               disc = undefined;
             }

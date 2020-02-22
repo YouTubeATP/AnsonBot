@@ -57,7 +57,7 @@ module.exports = {
           return message.channel.send(
             fn.embed(client, {
               title: "Command used incorrectly!",
-              description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+              description: `Please follow the format below:\n\`${shared.customPrefix}skin <username/UUID>\``
             })
           );
         } else checkUuid(MinecraftUUID.get(message.member.id));
@@ -79,7 +79,7 @@ module.exports = {
             return message.channel.send(
               fn.embed(client, {
                 title: "Username/UUID not found!",
-                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+                description: `Please follow the format below:\n\`${shared.customPrefix}skin <username/UUID>\``
               })
             );
           } else checkUuid(MinecraftUUID.get(message.member.id));
