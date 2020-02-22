@@ -40,64 +40,24 @@ module.exports = {
       talkedRecently.add(message.author.id);
       await MinecraftUUID.defer;
       console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
-      
+      if (MinecraftUUID.get(message.author.id)) {
+        MinecraftUUID.delete(message.author.id);
+        return message.channel.send(
+          fn.embed(client, {
+            title: "Mojang account unlinked!",
+            description: `The Minecraft Java user associated with ${message.author} is no longer linked.`
+          })
+        );
+      } else
+        return message.channel.send(
+          fn.embed(client, {
+            title: "No Mojang account linked!",
+            description: `No Minecraft Java user was found associated with ${message.author}.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Jave Edition, join \`mc.hypixel.net\`.\n2.Switch to slot 2 (My Profile) and right click.\n3.Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`hypixel <your username>\`.`
+          })
+        );
       setTimeout(() => {
         talkedRecently.delete(message.author.id);
       }, 5000);
-    }
-
-    function init() {
-      if (!rawcontent) {
-        if (MinecraftUUID.get(message.member.id) === null) {
-          return message.channel.send(
-            fn.embed(client, {
-              title: "Command used incorrectly!",
-              description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-            })
-          );
-        } else checkUuid(MinecraftUUID.get(message.member.id));
-      } else checkUsername(nameOrID);
-    }
-
-    function checkUsername(nameOrID) {
-      hypixel.getPlayerByUsername(nameOrID, (err, player) => {
-        if (err || player === null) {
-          checkUuid(nameOrID);
-        } else skin(player.displayname, player.uuid, player);
-      });
-    }
-
-    function checkUuid(Uuid) {
-      hypixel.getPlayer(Uuid, (err, player) => {
-        if (err || player === null) {
-          if (MinecraftUUID.get(message.member.id) === null) {
-            return message.channel.send(
-              fn.embed(client, {
-                title: "Username/UUID not found!",
-                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
-              })
-            );
-          } else checkUuid(MinecraftUUID.get(message.member.id));
-        } else skin(player.displayname, player.uuid, player);
-      });
-    }
-
-    function skin(username, uuid, player) {
-      let thumbnailURL = `https://visage.surgeplay.com/face/${uuid}`,
-        modelURL = `https://visage.surgeplay.com/full/${uuid}`,
-        skinURL = `https://visage.surgeplay.com/skin/${uuid}`;
-      let embed = new Discord.RichEmbed()
-        .setColor(config.embedColor)
-        .setThumbnail(thumbnailURL)
-        .setTitle(username)
-        .setURL(skinURL)
-        .setDescription("Click on the hyperlink above to download this skin.")
-        .setImage(modelURL)
-        .setFooter(
-          `UUID: ${player.uuid} | ${client.user.username}`,
-          client.user.avatarURL
-        );
-      return message.channel.send(embed);
     }
   }
 };
