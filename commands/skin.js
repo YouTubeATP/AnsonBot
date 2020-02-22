@@ -74,12 +74,20 @@ module.exports = {
 
     function checkUuid(Uuid) {
       hypixel.getPlayer(Uuid, (err, player) => {
-        if (err || player === null) {
-          if (MinecraftUUID.get(message.member.id) === null) {
+        if (err || !player) {
+          if (MinecraftUUID.get(nameOrID)) {
+            let id = MinecraftUUID.get(nameOrID);
+            checkUuid(id);
+          } else if (
+            message.mentions.members.first() &&
+            MinecraftUUID.get(message.mentions.members.first().id)
+          ) {
+            checkUuid(MinecraftUUID.get(message.mentions.members.first().id));
+          } else if (!MinecraftUUID.get(message.member.id)) {
             return message.channel.send(
               fn.embed(client, {
                 title: "Username/UUID not found!",
-                description: `Please follow the format below:\n\`${shared.customPrefix}skin <username/UUID>\``
+                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
               })
             );
           } else checkUuid(MinecraftUUID.get(message.member.id));
@@ -94,7 +102,7 @@ module.exports = {
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setThumbnail(thumbnailURL)
-        .setTitle(username)
+        .setTitle(`${username}'s Skin`)
         .setURL(skinURL)
         .setDescription("Click on the hyperlink above to download this skin.")
         .setImage(modelURL)
