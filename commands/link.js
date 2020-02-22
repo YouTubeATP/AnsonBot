@@ -22,7 +22,7 @@ let hypixel,
 module.exports = {
   name: "link",
   usage: "link <username/UUID>",
-  description: `Links a Mojang account to your Discord account if none is linked.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Jave Edition, join \`mc.hypixel.net\`.\n2.Switch to slot 2 (My Profile) and right click.\n3.Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`link <your username>\`.`,
+  description: `Links a Mojang account to your Discord account if none is linked.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Java Edition, join \`mc.hypixel.net\`.\n2. Switch to slot 2 (My Profile) and right click.\n3. Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`link <your username>\`.`,
   category: "Minecraft",
   run: async (client, message, args, shared) => {
     let nameOrID = args[0],
@@ -99,6 +99,7 @@ module.exports = {
 
     function link(username, uuid, player) {
       let disc;
+      if (player.socialMedia)
       if (player.socialMedia.links.DISCORD) {
         let nameargs = player.socialMedia.links.DISCORD.split("#");
         try {
@@ -106,25 +107,45 @@ module.exports = {
             disc = client.users
               .filterArray(u => u.discriminator === nameargs[1])
               .find(x => x.tag.includes(nameargs[0]));
-            if (disc.id === message.member.id) {
-              if (!MinecraftUUID.get(message.member.id))
-                return message.channel.send(
+            if (disc.id === message.author.id) {
+              if (!MinecraftUUID.get(message.author.id)) {
+                message.channel.send(
                   fn.embed(client, {
                     title: "Mojang account linked!",
                     description: `The Minecraft Java user \`${username}\` is now associated with ${message.author}.`
                   })
                 );
-              return MinecraftUUID.set(message.member.id, uuid);
+                return MinecraftUUID.set(message.member.id, uuid);
+              } else
+                return message.channel.send(
+                  fn.embed(client, {
+                    title: "Mojang account already linked!",
+                    description: `The Minecraft Java user \`${username}\` is already associated with ${message.author}.`
+                  })
+                );
             }
-          } else disc = undefined;
+          } else
+            return message.channel.send(
+              fn.embed(client, {
+                title:
+                  "Another Discord account is set for this Mojang account!",
+                description: `The Minecraft Java user \`${username}\` does not have their Discord set as your username/discriminator.`
+              })
+            );
         } catch (err) {
-          disc = undefined;
+          message.channel.send(
+            fn.embed(client, {
+              title:
+                "An error occured, and your Mojang account couldn't be linked!",
+              description: err
+            })
+          );
         }
       } else
         return message.channel.send(
           fn.embed(client, {
             title: "Discord not set for Mojang account!",
-            description: `The Minecraft Java user \`${username}\` has not set a Discord account in game.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Jave Edition, join \`mc.hypixel.net\`.\n2.Switch to slot 2 (My Profile) and right click.\n3.Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`link <your username>\`.`
+            description: `The Minecraft Java user \`${username}\` has not set a Discord account in game.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Java Edition, join \`mc.hypixel.net\`.\n2. Switch to slot 2 (My Profile) and right click.\n3. Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`link <your username>\`.`
           })
         );
     }
