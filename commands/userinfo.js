@@ -42,6 +42,14 @@ module.exports = {
       target = message.mentions.members.first(2)[1];
     else if (message.mentions.members.size)
       target = message.mentions.members.first();
+    
+    if (!target) return message.channel.send(
+        fn.embed(client, {
+          title: "User not found!",
+          description:
+            "The user you provided is either invalid or a non-cached user."
+        })
+      );
 
     if (userData.has(target.user.id)) var user = userData.get(target.user.id);
     else var user = { botStaff: false, blacklisted: false, commandsUsed: 0 };
