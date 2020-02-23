@@ -332,13 +332,14 @@ client.on("message", async message => {
 // nitro boost detection and announcement
 
 client.on("guildMemberUpdate", async (oldMember, newMember) => {
-  if (
-    newMember.premiumSinceTimestamp != null &&
-    newMember.premiumSinceTimestamp != oldMember.premiumSinceTimestamp
-  )
-    return newMember.guild.channels
-      .get("653091798498934825")
-      .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
+  if (newMember.guild.roles.find("name", "Nitro Booster")) {
+    
+      if (!oldMember.roles.find(newMember.roles.forEach) {
+        return newMember.guild.channels
+          .get("653091798498934825")
+          .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
+      }
+  } else return;
 });
 
 // reaction detection
