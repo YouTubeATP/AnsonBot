@@ -333,12 +333,14 @@ client.on("message", async message => {
 
 client.on("guildMemberUpdate", async (oldMember, newMember) => {
   if (newMember.guild.roles.find("name", "Nitro Booster")) {
-    
-      if (!oldMember.roles.find(newMember.roles.forEach) {
-        return newMember.guild.channels
-          .get("653091798498934825")
-          .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
-      }
+    if (
+      !oldMember.roles.find(r => r.name === "Nitro Booster") &&
+      newMember.roles.find(r => r.name === "Nitro Booster")
+    ) {
+      return newMember.guild.channels
+        .get("653091798498934825")
+        .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
+    }
   } else return;
 });
 

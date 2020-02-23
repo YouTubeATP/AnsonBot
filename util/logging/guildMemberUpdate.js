@@ -97,25 +97,26 @@ module.exports = client => {
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp()
       );
-    if (
-      newMember.premiumSinceTimestamp != null &&
-      newMember.premiumSinceTimestamp != oldMember.premiumSinceTimestamp
-    )
-      return logChannel.send(
-        new Discord.RichEmbed()
-          .setColor(config.embedColor)
-          .setTitle("Server Boosted")
-          .setThumbnail(newMember.user.displayAvatarURL)
-          .addField(
-            newMember.user.bot ? "Bot" : "User",
-            `${newMember} (${newMember.user.tag})`
-          )
-          .addField("ID", newMember.user.id)
-          .setFooter(client.user.username, client.user.avatarURL)
-          .setTimestamp()
-      );
-    return newMember.guild.channels
-      .get("653091798498934825")
-      .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
+
+    if (newMember.guild.roles.find("name", "Nitro Booster")) {
+      if (
+        !oldMember.roles.find(r => r.name === "Nitro Booster") &&
+        newMember.roles.find(r => r.name === "Nitro Booster")
+      ) {
+        return logChannel.send(
+          new Discord.RichEmbed()
+            .setColor(config.embedColor)
+            .setTitle("Server Boosted")
+            .setThumbnail(newMember.user.displayAvatarURL)
+            .addField(
+              newMember.user.bot ? "Bot" : "User",
+              `${newMember} (${newMember.user.tag})`
+            )
+            .addField("ID", newMember.user.id)
+            .setFooter(client.user.username, client.user.avatarURL)
+            .setTimestamp()
+        );
+      } else return;
+    } else return;
   });
 };
