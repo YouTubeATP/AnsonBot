@@ -28,19 +28,19 @@ const modes = {
   "eight_one": "Solo",
   "eight_two": "Doubles",
   "four_three": "3v3v3v3",
-  "four_four",
-  "two_four",
-  "eight_two_rush",
-  "four_four_rush",
-  "eight_two_ultimate",
-  "four_four_ultimate",
-  "eight_two_voidless",
-  "four_four_voidless",
-  "eight_two_armed",
-  "four_four_armed",
-  "eight_two_lucky",
-  "four_four_lucky",
-  "castle"
+  "four_four": "4v4v4v4",
+  "two_four": "4v4",
+  "eight_two_rush": "Doubles Rush",
+  "four_four_rush": "4v4v4v4 Rush",
+  "eight_two_ultimate": "Doubles Ultimate",
+  "four_four_ultimate": "4v4v4v4 Ultimate",
+  "eight_two_voidless": "Doubles Voidless",
+  "four_four_voidless": "4v4v4v4 Voidless",
+  "eight_two_armed": "Doubles Armed",
+  "four_four_armed": "4v4v4v4 Armed",
+  "eight_two_lucky": "Doubles Lucky Blocks",
+  "four_four_lucky": "4v4v4v4 Lucky Blocks",
+  "castle": "Castle"
 };
 
 module.exports = {
@@ -68,17 +68,10 @@ module.exports = {
         .setTitle(`[${rank}] ${username}`)
         .setDescription("**Bed Wars | Overall**")
         .setURL(`https://hypixel.net/player/${username}`)
-        .addField("Level", `${bwlvl}`, true)
-        .addField("Coins", `${stats.coins}`, true)
-        .addField("Win Streak", `${stats.winstreak}`, true)
+        .addField("Level", `${bwlvl}`)
+        .addField("Coins", `${stats.coins}`)
+        .addField("Win Streak", `${stats.winstreak}`)
         .addField("Games Played", `${stats.games_played_bedwars}`)
-        .addField("Wins", `${stats.wins_bedwars}`, true)
-        .addField("Losses", `${stats.losses_bedwars}`, true)
-        .addField(
-          "Win/Loss Ratio",
-          `${Math.floor((stats.wins_bedwars / stats.losses_bedwars) * 100) /
-            100}`
-        )
         .addField("Kills", `${stats.kills_bedwars}`, true)
         .addField("Deaths", `${stats.deaths_bedwars}`, true)
         .addField(
@@ -93,6 +86,13 @@ module.exports = {
           `${Math.floor(
             (stats.final_kills_bedwars / stats.final_deaths_bedwars) * 100
           ) / 100}`
+        )
+        .addField("Wins", `${stats.wins_bedwars}`, true)
+        .addField("Losses", `${stats.losses_bedwars}`, true)
+        .addField(
+          "Win/Loss Ratio",
+          `${Math.floor((stats.wins_bedwars / stats.losses_bedwars) * 100) /
+            100}`
         )
         .addField("Beds Broken", `${stats.beds_broken_bedwars}`, true)
         .addField("Beds Lost", `${stats.beds_lost_bedwars}`, true)
@@ -117,14 +117,6 @@ module.exports = {
           .setDescription(`**Bed Wars | ${modes[i]}**`)
           .setURL(`https://hypixel.net/player/${username}`)
           .addField("Games Played", `${stats[`${i}_games_played_bedwars`]}`)
-          .addField("Wins", `${stats[`${i}_wins_bedwars`]}`, true)
-          .addField("Losses", `${stats[`${i}_losses_bedwars`]}`, true)
-          .addField(
-            "Win/Loss Ratio",
-            `${Math.floor(
-              (stats[`${i}_wins_bedwars`] / stats[`${i}_losses_bedwars`]) * 100
-            ) / 100}`
-          )
           .addField("Kills", `${stats[`${i}_kills_bedwars`]}`, true)
           .addField("Deaths", `${stats[`${i}_deaths_bedwars`]}`, true)
           .addField(
@@ -145,6 +137,14 @@ module.exports = {
               (stats[`${i}_final_kills_bedwars`] /
                 stats[`${i}_final_deaths_bedwars`]) *
                 100
+            ) / 100}`
+          )
+          .addField("Wins", `${stats[`${i}_wins_bedwars`]}`, true)
+          .addField("Losses", `${stats[`${i}_losses_bedwars`]}`, true)
+          .addField(
+            "Win/Loss Ratio",
+            `${Math.floor(
+              (stats[`${i}_wins_bedwars`] / stats[`${i}_losses_bedwars`]) * 100
             ) / 100}`
           )
           .addField("Beds Broken", `${stats[`${i}_beds_broken_bedwars`]}`, true)
