@@ -18,6 +18,12 @@ let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
   hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
 
+const EASY_LEVELS = 4,
+  EASY_LEVELS_XP = 7000,
+  XP_PER_PRESTIGE = 96 * 5000 + EASY_LEVELS_XP,
+  LEVELS_PER_PRESTIGE = 100,
+  HIGHEST_PRESTIGE = 10;
+
 module.exports = {
   name: "Bedwars",
   run: async (
@@ -33,19 +39,42 @@ module.exports = {
     thumbnailURL,
     stats
   ) => {
-    return message.channel.send(
-      fn.embed(client, {
-        title: "Coming soon!",
-        description: `Game-specific stats for BedWars are still a work in progress. Sorry for the inconvenience caused!`
-      })
-    );
     let embeds = [];
-    let level = getLevelForExp(stats.Experience);
-    const EASY_LEVELS = 4;
-    const EASY_LEVELS_XP = 7000;
-    const XP_PER_PRESTIGE = 96 * 5000 + EASY_LEVELS_XP;
-    const LEVELS_PER_PRESTIGE = 100;
-    const HIGHEST_PRESTIGE = 10;
+    let bwlvl = getLevelForExp(stats.Experience);
+    return message.channel.send(
+      new Discord.RichEmbed()
+        .setColor(rankcolor)
+        .setThumbnail(thumbnailURL)
+        .setTitle(`[${rank}] ${username}`)
+        .setDescription("BedWars = **Overall**")
+        .setURL(`https://hypixel.net/player/${username}`)
+        .addField("Level", `${bwlvl}`, true)
+        .addField("Win Streak", `${stats.winstreak}`, true)
+        .addField("Coins", `${stats.coins}`, true)
+        .addField("Games Played", `${stats.coins}`, true)
+        .setFooter(
+          `UUID: ${player.uuid} | ${client.user.username}`,
+          client.user.avatarURL
+        )
+    );
+
+    // overall stats
+
+    embeds.push(
+      new Discord.RichEmbed()
+        .setColor(rankcolor)
+        .setThumbnail(thumbnailURL)
+        .setTitle(`[${rank}] ${username}`)
+        .setDescription("BedWars = **Overall**")
+        .setURL(`https://hypixel.net/player/${username}`)
+        .addField("Level", `\`${bwlvl}\``, true)
+        .addField("Win Streak", `\`${stats.winstreak}\``, true)
+        .addField("Coins", `\`${stats.coins}\``, true)
+        .setFooter(
+          `UUID: ${player.uuid} | ${client.user.username}`,
+          client.user.avatarURL
+        )
+    );
 
     function getExpForLevel(level) {
       if (level == 0) return 0;
@@ -89,23 +118,7 @@ module.exports = {
         level++;
         expWithoutPrestiges -= expForEasyLevel;
       }
-      //returns players bedwars level, remove the Math.floor if you want the exact bedwars level returned
       return level + Math.floor(expWithoutPrestiges / 5000);
     }
-    embeds.push(
-      new Discord.RichEmbed()
-        .setColor(rankcolor)
-        .setThumbnail(thumbnailURL)
-        .setTitle(`[${rank}] ${username}`)
-        .setDescription("BedWars = **Overall**")
-        .setURL(`https://hypixel.net/player/${username}`)
-        .addField("Level", `\`${netlvl}\``, true)
-        .addField("Karma", `\`${player.karma}\``, true)
-        .addField("Karma", `\`${player.karma}\``, true)
-        .setFooter(
-          `UUID: ${player.uuid} | ${client.user.username}`,
-          client.user.avatarURL
-        )
-    );
   }
 };
