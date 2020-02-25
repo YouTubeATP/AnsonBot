@@ -292,26 +292,28 @@ client.on("message", async message => {
         .setThumbnail(message.guild.iconURL)
         .setFooter(client.user.username, client.user.avatarURL)
         .setTimestamp();
-      return message.channel.send(embed).then(m => {
-        message.delete();
-        m.delete(5000);
-      });
+      message.channel.send(embed).then(m => m.delete(5000));
+      return message.delete();
     }
 
     if (command.botStaffOnly && !user.botStaff) {
-      message.channel.send(
-        fn.embed(client, "You do not have permission to use this command!")
-      );
-      return message.delete().then(m => m.delete(5000));
+      message.channel
+        .send(
+          fn.embed(client, "You do not have permission to use this command!")
+        )
+        .then(m => m.delete(5000));
+      return message.delete();
     }
     if (
       command.guildPerms &&
       !message.member.hasPermission(command.guildPerms)
     ) {
-      message.channel.send(
-        fn.embed(client, "You do not have permission to use this command!")
-      );
-      return message.delete().then(m => m.delete(5000));
+      message.channel
+        .send(
+          fn.embed(client, "You do not have permission to use this command!")
+        )
+        .then(m => m.delete(5000));
+      return message.delete();
     }
 
     shared.user = user;
