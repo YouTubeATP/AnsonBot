@@ -4,6 +4,8 @@ const config = require("/app/util/config"),
   fn = require("/app/util/fn"),
   eightball = require("/app/util/8ball.json");
 
+let i;
+
 module.exports = {
   name: "8ball",
   usage: "8ball <question>",
@@ -26,9 +28,15 @@ module.exports = {
       return message.channel.send(embed);
     } else {
       question = question[0].toUpperCase() + question.slice(1);
-      if (question.endsWith("." | "," | ":" | ";")) question = question.slice(0, -1);
+      if (message.mentions.members.length > 0) {
+        for (i = 0; i < message.mentions.members.length; i++) {
+          message.mentions[i].id;
+          question.replace(/<@.*>/g, " I ");
+        }
+      }
+      if (question.endsWith("." | "," | ":" | ";"))
+        question = question.slice(0, -1);
       if (!question.endsWith("?")) question = `${question}?`;
-      if (question.includes("<@>" | "<@!>")) question.replace(/<@>/g, " I ");
       question = question.replace(" i ", " I ");
       question = question.replace(" i?", " I?");
       let answer = eightball[Math.floor(Math.random() * eightball.length)];
