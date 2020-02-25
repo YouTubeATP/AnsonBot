@@ -446,6 +446,16 @@ module.exports = {
           description: `Game-specific stats are still a work in progress. Sorry for the inconvenience caused!`
         })
       );
+        const command =
+      client.commands.get(commandName) ||
+      client.commands.find(
+        cmd => cmd.aliases && cmd.aliases.includes(commandName)
+      );
+        try {
+      await command.run(client, message, args, shared);
+    } catch (error) {
+      console.log(error);
+    }
     }
   }
 };
