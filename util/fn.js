@@ -1,6 +1,6 @@
 const Discord = require("discord.js"),
-      moment = require("moment"),
-      fs = require("fs");
+  moment = require("moment"),
+  fs = require("fs");
 
 const { defaultPrefix, embedColor } = require("./config.js"),
   index = require("/app/index.js");
@@ -150,39 +150,28 @@ let paginator = async (author, msg, embeds, pageNow) => {
           ["662296249717751869"].includes(reaction.emoji.id)),
       { time: 90 * 1000, max: 1, errors: ["time"] }
     )
-    .catch(err => {
-      msg.clearReactions().catch(error => console.error('Failed to clear reactions: ', error));
-    });
+    .catch(err => msg.clearReactions().catch(error => console.error(error)));
   reaction = reaction.first();
   if (reaction.emoji.name == "◀") {
     let m = await msg.channel.send(embeds[Math.max(pageNow - 1, 0)]);
     msg.delete();
-    helpPaginator(author, m, embeds, Math.max(pageNow - 1, 0));
+    paginator(author, m, embeds, Math.max(pageNow - 1, 0));
   } else if (reaction.emoji.name == "▶") {
     let m = await msg.channel.send(
       embeds[Math.min(pageNow + 1, embeds.length - 1)]
     );
     msg.delete();
-    helpPaginator(author, m, embeds, Math.min(pageNow + 1, embeds.length - 1));
+    paginator(author, m, embeds, Math.min(pageNow + 1, embeds.length - 1));
   } else if (reaction.emoji.name == "⏪") {
     let m = await msg.channel.send(embeds[0]);
     msg.delete();
-    helpPaginator(author, m, embeds, 0);
+    paginator(author, m, embeds, 0);
   } else if (reaction.emoji.name == "⏩") {
     let m = await msg.channel.send(embeds[embeds.length - 1]);
     msg.delete();
-    helpPaginator(author, m, embeds, embeds.length - 1);
-  } else if (reaction.emoji.id == "662296249717751869") {
-    let cancelembed = new Discord.RichEmbed()
-      .setColor("RED")
-      .setThumbnail(client.user.displayAvatarURL)
-      .setTitle("Help menu deleted!")
-      .setDescription("You have manually deleted your help menu.")
-      .setFooter(client.user.username, client.user.avatarURL)
-      .setTimestamp();
-    msg.channel.send(cancelembed);
-    return msg.delete();
-  }
+    paginator(author, m, embeds, embeds.length - 1);
+  } else if (reaction.emoji.id == "662296249717751869")
+    msg.clearReactions().catch(error => console.error(error));
 };
 
 let helpPaginator = async (author, msg, embeds, pageNow) => {
@@ -250,8 +239,8 @@ let helpPaginator = async (author, msg, embeds, pageNow) => {
 };
 
 function log(msg) {
-   console.log(msg);
-   fs.writeFileSync("/app/templogs.txt");
+  console.log(msg);
+  fs.writeFileSync("/app/templogs.txt");
 }
 
 module.exports = {
