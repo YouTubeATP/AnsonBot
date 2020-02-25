@@ -46,6 +46,7 @@ shared.voted = voted;
 shared.playerVoted = playerVoted;
 shared.activeMusicSelection = activeMusicSelection;
 shared.playlist = playlist;
+shared.client = client;
 
 exports.client = client;
 

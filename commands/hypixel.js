@@ -1,6 +1,7 @@
 const Discord = require("discord.js"),
   Hypixel = require("hypixel"),
-  Enmap = require("enmap");
+  Enmap = require("enmap"),
+  fs = require("fs");
 
 const config = require("/app/util/config"),
   fn = require("/app/util/fn"),
@@ -18,6 +19,15 @@ const MinecraftUUID = new Enmap({
 let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
   hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
+
+shared.client.gamemodes = new Discord.Collection();
+const gamemodeFiles = fs
+  .readdirSync("/app/commands/hypixel")
+  .filter(file => file.endsWith(".js"));
+for (const file of gamemodeFiles) {
+  const gamemode = require(`./hypixel/${file}`);
+  shared.client.gamemodes.set(gamemode.name, gamemode);
+}
 
 module.exports = {
   name: "hypixel",
@@ -446,16 +456,26 @@ module.exports = {
           description: `Game-specific stats are still a work in progress. Sorry for the inconvenience caused!`
         })
       );
-        const command =
-      client.commands.get(commandName) ||
-      client.commands.find(
-        cmd => cmd.aliases && cmd.aliases.includes(commandName)
-      );
-        try {
-      await command.run(client, message, args, shared);
-    } catch (error) {
-      console.log(error);
-    }
+      const exportGamemode =
+        shared.client.gamemodes.get(gamemode) ||
+        shared.client.gamemodes.find(
+          cmd => cmd.aliases && cmd.aliases.includes(gamemode)
+        );
+      try {
+        gamemode.run(
+          client,
+          message,
+          args,
+          shared,
+          username,
+          player,
+          uuid,
+          rank,
+          rankcolor
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };
