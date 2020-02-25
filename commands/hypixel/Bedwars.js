@@ -41,6 +41,15 @@ module.exports = {
   ) => {
     let embeds = [];
     let bwlvl = getLevelForExp(stats.Experience);
+    let eight_one_played = stats.eight_one_games_played_bedwars,
+      eight_two_played = stats.eight_two_games_played_bedwars,
+      four_three_played = stats.four_three_games_played_bedwars,
+      four_four_played = stats.four_four_games_played_bedwars,
+      total_played =
+        eight_one_played +
+        eight_two_played +
+        four_three_played +
+        four_four_played;
     return message.channel.send(
       new Discord.RichEmbed()
         .setColor(rankcolor)
@@ -57,9 +66,6 @@ module.exports = {
           client.user.avatarURL
         )
     );
-
-    // overall stats
-
     embeds.push(
       new Discord.RichEmbed()
         .setColor(rankcolor)
