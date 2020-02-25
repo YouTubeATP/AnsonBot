@@ -28,7 +28,7 @@ module.exports = {
       question = question[0].toUpperCase() + question.slice(1);
       if (question.endsWith("." | "," | ":" | ";")) question = question.slice(0, -1);
       if (!question.endsWith("?")) question = `${question}?`;
-      if (question.includes(message.mentions.members))
+      if (question.includes("<@>" | "<@!>")) question.replace(/<@>/g, " I ");
       question = question.replace(" i ", " I ");
       question = question.replace(" i?", " I?");
       let answer = eightball[Math.floor(Math.random() * eightball.length)];
