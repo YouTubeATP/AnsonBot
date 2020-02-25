@@ -332,6 +332,7 @@ client.on("message", async message => {
 // nitro boost detection and announcement
 
 client.on("guildMemberUpdate", async (oldMember, newMember) => {
+  if (newMember.guild.id !== config.server) return;
   if (newMember.guild.roles.find("name", "Nitro Booster")) {
     if (
       !oldMember.roles.find(r => r.name === "Nitro Booster") &&
