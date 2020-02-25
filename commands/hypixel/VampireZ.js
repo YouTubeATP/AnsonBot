@@ -29,7 +29,8 @@ module.exports = {
     player,
     uuid,
     rank,
-    rankcolor
+    rankcolor,
+    thumbnailURL
   ) => {
     return;
   }

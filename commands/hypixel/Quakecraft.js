@@ -29,8 +29,14 @@ module.exports = {
     player,
     uuid,
     rank,
-    rankcolor
+    rankcolor,
+    thumbnailURL
   ) => {
-    return;
+    return message.channel.send(
+      fn.embed(client, {
+        title: "Coming soon!",
+        description: `Game-specific stats for Quakecraft are still a work in progress. Sorry for the inconvenience caused!`
+      })
+    );
   }
 };

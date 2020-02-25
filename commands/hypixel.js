@@ -450,12 +450,6 @@ module.exports = {
         );
       let thumbnailURL = `https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/${gamemode}-64.png`;
       let stats = player.stats[gamemode];
-      return message.channel.send(
-        fn.embed(client, {
-          title: "Coming soon!",
-          description: `Game-specific stats are still a work in progress. Sorry for the inconvenience caused!`
-        })
-      );
       const exportGamemode =
         shared.client.gamemodes.get(gamemode) ||
         shared.client.gamemodes.find(
@@ -471,7 +465,8 @@ module.exports = {
           player,
           uuid,
           rank,
-          rankcolor
+          rankcolor,
+          thumbnailURL
         );
       } catch (error) {
         console.log(error);
