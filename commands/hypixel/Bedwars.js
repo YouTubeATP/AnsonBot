@@ -39,7 +39,8 @@ module.exports = {
     stats
   ) => {
     let embeds = [];
-    let thumbnailURL = "https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/BedWars-64.png";
+    let thumbnailURL =
+      "https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/BedWars-64.png";
     let bwlvl = getLevelForExp(stats.Experience);
     let eight_one_played = stats.eight_one_games_played_bedwars,
       eight_two_played = stats.eight_two_games_played_bedwars,
@@ -57,12 +58,28 @@ module.exports = {
         .setColor(rankcolor)
         .setThumbnail(thumbnailURL)
         .setTitle(`[${rank}] ${username}`)
-        .setDescription("BedWars = **Overall**")
+        .setDescription("**Bed Wars | Overall**")
         .setURL(`https://hypixel.net/player/${username}`)
         .addField("Level", `${bwlvl}`, true)
-        .addField("Win Streak", `${stats.winstreak}`, true)
         .addField("Coins", `${stats.coins}`, true)
         .addField("Games Played", `${total_played}`, true)
+        .addField("Win Streak", `${stats.winstreak}`, true)
+        .addField(
+          "Diamonds Collected",
+          `${stats.diamond_resources_collected_bedwars}`
+        )
+        .addField(
+          "Emeralds Collected",
+          `${stats.emerald_resources_collected_bedwars}`
+        )
+        .addField(
+          "Gold Collected",
+          `${stats.gold_resources_collected_bedwars}`
+        )
+        .addField(
+          "Iron Collected",
+          `${stats.iron_resources_collected_bedwars}`
+        )
         .setFooter(
           `UUID: ${player.uuid} | ${client.user.username}`,
           client.user.avatarURL
@@ -73,11 +90,32 @@ module.exports = {
         .setColor(rankcolor)
         .setThumbnail(thumbnailURL)
         .setTitle(`[${rank}] ${username}`)
-        .setDescription("BedWars = **Overall**")
+        .setDescription("**Bed Wars | Overall**")
         .setURL(`https://hypixel.net/player/${username}`)
-        .addField("Level", `\`${bwlvl}\``, true)
-        .addField("Win Streak", `\`${stats.winstreak}\``, true)
-        .addField("Coins", `\`${stats.coins}\``, true)
+        .addField("Level", `${bwlvl}`, true)
+        .addField("Coins", `${stats.coins}`, true)
+        .addField("Games Played", `${total_played}`, true)
+        .addField("Win Streak", `${stats.winstreak}`, true)
+        .addField(
+          "Diamonds Collected",
+          `${stats.diamond_resources_collected_bedwars}`,
+          true
+        )
+        .addField(
+          "Emeralds Collected",
+          `${stats.emerald_resources_collected_bedwars}`,
+          true
+        )
+        .addField(
+          "Gold Collected",
+          `${stats.gold_resources_collected_bedwars}`,
+          true
+        )
+        .addField(
+          "Iron Collected",
+          `${stats.iron_resources_collected_bedwars}`,
+          true
+        )
         .setFooter(
           `UUID: ${player.uuid} | ${client.user.username}`,
           client.user.avatarURL
