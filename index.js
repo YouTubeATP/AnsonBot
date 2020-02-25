@@ -167,7 +167,6 @@ client.on("guildMemberRemove", async member => {
 client.on("message", async message => {
   if (
     message.channel.type != "text" ||
-    message.guild.id !== config.server ||
     message.guild === null ||
     message.member === null ||
     client.user === null
