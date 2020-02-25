@@ -18,18 +18,19 @@ let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
   hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
 
-shared.client.gamemodes = new Discord.Collection();
-const gamemodeFiles = fs
-  .readdirSync("/app/commands/hypixel")
-  .filter(file => file.endsWith(".js"));
-for (const file of gamemodeFiles) {
-  const gamemode = require(`./hypixel/${file}`);
-  shared.client.gamemodes.set(gamemode.name, gamemode);
-}
-
 module.exports = {
   name: "Arcade",
-  run: async (client, message, args, shared) => {
-    
+  run: async (
+    client,
+    message,
+    args,
+    shared,
+    username,
+    player,
+    uuid,
+    rank,
+    rankcolor
+  ) => {
+    return;
   }
 };
