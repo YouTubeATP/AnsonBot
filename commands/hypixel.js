@@ -466,7 +466,8 @@ module.exports = {
           uuid,
           rank,
           rankcolor,
-          thumbnailURL
+          thumbnailURL,
+          stats
         );
       } catch (error) {
         console.log(error);

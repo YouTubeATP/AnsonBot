@@ -30,7 +30,8 @@ module.exports = {
     uuid,
     rank,
     rankcolor,
-    thumbnailURL
+    thumbnailURL,
+    stats
   ) => {
     return message.channel.send(
       fn.embed(client, {
