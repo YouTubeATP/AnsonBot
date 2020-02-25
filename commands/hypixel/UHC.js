@@ -33,10 +33,10 @@ module.exports = {
     thumbnailURL
   ) => {
     return message.channel.send(
-        fn.embed(client, {
-          title: "Coming soon!",
-          description: `Game-specific stats for UHC are still a work in progress. Sorry for the inconvenience caused!`
-        })
-      );
+      fn.embed(client, {
+        title: "Coming soon!",
+        description: `Game-specific stats for UHC Champions are still a work in progress. Sorry for the inconvenience caused!`
+      })
+    );
   }
 };

@@ -456,7 +456,7 @@ module.exports = {
           cmd => cmd.aliases && cmd.aliases.includes(gamemode)
         );
       try {
-        gamemode.run(
+        exportGamemode.run(
           client,
           message,
           args,
