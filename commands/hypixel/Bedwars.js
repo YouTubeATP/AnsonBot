@@ -62,7 +62,6 @@ module.exports = {
         .setURL(`https://hypixel.net/player/${username}`)
         .addField("Level", `${bwlvl}`, true)
         .addField("Coins", `${stats.coins}`, true)
-        .addField("Games Played", `${total_played}`, true)
         .addField("Win Streak", `${stats.winstreak}`, true)
         .addField(
           "Diamonds Collected",
@@ -72,13 +71,40 @@ module.exports = {
           "Emeralds Collected",
           `${stats.emerald_resources_collected_bedwars}`
         )
+        .addField("Gold Collected", `${stats.gold_resources_collected_bedwars}`)
+        .addField("Iron Collected", `${stats.iron_resources_collected_bedwars}`)
+        .addField("Games Played", `${total_played}`)
+        .addField("Wins", `${stats.wins_bedwars}`, true)
+        .addField("Losses", `${stats.losses_bedwars}`, true)
         .addField(
-          "Gold Collected",
-          `${stats.gold_resources_collected_bedwars}`
+          "WLR",
+          `${Math.floor((stats.wins_bedwars / stats.losses_bedwars) * 100) /
+            100}`,
+          true
         )
+        .addField("Kills", `${stats.kills_bedwars}`, true)
+        .addField("Deaths", `${stats.deaths_bedwars}`, true)
         .addField(
-          "Iron Collected",
-          `${stats.iron_resources_collected_bedwars}`
+          "KDR",
+          `${Math.floor((stats.kills_bedwars / stats.deaths_bedwars) * 100) /
+            100}`,
+          true
+        )
+        .addField("Final Kills", `${stats.final_kills_bedwars}`, true)
+        .addField("Final Deaths", `${stats.final_deaths_bedwars}`, true)
+        .addField(
+          "Final Kill/Death Ratio",
+          `${Math.floor((stats.final_kills_bedwars / stats.final_deaths_bedwars) * 100) /
+            100}`,
+          true
+        )
+        .addField("Beds Broken", `${stats.final_kills_bedwars}`, true)
+        .addField("Beds Lost", `${stats.final_deaths_bedwars}`, true)
+        .addField(
+          "Beds Broken/Lost Ratio",
+          `${Math.floor((stats.final_kills_bedwars / stats.final_deaths_bedwars) * 100) /
+            100}`,
+          true
         )
         .setFooter(
           `UUID: ${player.uuid} | ${client.user.username}`,
