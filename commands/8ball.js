@@ -1,13 +1,13 @@
-const Discord = require("discord.js");
+const Discord = require("discord.js"),
+      eightball = require("8ball");
 
 const config = require("/app/util/config"),
-  fn = require("/app/util/fn"),
-  fortunes = require("/app/util/fortunes.json");
+  fn = require("/app/util/fn");
 
 module.exports = {
-  name: "fortune",
-  usage: "fortune",
-  aliases: ["cookie"],
+  name: "8ball",
+  usage: "8ball",
+  aliases: ["8-ball", "eightball", "eight-ball"],
   description: "Gives you a random fortune.",
   category: "Misc",
   run: async (client, message, args, shared) => {

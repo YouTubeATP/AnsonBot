@@ -131,7 +131,7 @@ let modCaseEmbed = (client, thisCase) => {
   return embed;
 };
 
-let paginator = async (author, msg, embeds, pageNow) => {
+let helpPaginator = async (author, msg, embeds, pageNow) => {
   const client = index.client;
   if (pageNow != 0) {
     await msg.react("⏪");
@@ -167,21 +167,21 @@ let paginator = async (author, msg, embeds, pageNow) => {
   if (reaction.emoji.name == "◀") {
     let m = await msg.channel.send(embeds[Math.max(pageNow - 1, 0)]);
     msg.delete();
-    paginator(author, m, embeds, Math.max(pageNow - 1, 0));
+    helpPaginator(author, m, embeds, Math.max(pageNow - 1, 0));
   } else if (reaction.emoji.name == "▶") {
     let m = await msg.channel.send(
       embeds[Math.min(pageNow + 1, embeds.length - 1)]
     );
     msg.delete();
-    paginator(author, m, embeds, Math.min(pageNow + 1, embeds.length - 1));
+    helpPaginator(author, m, embeds, Math.min(pageNow + 1, embeds.length - 1));
   } else if (reaction.emoji.name == "⏪") {
     let m = await msg.channel.send(embeds[0]);
     msg.delete();
-    paginator(author, m, embeds, 0);
+    helpPaginator(author, m, embeds, 0);
   } else if (reaction.emoji.name == "⏩") {
     let m = await msg.channel.send(embeds[embeds.length - 1]);
     msg.delete();
-    paginator(author, m, embeds, embeds.length - 1);
+    helpPaginator(author, m, embeds, embeds.length - 1);
   } else if (reaction.emoji.id == "662296249717751869") {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
@@ -212,6 +212,6 @@ module.exports = {
   getRole: getRole,
   ModCase: ModCase,
   modCaseEmbed: modCaseEmbed,
-  paginator: paginator,
+  helpPaginator: helpPaginator,
   log: log
 };
