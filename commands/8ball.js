@@ -28,11 +28,6 @@ module.exports = {
       return message.channel.send(embed);
     } else {
       question = question[0].toUpperCase() + question.slice(1);
-      if (message.mentions.users.array().length > 0) {
-        for (i = 0; i < message.mentions.users.array().length; i++) {
-          question.replace(/<@.*>/g, message.mentions.users.array()[i].tag);
-        }
-      }
       if (question.endsWith("." | "," | ":" | ";"))
         question = question.slice(0, -1);
       if (!question.endsWith("?")) question = `${question}?`;
