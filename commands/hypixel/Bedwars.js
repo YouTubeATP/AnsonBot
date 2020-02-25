@@ -24,6 +24,8 @@ const EASY_LEVELS = 4,
   LEVELS_PER_PRESTIGE = 100,
   HIGHEST_PRESTIGE = 10;
 
+let modes = ["eight_one", "eight_two", "four_three", "four_four", "two_four", "eight_two_rush", "four_four_rush", "eight_two_ultimate", "four_four_ultimate", "eight_two_lucky", "four_four_lucky", ]
+
 module.exports = {
   name: "Bedwars",
   run: async (
@@ -42,17 +44,6 @@ module.exports = {
     let thumbnailURL =
       "https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/BedWars-64.png";
     let bwlvl = getLevelForExp(stats.Experience);
-    let eight_one_played = stats.eight_one_games_played_bedwars,
-      eight_two_played = stats.eight_two_games_played_bedwars,
-      four_three_played = stats.four_three_games_played_bedwars,
-      four_four_played = stats.four_four_games_played_bedwars,
-      two_four_played = stats.two_four_games_played_bedwars,
-      total_played =
-        eight_one_played +
-        eight_two_played +
-        four_three_played +
-        four_four_played +
-        two_four_played;
     return message.channel.send(
       new Discord.RichEmbed()
         .setColor(rankcolor)
@@ -63,7 +54,7 @@ module.exports = {
         .addField("Level", `${bwlvl}`, true)
         .addField("Coins", `${stats.coins}`, true)
         .addField("Win Streak", `${stats.winstreak}`, true)
-        .addField("Games Played", `${total_played}`)
+        .addField("Games Played", `${stats.games_played_bedwars}`)
         .addField("Wins", `${stats.wins_bedwars}`, true)
         .addField("Losses", `${stats.losses_bedwars}`, true)
         .addField(
@@ -109,48 +100,7 @@ module.exports = {
         .addField("Level", `${bwlvl}`, true)
         .addField("Coins", `${stats.coins}`, true)
         .addField("Win Streak", `${stats.winstreak}`, true)
-        .addField("Games Played", `${total_played}`)
-        .addField("Wins", `${stats.wins_bedwars}`, true)
-        .addField("Losses", `${stats.losses_bedwars}`, true)
-        .addField(
-          "Win/Loss Ratio",
-          `${Math.floor((stats.wins_bedwars / stats.losses_bedwars) * 100) /
-            100}`
-        )
-        .addField("Kills", `${stats.kills_bedwars}`, true)
-        .addField("Deaths", `${stats.deaths_bedwars}`, true)
-        .addField(
-          "Kill/Death Ratio",
-          `${Math.floor((stats.kills_bedwars / stats.deaths_bedwars) * 100) /
-            100}`
-        )
-        .addField("Final Kills", `${stats.final_kills_bedwars}`, true)
-        .addField("Final Deaths", `${stats.final_deaths_bedwars}`, true)
-        .addField(
-          "Final Kill/Death Ratio",
-          `${Math.floor(
-            (stats.final_kills_bedwars / stats.final_deaths_bedwars) * 100
-          ) / 100}`
-        )
-        .addField("Beds Broken", `${stats.beds_broken_bedwars}`, true)
-        .addField("Beds Lost", `${stats.beds_lost_bedwars}`, true)
-        .addField(
-          "Beds Broken/Lost Ratio",
-          `${Math.floor(
-            (stats.beds_broken_bedwars / stats.beds_lost_bedwars) * 100
-          ) / 100}`
-        )
-        .setFooter(
-          `UUID: ${player.uuid} | ${client.user.username}`,
-          client.user.avatarURL
-        ),
-      new Discord.RichEmbed()
-        .setColor(rankcolor)
-        .setThumbnail(thumbnailURL)
-        .setTitle(`[${rank}] ${username}`)
-        .setDescription("**Bed Wars | Solo**")
-        .setURL(`https://hypixel.net/player/${username}`)
-        .addField("Games Played", `${total_played}`)
+        .addField("Games Played", `${stats.games_played_bedwars}`)
         .addField("Wins", `${stats.wins_bedwars}`, true)
         .addField("Losses", `${stats.losses_bedwars}`, true)
         .addField(
@@ -186,6 +136,55 @@ module.exports = {
           client.user.avatarURL
         )
     );
+
+    for (var i in modes) {
+      embeds.push(
+        new Discord.RichEmbed()
+          .setColor(rankcolor)
+          .setThumbnail(thumbnailURL)
+          .setTitle(`[${rank}] ${username}`)
+          .setDescription("**Bed Wars | Solo**")
+          .setURL(`https://hypixel.net/player/${username}`)
+          .addField("Games Played", `${stats[i].games_played_bedwars}`)
+          .addField("Wins", `${stats[i].wins_bedwars}`, true)
+          .addField("Losses", `${stats[i].losses_bedwars}`, true)
+          .addField(
+            "Win/Loss Ratio",
+            `${Math.floor(
+              (stats[i].wins_bedwars / stats[i].losses_bedwars) * 100
+            ) / 100}`
+          )
+          .addField("Kills", `${stats[i].kills_bedwars}`, true)
+          .addField("Deaths", `${stats[i].deaths_bedwars}`, true)
+          .addField(
+            "Kill/Death Ratio",
+            `${Math.floor(
+              (stats[i].kills_bedwars / stats[i].deaths_bedwars) * 100
+            ) / 100}`
+          )
+          .addField("Final Kills", `${stats[i].final_kills_bedwars}`, true)
+          .addField("Final Deaths", `${stats[i].final_deaths_bedwars}`, true)
+          .addField(
+            "Final Kill/Death Ratio",
+            `${Math.floor(
+              (stats[i].final_kills_bedwars / stats[i].final_deaths_bedwars) *
+                100
+            ) / 100}`
+          )
+          .addField("Beds Broken", `${stats[i].beds_broken_bedwars}`, true)
+          .addField("Beds Lost", `${stats[i].beds_lost_bedwars}`, true)
+          .addField(
+            "Beds Broken/Lost Ratio",
+            `${Math.floor(
+              (stats[i].beds_broken_bedwars / stats[i].beds_lost_bedwars) * 100
+            ) / 100}`
+          )
+          .setFooter(
+            `UUID: ${player.uuid} | ${client.user.username}`,
+            client.user.avatarURL
+          )
+      );
+    }
 
     function getExpForLevel(level) {
       if (level == 0) return 0;
