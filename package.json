@@ -23,8 +23,7 @@
     "simple-youtube-api": "^5.2.1",
     "ytdl-core": "^2.0.0",
     "reaction-core": "^2.3.0",
-    "hypixel": "^1.0.3",
-    "8ball": "^1.0.6"
+    "hypixel": "^1.0.3"
   },
   "devDependencies": {},
   "scripts": {
