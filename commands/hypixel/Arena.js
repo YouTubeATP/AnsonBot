@@ -30,7 +30,6 @@ module.exports = {
     uuid,
     rank,
     rankcolor,
-    thumbnailURL,
     stats
   ) => {
     return message.channel.send(

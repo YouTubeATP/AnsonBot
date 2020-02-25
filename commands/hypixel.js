@@ -448,7 +448,6 @@ module.exports = {
             description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
           })
         );
-      let thumbnailURL = `https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/${gamemode}-64.png`;
       let stats = player.stats[gamemode];
       const exportGamemode =
         shared.client.gamemodes.get(gamemode) ||
@@ -466,7 +465,6 @@ module.exports = {
           uuid,
           rank,
           rankcolor,
-          thumbnailURL,
           stats
         );
       } catch (error) {
