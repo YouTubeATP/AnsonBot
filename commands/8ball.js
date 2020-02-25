@@ -28,13 +28,11 @@ module.exports = {
       return message.channel.send(embed);
     } else {
       question = question[0].toUpperCase() + question.slice(1);
-      let mentions = question.match(/<@.*>/g);
-      console.log(mentions);
+      let mentions = message.mentions.users.array();
       if (mentions)
         for (i = 0; i < mentions.length; i++) {
-          let tag = mentions[i].slice(2, -1);
-          if (tag.startsWith("!")) tag = tag.slice(1);
-          question = question.replace(mentions[i], Discord.users.find(tag).tag);
+          question = question.replace(`<@${mentions[i].id}>`, mentions[i].tag);
+          question = question.replace(`<@!${mentions[i].id}>`, mentions[i].tag);
         }
       if (question.endsWith("." | "," | ":" | ";"))
         question = question.slice(0, -1);
