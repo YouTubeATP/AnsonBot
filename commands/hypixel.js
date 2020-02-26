@@ -270,14 +270,14 @@ module.exports = {
             MinecraftUUID.get(message.member.id) &&
             mentions[0] &&
             !mentions[1]
-          )
+          ) {
             checkUuid1(
               MinecraftUUID.get(message.author.id),
               nameOrID2,
               gamemode,
               message.author.id
             );
-          else {
+          } else {
             return message.channel.send(
               fn.embed(client, {
                 title: "One or more username(s)/UUID(s) provided not found!",
@@ -314,7 +314,7 @@ module.exports = {
               MinecraftUUID.get(mentions[1].id),
               gamemode,
               discID1,
-              mentions[0].id
+              mentions[1].id
             );
           } else {
             return message.channel.send(
@@ -623,8 +623,8 @@ module.exports = {
           .setColor(config.embedColor)
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank1}] ${username1} | [${rank2}] ${username2}`)
-          .addField("Rank", `${rank1}\` | \`${rank2}`, true)
-          .addField("Level", `${netlvl1 || 0}\` | \`${netlvl2 || 0}`, true)
+          .addField("Rank", `${rank1} | ${rank2}`, true)
+          .addField("Level", `${netlvl1 || 0} | ${netlvl2 || 0}`, true)
           .addField(
             "Karma",
             `${player1.karma || 0} | ${player2.karma || 0}`,
@@ -642,9 +642,7 @@ module.exports = {
             "Last Login",
             `${fn.date(player1.lastLogin)} (${fn.ago(
               player1.lastLogin
-            )}) | ${fn.date(player2.lastLogin)} (${fn.ago(
-              player2.lastLogin
-            )})`
+            )}) | ${fn.date(player2.lastLogin)} (${fn.ago(player2.lastLogin)})`
           )
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp();
