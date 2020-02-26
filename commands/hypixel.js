@@ -78,6 +78,8 @@ module.exports = {
             })
           );
         } else checkUuid(MinecraftUUID.get(message.member.id));
+      } else if (rawcontent === /compare .* | .* /g) {
+        args[1];
       } else checkUsername(nameOrID);
     }
     function checkUsername(nameOrID) {
@@ -259,8 +261,8 @@ module.exports = {
           .setTitle(`[${rank}] ${username}`)
           .setURL(`https://hypixel.net/player/${username}`)
           .addField("Rank", `\`${rank}\``, true)
-          .addField("Level", `\`${netlvl}\``, true)
-          .addField("Karma", `\`${player.karma}\``, true)
+          .addField("Level", `\`${netlvl || 0}\``, true)
+          .addField("Karma", `\`${player.karma || 0}\``, true)
           .addField(
             "First Login",
             `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``
