@@ -152,45 +152,48 @@ module.exports = {
             let id = MinecraftUUID.get(nameOrID1);
             checkUuid1(id, nameOrID2, gamemode, nameOrID1);
           } else if (
-            mentions[0].id &&
-            mentions[1].id &&
+            mentions[0] &&
+            mentions[1] &&
             MinecraftUUID.get(mentions[0].id)
           ) {
-            checkUuid1(
-              MinecraftUUID.get(mentions[0].id),
-              mentions[0].id
-            );
-          } else {
+            checkUuid1(MinecraftUUID.get(mentions[0].id), mentions[0].id);
+          } else if (
+            MinecraftUUID.get(message.member.id) &&
+            mentions[0] &&
+            !mentions[1]
+          )
+            checkUuid1(MinecraftUUID.get(message.member.id), nameOrID2, gamemode);
+          else {
             return message.channel.send(
               fn.embed(client, {
-                title: "Username/UUID not found!",
+                title: `Username/UUID \`${nameOrID1}\` not found!`,
                 description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
               })
             );
           }
-        } else checkGuildInfo(player.displayname, player.uuid, player, discID);
+        } else checkName2(player, nameOrID2, gamemode, discID);
       });
     }
 
     function checkName2(player1, nameOrID2, gamemode, discID1) {
       hypixel.getPlayerByUsername(nameOrID2, (err, player) => {
         if (err || !player) {
-          checkUuid2(player1, nameOrID2, gamemode);
-        } else checkGuildInfo(player.displayname, player.uuid, player);
+          checkUuid2(player1, nameOrID2, gamemode, discID1);
+        } else checkCompareGuildInfo(player1, player, gamemode, discID1);
       });
     }
 
-    function checkUuid2(nameOrID1, nameOrID2, gamemode, discID1) {
+    function checkUuid2(player1, nameOrID2, gamemode, discID1, discID2) {
       hypixel.getPlayer(Uuid, (err, player) => {
         if (err || !player) {
           if (MinecraftUUID.get(nameOrID)) {
             let id = MinecraftUUID.get(nameOrID);
-            checkUuid(id, nameOrID);
+            checkUuid2(id, nameOrID);
           } else if (
             message.mentions.members.first() &&
             MinecraftUUID.get(message.mentions.members.first().id)
           ) {
-            checkUuid(
+            checkUuid2(
               MinecraftUUID.get(message.mentions.members.first().id),
               message.mentions.members.first().id
             );
@@ -201,10 +204,14 @@ module.exports = {
                 description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
               })
             );
-          } else checkUuid(MinecraftUUID.get(message.member.id));
-        } else checkGuildInfo(player.displayname, player.uuid, player, discID);
+          } else checkUuid2(MinecraftUUID.get(message.member.id));
+        } else checkCompareGuildInfo(player1, player, gamemode, discID1, discID2);
       });
     }
+    
+    function checkCompareGuildInfo(player1, player2, gamemode, discID1, discID2) {
+      
+    };
 
     function checkGamemode(username, player, guildInfo, uuid, discID) {
       let gamemode,
