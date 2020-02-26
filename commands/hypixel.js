@@ -78,10 +78,17 @@ module.exports = {
             })
           );
         } else checkUuid(MinecraftUUID.get(message.member.id));
-      } else if (rawcontent === /compare .* | .* /g) {
-        args[1];
+      } else if (
+        args[0].toLowerCase() === "compare" &&
+        args[2].toLowerCase() === "|"
+      ) {
+        let nameOrID1 = args[1],
+          nameOrID2 = args[3],
+          gamemode = args[4];
+        checkName1(nameOrID1, nameOrID2, gamemode);
       } else checkUsername(nameOrID);
     }
+
     function checkUsername(nameOrID) {
       hypixel.getPlayerByUsername(nameOrID, (err, player) => {
         if (err || !player) {
@@ -126,6 +133,30 @@ module.exports = {
             if (err || !guild) console.log(err);
             checkGamemode(username, player, guild, uuid, discID);
           });
+      });
+    }
+
+    function checkName1(nameOrID1, nameOrID2, gamemode) {
+      hypixel.getPlayerByUsername(nameOrID1, (err, player) => {
+        if (err || !player) {
+          checkUuid1(nameOrID1, nameOrID2, gamemode);
+        } else checkName2(player.displayname, player.uuid, player);
+      });
+    }
+    
+    function checkUuid1(nameOrID1, nameOrID2, gamemode) {
+      hypixel.getPlayerByUsername(nameOrID1, (err, player) => {
+        if (err || !player) {
+          checkUuid1(nameOrID);
+        } else checkName2(player.displayname, player.uuid, player);
+      });
+    }
+
+    function checkName2(nameOrID1, nameOrID2, gamemode) {
+      hypixel.getPlayerByUsername(nameOrID2, (err, player) => {
+        if (err || !player) {
+          checkUuid(nameOrID);
+        } else checkGuildInfo(player.displayname, player.uuid, player);
       });
     }
 
