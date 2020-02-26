@@ -175,7 +175,7 @@ module.exports = {
           !args[3] &&
           MinecraftUUID.get(message.author.id)
         ) {
-          if (args[2]) {
+          if (args[1]) {
             nameOrID1 = message.author.id;
             nameOrID2 = args[1];
             gamemode = args[2];
@@ -646,19 +646,19 @@ module.exports = {
         if (guildmsg1 || guildmsg2)
           embed.addField(
             "Guild",
-            `${guildmsg1 || "none"} | ${guildmsg2 || "none"}`,
+            `${guildmsg1 || "None"} | ${guildmsg2 || "None"}`,
             true
           );
         if (forums1 || forums2)
           embed.addField(
             "Forums",
-            `${forums1 || "none"} | ${forums2 || "None"}`,
+            `${forums1 || "None"} | ${forums2 || "None"}`,
             true
           );
         if (disc1 || disc2)
           embed.addField(
             "Discord",
-            `${disc1 || "Not Linked"} | ${disc2 || "Not Linked"}`
+            `${disc1 || "None Linked"} | ${disc2 || "None Linked"}`
           );
         return message.channel.send(embed);
       } else
