@@ -78,13 +78,15 @@ module.exports = {
             })
           );
         } else checkUuid(MinecraftUUID.get(message.member.id));
-      } else if (
-        args[0].toLowerCase() === "compare" &&
-        args[2].toLowerCase() === "|"
-      ) {
+      } else if (args[0].toLowerCase() === "compare" && args[2]) {
         let nameOrID1 = args[1],
-          nameOrID2 = args[3],
-          gamemode = args[4];
+          nameOrID2 = args[2],
+          gamemode;
+        if (!args[3]) {
+          nameOrID1 = message.author.id;
+          nameOrID2 = args[1];
+          gamemode = args[2];
+        } else gamemode = args[3];
         checkName1(nameOrID1, nameOrID2, gamemode);
       } else checkUsername(nameOrID);
     }
@@ -156,18 +158,28 @@ module.exports = {
             mentions[1] &&
             MinecraftUUID.get(mentions[0].id)
           ) {
-            checkUuid1(MinecraftUUID.get(mentions[0].id), mentions[0].id);
+            checkUuid1(
+              MinecraftUUID.get(mentions[0].id),
+              nameOrID2,
+              gamemode,
+              mentions[0].id
+            );
           } else if (
             MinecraftUUID.get(message.member.id) &&
             mentions[0] &&
             !mentions[1]
           )
-            checkUuid1(MinecraftUUID.get(message.member.id), nameOrID2, gamemode);
+            checkUuid1(
+              MinecraftUUID.get(message.author.id),
+              nameOrID2,
+              gamemode,
+              message.author.id
+            );
           else {
             return message.channel.send(
               fn.embed(client, {
-                title: `Username/UUID \`${nameOrID1}\` not found!`,
-                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+                title: "One or more username(s)/UUID(s) provided not found!",
+                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel compare <username1/UUID1> <username2/UUID2> [gamemode]\``
               })
             );
           }
@@ -205,13 +217,18 @@ module.exports = {
               })
             );
           } else checkUuid2(MinecraftUUID.get(message.member.id));
-        } else checkCompareGuildInfo(player1, player, gamemode, discID1, discID2);
+        } else
+          checkCompareGuildInfo(player1, player, gamemode, discID1, discID2);
       });
     }
-    
-    function checkCompareGuildInfo(player1, player2, gamemode, discID1, discID2) {
-      
-    };
+
+    function checkCompareGuildInfo(
+      player1,
+      player2,
+      gamemode,
+      discID1,
+      discID2
+    ) {}
 
     function checkGamemode(username, player, guildInfo, uuid, discID) {
       let gamemode,
