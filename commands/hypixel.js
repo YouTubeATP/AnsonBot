@@ -268,28 +268,126 @@ module.exports = {
       discID1,
       discID2
     ) {
-      hypixel.findGuildByPlayer(player1.uuid, (err, guildId) => {
+      hypixel.findGuildByPlayer(player2.uuid, (err, guildId) => {
         if (err || !guildId) {
           console.log(err);
-          checkGamemode(
+          checkCompareGamemode(
             player1.displayname,
             player1,
-            null,
+            guildInfo1,
             player1.uuid,
-            discID1
+            discID1,
+            player2.displayname,
+            player2,
+            null,
+            player2.uuid,
+            discID2,
+            gamemode
           );
         } else
           hypixel.getGuild(guildId, (err, guild) => {
             if (err || !guild) console.log(err);
-            checkGamemode(
+            checkCompareGamemode(
               player1.displayname,
               player1,
-              guild,
+              guildInfo1,
               player1.uuid,
-              discID1
+              discID1,
+              player2.displayname,
+              player2,
+              guild,
+              player2.uuid,
+              discID2,
+              gamemode
             );
           });
       });
+    }
+
+    function checkCompareGamemode(
+      username1,
+      player1,
+      guildInfo1,
+      uuid1,
+      discID1,
+      username2,
+      player2,
+      guildInfo2,
+      uuid2,
+      discID2
+    ) {
+      return;
+      let rank1,
+        rankcolor1,
+        rank2,
+        rankcolor2,
+        thumbnailURL =
+          "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2FHypixel-Thumbnail.png?v=1582188330345";
+      if (player1.prefix === "§c[OWNER]") {
+        rank1 = "OWNER";
+        rankcolor1 = "RED";
+      } else if (player1.prefix === "§c[SLOTH]") {
+        rank1 = "SLOTH";
+        rankcolor1 = "RED";
+      } else if (player1.prefix === "§c[ANGUS]") {
+        rank1 = "ANGUS";
+        rankcolor1 = "RED";
+      } else if (player1.prefix === "§3[MIXER]") {
+        rank1 = "MIXER";
+        rankcolor1 = "RED";
+      } else if (player1.prefix === "§6[APPLE]") {
+        rank1 = "APPLE";
+        rankcolor1 = "RED";
+      } else if (player1.prefix === "§6[EVENTS]") {
+        rank1 = "EVENTS";
+        rankcolor1 = "GOLD";
+      } else if (player1.prefix === "§6[MOJANG]") {
+        rank1 = "MOJANG";
+        rankcolor1 = "GOLD";
+      } else if (player1.prefix === "§d[PIG§b+++§d]") {
+        rank1 = "PIG+++";
+        rankcolor1 = "0xFF69B4";
+      } else if (player1.prefix === "§3[BUILD TEAM]") {
+        rank1 = "BUILD TEAM";
+        rankcolor1 = "DARK_AQUA";
+      } else if (player1.rank && player1.rank !== "NORMAL") {
+        if (player1.rank === "HELPER") {
+          rank1 = "HELPER";
+          rankcolor1 = "DARK_BLUE";
+        } else if (player1.rank === "MODERATOR") {
+          rank1 = "MOD";
+          rankcolor1 = "DARK_GREEN";
+        } else if (player1.rank === "YOUTUBER") {
+          rank1 = "YOUTUBE";
+          rankcolor1 = "RED";
+        } else {
+          rank1 = `[${player1.rank}]`;
+          rankcolor1 = "RED";
+        }
+      } else if (player1.monthlyPackageRank === "SUPERSTAR") {
+        rank1 = "MVP++";
+        if (player1.rankPlusColor === "WHITE") rankcolor1 = "0xfefefe";
+        else if (player1.rankPlusColor === "YELLOW") rankcolor1 = "0xffff00";
+        else if (!player1.rankPlusColor) rankcolor1 = "0xFF4f4f";
+        else rankcolor1 = player1.rankPlusColor;
+      } else if (player1.newPackageRank === "MVP_PLUS") {
+        rank1 = "MVP+";
+        if (player1.rankPlusColor === "WHITE") rankcolor1 = "0xfefefe";
+        else if (!player1.rankPlusColor) rankcolor1 = "0xFF4f4f";
+        else rankcolor1 = player1.rankPlusColor;
+      } else if (player1.newPackageRank === "MVP") {
+        rank1 = "MVP";
+        rankcolor1 = "AQUA";
+      } else if (player1.newPackageRank === "VIP_PLUS") {
+        rank1 = "VIP+";
+        rankcolor1 = "GREEN";
+      } else if (player1.newPackageRank === "VIP") {
+        rank1 = "VIP";
+        rankcolor1 = "GREEN";
+      } else {
+        rank1 = "NON";
+        rankcolor1 = "0x505050";
+      }
     }
 
     function checkGamemode(username, player, guildInfo, uuid, discID) {
