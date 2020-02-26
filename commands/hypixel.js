@@ -196,27 +196,44 @@ module.exports = {
     }
 
     function checkUuid2(player1, nameOrID2, gamemode, discID1, discID2) {
-      hypixel.getPlayer(Uuid, (err, player) => {
+      let mentions = message.mentions.users.array();
+      hypixel.getPlayer(nameOrID2, (err, player) => {
         if (err || !player) {
-          if (MinecraftUUID.get(nameOrID)) {
-            let id = MinecraftUUID.get(nameOrID);
-            checkUuid2(id, nameOrID);
+          if (MinecraftUUID.get(nameOrID2)) {
+            let id = MinecraftUUID.get(nameOrID2);
+            checkUuid1(player1, id, gamemode, discID1, nameOrID2);
           } else if (
-            message.mentions.members.first() &&
-            MinecraftUUID.get(message.mentions.members.first().id)
+            mentions[0] &&
+            mentions[1] &&
+            MinecraftUUID.get(mentions[0].id)
           ) {
             checkUuid2(
-              MinecraftUUID.get(message.mentions.members.first().id),
-              message.mentions.members.first().id
+              player1,
+              MinecraftUUID.get(mentions[0].id),
+              gamemode,
+              discID1,
+              mentions[0].id
             );
-          } else if (!MinecraftUUID.get(message.member.id)) {
+          } else if (
+            MinecraftUUID.get(message.member.id) &&
+            mentions[0] &&
+            !mentions[1]
+          )
+            checkUuid2(
+              player1,
+              MinecraftUUID.get(message.author.id),
+              gamemode,
+              discID1,
+              message.author.id
+            );
+          else {
             return message.channel.send(
               fn.embed(client, {
-                title: "Username/UUID not found!",
-                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+                title: "One or more username(s)/UUID(s) provided not found!",
+                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel compare <username1/UUID1> <username2/UUID2> [gamemode]\``
               })
             );
-          } else checkUuid2(MinecraftUUID.get(message.member.id));
+          }
         } else
           checkCompareGuildInfo(player1, player, gamemode, discID1, discID2);
       });
@@ -228,7 +245,9 @@ module.exports = {
       gamemode,
       discID1,
       discID2
-    ) {}
+    ) {
+      return;
+    }
 
     function checkGamemode(username, player, guildInfo, uuid, discID) {
       let gamemode,
