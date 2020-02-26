@@ -193,7 +193,7 @@ module.exports = {
           checkUuid2(player1, nameOrID2, gamemode, discID1);
         } else checkCompareGuildInfo(player1, player, gamemode, discID1);
       });
-    }
+    };
 
     function checkUuid2(player1, nameOrID2, gamemode, discID1, discID2) {
       let mentions = message.mentions.users.array();
@@ -237,7 +237,7 @@ module.exports = {
         } else
           checkCompareGuildInfo(player1, player, gamemode, discID1, discID2);
       });
-    }
+    };
 
     function checkCompareGuildInfo(
       player1,
@@ -247,7 +247,7 @@ module.exports = {
       discID2
     ) {
       return;
-    }
+    };
 
     function checkGamemode(username, player, guildInfo, uuid, discID) {
       let gamemode,
