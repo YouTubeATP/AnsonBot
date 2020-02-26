@@ -78,15 +78,107 @@ module.exports = {
             })
           );
         } else checkUuid(MinecraftUUID.get(message.member.id));
-      } else if (args[0].toLowerCase() === "compare" && args[2]) {
+      } else if (args[0].toLowerCase() === "compare" && args[1]) {
         let nameOrID1 = args[1],
           nameOrID2 = args[2],
-          gamemode;
-        if (!args[3]) {
+          gamemode = args[3] || args[2];
+        if (
+          (gamemode.toLowerCase() === "bw" ||
+            gamemode.toLowerCase() === "bedwars" ||
+            gamemode.toLowerCase() === "bed wars" ||
+            gamemode.toLowerCase() === "sw" ||
+            gamemode.toLowerCase() === "skywars" ||
+            gamemode.toLowerCase() === "sky wars" ||
+            gamemode.toLowerCase() === "murder mystery" ||
+            gamemode.toLowerCase() === "mm" ||
+            gamemode.toLowerCase() === "murder" ||
+            gamemode.toLowerCase() === "murdermystery" ||
+            gamemode.toLowerCase() === "arcade" ||
+            gamemode.toLowerCase() === "arcade games" ||
+            gamemode.toLowerCase() === "uhc" ||
+            gamemode.toLowerCase() === "ultra hardcore" ||
+            gamemode.toLowerCase() === "arena" ||
+            gamemode.toLowerCase() === "arena brawl" ||
+            gamemode.toLowerCase() === "brawl" ||
+            gamemode.toLowerCase() === "bb" ||
+            gamemode.toLowerCase() === "buildbattle" ||
+            gamemode.toLowerCase() === "build battle" ||
+            gamemode.toLowerCase() === "guess the build" ||
+            gamemode.toLowerCase() === "guessthebuild" ||
+            gamemode.toLowerCase() === "gtb" ||
+            gamemode.toLowerCase() === "cvc" ||
+            gamemode.toLowerCase() === "cops" ||
+            gamemode.toLowerCase() === "crims" ||
+            gamemode.toLowerCase() === "cops and crims" ||
+            gamemode.toLowerCase() === "cops vs crims" ||
+            gamemode.toLowerCase() === "copsandcrims" ||
+            gamemode.toLowerCase() === "copsvscrims" ||
+            gamemode.toLowerCase() === "crazywalls" ||
+            gamemode.toLowerCase() === "crazy walls" ||
+            gamemode.toLowerCase() === "crazy" ||
+            gamemode.toLowerCase() === "duels" ||
+            gamemode.toLowerCase() === "1v1" ||
+            gamemode.toLowerCase() === "pvp" ||
+            gamemode.toLowerCase() === "megawalls" ||
+            gamemode.toLowerCase() === "mega" ||
+            gamemode.toLowerCase() === "mega walls" ||
+            gamemode.toLowerCase() === "paintball" ||
+            gamemode.toLowerCase() === "paintball warfare" ||
+            gamemode.toLowerCase() === "paint" ||
+            gamemode.toLowerCase() === "quake" ||
+            gamemode.toLowerCase() === "quakecraft" ||
+            gamemode.toLowerCase() === "quake craft" ||
+            gamemode.toLowerCase() === "blitz" ||
+            gamemode.toLowerCase() === "blitz survival" ||
+            gamemode.toLowerCase() === "blitz survival games" ||
+            gamemode.toLowerCase() === "blitz sg" ||
+            gamemode.toLowerCase() === "survival games" ||
+            gamemode.toLowerCase() === "sg" ||
+            gamemode.toLowerCase() === "blitzsurvival" ||
+            gamemode.toLowerCase() === "blitzsurvivalgames" ||
+            gamemode.toLowerCase() === "survivalgames" ||
+            gamemode.toLowerCase() === "smash" ||
+            gamemode.toLowerCase() === "heroes" ||
+            gamemode.toLowerCase() === "smashheroes" ||
+            gamemode.toLowerCase() === "smash heroes" ||
+            gamemode.toLowerCase() === "speeduhc" ||
+            gamemode.toLowerCase() === "speed uhc" ||
+            gamemode.toLowerCase() === "speed" ||
+            gamemode.toLowerCase() === "tnt" ||
+            gamemode.toLowerCase() === "tnt games" ||
+            gamemode.toLowerCase() === "tntgames" ||
+            gamemode.toLowerCase() === "tnt run" ||
+            gamemode.toLowerCase() === "tntrun" ||
+            gamemode.toLowerCase() === "tnt tag" ||
+            gamemode.toLowerCase() === "tnttag" ||
+            gamemode.toLowerCase() === "pvp run" ||
+            gamemode.toLowerCase() === "pvprun" ||
+            gamemode.toLowerCase() === "turbo" ||
+            gamemode.toLowerCase() === "kart" ||
+            gamemode.toLowerCase() === "racer" ||
+            gamemode.toLowerCase() === "racers" ||
+            gamemode.toLowerCase() === "turbokart" ||
+            gamemode.toLowerCase() === "turbo kart" ||
+            gamemode.toLowerCase() === "kartracer" ||
+            gamemode.toLowerCase() === "kartracers" ||
+            gamemode.toLowerCase() === "kart racer" ||
+            gamemode.toLowerCase() === "kart racers" ||
+            gamemode.toLowerCase() === "turbo kart racer" ||
+            gamemode.toLowerCase() === "turbo kart racers" ||
+            gamemode.toLowerCase() === "vampire" ||
+            gamemode.toLowerCase() === "vampirez" ||
+            gamemode.toLowerCase() === "the walls" ||
+            gamemode.toLowerCase() === "walls" ||
+            gamemode.toLowerCase() === "thewalls" ||
+            gamemode.toLowerCase() === "warlords" ||
+            gamemode.toLowerCase() === "warlord") &&
+          !args[3] &&
+          MinecraftUUID.get(message.author.id)
+        ) {
           nameOrID1 = message.author.id;
           nameOrID2 = args[1];
           gamemode = args[2];
-        } else gamemode = args[3];
+        }
         checkName1(nameOrID1, nameOrID2, gamemode);
       } else checkUsername(nameOrID);
     }
