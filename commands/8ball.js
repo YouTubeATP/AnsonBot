@@ -9,6 +9,7 @@ let i;
 module.exports = {
   name: "8ball",
   usage: "8ball <question>",
+  aliases: ["8-ball", "eightball", "eight-ball"],
   description: "Have the trusty 8-ball answer all your questions!",
   category: "Misc",
   run: async (client, message, args, shared) => {
