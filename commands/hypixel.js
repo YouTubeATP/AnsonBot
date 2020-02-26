@@ -81,11 +81,11 @@ module.exports = {
       } else if (args[0].toLowerCase() === "compare" && args[1]) {
         let nameOrID1 = args[1],
           nameOrID2 = args[2],
-          gamemode = args[2];
-        if (
-          !args[3] &&
-          (gamemode.toLowerCase() === "bw" ||
-            gamemode.toLowerCase() === "bedwars" ||
+          gamemode;
+        if (args[2] && !args[3] && MinecraftUUID.get(message.author.id)) {
+          if (
+            args[2].toLowerCase() === "bw" ||
+            args[2].toLowerCase() === "bedwars" ||
             args[2].toLowerCase() === "bed wars" ||
             args[2].toLowerCase() === "sw" ||
             args[2].toLowerCase() === "skywars" ||
@@ -172,15 +172,19 @@ module.exports = {
             args[2].toLowerCase() === "walls" ||
             args[2].toLowerCase() === "thewalls" ||
             args[2].toLowerCase() === "warlords" ||
-            args[2].toLowerCase() === "warlord" ||
-            !args[2]) &&
-          MinecraftUUID.get(message.author.id)
-        ) {
+            args[2].toLowerCase() === "warlord"
+          ) {
+            nameOrID1 = message.author.id;
+            nameOrID2 = args[1];
+            gamemode = args[2];
+            checkName1(nameOrID1, nameOrID2, gamemode);
+          }
+        } else if (!args[2] && MinecraftUUID.get(message.author.id)) {
           nameOrID1 = message.author.id;
           nameOrID2 = args[1];
           gamemode = args[2];
           checkName1(nameOrID1, nameOrID2, gamemode);
-        } else if (args[1]) {
+        } else if (args[1] && MinecraftUUID.get(message.author.id)) {
           checkUsername(nameOrID);
         } else {
           gamemode = args[3];
@@ -619,28 +623,28 @@ module.exports = {
           .setColor(config.embedColor)
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank1}] ${username1} | [${rank2}] ${username2}`)
-          .addField("Rank", `\`${rank1}\` | \`${rank2}\``, true)
-          .addField("Level", `\`${netlvl1 || 0}\` | \`${netlvl2 || 0}\``, true)
+          .addField("Rank", `${rank1}\` | \`${rank2}`, true)
+          .addField("Level", `${netlvl1 || 0}\` | \`${netlvl2 || 0}`, true)
           .addField(
             "Karma",
-            `\`${player1.karma || 0}\` | \`${player2.karma || 0}\``,
+            `${player1.karma || 0} | ${player2.karma || 0}`,
             true
           )
           .addField(
             "First Login",
-            `\`${fn.date(player1.firstLogin)} (${fn.ago(
+            `${fn.date(player1.firstLogin)} (${fn.ago(
               player1.firstLogin
-            )})\` | \`${fn.date(player2.firstLogin)} (${fn.ago(
+            )}) | ${fn.date(player2.firstLogin)} (${fn.ago(
               player2.firstLogin
-            )})\``
+            )})`
           )
           .addField(
             "Last Login",
-            `\`${fn.date(player1.lastLogin)} (${fn.ago(
+            `${fn.date(player1.lastLogin)} (${fn.ago(
               player1.lastLogin
-            )})\` | \`${fn.date(player2.lastLogin)} (${fn.ago(
+            )}) | ${fn.date(player2.lastLogin)} (${fn.ago(
               player2.lastLogin
-            )})\``
+            )})`
           )
           .setFooter(client.user.username, client.user.avatarURL)
           .setTimestamp();
@@ -802,16 +806,16 @@ module.exports = {
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank}] ${username}`)
           .setURL(`https://hypixel.net/player/${username}`)
-          .addField("Rank", `\`${rank}\``, true)
-          .addField("Level", `\`${netlvl || 0}\``, true)
-          .addField("Karma", `\`${player.karma || 0}\``, true)
+          .addField("Rank", `${rank}`, true)
+          .addField("Level", `${netlvl || 0}`, true)
+          .addField("Karma", `${player.karma || 0}`, true)
           .addField(
             "First Login",
-            `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``
+            `${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})`
           )
           .addField(
             "Last Login",
-            `\`${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``
+            `${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})`
           )
           .setImage(`https://visage.surgeplay.com/full/${uuid}`)
           .setFooter(
