@@ -116,11 +116,13 @@ module.exports = {
 
     function checkGuildInfo(username, uuid, player, discID) {
       hypixel.findGuildByPlayer(uuid, (err, guildId) => {
-        if (err || !guildId) console.log(err);
-        else
+        if (err || !guildId) {
+          console.log(err);
+          checkGamemode(username, player, null, uuid, discID);
+        } else
           hypixel.getGuild(guildId, (err, guild) => {
             if (err || !guild) console.log(err);
-            else checkGamemode(username, player, guild, uuid, discID);
+            checkGamemode(username, player, guild, uuid, discID);
           });
       });
     }
@@ -187,6 +189,7 @@ module.exports = {
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
         rank = "MVP++";
         if (player.rankPlusColor === "WHITE") rankcolor = "0xfefefe";
+        else if (player.rankPlusColor === "YELLOW") rankcolor = "0xffff00";
         else if (!player.rankPlusColor) rankcolor = "0xFF4f4f";
         else rankcolor = player.rankPlusColor;
         thumbnailURL =
@@ -225,7 +228,7 @@ module.exports = {
               10
           ) / 10;
         let disc, guildmsg, forums;
-        if (guildInfo.name) {
+        if (guildInfo) {
           let guildName = guildInfo.name;
           guildmsg = `[${guildName}](https://hypixel.net/guilds/${guildName.replace(
             " ",
