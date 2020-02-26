@@ -66,7 +66,7 @@ module.exports = {
       setTimeout(() => {
         talkedRecently.delete(message.author.id);
       }, 5000);
-    }
+    };
 
     function init() {
       if (!rawcontent) {
@@ -89,7 +89,7 @@ module.exports = {
         } else gamemode = args[3];
         checkName1(nameOrID1, nameOrID2, gamemode);
       } else checkUsername(nameOrID);
-    }
+    };
 
     function checkUsername(nameOrID) {
       hypixel.getPlayerByUsername(nameOrID, (err, player) => {
@@ -97,7 +97,7 @@ module.exports = {
           checkUuid(nameOrID);
         } else checkGuildInfo(player.displayname, player.uuid, player);
       });
-    }
+    };
 
     function checkUuid(Uuid, discID) {
       hypixel.getPlayer(Uuid, (err, player) => {
@@ -123,7 +123,7 @@ module.exports = {
           } else checkUuid(MinecraftUUID.get(message.member.id));
         } else checkGuildInfo(player.displayname, player.uuid, player, discID);
       });
-    }
+    };
 
     function checkGuildInfo(username, uuid, player, discID) {
       hypixel.findGuildByPlayer(uuid, (err, guildId) => {
@@ -136,7 +136,7 @@ module.exports = {
             checkGamemode(username, player, guild, uuid, discID);
           });
       });
-    }
+    };
 
     function checkName1(nameOrID1, nameOrID2, gamemode) {
       hypixel.getPlayerByUsername(nameOrID1, (err, player) => {
@@ -144,7 +144,7 @@ module.exports = {
           checkUuid1(nameOrID1, nameOrID2, gamemode);
         } else checkName2(player, nameOrID2, gamemode);
       });
-    }
+    };
 
     function checkUuid1(nameOrID1, nameOrID2, gamemode, discID) {
       let mentions = message.mentions.users.array();
@@ -185,7 +185,7 @@ module.exports = {
           }
         } else checkName2(player, nameOrID2, gamemode, discID);
       });
-    }
+    };
 
     function checkName2(player1, nameOrID2, gamemode, discID1) {
       hypixel.getPlayerByUsername(nameOrID2, (err, player) => {
