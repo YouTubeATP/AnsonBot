@@ -496,7 +496,7 @@ module.exports = {
             : `UUID: ${player.uuid} | ${client.user.username}`,
           client.user.avatarURL
         );
-      if (!player2) embed.setTimestamp();
+      if (player2) embed.setTimestamp();
       embeds.push(embed);
     }
 
