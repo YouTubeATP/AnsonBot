@@ -68,56 +68,52 @@ module.exports = {
         .setTitle(`[${rank}] ${username}`)
         .setDescription("**Bed Wars | Overall**")
         .setURL(`https://hypixel.net/player/${username}`)
-        .addField("Level", `${bwlvl}`)
-        .addField("Coins", `${stats.coins}`)
-        .addField("Win Streak", `${stats.winstreak}`)
-        .addField("Games Played", `${stats.games_played_bedwars}`)
-        .addField("Kills", `${stats.kills_bedwars}`, true)
-        .addField("Deaths", `${stats.deaths_bedwars}`, true)
+        .addField("Level", `${bwlvl || 0}`)
+        .addField("Coins", `${stats.coins || 0}`)
+        .addField("Win Streak", `${stats.winstreak || 0}`)
+        .addField("Games Played", `${stats.games_played_bedwars || 0}`)
+        .addField("Kills", `${stats.kills_bedwars || 0}`, true)
+        .addField("Deaths", `${stats.deaths_bedwars || 0}`, true)
         .addField(
           "Kill/Death Ratio",
           `${Math.floor((stats.kills_bedwars / stats.deaths_bedwars) * 100) /
-            100}`,
-          true
+            100}`
         )
-        .addField("Final Kills", `${stats.final_kills_bedwars}`, true)
-        .addField("Final Deaths", `${stats.final_deaths_bedwars}`, true)
+        .addField("Final Kills", `${stats.final_kills_bedwars || 0}`, true)
+        .addField("Final Deaths", `${stats.final_deaths_bedwars || 0}`, true)
         .addField(
           "Final Kill/Death Ratio",
           `${Math.floor(
             (stats.final_kills_bedwars / stats.final_deaths_bedwars) * 100
-          ) / 100}`,
-          true
+          ) / 100}`
         )
-        .addField("Wins", `${stats.wins_bedwars}`, true)
-        .addField("Losses", `${stats.losses_bedwars}`, true)
+        .addField("Wins", `${stats.wins_bedwars || 0}`, true)
+        .addField("Losses", `${stats.losses_bedwars || 0}`, true)
         .addField(
           "Win/Loss Ratio",
           `${Math.floor((stats.wins_bedwars / stats.losses_bedwars) * 100) /
-            100}`,
-          true
+            100}`
         )
-        .addField("Beds Broken", `${stats.beds_broken_bedwars}`, true)
-        .addField("Beds Lost", `${stats.beds_lost_bedwars}`, true)
+        .addField("Beds Broken", `${stats.beds_broken_bedwars || 0}`, true)
+        .addField("Beds Lost", `${stats.beds_lost_bedwars || 0}`, true)
         .addField(
           "Beds Broken/Lost Ratio",
           `${Math.floor(
             (stats.beds_broken_bedwars / stats.beds_lost_bedwars) * 100
-          ) / 100}`,
-          true
+          ) / 100}`
         )
         .addField(
           "Average Final Kills/Game",
           `${Math.floor(
             (stats.final_kills_bedwars / stats.games_played_bedwars) * 100
-          ) / 100}`,
+          ) / 100 || 0}`,
           true
         )
         .addField(
           "Average Beds Broken/Game",
           `${Math.floor(
             (stats.beds_broken_bedwars / stats.games_played_bedwars) * 100
-          ) / 100}`,
+          ) / 100 || 0}`,
           true
         )
         .setFooter(
@@ -134,19 +130,26 @@ module.exports = {
           .setTitle(`[${rank}] ${username}`)
           .setDescription(`**Bed Wars | ${modes[i]}**`)
           .setURL(`https://hypixel.net/player/${username}`)
-          .addField("Games Played", `${stats[`${i}_games_played_bedwars`]}`)
-          .addField("Kills", `${stats[`${i}_kills_bedwars`]}`, true)
-          .addField("Deaths", `${stats[`${i}_deaths_bedwars`]}`, true)
+          .addField(
+            "Games Played",
+            `${stats[`${i}_games_played_bedwars`] || 0}`
+          )
+          .addField("Kills", `${stats[`${i}_kills_bedwars`] || 0}`, true)
+          .addField("Deaths", `${stats[`${i}_deaths_bedwars`] || 0}`, true)
           .addField(
             "Kill/Death Ratio",
             `${Math.floor(
               (stats[`${i}_kills_bedwars`] / stats[`${i}_deaths_bedwars`]) * 100
             ) / 100}`
           )
-          .addField("Final Kills", `${stats[`${i}_final_kills_bedwars`]}`, true)
+          .addField(
+            "Final Kills",
+            `${stats[`${i}_final_kills_bedwars`] || 0}`,
+            true
+          )
           .addField(
             "Final Deaths",
-            `${stats[`${i}_final_deaths_bedwars`]}`,
+            `${stats[`${i}_final_deaths_bedwars`] || 0}`,
             true
           )
           .addField(
@@ -157,16 +160,24 @@ module.exports = {
                 100
             ) / 100}`
           )
-          .addField("Wins", `${stats[`${i}_wins_bedwars`]}`, true)
-          .addField("Losses", `${stats[`${i}_losses_bedwars`]}`, true)
+          .addField("Wins", `${stats[`${i}_wins_bedwars`] || 0}`, true)
+          .addField("Losses", `${stats[`${i}_losses_bedwars`] || 0}`, true)
           .addField(
             "Win/Loss Ratio",
             `${Math.floor(
               (stats[`${i}_wins_bedwars`] / stats[`${i}_losses_bedwars`]) * 100
             ) / 100}`
           )
-          .addField("Beds Broken", `${stats[`${i}_beds_broken_bedwars`]}`, true)
-          .addField("Beds Lost", `${stats[`${i}_beds_lost_bedwars`]}`, true)
+          .addField(
+            "Beds Broken",
+            `${stats[`${i}_beds_broken_bedwars`] || 0}`,
+            true
+          )
+          .addField(
+            "Beds Lost",
+            `${stats[`${i}_beds_lost_bedwars`] || 0}`,
+            true
+          )
           .addField(
             "Beds Broken/Lost Ratio",
             `${Math.floor(
@@ -181,7 +192,7 @@ module.exports = {
               (stats[`${i}_final_kills_bedwars`] /
                 stats[`${i}_games_played_bedwars`]) *
                 100
-            ) / 100}`,
+            ) / 100 || 0}`,
             true
           )
           .addField(
@@ -190,7 +201,7 @@ module.exports = {
               (stats[`${i}_beds_broken_bedwars`] /
                 stats[`${i}_games_played_bedwars`]) *
                 100
-            ) / 100}`,
+            ) / 100 || 0}`,
             true
           )
           .setFooter(
