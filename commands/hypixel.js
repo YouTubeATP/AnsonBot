@@ -82,9 +82,11 @@ module.exports = {
         let nameOrID1 = args[1],
           nameOrID2 = args[2],
           gamemode;
-        if (args[2] && !args[3] && MinecraftUUID.get(message.author.id)) {
-          if (
-            args[2].toLowerCase() === "bw" ||
+        if (
+          args[2] &&
+          !args[3] &&
+          MinecraftUUID.get(message.author.id) &&
+          (args[2].toLowerCase() === "bw" ||
             args[2].toLowerCase() === "bedwars" ||
             args[2].toLowerCase() === "bed wars" ||
             args[2].toLowerCase() === "sw" ||
@@ -172,19 +174,108 @@ module.exports = {
             args[2].toLowerCase() === "walls" ||
             args[2].toLowerCase() === "thewalls" ||
             args[2].toLowerCase() === "warlords" ||
-            args[2].toLowerCase() === "warlord"
-          ) {
-            nameOrID1 = message.author.id;
-            nameOrID2 = args[1];
-            gamemode = args[2];
-            checkName1(nameOrID1, nameOrID2, gamemode);
-          }
+            args[2].toLowerCase() === "warlord")
+        ) {
+          nameOrID1 = message.author.id;
+          nameOrID2 = args[1];
+          gamemode = args[2];
+          checkName1(nameOrID1, nameOrID2, gamemode);
         } else if (!args[2] && MinecraftUUID.get(message.author.id)) {
           nameOrID1 = message.author.id;
           nameOrID2 = args[1];
           gamemode = args[2];
           checkName1(nameOrID1, nameOrID2, gamemode);
-        } else if (args[1] && MinecraftUUID.get(message.author.id)) {
+        } else if (
+          args[1].toLowerCase() === "bw" ||
+          args[1].toLowerCase() === "bedwars" ||
+          args[1].toLowerCase() === "bed wars" ||
+          args[1].toLowerCase() === "sw" ||
+          args[1].toLowerCase() === "skywars" ||
+          args[1].toLowerCase() === "sky wars" ||
+          args[1].toLowerCase() === "murder mystery" ||
+          args[1].toLowerCase() === "mm" ||
+          args[1].toLowerCase() === "murder" ||
+          args[1].toLowerCase() === "murdermystery" ||
+          args[1].toLowerCase() === "arcade" ||
+          args[1].toLowerCase() === "arcade games" ||
+          args[1].toLowerCase() === "uhc" ||
+          args[1].toLowerCase() === "ultra hardcore" ||
+          args[1].toLowerCase() === "arena" ||
+          args[1].toLowerCase() === "arena brawl" ||
+          args[1].toLowerCase() === "brawl" ||
+          args[1].toLowerCase() === "bb" ||
+          args[1].toLowerCase() === "buildbattle" ||
+          args[1].toLowerCase() === "build battle" ||
+          args[1].toLowerCase() === "guess the build" ||
+          args[1].toLowerCase() === "guessthebuild" ||
+          args[1].toLowerCase() === "gtb" ||
+          args[1].toLowerCase() === "cvc" ||
+          args[1].toLowerCase() === "cops" ||
+          args[1].toLowerCase() === "crims" ||
+          args[1].toLowerCase() === "cops and crims" ||
+          args[1].toLowerCase() === "cops vs crims" ||
+          args[1].toLowerCase() === "copsandcrims" ||
+          args[1].toLowerCase() === "copsvscrims" ||
+          args[1].toLowerCase() === "crazywalls" ||
+          args[1].toLowerCase() === "crazy walls" ||
+          args[1].toLowerCase() === "crazy" ||
+          args[1].toLowerCase() === "duels" ||
+          args[1].toLowerCase() === "1v1" ||
+          args[1].toLowerCase() === "pvp" ||
+          args[1].toLowerCase() === "megawalls" ||
+          args[1].toLowerCase() === "mega" ||
+          args[1].toLowerCase() === "mega walls" ||
+          args[1].toLowerCase() === "paintball" ||
+          args[1].toLowerCase() === "paintball warfare" ||
+          args[1].toLowerCase() === "paint" ||
+          args[1].toLowerCase() === "quake" ||
+          args[1].toLowerCase() === "quakecraft" ||
+          args[1].toLowerCase() === "quake craft" ||
+          args[1].toLowerCase() === "blitz" ||
+          args[1].toLowerCase() === "blitz survival" ||
+          args[1].toLowerCase() === "blitz survival games" ||
+          args[1].toLowerCase() === "blitz sg" ||
+          args[1].toLowerCase() === "survival games" ||
+          args[1].toLowerCase() === "sg" ||
+          args[1].toLowerCase() === "blitzsurvival" ||
+          args[1].toLowerCase() === "blitzsurvivalgames" ||
+          args[1].toLowerCase() === "survivalgames" ||
+          args[1].toLowerCase() === "smash" ||
+          args[1].toLowerCase() === "heroes" ||
+          args[1].toLowerCase() === "smashheroes" ||
+          args[1].toLowerCase() === "smash heroes" ||
+          args[1].toLowerCase() === "speeduhc" ||
+          args[1].toLowerCase() === "speed uhc" ||
+          args[1].toLowerCase() === "speed" ||
+          args[1].toLowerCase() === "tnt" ||
+          args[1].toLowerCase() === "tnt games" ||
+          args[1].toLowerCase() === "tntgames" ||
+          args[1].toLowerCase() === "tnt run" ||
+          args[1].toLowerCase() === "tntrun" ||
+          args[1].toLowerCase() === "tnt tag" ||
+          args[1].toLowerCase() === "tnttag" ||
+          args[1].toLowerCase() === "pvp run" ||
+          args[1].toLowerCase() === "pvprun" ||
+          args[1].toLowerCase() === "turbo" ||
+          args[1].toLowerCase() === "kart" ||
+          args[1].toLowerCase() === "racer" ||
+          args[1].toLowerCase() === "racers" ||
+          args[1].toLowerCase() === "turbokart" ||
+          args[1].toLowerCase() === "turbo kart" ||
+          args[1].toLowerCase() === "kartracer" ||
+          args[1].toLowerCase() === "kartracers" ||
+          args[1].toLowerCase() === "kart racer" ||
+          args[1].toLowerCase() === "kart racers" ||
+          args[1].toLowerCase() === "turbo kart racer" ||
+          args[1].toLowerCase() === "turbo kart racers" ||
+          args[1].toLowerCase() === "vampire" ||
+          args[1].toLowerCase() === "vampirez" ||
+          args[1].toLowerCase() === "the walls" ||
+          args[1].toLowerCase() === "walls" ||
+          args[1].toLowerCase() === "thewalls" ||
+          args[1].toLowerCase() === "warlords" ||
+          args[1].toLowerCase() === "warlord"
+        ) {
           checkUsername(nameOrID);
         } else {
           gamemode = args[3];
