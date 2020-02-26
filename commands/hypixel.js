@@ -140,23 +140,69 @@ module.exports = {
       hypixel.getPlayerByUsername(nameOrID1, (err, player) => {
         if (err || !player) {
           checkUuid1(nameOrID1, nameOrID2, gamemode);
-        } else checkName2(player.displayname, player.uuid, player);
-      });
-    }
-    
-    function checkUuid1(nameOrID1, nameOrID2, gamemode) {
-      hypixel.getPlayerByUsername(nameOrID1, (err, player) => {
-        if (err || !player) {
-          checkUuid1(nameOrID);
-        } else checkName2(player.displayname, player.uuid, player);
+        } else checkName2(player, nameOrID2, gamemode);
       });
     }
 
-    function checkName2(nameOrID1, nameOrID2, gamemode) {
+    function checkUuid1(nameOrID1, nameOrID2, gamemode, discID) {
+      let mentions = message.mentions.users.array();
+      hypixel.getPlayer(nameOrID1, (err, player) => {
+        if (err || !player) {
+          if (MinecraftUUID.get(nameOrID1)) {
+            let id = MinecraftUUID.get(nameOrID1);
+            checkUuid1(id, nameOrID2, gamemode, nameOrID1);
+          } else if (
+            mentions[0].id &&
+            mentions[1].id &&
+            MinecraftUUID.get(mentions[0].id)
+          ) {
+            checkUuid1(
+              MinecraftUUID.get(mentions[0].id),
+              mentions[0].id
+            );
+          } else {
+            return message.channel.send(
+              fn.embed(client, {
+                title: "Username/UUID not found!",
+                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+              })
+            );
+          }
+        } else checkGuildInfo(player.displayname, player.uuid, player, discID);
+      });
+    }
+
+    function checkName2(player1, nameOrID2, gamemode, discID1) {
       hypixel.getPlayerByUsername(nameOrID2, (err, player) => {
         if (err || !player) {
-          checkUuid(nameOrID);
+          checkUuid2(player1, nameOrID2, gamemode);
         } else checkGuildInfo(player.displayname, player.uuid, player);
+      });
+    }
+
+    function checkUuid2(nameOrID1, nameOrID2, gamemode, discID1) {
+      hypixel.getPlayer(Uuid, (err, player) => {
+        if (err || !player) {
+          if (MinecraftUUID.get(nameOrID)) {
+            let id = MinecraftUUID.get(nameOrID);
+            checkUuid(id, nameOrID);
+          } else if (
+            message.mentions.members.first() &&
+            MinecraftUUID.get(message.mentions.members.first().id)
+          ) {
+            checkUuid(
+              MinecraftUUID.get(message.mentions.members.first().id),
+              message.mentions.members.first().id
+            );
+          } else if (!MinecraftUUID.get(message.member.id)) {
+            return message.channel.send(
+              fn.embed(client, {
+                title: "Username/UUID not found!",
+                description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
+              })
+            );
+          } else checkUuid(MinecraftUUID.get(message.member.id));
+        } else checkGuildInfo(player.displayname, player.uuid, player, discID);
       });
     }
 
