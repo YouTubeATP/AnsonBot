@@ -314,7 +314,8 @@ module.exports = {
       player2,
       guildInfo2,
       uuid2,
-      discID2
+      discID2,
+      gamemode
     ) {
       return;
       let rank1,
@@ -388,6 +389,170 @@ module.exports = {
         rank1 = "NON";
         rankcolor1 = "0x505050";
       }
+      if (player2.prefix === "§c[OWNER]") {
+        rank2 = "OWNER";
+        rankcolor2 = "RED";
+      } else if (player2.prefix === "§c[SLOTH]") {
+        rank2 = "SLOTH";
+        rankcolor2 = "RED";
+      } else if (player2.prefix === "§c[ANGUS]") {
+        rank2 = "ANGUS";
+        rankcolor2 = "RED";
+      } else if (player2.prefix === "§3[MIXER]") {
+        rank2 = "MIXER";
+        rankcolor2 = "RED";
+      } else if (player2.prefix === "§6[APPLE]") {
+        rank2 = "APPLE";
+        rankcolor2 = "RED";
+      } else if (player2.prefix === "§6[EVENTS]") {
+        rank2 = "EVENTS";
+        rankcolor2 = "GOLD";
+      } else if (player2.prefix === "§6[MOJANG]") {
+        rank2 = "MOJANG";
+        rankcolor2 = "GOLD";
+      } else if (player2.prefix === "§d[PIG§b+++§d]") {
+        rank2 = "PIG+++";
+        rankcolor2 = "0xFF69B4";
+      } else if (player2.prefix === "§3[BUILD TEAM]") {
+        rank2 = "BUILD TEAM";
+        rankcolor2 = "DARK_AQUA";
+      } else if (player2.rank && player2.rank !== "NORMAL") {
+        if (player2.rank === "HELPER") {
+          rank2 = "HELPER";
+          rankcolor2 = "DARK_BLUE";
+        } else if (player2.rank === "MODERATOR") {
+          rank2 = "MOD";
+          rankcolor2 = "DARK_GREEN";
+        } else if (player2.rank === "YOUTUBER") {
+          rank2 = "YOUTUBE";
+          rankcolor2 = "RED";
+        } else {
+          rank2 = `[${player2.rank}]`;
+          rankcolor2 = "RED";
+        }
+      } else if (player2.monthlyPackageRank === "SUPERSTAR") {
+        rank2 = "MVP++";
+        if (player2.rankPlusColor === "WHITE") rankcolor2 = "0xfefefe";
+        else if (player2.rankPlusColor === "YELLOW") rankcolor2 = "0xffff00";
+        else if (!player2.rankPlusColor) rankcolor2 = "0xFF4f4f";
+        else rankcolor2 = player2.rankPlusColor;
+      } else if (player2.newPackageRank === "MVP_PLUS") {
+        rank2 = "MVP+";
+        if (player2.rankPlusColor === "WHITE") rankcolor2 = "0xfefefe";
+        else if (!player2.rankPlusColor) rankcolor2 = "0xFF4f4f";
+        else rankcolor2 = player2.rankPlusColor;
+      } else if (player2.newPackageRank === "MVP") {
+        rank2 = "MVP";
+        rankcolor2 = "AQUA";
+      } else if (player2.newPackageRank === "VIP_PLUS") {
+        rank2 = "VIP+";
+        rankcolor2 = "GREEN";
+      } else if (player2.newPackageRank === "VIP") {
+        rank2 = "VIP";
+        rankcolor2 = "GREEN";
+      } else {
+        rank2 = "NON";
+        rankcolor2 = "0x505050";
+      }
+      if (!gamemode) {
+        let netlvl1 =
+          Math.round(
+            ((Math.sqrt(player1.networkExp + 15312.5) - 125 / Math.sqrt(2)) /
+              (25 * Math.sqrt(2))) *
+              10
+          ) / 10;
+        let netlvl2 =
+          Math.round(
+            ((Math.sqrt(player2.networkExp + 15312.5) - 125 / Math.sqrt(2)) /
+              (25 * Math.sqrt(2))) *
+              10
+          ) / 10;
+        let disc1, guildmsg1, forums1, disc2, guildmsg2, forums2;
+        if (guildInfo1) {
+          let guildName1 = guildInfo1.name;
+          guildmsg1 = `[${guildName1}](https://hypixel.net/guilds/${guildName1.replace(
+            " ",
+            "%20"
+          )})`;
+        } else guildmsg1 = undefined;
+        if (guildInfo2) {
+          let guildName2 = guildInfo2.name;
+          guildmsg2 = `[${guildName2}](https://hypixel.net/guilds/${guildName2.replace(
+            " ",
+            "%20"
+          )})`;
+        } else guildmsg2 = undefined;
+        if (player1.socialMedia) {
+          if (player1.socialMedia.links.DISCORD) {
+            let nameargs = player1.socialMedia.links.DISCORD.split("#");
+            try {
+              disc1 = client.users
+                .filterArray(u => u.discriminator === nameargs[1])
+                .find(x => x.tag.includes(nameargs[0]));
+            } catch (err) {
+              disc1 = undefined;
+            }
+          } else disc1 = undefined;
+          if (player1.socialMedia.links.HYPIXEL)
+            forums1 = `[View forum account](${player1.socialMedia.links.HYPIXEL})`;
+          else forums1 = undefined;
+        } else {
+          disc1 = undefined;
+          forums1 = undefined;
+        }
+        if (player2.socialMedia) {
+          if (player2.socialMedia.links.DISCORD) {
+            let nameargs = player2.socialMedia.links.DISCORD.split("#");
+            try {
+              disc2 = client.users
+                .filterArray(u => u.discriminator === nameargs[1])
+                .find(x => x.tag.includes(nameargs[0]));
+            } catch (err) {
+              disc2 = undefined;
+            }
+          } else disc2 = undefined;
+          if (player2.socialMedia.links.HYPIXEL)
+            forums2 = `[View forum account](${player2.socialMedia.links.HYPIXEL})`;
+          else forums2 = undefined;
+        } else {
+          disc2 = undefined;
+          forums2 = undefined;
+        }
+        let embed = new Discord.RichEmbed()
+          .setColor(rankcolor)
+          .setThumbnail(thumbnailURL)
+          .setTitle(`[${rank}] ${username}`)
+          .setURL(`https://hypixel.net/player/${username}`)
+          .addField("Rank", `\`${rank}\``, true)
+          .addField("Level", `\`${netlvl || 0}\``, true)
+          .addField("Karma", `\`${player.karma || 0}\``, true)
+          .addField(
+            "First Login",
+            `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``
+          )
+          .addField(
+            "Last Login",
+            `\`${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``
+          )
+          .setImage(`https://visage.surgeplay.com/full/${uuid}`)
+          .setFooter(
+            `UUID: ${player.uuid} | ${client.user.username}`,
+            client.user.avatarURL
+          );
+        if (guildmsg !== undefined) embed.addField("Guild", guildmsg, true);
+        if (forums !== undefined) embed.addField("Forums", forums, true);
+        if (disc !== undefined) embed.addField("Discord", disc);
+        return message.channel.send(embed);
+      } else
+        specificGame(
+          username,
+          player,
+          guildInfo,
+          uuid,
+          gamemode,
+          rank,
+          rankcolor
+        );
     }
 
     function checkGamemode(username, player, guildInfo, uuid, discID) {
