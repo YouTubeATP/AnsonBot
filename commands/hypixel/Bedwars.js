@@ -25,22 +25,22 @@ const EASY_LEVELS = 4,
   HIGHEST_PRESTIGE = 10;
 
 const modes = {
-  "eight_one": "Solo",
-  "eight_two": "Doubles",
-  "four_three": "3v3v3v3",
-  "four_four": "4v4v4v4",
-  "two_four": "4v4",
-  "eight_two_rush": "Doubles Rush",
-  "four_four_rush": "4v4v4v4 Rush",
-  "eight_two_ultimate": "Doubles Ultimate",
-  "four_four_ultimate": "4v4v4v4 Ultimate",
-  "eight_two_voidless": "Doubles Voidless",
-  "four_four_voidless": "4v4v4v4 Voidless",
-  "eight_two_armed": "Doubles Armed",
-  "four_four_armed": "4v4v4v4 Armed",
-  "eight_two_lucky": "Doubles Lucky Blocks",
-  "four_four_lucky": "4v4v4v4 Lucky Blocks",
-  "castle": "Castle"
+  eight_one: "Solo",
+  eight_two: "Doubles",
+  four_three: "3v3v3v3",
+  four_four: "4v4v4v4",
+  two_four: "4v4",
+  eight_two_rush: "Doubles Rush",
+  four_four_rush: "4v4v4v4 Rush",
+  eight_two_ultimate: "Doubles Ultimate",
+  four_four_ultimate: "4v4v4v4 Ultimate",
+  eight_two_voidless: "Doubles Voidless",
+  four_four_voidless: "4v4v4v4 Voidless",
+  eight_two_armed: "Doubles Armed",
+  four_four_armed: "4v4v4v4 Armed",
+  eight_two_lucky: "Doubles Lucky Blocks",
+  four_four_lucky: "4v4v4v4 Lucky Blocks",
+  castle: "Castle"
 };
 
 module.exports = {
@@ -77,7 +77,8 @@ module.exports = {
         .addField(
           "Kill/Death Ratio",
           `${Math.floor((stats.kills_bedwars / stats.deaths_bedwars) * 100) /
-            100}`
+            100}`,
+          true
         )
         .addField("Final Kills", `${stats.final_kills_bedwars}`, true)
         .addField("Final Deaths", `${stats.final_deaths_bedwars}`, true)
@@ -85,14 +86,16 @@ module.exports = {
           "Final Kill/Death Ratio",
           `${Math.floor(
             (stats.final_kills_bedwars / stats.final_deaths_bedwars) * 100
-          ) / 100}`
+          ) / 100}`,
+          true
         )
         .addField("Wins", `${stats.wins_bedwars}`, true)
         .addField("Losses", `${stats.losses_bedwars}`, true)
         .addField(
           "Win/Loss Ratio",
           `${Math.floor((stats.wins_bedwars / stats.losses_bedwars) * 100) /
-            100}`
+            100}`,
+          true
         )
         .addField("Beds Broken", `${stats.beds_broken_bedwars}`, true)
         .addField("Beds Lost", `${stats.beds_lost_bedwars}`, true)
@@ -100,7 +103,22 @@ module.exports = {
           "Beds Broken/Lost Ratio",
           `${Math.floor(
             (stats.beds_broken_bedwars / stats.beds_lost_bedwars) * 100
-          ) / 100}`
+          ) / 100}`,
+          true
+        )
+        .addField(
+          "Average Final Kills/Game",
+          `${Math.floor(
+            (stats.final_kills_bedwars / stats.games_played_bedwars) * 100
+          ) / 100}`,
+          true
+        )
+        .addField(
+          "Average Beds Broken/Game",
+          `${Math.floor(
+            (stats.beds_broken_bedwars / stats.games_played_bedwars) * 100
+          ) / 100}`,
+          true
         )
         .setFooter(
           `UUID: ${player.uuid} | ${client.user.username}`,
@@ -156,6 +174,24 @@ module.exports = {
                 stats[`${i}_beds_lost_bedwars`]) *
                 100
             ) / 100}`
+          )
+          .addField(
+            "Average Final Kills/Game",
+            `${Math.floor(
+              (stats[`${i}_final_kills_bedwars`] /
+                stats[`${i}_games_played_bedwars`]) *
+                100
+            ) / 100}`,
+            true
+          )
+          .addField(
+            "Average Beds Broken/Game",
+            `${Math.floor(
+              (stats[`${i}_beds_broken_bedwars`] /
+                stats[`${i}_games_played_bedwars`]) *
+                100
+            ) / 100}`,
+            true
           )
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
