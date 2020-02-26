@@ -66,7 +66,7 @@ module.exports = {
       setTimeout(() => {
         talkedRecently.delete(message.author.id);
       }, 5000);
-    };
+    }
 
     function init() {
       if (!rawcontent) {
@@ -89,7 +89,7 @@ module.exports = {
         } else gamemode = args[3];
         checkName1(nameOrID1, nameOrID2, gamemode);
       } else checkUsername(nameOrID);
-    };
+    }
 
     function checkUsername(nameOrID) {
       hypixel.getPlayerByUsername(nameOrID, (err, player) => {
@@ -97,7 +97,7 @@ module.exports = {
           checkUuid(nameOrID);
         } else checkGuildInfo(player.displayname, player.uuid, player);
       });
-    };
+    }
 
     function checkUuid(Uuid, discID) {
       hypixel.getPlayer(Uuid, (err, player) => {
@@ -123,7 +123,7 @@ module.exports = {
           } else checkUuid(MinecraftUUID.get(message.member.id));
         } else checkGuildInfo(player.displayname, player.uuid, player, discID);
       });
-    };
+    }
 
     function checkGuildInfo(username, uuid, player, discID) {
       hypixel.findGuildByPlayer(uuid, (err, guildId) => {
@@ -136,7 +136,7 @@ module.exports = {
             checkGamemode(username, player, guild, uuid, discID);
           });
       });
-    };
+    }
 
     function checkName1(nameOrID1, nameOrID2, gamemode) {
       hypixel.getPlayerByUsername(nameOrID1, (err, player) => {
@@ -144,7 +144,7 @@ module.exports = {
           checkUuid1(nameOrID1, nameOrID2, gamemode);
         } else checkName2(player, nameOrID2, gamemode);
       });
-    };
+    }
 
     function checkUuid1(nameOrID1, nameOrID2, gamemode, discID) {
       let mentions = message.mentions.users.array();
@@ -185,15 +185,15 @@ module.exports = {
           }
         } else checkName2(player, nameOrID2, gamemode, discID);
       });
-    };
+    }
 
     function checkName2(player1, nameOrID2, gamemode, discID1) {
       hypixel.getPlayerByUsername(nameOrID2, (err, player) => {
         if (err || !player) {
           checkUuid2(player1, nameOrID2, gamemode, discID1);
-        } else checkCompareGuildInfo(player1, player, gamemode, discID1);
+        } else checkCompareGuildInfo1(player1, player, gamemode, discID1);
       });
-    };
+    }
 
     function checkUuid2(player1, nameOrID2, gamemode, discID1, discID2) {
       let mentions = message.mentions.users.array();
@@ -205,28 +205,16 @@ module.exports = {
           } else if (
             mentions[0] &&
             mentions[1] &&
-            MinecraftUUID.get(mentions[0].id)
+            MinecraftUUID.get(mentions[1].id)
           ) {
             checkUuid2(
               player1,
-              MinecraftUUID.get(mentions[0].id),
+              MinecraftUUID.get(mentions[1].id),
               gamemode,
               discID1,
               mentions[0].id
             );
-          } else if (
-            MinecraftUUID.get(message.member.id) &&
-            mentions[0] &&
-            !mentions[1]
-          )
-            checkUuid2(
-              player1,
-              MinecraftUUID.get(message.author.id),
-              gamemode,
-              discID1,
-              message.author.id
-            );
-          else {
+          } else {
             return message.channel.send(
               fn.embed(client, {
                 title: "One or more username(s)/UUID(s) provided not found!",
@@ -235,19 +223,74 @@ module.exports = {
             );
           }
         } else
-          checkCompareGuildInfo(player1, player, gamemode, discID1, discID2);
+          checkCompareGuildInfo1(player1, player, gamemode, discID1, discID2);
       });
-    };
+    }
 
-    function checkCompareGuildInfo(
+    function checkCompareGuildInfo1(
       player1,
       player2,
       gamemode,
       discID1,
       discID2
     ) {
-      return;
-    };
+      hypixel.findGuildByPlayer(player1.uuid, (err, guildId) => {
+        if (err || !guildId) {
+          console.log(err);
+          checkCompareGuildInfo2(
+            player1,
+            player2,
+            gamemode,
+            null,
+            discID1,
+            discID2
+          );
+        } else
+          hypixel.getGuild(guildId, (err, guild) => {
+            if (err || !guild) console.log(err);
+            checkCompareGuildInfo2(
+              player1,
+              player2,
+              gamemode,
+              guild,
+              discID1,
+              discID2
+            );
+          });
+      });
+    }
+
+    function checkCompareGuildInfo2(
+      player1,
+      player2,
+      gamemode,
+      guildInfo1,
+      discID1,
+      discID2
+    ) {
+      hypixel.findGuildByPlayer(player1.uuid, (err, guildId) => {
+        if (err || !guildId) {
+          console.log(err);
+          checkGamemode(
+            player1.displayname,
+            player1,
+            null,
+            player1.uuid,
+            discID1
+          );
+        } else
+          hypixel.getGuild(guildId, (err, guild) => {
+            if (err || !guild) console.log(err);
+            checkGamemode(
+              player1.displayname,
+              player1,
+              guild,
+              player1.uuid,
+              discID1
+            );
+          });
+      });
+    }
 
     function checkGamemode(username, player, guildInfo, uuid, discID) {
       let gamemode,
