@@ -317,7 +317,6 @@ module.exports = {
       discID2,
       gamemode
     ) {
-      return;
       let rank1,
         rankcolor1,
         rank2,
@@ -519,39 +518,58 @@ module.exports = {
           forums2 = undefined;
         }
         let embed = new Discord.RichEmbed()
-          .setColor(rankcolor)
+          .setColor(config.embedColor)
           .setThumbnail(thumbnailURL)
-          .setTitle(`[${rank}] ${username}`)
-          .setURL(`https://hypixel.net/player/${username}`)
-          .addField("Rank", `\`${rank}\``, true)
-          .addField("Level", `\`${netlvl || 0}\``, true)
-          .addField("Karma", `\`${player.karma || 0}\``, true)
+          .setTitle(`[${rank1}] ${username1} | [${rank2}] ${username2}`)
+          .addField("Rank", `\`${rank1}\` | \`${rank2}\``, true)
+          .addField("Level", `\`${netlvl1 || 0}\` | \`${netlvl2 || 0}\``, true)
+          .addField(
+            "Karma",
+            `\`${player1.karma || 0}\` | \`${player2.karma || 0}\``,
+            true
+          )
           .addField(
             "First Login",
-            `\`${fn.date(player.firstLogin)} (${fn.ago(player.firstLogin)})\``
+            `\`${fn.date(player1.firstLogin)} (${fn.ago(
+              player1.firstLogin
+            )})\` | \`${fn.date(player2.firstLogin)} (${fn.ago(
+              player2.firstLogin
+            )})\``
           )
           .addField(
             "Last Login",
-            `\`${fn.date(player.lastLogin)} (${fn.ago(player.lastLogin)})\``
+            `\`${fn.date(player1.lastLogin)} (${fn.ago(
+              player1.lastLogin
+            )})\` | \`${fn.date(player2.lastLogin)} (${fn.ago(
+              player2.lastLogin
+            )})\``
           )
-          .setImage(`https://visage.surgeplay.com/full/${uuid}`)
-          .setFooter(
-            `UUID: ${player.uuid} | ${client.user.username}`,
-            client.user.avatarURL
+          .setFooter(client.user.username, client.user.avatarURL)
+          .setTimestamp();
+        if (guildmsg1 || guildmsg2)
+          embed.addField(
+            "Guild",
+            `${guildmsg1 || "none"} | ${guildmsg2 || "none"}`,
+            true
           );
-        if (guildmsg !== undefined) embed.addField("Guild", guildmsg, true);
-        if (forums !== undefined) embed.addField("Forums", forums, true);
-        if (disc !== undefined) embed.addField("Discord", disc);
+        if (forums1 || forums2)
+          embed.addField(
+            "Forums",
+            `${forums1 || "none"} | ${forums2 || "None"}`,
+            true
+          );
+        if (disc1 || disc2)
+          embed.addField(
+            "Discord",
+            `${disc1 || "Not Linked"} | ${disc2 || "Not Linked"}`
+          );
         return message.channel.send(embed);
       } else
-        specificGame(
-          username,
-          player,
-          guildInfo,
-          uuid,
-          gamemode,
-          rank,
-          rankcolor
+        return message.channel.send(
+          fn.embed(client, {
+            title: "Coming soon!",
+            description: `Comparison for game-specific stats are still a work in progress. Sorry for the inconvenience caused!`
+          })
         );
     }
 
@@ -702,9 +720,9 @@ module.exports = {
             `UUID: ${player.uuid} | ${client.user.username}`,
             client.user.avatarURL
           );
-        if (guildmsg !== undefined) embed.addField("Guild", guildmsg, true);
-        if (forums !== undefined) embed.addField("Forums", forums, true);
-        if (disc !== undefined) embed.addField("Discord", disc);
+        if (guildmsg) embed.addField("Guild", guildmsg, true);
+        if (forums) embed.addField("Forums", forums, true);
+        if (disc) embed.addField("Discord", disc);
         return message.channel.send(embed);
       } else
         specificGame(
