@@ -57,6 +57,19 @@ module.exports = {
     rankcolor,
     stats
   ) => {
+    if (stats)
+      return message.channel.send(
+        new Discord.RichEmbed()
+          .setColor(rankcolor)
+          .setThumbnail(thumbnailURL)
+          .setTitle(`[${rank}] ${username}`)
+          .setDescription("This user has no stats for Bed Wars!")
+          .setURL(`https://hypixel.net/player/${username}`)
+          .setFooter(
+            `UUID: ${player.uuid} | ${client.user.username}`,
+            client.user.avatarURL
+          )
+      );
     let embeds = [];
     let thumbnailURL =
       "https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/BedWars-64.png";
