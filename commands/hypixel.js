@@ -32,11 +32,18 @@ for (const file of gamemodeFiles) {
 module.exports = {
   name: "hypixel",
   usage: "hypixel <username/UUID> [gamemode]",
+  aliases: ["h", "zoo"],
   description: `Shows Hypixel statistics. Provide a gamemode for game-specific stats. If your Mojang account is linked, the argument \`<username/UUID>\` may be omitted when requesting your own stats.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Java Edition, join \`mc.hypixel.net\`.\n2. Switch to slot 2 (My Profile) and right click.\n3. Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`link <your username>\`.`,
   category: "Minecraft",
   run: async (client, message, args, shared) => {
+    let command = message.content
+      .trim()
+      .slice(shared.prefix.length)
+      .split(/\s+/u)[0];
     let nameOrID = args[0],
-      rawcontent = message.content.slice(shared.prefix.length + 8).trim();
+      rawcontent = message.content
+        .slice(shared.prefix.length + command.length + 1)
+        .trim();
 
     if (talkedRecently.has(message.author.id)) {
       message.channel.send(
@@ -124,12 +131,12 @@ module.exports = {
       if (rawcontent && syncID === uuid) {
         if (rawcontent.includes(username) || rawcontent.includes(discID))
           gamemode = message.content
-            .slice(shared.prefix.length + 9 + nameOrID.length)
+            .slice(shared.prefix.length + command.length + 1 + nameOrID.length)
             .trim();
         else gamemode = rawcontent;
       } else if (nameOrID) {
         gamemode = message.content
-          .slice(shared.prefix.length + 9 + nameOrID.length)
+          .slice(shared.prefix.length + command.length + 1 + nameOrID.length)
           .trim();
       }
       let rank,

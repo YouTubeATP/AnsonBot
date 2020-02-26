@@ -12,7 +12,13 @@ module.exports = {
   description: "Have the trusty 8-ball answer all your questions!",
   category: "Misc",
   run: async (client, message, args, shared) => {
-    let question = message.content.slice(shared.prefix.length + 5).trim();
+    let command = message.content
+      .trim()
+      .slice(shared.prefix.length)
+      .split(/\s+/u)[0];
+    let question = message.content
+      .slice(shared.prefix.length + command.length + 1)
+      .trim();
     if (!question) {
       let embed = new Discord.RichEmbed()
         .setColor("RED")
