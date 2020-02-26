@@ -81,7 +81,7 @@ module.exports = {
       } else if (args[0].toLowerCase() === "compare" && args[1]) {
         let nameOrID1 = args[1],
           nameOrID2 = args[2],
-          gamemode = args[3] || args[2];
+          gamemode = args[1] || args[2] || args[3];
         if (
           (gamemode.toLowerCase() === "bw" ||
             gamemode.toLowerCase() === "bedwars" ||
@@ -175,11 +175,16 @@ module.exports = {
           !args[3] &&
           MinecraftUUID.get(message.author.id)
         ) {
-          nameOrID1 = message.author.id;
-          nameOrID2 = args[1];
-          gamemode = args[2];
+          if (args[2]) {
+            nameOrID1 = message.author.id;
+            nameOrID2 = args[1];
+            gamemode = args[2];
+            checkName1(nameOrID1, nameOrID2, gamemode);
+          } else checkUsername(nameOrID);
+        } else {
+          gamemode = args[3];
+          checkName1(nameOrID1, nameOrID2, gamemode);
         }
-        checkName1(nameOrID1, nameOrID2, gamemode);
       } else checkUsername(nameOrID);
     }
 
