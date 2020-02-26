@@ -347,17 +347,6 @@ module.exports = {
             let id = MinecraftUUID.get(nameOrID1);
             checkUuid1(id, nameOrID2, gamemode, nameOrID1);
           } else if (
-            mentions[0] &&
-            mentions[1] &&
-            MinecraftUUID.get(mentions[0].id)
-          ) {
-            checkUuid1(
-              MinecraftUUID.get(mentions[0].id),
-              nameOrID2,
-              gamemode,
-              mentions[0].id
-            );
-          } else if (
             MinecraftUUID.get(message.member.id) &&
             mentions[0] &&
             !mentions[1]
@@ -367,6 +356,17 @@ module.exports = {
               nameOrID2,
               gamemode,
               message.author.id
+            );
+          } else if (
+            mentions[0] &&
+            mentions[1] &&
+            MinecraftUUID.get(mentions[0].id)
+          ) {
+            checkUuid1(
+              MinecraftUUID.get(mentions[0].id),
+              nameOrID2,
+              gamemode,
+              mentions[0].id
             );
           } else {
             return message.channel.send(
@@ -396,15 +396,26 @@ module.exports = {
             let id = MinecraftUUID.get(nameOrID2);
             checkUuid1(player1, id, gamemode, discID1, nameOrID2);
           } else if (
+            MinecraftUUID.get(message.member.id) &&
+            mentions[0] &&
+            !mentions[1] &&
+            MinecraftUUID.get(mentions[0].id)
+          ) {
+            checkUuid1(
+              player1,
+              MinecraftUUID.get(mentions[0].id),
+              gamemode,
+              message.author.id
+            );
+          } else if (
             mentions[0] &&
             mentions[1] &&
             MinecraftUUID.get(mentions[1].id)
           ) {
-            checkUuid2(
+            checkUuid1(
               player1,
               MinecraftUUID.get(mentions[1].id),
               gamemode,
-              discID1,
               mentions[1].id
             );
           } else {
@@ -755,13 +766,23 @@ module.exports = {
             `${disc1 || "None Linked"} | ${disc2 || "None Linked"}`
           );
         return message.channel.send(embed);
-      } else
-        return message.channel.send(
-          fn.embed(client, {
-            title: "Coming soon!",
-            description: `Comparison for game-specific stats are still a work in progress. Sorry for the inconvenience caused!`
-          })
+      } else {
+        specificGame(
+          username1,
+          player1,
+          guildInfo1,
+          uuid1,
+          gamemode,
+          rank1,
+          rankcolor1,
+          username2,
+          player2,
+          guildInfo2,
+          uuid2,
+          rank2,
+          rankcolor2
         );
+      }
     }
 
     function checkGamemode(username, player, guildInfo, uuid, discID) {
@@ -934,7 +955,13 @@ module.exports = {
       uuid,
       gamemode,
       rank,
-      rankcolor
+      rankcolor,
+      username2,
+      player2,
+      guildInfo2,
+      uuid2,
+      rank2,
+      rankcolor2
     ) {
       if (
         gamemode.toLowerCase() === "bw" ||
@@ -1095,7 +1122,9 @@ module.exports = {
             description: `Please follow the format below:\n\`${shared.customPrefix}hypixel <username/UUID> [gamemode]\``
           })
         );
-      let stats = player.stats[gamemode];
+      let stats = player.stats[gamemode],
+        stats2;
+      if (player2) stats2 = player2.stats[gamemode];
       const exportGamemode =
         shared.client.gamemodes.get(gamemode) ||
         shared.client.gamemodes.find(
@@ -1112,7 +1141,13 @@ module.exports = {
           uuid,
           rank,
           rankcolor,
-          stats
+          stats,
+          username2,
+          player2,
+          uuid2,
+          rank2,
+          rankcolor2,
+          stats2
         );
       } catch (error) {
         console.log(error);

@@ -55,12 +55,17 @@ module.exports = {
     uuid,
     rank,
     rankcolor,
-    stats
+    stats,
+    username2,
+    player2,
+    uuid2,
+    rank2,
+    rankcolor2,
+    stats2
   ) => {
-    let embeds = [];
     let thumbnailURL =
       "https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/BedWars-64.png";
-    if (!stats) {
+    if (!stats)
       return message.channel.send(
         new Discord.RichEmbed()
           .setColor(rankcolor)
@@ -73,164 +78,431 @@ module.exports = {
             client.user.avatarURL
           )
       );
-    } else {
-      let bwlvl = getLevelForExp(stats.Experience);
-      embeds.push(
-        new Discord.RichEmbed()
-          .setColor(rankcolor)
-          .setThumbnail(thumbnailURL)
-          .setTitle(`[${rank}] ${username}`)
-          .setDescription("**Bed Wars | Overall**")
-          .setURL(`https://hypixel.net/player/${username}`)
-          .addField("Level", `${bwlvl || 0}`)
-          .addField("Coins", `${stats.coins || 0}`)
-          .addField("Win Streak", `${stats.winstreak || 0}`)
-          .addField("Games Played", `${stats.games_played_bedwars || 0}`)
-          .addField("Kills", `${stats.kills_bedwars || 0}`, true)
-          .addField("Deaths", `${stats.deaths_bedwars || 0}`, true)
-          .addField(
-            "Kill/Death Ratio",
-            `${Math.floor((stats.kills_bedwars / stats.deaths_bedwars) * 100) /
-              100}`
-          )
-          .addField("Final Kills", `${stats.final_kills_bedwars || 0}`, true)
-          .addField("Final Deaths", `${stats.final_deaths_bedwars || 0}`, true)
-          .addField(
-            "Final Kill/Death Ratio",
-            `${Math.floor(
-              (stats.final_kills_bedwars / stats.final_deaths_bedwars) * 100
-            ) / 100}`
-          )
-          .addField("Wins", `${stats.wins_bedwars || 0}`, true)
-          .addField("Losses", `${stats.losses_bedwars || 0}`, true)
-          .addField(
-            "Win/Loss Ratio",
-            `${Math.floor((stats.wins_bedwars / stats.losses_bedwars) * 100) /
-              100}`
-          )
-          .addField("Beds Broken", `${stats.beds_broken_bedwars || 0}`, true)
-          .addField("Beds Lost", `${stats.beds_lost_bedwars || 0}`, true)
-          .addField(
-            "Beds Broken/Lost Ratio",
-            `${Math.floor(
-              (stats.beds_broken_bedwars / stats.beds_lost_bedwars) * 100
-            ) / 100}`
-          )
-          .addField(
-            "Average Final Kills/Game",
-            `${Math.floor(
-              (stats.final_kills_bedwars / stats.games_played_bedwars) * 100
-            ) / 100 || 0}`,
-            true
-          )
-          .addField(
-            "Average Beds Broken/Game",
-            `${Math.floor(
-              (stats.beds_broken_bedwars / stats.games_played_bedwars) * 100
-            ) / 100 || 0}`,
-            true
-          )
-          .setFooter(
-            `UUID: ${player.uuid} | ${client.user.username}`,
-            client.user.avatarURL
-          )
+    let embeds = [];
+    let bwlvl = getLevelForExp(stats.Experience);
+    let bwlvl2;
+    if (stats2) bwlvl2 = getLevelForExp(stats2.Experience);
+    let overall = new Discord.RichEmbed()
+      .setColor(player2 ? config.embedColor : rankcolor)
+      .setThumbnail(thumbnailURL)
+      .setTitle(
+        `[${rank}] ${username}${player2 ? ` | [${rank2}] ${username2}` : ``}`
+      )
+      .setDescription("**Bed Wars | Overall**")
+      .setURL(player2 ? `` : `https://hypixel.net/player/${username}`)
+      .addField(
+        "Level",
+        `${bwlvl || 0}${stats2 ? ` | ${bwlvl2 || 0}` : player2 ? ` | 0` : ``}`
+      )
+      .addField(
+        "Coins",
+        `${stats.coins || 0}${
+          stats2 ? ` | ${stats2.coins || 0}` : player2 ? ` | 0` : ``
+        }`
+      )
+      .addField(
+        "Win Streak",
+        `${stats.winstreak || 0}${
+          stats2 ? ` | ${stats2.winstreak || 0}` : player2 ? ` | 0` : ``
+        }`
+      )
+      .addField(
+        "Games Played",
+        `${stats.games_played_bedwars || 0}${
+          stats2
+            ? ` | ${stats2.games_played_bedwars || 0}`
+            : player2
+            ? ` | 0`
+            : ``
+        }`
+      )
+      .addField(
+        "Kills",
+        `${stats.kills_bedwars || 0}${
+          stats2 ? ` | ${stats2.kills_bedwars || 0}` : player2 ? ` | 0` : ``
+        }`,
+        true
+      )
+      .addField(
+        "Deaths",
+        `${stats.deaths_bedwars || 0}${
+          stats2 ? ` | ${stats2.deaths_bedwars || 0}` : player2 ? ` | 0` : ``
+        }`,
+        true
+      )
+      .addField(
+        "Kill/Death Ratio",
+        `${Math.floor((stats.kills_bedwars / stats.deaths_bedwars) * 100) /
+          100}${
+          stats2
+            ? ` | ${Math.floor(
+                (stats2.kills_bedwars / stats2.deaths_bedwars) * 100
+              ) / 100}`
+            : player2
+            ? ` | NaN`
+            : ``
+        }`
+      )
+      .addField(
+        "Final Kills",
+        `${stats.final_kills_bedwars || 0}${
+          stats2
+            ? ` | ${stats2.final_kills_bedwars || 0}`
+            : player2
+            ? ` | 0`
+            : ``
+        }`,
+        true
+      )
+      .addField(
+        "Final Deaths",
+        `${stats.final_deaths_bedwars || 0}${
+          stats2
+            ? ` | ${stats2.final_deaths_bedwars || 0}`
+            : player2
+            ? ` | 0`
+            : ``
+        }`,
+        true
+      )
+      .addField(
+        "Final Kill/Death Ratio",
+        `${Math.floor(
+          (stats.final_kills_bedwars / stats.final_deaths_bedwars) * 100
+        ) / 100}${
+          stats2
+            ? ` | ${Math.floor(
+                (stats2.final_kills_bedwars / stats2.final_deaths_bedwars) * 100
+              ) / 100}`
+            : player2
+            ? ` | NaN`
+            : ``
+        }`
+      )
+      .addField(
+        "Wins",
+        `${stats.wins_bedwars || 0}${
+          stats2 ? ` | ${stats2.wins_bedwars || 0}` : player2 ? ` | 0` : ``
+        }`,
+        true
+      )
+      .addField(
+        "Losses",
+        `${stats.losses_bedwars || 0}${
+          stats2 ? ` | ${stats2.losses_bedwars || 0}` : player2 ? ` | 0` : ``
+        }`,
+        true
+      )
+      .addField(
+        "Win/Loss Ratio",
+        `${Math.floor((stats.wins_bedwars / stats.losses_bedwars) * 100) /
+          100}${
+          stats2
+            ? ` | ${Math.floor(
+                (stats2.wins_bedwars / stats2.losses_bedwars) * 100
+              ) / 100}`
+            : player2
+            ? ` | NaN`
+            : ``
+        }`
+      )
+      .addField(
+        "Beds Broken",
+        `${stats.beds_broken_bedwars || 0}${
+          stats2
+            ? ` | ${stats2.beds_broken_bedwars || 0}`
+            : player2
+            ? ` | 0`
+            : ``
+        }`,
+        true
+      )
+      .addField(
+        "Beds Lost",
+        `${stats.beds_lost_bedwars || 0}${
+          stats2 ? ` | ${stats2.beds_lost_bedwars || 0}` : player2 ? ` | 0` : ``
+        }`,
+        true
+      )
+      .addField(
+        "Beds Broken/Lost Ratio",
+        `${Math.floor(
+          (stats.beds_broken_bedwars / stats.beds_lost_bedwars) * 100
+        ) / 100}${
+          stats2
+            ? ` | ${Math.floor(
+                (stats2.beds_broken_bedwars / stats2.beds_lost_bedwars) * 100
+              ) / 100}`
+            : player2
+            ? ` | NaN`
+            : ``
+        }`
+      )
+      .addField(
+        "Average Final Kills/Game",
+        `${Math.floor(
+          (stats.final_kills_bedwars / stats.games_played_bedwars) * 100
+        ) / 100 || 0}${
+          stats2
+            ? ` | ${Math.floor(
+                (stats2.final_kills_bedwars / stats2.games_played_bedwars) * 100
+              ) / 100 || 0}`
+            : player2
+            ? ` | 0`
+            : ``
+        }`,
+        true
+      )
+      .addField(
+        "Average Beds Broken/Game",
+        `${Math.floor(
+          (stats.beds_broken_bedwars / stats.games_played_bedwars) * 100
+        ) / 100 || 0}${
+          stats2
+            ? ` | ${Math.floor(
+                (stats2.beds_broken_bedwars / stats2.games_played_bedwars) * 100
+              ) / 100 || 0}`
+            : player2
+            ? ` | 0`
+            : ``
+        }`,
+        true
+      )
+      .setFooter(
+        player2
+          ? client.user.username
+          : `UUID: ${player.uuid} | ${client.user.username}`,
+        client.user.avatarURL
       );
+    if (player2) overall.setTimestamp();
+    embeds.push(overall);
 
-      for (var i in modes) {
-        embeds.push(
-          new Discord.RichEmbed()
-            .setColor(rankcolor)
-            .setThumbnail(thumbnailURL)
-            .setTitle(`[${rank}] ${username}`)
-            .setDescription(`**Bed Wars | ${modes[i]}**`)
-            .setURL(`https://hypixel.net/player/${username}`)
-            .addField(
-              "Games Played",
-              `${stats[`${i}_games_played_bedwars`] || 0}`
-            )
-            .addField("Kills", `${stats[`${i}_kills_bedwars`] || 0}`, true)
-            .addField("Deaths", `${stats[`${i}_deaths_bedwars`] || 0}`, true)
-            .addField(
-              "Kill/Death Ratio",
-              `${Math.floor(
-                (stats[`${i}_kills_bedwars`] / stats[`${i}_deaths_bedwars`]) *
-                  100
-              ) / 100}`
-            )
-            .addField(
-              "Final Kills",
-              `${stats[`${i}_final_kills_bedwars`] || 0}`,
-              true
-            )
-            .addField(
-              "Final Deaths",
-              `${stats[`${i}_final_deaths_bedwars`] || 0}`,
-              true
-            )
-            .addField(
-              "Final Kill/Death Ratio",
-              `${Math.floor(
-                (stats[`${i}_final_kills_bedwars`] /
-                  stats[`${i}_final_deaths_bedwars`]) *
-                  100
-              ) / 100}`
-            )
-            .addField("Wins", `${stats[`${i}_wins_bedwars`] || 0}`, true)
-            .addField("Losses", `${stats[`${i}_losses_bedwars`] || 0}`, true)
-            .addField(
-              "Win/Loss Ratio",
-              `${Math.floor(
-                (stats[`${i}_wins_bedwars`] / stats[`${i}_losses_bedwars`]) *
-                  100
-              ) / 100}`
-            )
-            .addField(
-              "Beds Broken",
-              `${stats[`${i}_beds_broken_bedwars`] || 0}`,
-              true
-            )
-            .addField(
-              "Beds Lost",
-              `${stats[`${i}_beds_lost_bedwars`] || 0}`,
-              true
-            )
-            .addField(
-              "Beds Broken/Lost Ratio",
-              `${Math.floor(
-                (stats[`${i}_beds_broken_bedwars`] /
-                  stats[`${i}_beds_lost_bedwars`]) *
-                  100
-              ) / 100}`
-            )
-            .addField(
-              "Average Final Kills/Game",
-              `${Math.floor(
-                (stats[`${i}_final_kills_bedwars`] /
-                  stats[`${i}_games_played_bedwars`]) *
-                  100
-              ) / 100 || 0}`,
-              true
-            )
-            .addField(
-              "Average Beds Broken/Game",
-              `${Math.floor(
-                (stats[`${i}_beds_broken_bedwars`] /
-                  stats[`${i}_games_played_bedwars`]) *
-                  100
-              ) / 100 || 0}`,
-              true
-            )
-            .setFooter(
-              `UUID: ${player.uuid} | ${client.user.username}`,
-              client.user.avatarURL
-            )
+    for (var i in modes) {
+      let embed = new Discord.RichEmbed()
+        .setColor(player2 ? config.embedColor : rankcolor)
+        .setThumbnail(thumbnailURL)
+        .setTitle(
+          `[${rank}] ${username}${player2 ? ` | [${rank2}] ${username2}` : ``}`
+        )
+        .setDescription(`**Bed Wars | ${modes[i]}**`)
+        .setURL(player2 ? `` : `https://hypixel.net/player/${username}`)
+        .addField(
+          "Games Played",
+          `${stats[`${i}_games_played_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_games_played_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`
+        )
+        .addField(
+          "Kills",
+          `${stats[`${i}_kills_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_kills_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Deaths",
+          `${stats[`${i}_deaths_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_deaths_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Kill/Death Ratio",
+          `${Math.floor(
+            (stats[`${i}_kills_bedwars`] / stats[`${i}_deaths_bedwars`]) * 100
+          ) / 100}${
+            stats2
+              ? ` | ${Math.floor(
+                  (stats2[`${i}_kills_bedwars`] /
+                    stats2[`${i}_deaths_bedwars`]) *
+                    100
+                ) / 100}`
+              : player2
+              ? ` | NaN`
+              : ``
+          }`
+        )
+        .addField(
+          "Final Kills",
+          `${stats[`${i}_final_kills_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_final_kills_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Final Deaths",
+          `${stats[`${i}_final_deaths_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_final_deaths_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Final Kill/Death Ratio",
+          `${Math.floor(
+            (stats[`${i}_final_kills_bedwars`] /
+              stats[`${i}_final_deaths_bedwars`]) *
+              100
+          ) / 100}${
+            stats2
+              ? ` | ${Math.floor(
+                  (stats2[`${i}_final_kills_bedwars`] /
+                    stats2[`${i}_final_deaths_bedwars`]) *
+                    100
+                ) / 100}`
+              : player2
+              ? ` | NaN`
+              : ``
+          }`
+        )
+        .addField(
+          "Wins",
+          `${stats[`${i}_wins_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_wins_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Losses",
+          `${stats[`${i}_losses_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_losses_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Win/Loss Ratio",
+          `${Math.floor(
+            (stats[`${i}_wins_bedwars`] / stats[`${i}_losses_bedwars`]) * 100
+          ) / 100}${
+            stats2
+              ? ` | ${Math.floor(
+                  (stats2[`${i}_wins_bedwars`] /
+                    stats2[`${i}_losses_bedwars`]) *
+                    100
+                ) / 100}`
+              : player2
+              ? ` | NaN`
+              : ``
+          }`
+        )
+        .addField(
+          "Beds Broken",
+          `${stats[`${i}_beds_broken_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_beds_broken_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Beds Lost",
+          `${stats[`${i}_beds_lost_bedwars`] || 0}${
+            stats2
+              ? ` | ${stats2[`${i}_beds_lost_bedwars`] || 0}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Beds Broken/Lost Ratio",
+          `${Math.floor(
+            (stats[`${i}_beds_broken_bedwars`] /
+              stats[`${i}_beds_lost_bedwars`]) *
+              100
+          ) / 100}${
+            stats2
+              ? ` | ${Math.floor(
+                  (stats2[`${i}_beds_broken_bedwars`] /
+                    stats2[`${i}_beds_lost_bedwars`]) *
+                    100
+                ) / 100}`
+              : player2
+              ? ` | NaN`
+              : ``
+          }`
+        )
+        .addField(
+          "Average Final Kills/Game",
+          `${Math.floor(
+            (stats[`${i}_final_kills_bedwars`] /
+              stats[`${i}_games_played_bedwars`]) *
+              100
+          ) / 100 || 0}${
+            stats2
+              ? ` | ${Math.floor(
+                  (stats2[`${i}_final_kills_bedwars`] /
+                    stats2[`${i}_games_played_bedwars`]) *
+                    100
+                ) / 100}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .addField(
+          "Average Beds Broken/Game",
+          `${Math.floor(
+            (stats[`${i}_beds_broken_bedwars`] /
+              stats[`${i}_games_played_bedwars`]) *
+              100
+          ) / 100 || 0}${
+            stats2
+              ? ` | ${Math.floor(
+                  (stats2[`${i}_beds_broken_bedwars`] /
+                    stats2[`${i}_games_played_bedwars`]) *
+                    100
+                ) / 100}`
+              : player2
+              ? ` | 0`
+              : ``
+          }`,
+          true
+        )
+        .setFooter(
+          player2
+            ? client.user.username
+            : `UUID: ${player.uuid} | ${client.user.username}`,
+          client.user.avatarURL
         );
-      }
-
-      await message.channel.send(embeds[0]).then(msg => {
-        fn.paginator(message.author.id, msg, embeds, 0, client);
-      });
+      if (!player2) embed.setTimestamp();
+      embeds.push(embed);
     }
+
+    await message.channel.send(embeds[0]).then(msg => {
+      fn.paginator(message.author.id, msg, embeds, 0, client);
+    });
 
     function getExpForLevel(level) {
       if (level == 0) return 0;

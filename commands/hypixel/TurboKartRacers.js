@@ -30,7 +30,13 @@ module.exports = {
     uuid,
     rank,
     rankcolor,
-    stats
+    stats,
+    username2,
+    player2,
+    uuid2,
+    rank2,
+    rankcolor2,
+    stats2
   ) => {
     return message.channel.send(
       fn.embed(client, {
