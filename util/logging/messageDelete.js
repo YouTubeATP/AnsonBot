@@ -11,7 +11,7 @@ module.exports = client => {
     if (message.author.bot || message.channel.type == "dm") return;
 
     let logChannelID = guildData.get(`${message.guild.id}.botlog`);
-    let logChannel = client.channels.get(logChannelID);
+    let logChannel = client.channels.cache.get(logChannelID);
     if (!logChannel) return;
 
     logChannel.send(

@@ -126,7 +126,7 @@ client.on("guildMemberAdd", async member => {
     member
       .addRole(guild.roles.find("name", "Member"))
       .then(() => {
-        client.channels
+        client.channels.cache
           .get("653133031292403742")
           .send(
             "<@" +
@@ -151,7 +151,7 @@ client.on("guildMemberRemove", async member => {
   if (member.user.bot) return;
   let memberTag = member.user.id;
   if (guild.id === config.server) {
-    client.channels
+    client.channels.cache
       .get("653133031292403742")
       .send(
         "<@" +
@@ -340,7 +340,7 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
       !oldMember.roles.find(r => r.name === "Nitro Booster") &&
       newMember.roles.find(r => r.name === "Nitro Booster")
     ) {
-      return newMember.guild.channels
+      return newMember.guild.channels.cache
         .get("653091798498934825")
         .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
     }
@@ -419,7 +419,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
     if (
       oldMember.voiceChannel != null &&
       newMember.voiceChannel ===
-        client.channels.get(newMember.guild.afkChannelID)
+        client.channels.cache.get(newMember.guild.afkChannelID)
     ) {
       newMember.setVoiceChannel(null);
       let afk = new Discord.RichEmbed()
@@ -444,7 +444,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
   if (index < 0) index = 0;
   if (index > maxChannels) index = maxChannels;
   const guild = newMember.guild;
-  let joinVoiceChannel = client.channels.get("662837599857278987");
+  let joinVoiceChannel = client.channels.cache.get("662837599857278987");
   try {
     modified = false;
     for (i = 1; i <= parseInt(maxChannels + 1); i++) {
@@ -524,7 +524,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
       index < maxChannels
     ) {
       console.log(`Index changed from ${index++} to ${index}`);
-      const category = guild.channels.get("653088922649362443");
+      const category = guild.channels.cache.get("653088922649362443");
       return guild
         .createChannel(`Public Lounge #${index}`, {
           type: "voice",
