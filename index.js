@@ -124,7 +124,7 @@ client.on("guildMemberAdd", async member => {
   let memberTag = member.user.id;
   if (guild.id === config.server && !member.user.bot) {
     member.roles
-      .add(guild.roles.find("name", "Member"))
+      .add(guild.roles.cache.find("name", "Member"))
       .then(() => {
         client.channels.cache
           .get("653133031292403742")
@@ -140,7 +140,7 @@ client.on("guildMemberAdd", async member => {
         console.log(e);
       });
   } else if (guild.id === config.server && member.user.bot) {
-    member.roles.add(guild.roles.find("name", "Bot")).catch(e => {
+    member.roles.add(guild.roles.cache.find("name", "Bot")).catch(e => {
       console.log(e);
     });
   }
@@ -278,7 +278,7 @@ client.on("message", async message => {
     shared.commandName = commandName;
     const command =
       client.commands.get(commandName) ||
-      client.commands.find(
+      client.commands.cache.find(
         cmd => cmd.aliases && cmd.aliases.includes(commandName)
       );
 
@@ -335,10 +335,10 @@ client.on("message", async message => {
 
 client.on("guildMemberUpdate", async (oldMember, newMember) => {
   if (newMember.guild.id !== config.server) return;
-  if (newMember.guild.roles.find("name", "Nitro Booster")) {
+  if (newMember.guild.roles.cache.find("name", "Nitro Booster")) {
     if (
-      !oldMember.roles.find(r => r.name === "Nitro Booster") &&
-      newMember.roles.find(r => r.name === "Nitro Booster")
+      !oldMember.roles.cache.find(r => r.name === "Nitro Booster") &&
+      newMember.roles.cache.find(r => r.name === "Nitro Booster")
     ) {
       return newMember.guild.channels.cache
         .get("653091798498934825")
@@ -453,25 +453,25 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
       try {
         if (
           index < i &&
-          guild.channels.find("name", `Public Lounge #${i}`) &&
-          guild.channels.find("name", `Public Lounge #${i}`).members.size <= 0
+          guild.channels.cache.find("name", `Public Lounge #${i}`) &&
+          guild.channels.cache.find("name", `Public Lounge #${i}`).members.size <= 0
         ) {
-          guild.channels
+          guild.channels.cache
             .find("name", `Public Lounge #${i}`)
             .delete("Served its purpose");
           console.log(`${index} not changed`);
         } else if (
           index < i &&
-          guild.channels.find("name", `Public Lounge #${i}`) &&
-          guild.channels.find("name", `Public Lounge #${i}`).members.size > 0
+          guild.channels.cache.find("name", `Public Lounge #${i}`) &&
+          guild.channels.cache.find("name", `Public Lounge #${i}`).members.size > 0
         ) {
           for (k = 1; k < i; k++) {
             if (
               !semiModified &&
-              guild.channels.find("name", `Public Lounge #${i}`) &&
-              !guild.channels.find("name", `Public Lounge #${k}`)
+              guild.channels.cache.find("name", `Public Lounge #${i}`) &&
+              !guild.channels.cache.find("name", `Public Lounge #${k}`)
             ) {
-              guild.channels
+              guild.channels.cache
                 .find("name", `Public Lounge #${i}`)
                 .setName(`Public Lounge #${k}`);
               console.log(`Index changed from ${index++} to ${index}`);
@@ -492,11 +492,11 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
           for (j = i + 1; j <= parseInt(maxChannels + 1); j++) {
             try {
               if (
-                guild.channels.find("name", `Public Lounge #${i + 1}`) &&
-                !guild.channels.find("name", `Public Lounge #${j}`) &&
+                guild.channels.cache.find("name", `Public Lounge #${i + 1}`) &&
+                !guild.channels.cache.find("name", `Public Lounge #${j}`) &&
                 !verySemiModified
               ) {
-                guild.channels
+                guild.channels.cache
                   .find("name", `Public Lounge #${i + 1}`)
                   .setName(`Public Lounge #${i}`);
                 verySemiModified = true;
