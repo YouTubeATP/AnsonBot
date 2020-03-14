@@ -103,7 +103,7 @@ module.exports = {
       )
       .setFooter(
         `ID: ${guild.id} | ${client.user.username}`,
-        client.user.avatarURL
+        client.user.avatarURL()
       );
 
     message.channel.send(embed);

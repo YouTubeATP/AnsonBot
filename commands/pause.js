@@ -41,26 +41,26 @@ module.exports = {
 
       var embed = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(message.guild.iconURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(message.guild.iconURL())
         .setTitle("Music paused!")
         .setDescription(
           `Use the command \`${shared.customPrefix}resume\` to resume playing.`
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       return message.channel.send(embed);
     } else if (serverQueue && !serverQueue.playing) {
       var embed = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(message.guild.iconURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(message.guild.iconURL())
         .setTitle("Music alread paused!")
         .setDescription(
           `Use the command \`${shared.customPrefix}resume\` to resume playing.`
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       return message.channel.send(embed);

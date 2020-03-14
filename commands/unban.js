@@ -25,7 +25,7 @@ module.exports = {
       .then(({ user }) => {
         let reason = args.slice(1).join(" ") || "Unspecified";
 
-        message.guild
+        message.guild.members
           .unban(user.id)
           .then(() => {
             let cases = [];

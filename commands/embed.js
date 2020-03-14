@@ -68,10 +68,10 @@ module.exports = {
       ) {
         color = parseInt(`0x${color}`);
         var embed = new Discord.RichEmbed()
-          .setAuthor(message.author.tag, message.author.avatarURL)
+          .setAuthor(message.author.tag, message.author.avatarURL())
           .setColor(color)
           .setDescription(content)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
         message.channel
           .send(embed)
@@ -81,9 +81,9 @@ module.exports = {
           });
       } else {
         var embed = new Discord.RichEmbed()
-          .setAuthor(message.author.tag, message.author.avatarURL)
+          .setAuthor(message.author.tag, message.author.avatarURL())
           .setDescription(rawcontent)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
         message.channel
           .send(embed)

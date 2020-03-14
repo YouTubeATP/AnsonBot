@@ -14,11 +14,11 @@ module.exports = {
       let pingMessage = `Latency: \`${Math.round(client.ping)}\`ms`;
       let embed = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.avatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.avatarURL())
         .setTitle("Ping Received!")
         .setDescription(pingMessage)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       message.channel

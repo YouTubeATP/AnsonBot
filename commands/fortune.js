@@ -14,9 +14,9 @@ module.exports = {
     let fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
     let embed = new Discord.RichEmbed()
       .setColor(config.embedColor)
-      .setAuthor(message.author.tag, message.author.avatarURL)
+      .setAuthor(message.author.tag, message.author.avatarURL())
       .setDescription(fortune)
-      .setFooter(client.user.username, client.user.avatarURL)
+      .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
 
     return message.channel.send(embed);

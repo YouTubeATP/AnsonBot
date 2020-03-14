@@ -289,8 +289,8 @@ client.on("message", async message => {
         .setDescription(
           `Maybe a typo? Do \`${prefix}help\` for a list of available commands.`
         )
-        .setThumbnail(message.guild.iconURL)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setThumbnail(message.guild.iconURL())
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
       message.channel.send(embed).then(m => m.delete(5000));
       return message.delete();
@@ -428,8 +428,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         .setDescription(
           `You have been idle in the voice channel **${oldMember.voiceChannel.name}** in **${guild}** for more than 5 minutes, so you were automatically disconnected.`
         )
-        .setThumbnail(guild.iconURL)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setThumbnail(guild.iconURL())
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
       newMember.send(afk);
     }
@@ -540,8 +540,8 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         .setDescription(
           `Only **${maxChannels}** public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
         )
-        .setThumbnail(guild.iconURL)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setThumbnail(guild.iconURL())
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
       return newMember.send(embed);
     }

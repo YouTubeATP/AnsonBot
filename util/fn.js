@@ -26,13 +26,13 @@ let embed = (client, content) => {
       .setColor(embedColor)
       .setTitle(title)
       .setDescription(description)
-      .setFooter(client.user.username, client.user.avatarURL)
+      .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
   } else if (typeof content == "string") {
     return new Discord.RichEmbed()
       .setColor(embedColor)
       .setDescription(content)
-      .setFooter(client.user.username, client.user.avatarURL)
+      .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
   } else {
     throw Error("Invalid content type.\nAccepts Object or String.");
@@ -45,7 +45,7 @@ let error = (client, message, error) => {
     .setColor(embedColor)
     .setTitle(message)
     .setDescription(`${error}`)
-    .setFooter(client.user.username, client.user.avatarURL)
+    .setFooter(client.user.username, client.user.avatarURL())
     .setTimestamp();
 };
 
@@ -112,7 +112,7 @@ let modCaseEmbed = (client, thisCase) => {
         ? "User Kicked"
         : "User Muted"
     )
-    .setThumbnail(user.displayAvatarURL)
+    .setThumbnail(user.displayAvatarURL())
     .addField(user.bot ? "Bot" : "User", `${user} (${user.tag})`, true)
     .addField("Moderator", moderator, true);
   if (thisCase.period)
@@ -125,7 +125,7 @@ let modCaseEmbed = (client, thisCase) => {
     );
   embed
     .addField("Reason", thisCase.reason)
-    .setFooter(`Case #${thisCase.id}`, client.user.avatarURL)
+    .setFooter(`Case #${thisCase.id}`, client.user.avatarURL())
     .setTimestamp(moment(thisCase.time));
 
   return embed;
@@ -196,12 +196,12 @@ let helpPaginator = async (author, msg, embeds, pageNow) => {
     .catch(err => {
       let delembed = new Discord.RichEmbed()
         .setColor("RED")
-        .setThumbnail(client.user.displayAvatarURL)
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle("Help menu deleted!")
         .setDescription(
           "Your help menu timed out. To maintain quality performance, all help menus expire after 90 seconds."
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
       msg.channel.send(delembed);
       return msg.delete();
@@ -228,10 +228,10 @@ let helpPaginator = async (author, msg, embeds, pageNow) => {
   } else if (reaction.emoji.id == "662296249717751869") {
     let cancelembed = new Discord.RichEmbed()
       .setColor("RED")
-      .setThumbnail(client.user.displayAvatarURL)
+      .setThumbnail(client.user.displayAvatarURL())
       .setTitle("Help menu deleted!")
       .setDescription("You have manually deleted your help menu.")
-      .setFooter(client.user.username, client.user.avatarURL)
+      .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
     msg.channel.send(cancelembed);
     return msg.delete();

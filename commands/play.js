@@ -43,7 +43,7 @@ module.exports = {
               description: `I cannot connect to voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
               timestamp: new Date(),
               footer: {
-                icon_url: client.user.avatarURL,
+                icon_url: client.user.avatarURL(),
                 text: client.user.username
               }
             }
@@ -63,7 +63,7 @@ module.exports = {
               description: `I cannot speak in voice channels in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
               timestamp: new Date(),
               footer: {
-                icon_url: client.user.avatarURL,
+                icon_url: client.user.avatarURL(),
                 text: client.user.username
               }
             }
@@ -83,7 +83,7 @@ module.exports = {
               description: `I cannot add reactions to messages in the guild \`${message.guild.name}\`! Please notify a server administrator.`,
               timestamp: new Date(),
               footer: {
-                icon_url: client.user.avatarURL,
+                icon_url: client.user.avatarURL(),
                 text: client.user.username
               }
             }
@@ -102,13 +102,13 @@ module.exports = {
       if (message.author.id === shared.activeMusicSelection[x]) {
         var alreadySelection = new Discord.RichEmbed()
           .setColor("RED")
-          .setAuthor(message.author.tag, message.author.avatarURL)
-          .setThumbnail(client.user.displayAvatarURL)
+          .setAuthor(message.author.tag, message.author.avatarURL())
+          .setThumbnail(client.user.displayAvatarURL())
           .setTitle("You can't use this command right now!")
           .setDescription(
             "You've already opened a music selection menu! Either make a selection, manually cancel it or wait for it to expire before trying again."
           )
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
 
         return message.channel
@@ -124,13 +124,13 @@ module.exports = {
     ) {
       var nope = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle("You can't play a playlist right now!")
         .setDescription(
           "We're finding the most efficient way to support this in the future. For now, however, sorry for the inconvenience caused."
         )
-        .setFooter(client.user.username, client.user.avatarURL);
+        .setFooter(client.user.username, client.user.avatarURL());
 
       return message.channel.send(nope).then(m => m.delete(10000));
     } else {
@@ -159,13 +159,13 @@ module.exports = {
             console.log(error);
             var noresult = new Discord.RichEmbed()
               .setColor("RED")
-              .setAuthor(message.author.tag, message.author.avatarURL)
-              .setThumbnail(client.user.displayAvatarURL)
+              .setAuthor(message.author.tag, message.author.avatarURL())
+              .setThumbnail(client.user.displayAvatarURL())
               .setTitle("No results could be found.")
               .setDescription(
                 `Check if you've inputted your search string correctly.`
               )
-              .setFooter(client.user.username, client.user.avatarURL)
+              .setFooter(client.user.username, client.user.avatarURL())
               .setTimestamp();
 
             return message.channel.send(noresult).then(m => m.delete(10000));
@@ -212,12 +212,12 @@ module.exports = {
 
           var vindex;
 
-          let bicon = client.user.displayAvatarURL;
+          let bicon = client.user.displayAvatarURL();
           let videosEmbed = new Discord.RichEmbed()
             .setColor(config.embedColor)
             .setTitle("Music Selection")
-            .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(client.user.displayAvatarURL)
+            .setAuthor(message.author.tag, message.author.avatarURL())
+            .setThumbnail(client.user.displayAvatarURL())
             .addField(
               "Provide a valid integer (1-10) to make a selection. \nClick " +
                 client.emojis.get("662296249717751869").toString() +
@@ -238,26 +238,26 @@ module.exports = {
             if (vindex === "time") {
               let timeout = new Discord.RichEmbed()
                 .setColor("RED")
-                .setAuthor(message.author.tag, message.author.avatarURL)
-                .setThumbnail(client.user.displayAvatarURL)
+                .setAuthor(message.author.tag, message.author.avatarURL())
+                .setThumbnail(client.user.displayAvatarURL())
                 .setTitle("Music selection cancelled!")
                 .setDescription(
                   "Your music selection menu timed out. To maintain quality performance, all music selection menus expire after 60 seconds."
                 )
-                .setFooter(client.user.username, client.user.avatarURL)
+                .setFooter(client.user.username, client.user.avatarURL())
                 .setTimestamp();
 
               return message.channel.send(timeout).then(m => m.delete(10000));
             } else if (vindex === "cancel") {
               let cancelmsg = new Discord.RichEmbed()
                 .setColor("RED")
-                .setAuthor(message.author.tag, message.author.avatarURL)
-                .setThumbnail(client.user.displayAvatarURL)
+                .setAuthor(message.author.tag, message.author.avatarURL())
+                .setThumbnail(client.user.displayAvatarURL())
                 .setTitle("Music selection cancelled!")
                 .setDescription(
                   "You have manually cancelled your music selection menu."
                 )
-                .setFooter(client.user.username, client.user.avatarURL)
+                .setFooter(client.user.username, client.user.avatarURL())
                 .setTimestamp();
 
               return message.channel.send(cancelmsg).then(m => m.delete(10000));
@@ -335,11 +335,11 @@ module.exports = {
           console.log(error);
           var searchError = new Discord.RichEmbed()
             .setColor("RED")
-            .setAuthor(message.author.tag, message.author.avatarURL)
-            .setThumbnail(client.user.displayAvatarURL)
+            .setAuthor(message.author.tag, message.author.avatarURL())
+            .setThumbnail(client.user.displayAvatarURL())
             .setTitle("An error occured whilst searching for your music!")
             .setDescription(error)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp();
 
           return message.channel.send(searchError).then(m => m.delete(10000));

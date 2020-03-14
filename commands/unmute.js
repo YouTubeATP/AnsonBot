@@ -40,7 +40,8 @@ module.exports = {
       );
     if (
       !message.guild.members.cache
-        .get(client.user.id).hasPermission("MANAGE_ROLES")
+        .get(client.user.id)
+        .hasPermission("MANAGE_ROLES")
     )
       return message.channel.send(
         fn.embed(
@@ -83,8 +84,8 @@ module.exports = {
     if (!target.roles.has(muteRole.id))
       return message.channel.send(fn.embed(client, `${target} is not muted!`));
 
-    target
-      .removeRole(muteRole)
+    target.roles
+      .remove(muteRole)
       .then(() => {
         modCases.push(message.guild.id, modCase);
 

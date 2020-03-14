@@ -54,8 +54,8 @@ module.exports = {
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setTitle(`Configuration | ${message.guild.name}`)
-        .setThumbnail(message.guild.iconURL)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setThumbnail(message.guild.iconURL())
+        .setFooter(client.user.username, client.user.avatarURL())
       for (let i = 0; i < configItems.length; i++) embed.addField(`${configItems[i].displayName} [\`${configItems[i].name}\`]`,
                                                                   `${configItems[i].type == "channel" ? (shared.guild[configItems[i].name] ? `<#${shared.guild[configItems[i].name]}>` : "None set") :
                                                                      configItems[i].type == "role" ? (shared.guild[configItems[i].name] ? `<@&${shared.guild[configItems[i].name]}>` : "None set") :
@@ -71,8 +71,8 @@ module.exports = {
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setTitle(`Configuration | ${message.guild.name}`)
-        .setThumbnail(message.guild.iconURL)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setThumbnail(message.guild.iconURL())
+        .setFooter(client.user.username, client.user.avatarURL())
         .addField(`${item.displayName} [\`${item.name}\`]`,
                   `${item.type == "channel" ? (shared.guild[item.name] ? `<#${shared.guild[item.name]}>` : "None set") :
                      item.type == "role" ? (shared.guild[item.name] ? `<@&${shared.guild[item.name]}>` : "None set") :
@@ -89,8 +89,8 @@ module.exports = {
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setTitle(`Configuration | ${message.guild.name}`)
-        .setThumbnail(message.guild.iconURL)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setThumbnail(message.guild.iconURL())
+        .setFooter(client.user.username, client.user.avatarURL())
         .addField(`${item.displayName} [\`${item.name}\`]`,
                   `${item.type == "channel" ? `<#${shared.guild[item.name]}>` :
                      item.type == "role" ? `<@&${shared.guild[item.name]}>` :
@@ -130,8 +130,8 @@ module.exports = {
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setTitle(`Configuration | ${message.guild.name}`)
-        .setThumbnail(message.guild.iconURL)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setThumbnail(message.guild.iconURL())
+        .setFooter(client.user.username, client.user.avatarURL())
         .addField(`${cfgItem.displayName} [\`${cfgItem.name}\`]`,
                   `${cfgItem.type == "channel" ? (shared.guild[cfgItem.name] ? `<#${shared.guild[cfgItem.name]}>` : "None set") :
                      cfgItem.type == "role" ? (shared.guild[cfgItem.name] ? `<@&${shared.guild[cfgItem.name]}>` : "None set") :

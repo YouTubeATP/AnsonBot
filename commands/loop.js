@@ -40,39 +40,39 @@ module.exports = {
       serverQueue.loop = "single";
       var single = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle("Loop mode toggled!")
         .setDescription(
           "Loop for the current queue has been toggled to `single`. Use this command again to toggle loop to `all`."
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
       return message.channel.send(single);
     } else if (serverQueue.loop === "single") {
       serverQueue.loop = "all";
       var all = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle("Loop mode toggled!")
         .setDescription(
           "Loop for the current queue has been toggled to `all`. Use this command again to disable loop."
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
       return message.channel.send(all);
     }
     serverQueue.loop = "off";
     var off = new Discord.RichEmbed()
       .setColor("GREEN")
-      .setAuthor(message.author.tag, message.author.avatarURL)
-      .setThumbnail(client.user.displayAvatarURL)
+      .setAuthor(message.author.tag, message.author.avatarURL())
+      .setThumbnail(client.user.displayAvatarURL())
       .setTitle("Loop mode toggled!")
       .setDescription(
         "Loop for the current queue has been toggled `off`. Use this command again to toggle loop to `single`."
       )
-      .setFooter(client.user.username, client.user.avatarURL)
+      .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
     return message.channel.send(off);
   }

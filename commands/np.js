@@ -37,10 +37,10 @@ module.exports = {
         .then(message.delete);
 
     let song = serverQueue.songs[0];
-    let bicon = client.user.displayAvatarURL;
+    let bicon = client.user.displayAvatarURL();
     let embed = new Discord.RichEmbed()
       .setColor(0x00bdf2)
-      .setAuthor(message.guild.name, message.guild.iconURL)
+      .setAuthor(message.guild.name, message.guild.iconURL())
       .setTitle(`Now Playing`)
       .setDescription(`[${song.title}](${song.url})`)
       .setThumbnail(song.thumbnail)

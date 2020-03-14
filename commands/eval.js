@@ -44,7 +44,7 @@ module.exports = {
               )
               .addField(`Expression`, "```js\n" + args.join(" ") + "```")
               .addField(`Result`, "```js\n" + out + "```")
-              .setFooter(client.user.username, client.user.avatarURL)
+              .setFooter(client.user.username, client.user.avatarURL())
           )
           .catch(console.error);
       else if (
@@ -68,7 +68,7 @@ module.exports = {
                 `Result`,
                 "```js\nOutput too long. Check console log.```"
               )
-              .setFooter(client.user.username, client.user.avatarURL)
+              .setFooter(client.user.username, client.user.avatarURL())
           )
           .catch(console.error);
       }
@@ -80,7 +80,7 @@ module.exports = {
         )
         .addField(`Expression`, "```js\n" + args.join(" ") + "```")
         .addField(`Error Message`, "```js\n" + e + "```")
-        .setFooter(client.user.username, client.user.avatarURL);
+        .setFooter(client.user.username, client.user.avatarURL());
       message.channel.send(embed).catch(console.error);
     }
   }

@@ -43,12 +43,12 @@ module.exports = {
           new Discord.RichEmbed()
             .setTitle(`${i} Commands`)
             .setColor(config.embedColor)
-            .setThumbnail(client.user.avatarURL)
+            .setThumbnail(client.user.avatarURL())
             .setDescription(
               userCommands[i].join("") +
                 "\nDo `help [command]` to get information about specific commands!"
             )
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
       }
@@ -57,13 +57,13 @@ module.exports = {
         .then(msg => {
           let sentEmbed = new Discord.RichEmbed()
             .setColor(config.embedColor)
-            .setAuthor(message.author.tag, message.author.avatarURL)
+            .setAuthor(message.author.tag, message.author.avatarURL())
             .setTitle(`Check your DMs!`)
             .setDescription(
               `My interactive help menu has been sent to your DMs.`
             )
-            .setThumbnail(client.user.avatarURL)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setThumbnail(client.user.avatarURL())
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp();
           message.channel.send(sentEmbed);
           fn.helpPaginator(message.author.id, msg, embeds, 0, client);
@@ -89,8 +89,8 @@ module.exports = {
           .setDescription(
             `Maybe a typo? Do \`${shared.customPrefix}help\` for a list of available commands.`
           )
-          .setThumbnail(message.guild.iconURL)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setThumbnail(message.guild.iconURL())
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
         return message.channel.send(embed).then(m => {
           message.delete();
@@ -113,11 +113,11 @@ module.exports = {
 
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
         .setTitle(`Detailed Command Information`)
         .setDescription(`**${shared.customPrefix}${command.name}**`)
-        .setThumbnail(client.user.avatarURL)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setThumbnail(client.user.avatarURL())
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       if (command.aliases)

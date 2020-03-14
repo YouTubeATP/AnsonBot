@@ -746,7 +746,7 @@ module.exports = {
               player1.lastLogin
             )}) | ${fn.date(player2.lastLogin)} (${fn.ago(player2.lastLogin)})`
           )
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
         if (guildmsg1 || guildmsg2)
           embed.addField(
@@ -930,7 +930,7 @@ module.exports = {
           .setImage(`https://visage.surgeplay.com/full/${uuid}`)
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
-            client.user.avatarURL
+            client.user.avatarURL()
           );
         if (guildmsg) embed.addField("Guild", guildmsg, true);
         if (forums) embed.addField("Forums", forums, true);

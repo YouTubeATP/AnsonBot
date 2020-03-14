@@ -23,13 +23,13 @@ module.exports = {
     if (!question) {
       let embed = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(
           "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2F33571_preview.png?v=1582621594066"
         )
         .setTitle(`No question provided!`)
         .setDescription("Provide a question and try again.")
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       return message.channel.send(embed);
@@ -49,13 +49,13 @@ module.exports = {
       let answer = eightball[Math.floor(Math.random() * eightball.length)];
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(
           "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2F33571_preview.png?v=1582621594066"
         )
         .setTitle(question)
         .setDescription(answer)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       return message.channel.send(embed);
