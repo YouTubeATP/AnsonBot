@@ -43,7 +43,7 @@ module.exports = {
     shared.stopping = true;
     serverQueue.voiceChannel.leave();
 
-    var stop = new Discord.RichEmbed()
+    var stop = new Discord.MessageEmbed()
       .setColor(config.embedColor)
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setThumbnail(message.guild.iconURL())

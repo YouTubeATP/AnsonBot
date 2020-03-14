@@ -62,7 +62,7 @@ module.exports = {
       .remove(role)
       .then(() => {
         message.channel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Remove Role Success")
             .setThumbnail(target.user.displayAvatarURL())

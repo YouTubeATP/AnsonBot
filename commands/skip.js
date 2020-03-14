@@ -60,7 +60,7 @@ module.exports = {
     if (voteSkip === 0) voteSkip = 1;
 
     if (shared.voted >= voteSkip) {
-      var skip = new Discord.RichEmbed()
+      var skip = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())

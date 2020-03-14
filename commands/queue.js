@@ -82,7 +82,7 @@ module.exports = {
             .replace(/&nbsp;/g, " ")}](${s.url})`
       );
 
-    let queueEmbed = new Discord.RichEmbed()
+    let queueEmbed = new Discord.MessageEmbed()
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setTitle(`Current Queue in Server: \`${message.guild.name}\``)
       .setColor(0x00bdf2)

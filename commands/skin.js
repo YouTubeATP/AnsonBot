@@ -99,7 +99,7 @@ module.exports = {
       let thumbnailURL = `https://visage.surgeplay.com/face/${uuid}`,
         modelURL = `https://visage.surgeplay.com/full/${uuid}`,
         skinURL = `https://visage.surgeplay.com/skin/${uuid}`;
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setThumbnail(thumbnailURL)
         .setTitle(`${username}'s Skin`)

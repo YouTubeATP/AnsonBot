@@ -44,7 +44,7 @@ module.exports = {
       number.includes(",") ||
       number.includes(" ")
     ) {
-      var currentvol = new Discord.RichEmbed()
+      var currentvol = new Discord.MessageEmbed()
         .setColor(0x00bdf2)
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())
@@ -62,7 +62,7 @@ module.exports = {
         parseInt(number) / 10
       );
       serverQueue.volume = parseInt(number);
-      var vol = new Discord.RichEmbed()
+      var vol = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())
@@ -73,7 +73,7 @@ module.exports = {
       return await message.channel.send(vol);
     }
 
-    var currentvol = new Discord.RichEmbed()
+    var currentvol = new Discord.MessageEmbed()
       .setColor(0x00bdf2)
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setThumbnail(client.user.displayAvatarURL())

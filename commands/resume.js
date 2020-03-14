@@ -38,7 +38,7 @@ module.exports = {
     if (serverQueue && !serverQueue.playing) {
       serverQueue.playing = true;
       serverQueue.connection.dispatcher.resume();
-      var embed = new Discord.RichEmbed()
+      var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(message.guild.iconURL())
@@ -51,7 +51,7 @@ module.exports = {
 
       return message.channel.send(embed);
     } else {
-      var embed = new Discord.RichEmbed()
+      var embed = new Discord.MessageEmbed()
         .setColor("RED")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(message.guild.iconURL())

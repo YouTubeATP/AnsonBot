@@ -12,7 +12,7 @@ module.exports = {
   run: async (client, message, args, shared) => {
     message.channel.send("Pinging...").then(m => {
       let pingMessage = `Latency: \`${Math.round(client.ping)}\`ms`;
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.avatarURL())

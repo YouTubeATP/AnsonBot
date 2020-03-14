@@ -100,7 +100,7 @@ module.exports = {
 
     for (var x = 0; x < shared.activeMusicSelection.length; x++) {
       if (message.author.id === shared.activeMusicSelection[x]) {
-        var alreadySelection = new Discord.RichEmbed()
+        var alreadySelection = new Discord.MessageEmbed()
           .setColor("RED")
           .setAuthor(message.author.tag, message.author.avatarURL())
           .setThumbnail(client.user.displayAvatarURL())
@@ -122,7 +122,7 @@ module.exports = {
         /^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/
       )
     ) {
-      var nope = new Discord.RichEmbed()
+      var nope = new Discord.MessageEmbed()
         .setColor("RED")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())
@@ -157,7 +157,7 @@ module.exports = {
 
           if (videos.length === 0) {
             console.log(error);
-            var noresult = new Discord.RichEmbed()
+            var noresult = new Discord.MessageEmbed()
               .setColor("RED")
               .setAuthor(message.author.tag, message.author.avatarURL())
               .setThumbnail(client.user.displayAvatarURL())
@@ -213,7 +213,7 @@ module.exports = {
           var vindex;
 
           let bicon = client.user.displayAvatarURL();
-          let videosEmbed = new Discord.RichEmbed()
+          let videosEmbed = new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Music Selection")
             .setAuthor(message.author.tag, message.author.avatarURL())
@@ -236,7 +236,7 @@ module.exports = {
             }
 
             if (vindex === "time") {
-              let timeout = new Discord.RichEmbed()
+              let timeout = new Discord.MessageEmbed()
                 .setColor("RED")
                 .setAuthor(message.author.tag, message.author.avatarURL())
                 .setThumbnail(client.user.displayAvatarURL())
@@ -249,7 +249,7 @@ module.exports = {
 
               return message.channel.send(timeout).then(m => m.delete(10000));
             } else if (vindex === "cancel") {
-              let cancelmsg = new Discord.RichEmbed()
+              let cancelmsg = new Discord.MessageEmbed()
                 .setColor("RED")
                 .setAuthor(message.author.tag, message.author.avatarURL())
                 .setThumbnail(client.user.displayAvatarURL())
@@ -333,7 +333,7 @@ module.exports = {
           return detectSelection();
         } catch (err) {
           console.log(error);
-          var searchError = new Discord.RichEmbed()
+          var searchError = new Discord.MessageEmbed()
             .setColor("RED")
             .setAuthor(message.author.tag, message.author.avatarURL())
             .setThumbnail(client.user.displayAvatarURL())
@@ -437,7 +437,7 @@ module.exports = {
         if (playlist) return undefined;
 
         let bicon = client.user.displayAvatarURL();
-        let queueemb = new Discord.RichEmbed()
+        let queueemb = new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle(`Song added to queue!`)
           .setAuthor(song.guild.name, song.guild.iconURL())
@@ -464,7 +464,7 @@ module.exports = {
     function np(serverQueue) {
       let song = serverQueue.songs[0];
       let bicon = client.user.displayAvatarURL();
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setAuthor(song.guild.name, song.guild.iconURL())
         .setTitle(`Now Playing`)
@@ -494,7 +494,7 @@ module.exports = {
       if (!song) {
         serverQueue.voiceChannel.leave();
         queue.delete(guild.id);
-        var nosong = new Discord.RichEmbed()
+        var nosong = new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setAuthor(message.author.tag, message.author.avatarURL())
           .setThumbnail(message.guild.iconURL())
@@ -509,8 +509,8 @@ module.exports = {
       }
 
       const dispatcher = serverQueue.connection
-        .playStream(ytdl(song.url), { bitrate: 512000 /* 512kbps */ })
-        .on("end", reason => {
+        .play(ytdl(song.url), { bitrate: 512000 /* 512kbps */ })
+        .on("finish", reason => {
           if (reason === "Stream is not generating quickly enough.") {
             console.log("Song ended.");
           } else console.log(reason);

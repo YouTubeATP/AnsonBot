@@ -75,7 +75,7 @@ module.exports = {
         }
         const bicon = client.user.displayAvatarURL();
         const bot = fn.getMember(message.guild, client.user);
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle(`${client.user.tag} | Information`)
           .setAuthor(message.author.tag, message.author.avatarURL())
@@ -134,7 +134,7 @@ module.exports = {
           });
       });
     } else {
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`${target.user.tag} | Information`)
         .setAuthor(message.author.tag, message.author.avatarURL())
