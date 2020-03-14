@@ -123,8 +123,8 @@ client.on("guildMemberAdd", async member => {
   let guild = member.guild;
   let memberTag = member.user.id;
   if (guild.id === config.server && !member.user.bot) {
-    member
-      .addRole(guild.roles.find("name", "Member"))
+    member.roles
+      .add(guild.roles.find("name", "Member"))
       .then(() => {
         client.channels.cache
           .get("653133031292403742")
@@ -140,7 +140,7 @@ client.on("guildMemberAdd", async member => {
         console.log(e);
       });
   } else if (guild.id === config.server && member.user.bot) {
-    member.addRole(guild.roles.find("name", "Bot")).catch(e => {
+    member.roles.add(guild.roles.find("name", "Bot")).catch(e => {
       console.log(e);
     });
   }

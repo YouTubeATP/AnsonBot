@@ -33,8 +33,8 @@ module.exports = {
     const permissions = voiceChannel.permissionsFor(client.user);
 
     if (!permissions.has("CONNECT")) {
-      return client
-        .fetchUser(message.member)
+      return client.users
+        .fetch(message.member)
         .then(user => {
           user.send({
             embed: {
@@ -53,8 +53,8 @@ module.exports = {
     }
 
     if (!permissions.has("SPEAK")) {
-      return client
-        .fetchUser(message.member)
+      return client.users
+        .fetch(message.member)
         .then(user => {
           user.send({
             embed: {
@@ -73,8 +73,8 @@ module.exports = {
     }
 
     if (!message.guild.me.hasPermission("ADD_REACTIONS")) {
-      return client
-        .fetchUser(message.member)
+      return client.users
+        .fetch(message.member)
         .then(user => {
           user.send({
             embed: {
@@ -228,7 +228,7 @@ module.exports = {
             .setTimestamp();
 
           async function detectSelection() {
-            message.channel.fetchMessage(mid).then(m => m.delete());
+            message.channel.messages.fetch(mid).then(m => m.delete());
             for (var x = 0; x < shared.activeMusicSelection.length; x++) {
               if (shared.activeMusicSelection[x] === message.author.id) {
                 shared.activeMusicSelection.splice(x, 1);
@@ -323,8 +323,8 @@ module.exports = {
             );
             if (cancelled) return (cancelled = false);
             vindex = parseInt(response.first().content, 10);
-            message.channel
-              .fetchMessage(response.first().id)
+            message.channel.messages
+              .fetch(response.first().id)
               .then(m => m.delete);
           } catch (err) {
             if (cancelled) return (cancelled = false);

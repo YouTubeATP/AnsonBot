@@ -109,7 +109,7 @@ module.exports = {
           guildData.cache.get(`${message.guild.id}.modlog`)
         );
         if (c) {
-          let m = c.fetchMessage(thisCase.message).catch(() => {});
+          let m = c.messages.fetch(thisCase.message).catch(() => {});
           if (m) m.edit(fn.modCaseEmbed(client, thisCase));
         }
       }
