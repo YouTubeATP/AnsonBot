@@ -21,7 +21,7 @@ module.exports = {
       .slice(shared.prefix.length + command.length + 1)
       .trim();
     if (!question) {
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor("RED")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(
@@ -47,7 +47,7 @@ module.exports = {
       question = question.replace(" i ", " I ");
       question = question.replace(" i?", " I?");
       let answer = eightball[Math.floor(Math.random() * eightball.length)];
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(

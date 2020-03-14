@@ -12,10 +12,10 @@ module.exports = client => {
     let memberLog = client.channels.cache.get(memberLogID);
     if (memberLog) {
       memberLog.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Member Left")
-          .setThumbnail(member.user.displayAvatarURL)
+          .setThumbnail(member.user.displayAvatarURL())
           .setDescription(
             `There are now ${member.guild.members.size} members in ${member.guild}.`
           )
@@ -24,7 +24,7 @@ module.exports = client => {
             `${member} (${member.user.tag})`
           )
           .addField("ID", member.id)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
     }

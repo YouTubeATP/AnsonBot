@@ -67,7 +67,7 @@ module.exports = {
       "https://hypixel.net/styles/hypixel-uix/hypixel/game-icons/BedWars-64.png";
     if (!stats)
       return message.channel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(rankcolor)
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank}] ${username}`)
@@ -82,7 +82,7 @@ module.exports = {
     let bwlvl = getLevelForExp(stats.Experience);
     let bwlvl2;
     if (stats2) bwlvl2 = getLevelForExp(stats2.Experience);
-    let overall = new Discord.RichEmbed()
+    let overall = new Discord.MessageEmbed()
       .setColor(player2 ? config.embedColor : rankcolor)
       .setThumbnail(thumbnailURL)
       .setTitle(
@@ -278,7 +278,7 @@ module.exports = {
     embeds.push(overall);
 
     for (var i in modes) {
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(player2 ? config.embedColor : rankcolor)
         .setThumbnail(thumbnailURL)
         .setTitle(

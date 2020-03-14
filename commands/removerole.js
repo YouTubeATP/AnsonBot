@@ -58,8 +58,8 @@ module.exports = {
         fn.embed(client, "I do not have permissions to remove this role.")
       );
 
-    target
-      .removeRole(role)
+    target.roles
+      .remove(role)
       .then(() => {
         message.channel.send(
           new Discord.RichEmbed()

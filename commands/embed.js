@@ -67,7 +67,7 @@ module.exports = {
           (color[5] >= "A" && color[5] <= "F"))
       ) {
         color = parseInt(`0x${color}`);
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
           .setAuthor(message.author.tag, message.author.avatarURL())
           .setColor(color)
           .setDescription(content)
@@ -80,7 +80,7 @@ module.exports = {
             shared.printError(message, e, `I couldn't make your embed!`);
           });
       } else {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
           .setAuthor(message.author.tag, message.author.avatarURL())
           .setDescription(rawcontent)
           .setFooter(client.user.username, client.user.avatarURL())

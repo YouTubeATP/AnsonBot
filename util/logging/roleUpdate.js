@@ -14,49 +14,49 @@ module.exports = client => {
 
     if (oldRole.name !== newRole.name)
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Role Name Updated")
-          .setThumbnail(newRole.guild.iconURL)
+          .setThumbnail(newRole.guild.iconURL())
           .addField("Role", `${newRole} (${newRole.name})`)
           .addField("Before", `${oldRole.name}`, true)
           .addField("After", `${newRole.name}`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
     if (oldRole.color !== newRole.color)
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Role Color Updated")
-          .setThumbnail(newRole.guild.iconURL)
+          .setThumbnail(newRole.guild.iconURL())
           .addField("Role", `${newRole} (${newRole.name})`)
           .addField("Before", `${oldRole.hexColor}`, true)
           .addField("After", `${newRole.hexColor}`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
     if (oldRole.mentionable !== newRole.mentionable) {
       if (newRole.mentionable)
         return logChannel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Role Mentionable")
-            .setThumbnail(newRole.guild.iconURL)
+            .setThumbnail(newRole.guild.iconURL())
             .addField("Role", `${newRole} (${newRole.name})`)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
       else
         return logChannel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Role Unmentionable")
-            .setThumbnail(newRole.guild.iconURL)
+            .setThumbnail(newRole.guild.iconURL())
             .addField("Role", `${newRole} (${newRole.name})`)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
     }

@@ -15,16 +15,16 @@ module.exports = client => {
     if (!logChannel) return;
 
     logChannel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle("Message Edited")
-        .setThumbnail(newMessage.author.displayAvatarURL)
+        .setThumbnail(newMessage.author.displayAvatarURL())
         .setDescription(
           `${newMessage.author} (${newMessage.author.tag}) edited a [message](${newMessage.url}) in ${newMessage.channel}.`
         )
         .addField("Before", oldMessage.content)
         .addField("After", newMessage.content)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp()
     );
   });

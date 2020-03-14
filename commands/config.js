@@ -51,7 +51,7 @@ module.exports = {
     let guild = guildData.get(message.guild.id)
     
     if (!args.length) {
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Configuration | ${message.guild.name}`)
         .setThumbnail(message.guild.iconURL())
@@ -68,7 +68,7 @@ module.exports = {
       if (!configItems.map(i => i.name).includes(item)) return message.channel.send(fn.embed(client, {title: "Accepted Values", description: `${configItems.map(i => `\`${i.name}\``).join(', ')}`}))
       
       item = configItems.find(i => i.name == item)
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Configuration | ${message.guild.name}`)
         .setThumbnail(message.guild.iconURL())
@@ -86,7 +86,7 @@ module.exports = {
       if (args[1] != "reset") return message.channel.send(fn.embed(client, {title: "Usage", description: "`config [item]\nconfig <item> reset\nconfig <item> set <newValue>`"}))
       
       guildData.set(`${message.guild.id}.${item}`, null)
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Configuration | ${message.guild.name}`)
         .setThumbnail(message.guild.iconURL())
@@ -127,7 +127,7 @@ module.exports = {
         guildData.push(`${message.guild.id}.${item}`, newVal)
       }
       
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Configuration | ${message.guild.name}`)
         .setThumbnail(message.guild.iconURL())

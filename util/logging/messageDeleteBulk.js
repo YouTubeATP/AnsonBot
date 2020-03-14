@@ -13,16 +13,16 @@ module.exports = client => {
     if (!logChannel) return;
 
     logChannel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle("Messages Bulk Deleted")
-        .setThumbnail(messages.first().guild.iconURL)
+        .setThumbnail(messages.first().guild.iconURL())
         .setDescription(
           `${messages.size} messages bulk deleted in ${
             messages.first().channel
           }.`
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp()
     );
   });

@@ -42,7 +42,7 @@ module.exports = {
       );
 
     return await message.channel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setAuthor(user.tag, user.displayAvatarURL())
         .setThumbnail(message.guild.iconURL())

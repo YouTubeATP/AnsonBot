@@ -13,13 +13,13 @@ module.exports = client => {
     if (!logChannel) return;
 
     logChannel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle("User Unbanned")
-        .setThumbnail(user.displayAvatarURL)
+        .setThumbnail(user.displayAvatarURL())
         .addField(user.bot ? "Bot" : "User", `${user} (${user.tag})`)
         .addField("ID", user.id)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp()
     );
   });

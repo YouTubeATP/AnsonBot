@@ -16,16 +16,16 @@ module.exports = client => {
     newMember.roles.forEach(role => {
       if (!oldMember.roles.find(r => r.id == role.id)) {
         return logChannel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Role Given")
-            .setThumbnail(newMember.user.displayAvatarURL)
+            .setThumbnail(newMember.user.displayAvatarURL())
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
             )
             .addField("Role", `${role} (${role.name})`)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
       }
@@ -35,16 +35,16 @@ module.exports = client => {
     oldMember.roles.forEach(role => {
       if (!newMember.roles.find(r => r.id == role.id)) {
         return logChannel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Role Removed")
-            .setThumbnail(newMember.user.displayAvatarURL)
+            .setThumbnail(newMember.user.displayAvatarURL())
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
             )
             .addField("Role", `${role} (${role.name})`)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
       }
@@ -52,49 +52,49 @@ module.exports = client => {
 
     if (oldMember.user.tag != newMember.user.tag)
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("User Tag Updated")
-          .setThumbnail(newMember.user.displayAvatarURL)
+          .setThumbnail(newMember.user.displayAvatarURL())
           .addField(
             newMember.user.bot ? "Bot" : "User",
             `${newMember} (${newMember.user.tag})`
           )
           .addField("Before", `${oldMember.user.tag}`, true)
           .addField("After", `${newMember.user.tag}`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
     if (oldMember.displayName != newMember.displayName)
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Member Nickname Updated")
-          .setThumbnail(newMember.user.displayAvatarURL)
+          .setThumbnail(newMember.user.displayAvatarURL())
           .addField(
             newMember.user.bot ? "Bot" : "User",
             `${newMember} (${newMember.user.tag})`
           )
           .addField("Before", `${oldMember.displayName}`, true)
           .addField("After", `${newMember.displayName}`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
-    if (oldMember.user.avatarURL != newMember.user.avatarURL)
+    if (oldMember.user.avatarURL() != newMember.user.avatarURL())
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("User Avatar Updated")
-          .setThumbnail(newMember.user.displayAvatarURL)
+          .setThumbnail(newMember.user.displayAvatarURL())
           .addField(
             newMember.user.bot ? "Bot" : "User",
             `${newMember} (${newMember.user.tag})`
           )
-          .addField("Before", `[Link](${oldMember.user.avatarURL})`, true)
-          .addField("After", `[Link](${newMember.user.avatarURL})`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .addField("Before", `[Link](${oldMember.user.avatarURL()})`, true)
+          .addField("After", `[Link](${newMember.user.avatarURL()})`, true)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
@@ -104,16 +104,16 @@ module.exports = client => {
         newMember.roles.find(r => r.name === "Nitro Booster")
       ) {
         return logChannel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Server Boosted")
-            .setThumbnail(newMember.user.displayAvatarURL)
+            .setThumbnail(newMember.user.displayAvatarURL())
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
             )
             .addField("ID", newMember.user.id)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
       } else return;

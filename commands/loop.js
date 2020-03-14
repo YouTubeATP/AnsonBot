@@ -38,7 +38,7 @@ module.exports = {
 
     if (serverQueue.loop === "off") {
       serverQueue.loop = "single";
-      var single = new Discord.RichEmbed()
+      var single = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())
@@ -51,7 +51,7 @@ module.exports = {
       return message.channel.send(single);
     } else if (serverQueue.loop === "single") {
       serverQueue.loop = "all";
-      var all = new Discord.RichEmbed()
+      var all = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())
@@ -64,7 +64,7 @@ module.exports = {
       return message.channel.send(all);
     }
     serverQueue.loop = "off";
-    var off = new Discord.RichEmbed()
+    var off = new Discord.MessageEmbed()
       .setColor("GREEN")
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setThumbnail(client.user.displayAvatarURL())

@@ -721,7 +721,7 @@ module.exports = {
           disc2 = undefined;
           forums2 = undefined;
         }
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank1}] ${username1} | [${rank2}] ${username2}`)
@@ -911,7 +911,7 @@ module.exports = {
           disc = undefined;
           forums = undefined;
         }
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
           .setColor(rankcolor)
           .setThumbnail(thumbnailURL)
           .setTitle(`[${rank}] ${username}`)

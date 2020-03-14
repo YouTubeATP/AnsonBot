@@ -12,7 +12,7 @@ module.exports = {
   category: "Misc",
   run: async (client, message, args, shared) => {
     let fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
       .setColor(config.embedColor)
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setDescription(fortune)

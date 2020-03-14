@@ -38,7 +38,7 @@ module.exports = {
 
     let song = serverQueue.songs[0];
     let bicon = client.user.displayAvatarURL();
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
       .setColor(0x00bdf2)
       .setAuthor(message.guild.name, message.guild.iconURL())
       .setTitle(`Now Playing`)

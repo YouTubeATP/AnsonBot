@@ -13,14 +13,14 @@ module.exports = client => {
     if (!logChannel) return;
 
     logChannel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle("Role Created")
-        .setThumbnail(role.guild.iconURL)
+        .setThumbnail(role.guild.iconURL())
         .addField("Role", `${role} (${role.name})`)
         .addField("ID", role.id)
         .addField("Created", fn.time(role.createdTimestamp))
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp()
     );
   });

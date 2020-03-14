@@ -52,11 +52,11 @@ module.exports = {
         fn.embed(client, "I do not have permissions to give this role.")
       );
 
-    target
-      .addRole(role)
+    target.roles
+      .add(role)
       .then(() => {
         message.channel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Give Role Success")
             .setThumbnail(target.user.displayAvatarURL())

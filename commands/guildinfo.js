@@ -25,7 +25,7 @@ module.exports = {
           g.name.toLowerCase().startsWith(args.join(" ").toLowerCase())
       );
 
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
       .setColor(config.embedColor)
       .setTitle(`${guild} | Information`)
       .setThumbnail(guild.iconURL)

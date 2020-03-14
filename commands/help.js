@@ -40,7 +40,7 @@ module.exports = {
       let embeds = [];
       for (var i in userCommands) {
         embeds.push(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setTitle(`${i} Commands`)
             .setColor(config.embedColor)
             .setThumbnail(client.user.avatarURL())
@@ -55,7 +55,7 @@ module.exports = {
       await message.author
         .send(embeds[0])
         .then(msg => {
-          let sentEmbed = new Discord.RichEmbed()
+          let sentEmbed = new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setAuthor(message.author.tag, message.author.avatarURL())
             .setTitle(`Check your DMs!`)
@@ -83,7 +83,7 @@ module.exports = {
         commands.find(c => c.aliases && c.aliases.includes(name));
 
       if (!command) {
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle(`I can't recognize this command!`)
           .setDescription(
@@ -111,7 +111,7 @@ module.exports = {
           fn.embed(client, "You do not have permission to use this command!")
         );
 
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setTitle(`Detailed Command Information`)

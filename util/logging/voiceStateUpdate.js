@@ -14,40 +14,40 @@ module.exports = client => {
     if (oldMember.voiceChannel != newMember.voiceChannel) {
       if (!oldMember.voiceChannel)
         return logChannel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Voice Connected")
-            .setThumbnail(newMember.user.displayAvatarURL)
+            .setThumbnail(newMember.user.displayAvatarURL())
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
             )
             .addField("Voice Channel", `${newMember.voiceChannel.name}`)
             .addField("ID", `${newMember.voiceChannel.id}`)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
       else if (!newMember.voiceChannel)
         return logChannel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Voice Disconnected")
-            .setThumbnail(newMember.user.displayAvatarURL)
+            .setThumbnail(newMember.user.displayAvatarURL())
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
             )
             .addField("Voice Channel", `${oldMember.voiceChannel.name}`)
             .addField("ID", `${oldMember.voiceChannel.id}`)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
       else
         return logChannel.send(
-          new Discord.RichEmbed()
+          new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Channel Switched")
-            .setThumbnail(newMember.user.displayAvatarURL)
+            .setThumbnail(newMember.user.displayAvatarURL())
             .addField(
               newMember.user.bot ? "Bot" : "User",
               `${newMember} (${newMember.user.tag})`
@@ -60,7 +60,7 @@ module.exports = client => {
               "Current Voice Channel",
               `${newMember.voiceChannel.name}`
             )
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
     }

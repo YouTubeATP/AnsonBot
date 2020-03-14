@@ -37,7 +37,7 @@ module.exports = {
       if (modifier == "-e" && out.length <= 1024 - 8)
         message.channel
           .send(
-            new Discord.RichEmbed()
+            new Discord.MessageEmbed()
               .setColor("GREEN")
               .setTitle(
                 `<:yes:662296097947123715> Evaluation Success!`
@@ -58,7 +58,7 @@ module.exports = {
         console.log(`${fn.time()} | Evaluation Result | ${out}`);
         message.channel
           .send(
-            new Discord.RichEmbed()
+            new Discord.MessageEmbed()
               .setColor("GREEN")
               .setTitle(
                 `<:yes:662296097947123715> Evaluation Success!`
@@ -73,7 +73,7 @@ module.exports = {
           .catch(console.error);
       }
     } catch (e) {
-      var embed = new Discord.RichEmbed()
+      var embed = new Discord.MessageEmbed()
         .setColor("RED")
         .setTitle(
           `<:no:662296249717751869> Evaluation Failed!`
