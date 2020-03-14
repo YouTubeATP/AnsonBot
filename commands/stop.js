@@ -45,13 +45,13 @@ module.exports = {
 
     var stop = new Discord.RichEmbed()
       .setColor(config.embedColor)
-      .setAuthor(message.author.tag, message.author.avatarURL)
-      .setThumbnail(message.guild.iconURL)
+      .setAuthor(message.author.tag, message.author.avatarURL())
+      .setThumbnail(message.guild.iconURL())
       .setTitle("Music Terminated")
       .setDescription(
         `The queue for \`${message.guild.name}\` has been deleted, and I have left the voice channel.`
       )
-      .setFooter(client.user.username, client.user.avatarURL)
+      .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
 
     return message.channel.send(stop);

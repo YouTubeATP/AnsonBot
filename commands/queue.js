@@ -35,7 +35,7 @@ module.exports = {
         "You need to be in my voice channel to execute this command!"
       );
 
-    let bicon = client.user.displayAvatarURL;
+    let bicon = client.user.displayAvatarURL();
     let song = serverQueue.songs[0];
 
     var queueValue;
@@ -83,10 +83,10 @@ module.exports = {
       );
 
     let queueEmbed = new Discord.RichEmbed()
-      .setAuthor(message.author.tag, message.author.avatarURL)
+      .setAuthor(message.author.tag, message.author.avatarURL())
       .setTitle(`Current Queue in Server: \`${message.guild.name}\``)
       .setColor(0x00bdf2)
-      .setThumbnail(message.guild.iconURL)
+      .setThumbnail(message.guild.iconURL())
       .setDescription(`**Loop:** \`${serverQueue.loop}\``)
       .addField("Now Playing", `[${song.title}](${song.url})`)
       .addField("Queued Songs", queueValue)

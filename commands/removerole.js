@@ -65,10 +65,10 @@ module.exports = {
           new Discord.RichEmbed()
             .setColor(config.embedColor)
             .setTitle("Remove Role Success")
-            .setThumbnail(target.user.displayAvatarURL)
+            .setThumbnail(target.user.displayAvatarURL())
             .addField(target.user.bot ? "Bot" : "User", `${target}`, true)
             .addField("Role", `${role}`, true)
-            .setFooter(client.user.username, client.user.avatarURL)
+            .setFooter(client.user.username, client.user.avatarURL())
         );
       })
       .catch(error => {

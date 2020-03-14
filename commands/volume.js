@@ -46,13 +46,13 @@ module.exports = {
     ) {
       var currentvol = new Discord.RichEmbed()
         .setColor(0x00bdf2)
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle(`The current volume level is \`${serverQueue.volume}\`.`)
         .setDescription(
           `To change the volume, please provide a valid integer between \`0\` and \`10\` when using this command.`
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
       return await message.channel.send(currentvol);
     }
@@ -64,24 +64,24 @@ module.exports = {
       serverQueue.volume = parseInt(number);
       var vol = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle("Volume level changed!")
         .setDescription(`Volume level \`${number}\` has been set.`)
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
       return await message.channel.send(vol);
     }
 
     var currentvol = new Discord.RichEmbed()
       .setColor(0x00bdf2)
-      .setAuthor(message.author.tag, message.author.avatarURL)
-      .setThumbnail(client.user.displayAvatarURL)
+      .setAuthor(message.author.tag, message.author.avatarURL())
+      .setThumbnail(client.user.displayAvatarURL())
       .setTitle(`The current volume level is \`${serverQueue.volume}\`.`)
       .setDescription(
         `To change the volume, please provide a valid integer between \`0\` and \`10\` when using this command.`
       )
-      .setFooter(client.user.username, client.user.avatarURL)
+      .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
     return await message.channel.send(currentvol);
   }

@@ -22,14 +22,14 @@ let ago = (date = moment()) => {
 let embed = (client, content) => {
   if (content instanceof Object) {
     let { title, description } = content;
-    return new Discord.RichEmbed()
+    return new Discord.MessageEmbed()
       .setColor(embedColor)
       .setTitle(title)
       .setDescription(description)
       .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
   } else if (typeof content == "string") {
-    return new Discord.RichEmbed()
+    return new Discord.MessageEmbed()
       .setColor(embedColor)
       .setDescription(content)
       .setFooter(client.user.username, client.user.avatarURL())
@@ -41,7 +41,7 @@ let embed = (client, content) => {
 };
 
 let error = (client, message, error) => {
-  return new Discord.RichEmbed()
+  return new Discord.MessageEmbed()
     .setColor(embedColor)
     .setTitle(message)
     .setDescription(`${error}`)
@@ -101,7 +101,7 @@ let modCaseEmbed = (client, thisCase) => {
   let user = getUser(client, thisCase.user);
   let moderator = getUser(client, thisCase.moderator);
 
-  let embed = new Discord.RichEmbed()
+  let embed = new Discord.MessageEmbed()
     .setColor(embedColor)
     .setTitle(
       thisCase.type === "BAN"
@@ -194,7 +194,7 @@ let helpPaginator = async (author, msg, embeds, pageNow) => {
       { time: 90 * 1000, max: 1, errors: ["time"] }
     )
     .catch(err => {
-      let delembed = new Discord.RichEmbed()
+      let delembed = new Discord.MessageEmbed()
         .setColor("RED")
         .setThumbnail(client.user.displayAvatarURL())
         .setTitle("Help menu deleted!")
@@ -226,7 +226,7 @@ let helpPaginator = async (author, msg, embeds, pageNow) => {
     msg.delete();
     helpPaginator(author, m, embeds, embeds.length - 1);
   } else if (reaction.emoji.id == "662296249717751869") {
-    let cancelembed = new Discord.RichEmbed()
+    let cancelembed = new Discord.MessageEmbed()
       .setColor("RED")
       .setThumbnail(client.user.displayAvatarURL())
       .setTitle("Help menu deleted!")

@@ -108,7 +108,7 @@ module.exports = {
         .setImage(modelURL)
         .setFooter(
           `UUID: ${player.uuid} | ${client.user.username}`,
-          client.user.avatarURL
+          client.user.avatarURL()
         );
       return message.channel.send(embed);
     }

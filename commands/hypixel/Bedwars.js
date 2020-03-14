@@ -75,7 +75,7 @@ module.exports = {
           .setURL(`https://hypixel.net/player/${username}`)
           .setFooter(
             `UUID: ${player.uuid} | ${client.user.username}`,
-            client.user.avatarURL
+            client.user.avatarURL()
           )
       );
     let embeds = [];
@@ -272,7 +272,7 @@ module.exports = {
         player2
           ? client.user.username
           : `UUID: ${player.uuid} | ${client.user.username}`,
-        client.user.avatarURL
+        client.user.avatarURL()
       );
     if (player2) overall.setTimestamp();
     embeds.push(overall);
@@ -494,7 +494,7 @@ module.exports = {
           player2
             ? client.user.username
             : `UUID: ${player.uuid} | ${client.user.username}`,
-          client.user.avatarURL
+          client.user.avatarURL()
         );
       if (player2) embed.setTimestamp();
       embeds.push(embed);

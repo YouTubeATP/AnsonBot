@@ -283,7 +283,7 @@ client.on("message", async message => {
       );
 
     if (!command) {
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`I can't recognize this command!`)
         .setDescription(
@@ -422,7 +422,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         client.channels.cache.get(newMember.guild.afkChannelID)
     ) {
       newMember.setVoiceChannel(null);
-      let afk = new Discord.RichEmbed()
+      let afk = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Voice Disconnected for Inactivity`)
         .setDescription(
@@ -534,7 +534,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
     } else if (index >= maxChannels) {
       newMember.setVoiceChannel(null);
       console.log(`${index} not changed`);
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`You can't create a new lounge right now!`)
         .setDescription(

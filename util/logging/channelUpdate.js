@@ -14,10 +14,10 @@ module.exports = client => {
 
     if (oldChannel.name != newChannel.name)
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Channel Name Updated")
-          .setThumbnail(newChannel.guild.iconURL)
+          .setThumbnail(newChannel.guild.iconURL())
           .addField(
             "Channel",
             newChannel.type == "text" ||
@@ -30,33 +30,33 @@ module.exports = client => {
           )
           .addField("Before", `${oldChannel.name}`, true)
           .addField("After", `${newChannel.name}`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
     if (newChannel.type == "text" && oldChannel.topic != newChannel.topic)
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Text Channel Topic Updated")
-          .setThumbnail(newChannel.guild.iconURL)
+          .setThumbnail(newChannel.guild.iconURL())
           .addField("Channel", `${newChannel} (#${newChannel.name})`)
           .addField("Before", `${oldChannel.topic}`, true)
           .addField("After", `${newChannel.topic}`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
     if (newChannel.type == "text" && oldChannel.nsfw != newChannel.nsfw)
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Text Channel NSFW Updated")
-          .setThumbnail(newChannel.guild.iconURL)
+          .setThumbnail(newChannel.guild.iconURL())
           .addField("Channel", `${newChannel} (#${newChannel.name})`)
           .addField("Before", `${oldChannel.nsfw ? "Yes" : "No"}`, true)
           .addField("After", `${newChannel.nsfw ? "Yes" : "No"}`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
@@ -65,27 +65,27 @@ module.exports = client => {
       oldChannel.rateLimitPerUser != newChannel.rateLimitPerUser
     )
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Text Channel Slowmode Updated")
-          .setThumbnail(newChannel.guild.iconURL)
+          .setThumbnail(newChannel.guild.iconURL())
           .addField("Channel", `${newChannel} (#${newChannel.name})`)
           .addField("Before", `${oldChannel.rateLimitPerUser} seconds`, true)
           .addField("After", `${newChannel.rateLimitPerUser} seconds`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
     if (newChannel.type == "voice" && oldChannel.bitrate != newChannel.bitrate)
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Voice Channel Bitrate Updated")
-          .setThumbnail(newChannel.guild.iconURL)
+          .setThumbnail(newChannel.guild.iconURL())
           .addField("Channel", `${newChannel.name}`)
           .addField("Before", `${oldChannel.bitrate} kbps`, true)
           .addField("After", `${newChannel.bitrate} kbps`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
 
@@ -94,14 +94,14 @@ module.exports = client => {
       oldChannel.userLimit != newChannel.userLimit
     )
       return logChannel.send(
-        new Discord.RichEmbed()
+        new Discord.MessageEmbed()
           .setColor(config.embedColor)
           .setTitle("Voice Channel User Limit Updated")
-          .setThumbnail(newChannel.guild.iconURL)
+          .setThumbnail(newChannel.guild.iconURL())
           .addField("Channel", `${newChannel.name}`)
           .addField("Before", `${oldChannel.userLimit} users`, true)
           .addField("After", `${newChannel.userLimit} users`, true)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
   });

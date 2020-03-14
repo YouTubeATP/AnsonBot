@@ -73,12 +73,12 @@ module.exports = {
             .split(" ")[1];
           return Math.round(Number(total_rss) / 1e6);
         }
-        const bicon = client.user.displayAvatarURL;
+        const bicon = client.user.displayAvatarURL();
         const bot = fn.getMember(message.guild, client.user);
         let embed = new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setTitle(`${client.user.tag} | Information`)
-          .setAuthor(message.author.tag, message.author.avatarURL)
+          .setAuthor(message.author.tag, message.author.avatarURL())
           .setThumbnail(bicon)
           .addField(client.user.bot ? "Bot" : "User", `${client.user}`, true)
           .addField("Custom Prefix", "`" + shared.customPrefix + "`", true)
@@ -123,7 +123,7 @@ module.exports = {
           .addField("Library", "discord.js")
           .setFooter(
             `ID: ${client.user.id} | ${client.user.username}`,
-            client.user.avatarURL
+            client.user.avatarURL()
           );
 
         return message.channel
@@ -137,8 +137,8 @@ module.exports = {
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
         .setTitle(`${target.user.tag} | Information`)
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(target.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(target.user.displayAvatarURL())
         .addField(target.user.bot ? "Bot" : "User", `${target}`, true)
         .addField(
           target.user.bot ? "Created" : "Joined Discord",
@@ -158,7 +158,7 @@ module.exports = {
         )
         .setFooter(
           `ID: ${target.id} | ${client.user.username}`,
-          client.user.avatarURL
+          client.user.avatarURL()
         );
       if (target.roles.size > 1)
         embed.addField(

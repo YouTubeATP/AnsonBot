@@ -78,7 +78,7 @@ module.exports = {
         var embed = new Discord.RichEmbed()
           .setColor(color)
           .setDescription(content)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
         message.channel
           .send(embed)
@@ -89,7 +89,7 @@ module.exports = {
       } else {
         var embed = new Discord.RichEmbed()
           .setDescription(rawcontent)
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
         message.channel
           .send(embed)

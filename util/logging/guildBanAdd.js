@@ -13,7 +13,7 @@ module.exports = client => {
     if (!logChannel) return;
 
     logChannel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle("User Banned")
         .setThumbnail(user.displayAvatarURL)

@@ -62,13 +62,13 @@ module.exports = {
     if (shared.voted >= voteSkip) {
       var skip = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle("Your vote has been logged!")
         .setDescription(
           `The vote to skip the currently playing song has been passed, so it will be stopped.`
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       await message.channel.send(skip);
@@ -79,13 +79,13 @@ module.exports = {
     } else {
       var voteSkip = new Discord.RichEmbed()
         .setColor("GREEN")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle("Your vote has been logged!")
         .setDescription(
           shared.voted + "/" + voteSkip + " players voted to skip!"
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       await message.channel.send(voteSkip);
@@ -97,13 +97,13 @@ module.exports = {
       if (voteSkip === 0) voteSkip = 1;
       var voteSkipFail = new Discord.RichEmbed()
         .setColor("RED")
-        .setAuthor(message.author.tag, message.author.avatarURL)
-        .setThumbnail(client.user.displayAvatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
         .setTitle("You've already voted to skip this song!")
         .setDescription(
           shared.voted + "/" + voteSkip + " players voted to skip!"
         )
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
 
       return message.channel.send(voteSkipFail);

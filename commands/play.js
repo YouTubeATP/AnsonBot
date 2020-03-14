@@ -426,7 +426,7 @@ module.exports = {
               description: "An error occured!",
               timestamp: new Date(),
               footer: {
-                icon_url: client.user.avatarURL,
+                icon_url: client.user.avatarURL(),
                 text: client.user.username
               }
             }
@@ -436,11 +436,11 @@ module.exports = {
         serverQueue.songs.push(song);
         if (playlist) return undefined;
 
-        let bicon = client.user.displayAvatarURL;
+        let bicon = client.user.displayAvatarURL();
         let queueemb = new Discord.RichEmbed()
           .setColor(config.embedColor)
           .setTitle(`Song added to queue!`)
-          .setAuthor(song.guild.name, song.guild.iconURL)
+          .setAuthor(song.guild.name, song.guild.iconURL())
           .setDescription(
             `Something is already playing, so I've added your song to the end of the current queue. \n　`
           )
@@ -463,10 +463,10 @@ module.exports = {
 
     function np(serverQueue) {
       let song = serverQueue.songs[0];
-      let bicon = client.user.displayAvatarURL;
+      let bicon = client.user.displayAvatarURL();
       let embed = new Discord.RichEmbed()
         .setColor(config.embedColor)
-        .setAuthor(song.guild.name, song.guild.iconURL)
+        .setAuthor(song.guild.name, song.guild.iconURL())
         .setTitle(`Now Playing`)
         .setDescription(`[${song.title}](${song.url})`)
         .setThumbnail(song.thumbnail)
@@ -496,13 +496,13 @@ module.exports = {
         queue.delete(guild.id);
         var nosong = new Discord.RichEmbed()
           .setColor(config.embedColor)
-          .setAuthor(message.author.tag, message.author.avatarURL)
-          .setThumbnail(message.guild.iconURL)
+          .setAuthor(message.author.tag, message.author.avatarURL())
+          .setThumbnail(message.guild.iconURL())
           .setTitle("Music Concluded")
           .setDescription(
             `All queued songs in \`${message.guild.name}\` have been played, and I have left the voice channel.`
           )
-          .setFooter(client.user.username, client.user.avatarURL)
+          .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
 
         return serverQueue.textChannel.send(nosong);

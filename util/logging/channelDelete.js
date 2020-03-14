@@ -14,9 +14,9 @@ module.exports = client => {
     if (!logChannel) return;
 
     logChannel.send(
-      new Discord.RichEmbed()
+      new Discord.MessageEmbed()
         .setColor(config.embedColor)
-        .setThumbnail(channel.guild.iconURL)
+        .setThumbnail(channel.guild.iconURL())
         .setTitle(
           channel.type == "text" ||
             channel.type == "news" ||
@@ -43,7 +43,7 @@ module.exports = client => {
         )
         .addField("ID", channel.id)
         .addField("Created", fn.time(channel.createdTimestamp))
-        .setFooter(client.user.username, client.user.avatarURL)
+        .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp()
     );
   });
