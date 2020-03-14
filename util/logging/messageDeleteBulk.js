@@ -9,7 +9,7 @@ const config = require("/app/util/config"),
 module.exports = client => {
   client.on("messageDeleteBulk", async messages => {
     let logChannelID = guildData.get(`${messages.first().guild.id}.botlog`);
-    let logChannel = client.channels.get(logChannelID);
+    let logChannel = client.channels.cache.get(logChannelID);
     if (!logChannel) return;
 
     logChannel.send(

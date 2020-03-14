@@ -105,8 +105,8 @@ module.exports = {
       }
       let msg;
       if (thisCase.message) {
-        let c = client.channels.get(
-          guildData.get(`${message.guild.id}.modlog`)
+        let c = client.channels.cache.get(
+          guildData.cache.get(`${message.guild.id}.modlog`)
         );
         if (c) {
           let m = c.fetchMessage(thisCase.message).catch(() => {});

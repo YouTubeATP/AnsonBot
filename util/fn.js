@@ -61,7 +61,7 @@ let getUser = (client, data) => {
 };
 
 let getMember = (guild, data) => {
-  if (data instanceof Discord.User) return guild.members.get(data.id);
+  if (data instanceof Discord.User) return guild.members.cache.get(data.id);
   if (data instanceof Discord.GuildMember) return data;
   if (data instanceof Discord.Message) return data.member;
   if (typeof data == "string")

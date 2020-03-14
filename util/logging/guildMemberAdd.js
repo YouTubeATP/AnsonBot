@@ -9,7 +9,6 @@ const config = require("/app/util/config"),
 module.exports = client => {
   client.on("guildMemberAdd", async member => {
     let autoRole = guildData.get(`${member.guild.id}.autoRole`);
-    // let autoRole = member.guild.roles.get(autoRoleID)
     if (autoRole && !member.user.bot) {
       if (typeof autoRole == "string")
         member.addRole(fn.getRole(member.guild, autoRole));
@@ -19,7 +18,7 @@ module.exports = client => {
     }
 
     let memberLogID = guildData.get(`${member.guild.id}.memberlog`);
-    let memberLog = client.channels.get(memberLogID);
+    let memberLog = client.channels.cache.get(memberLogID);
     if (memberLog) {
       memberLog.send(
         new Discord.RichEmbed()

@@ -39,7 +39,8 @@ module.exports = {
         )
       );
     if (
-      !message.guild.members.get(client.user.id).hasPermission("MANAGE_ROLES")
+      !message.guild.members.cache
+        .get(client.user.id).hasPermission("MANAGE_ROLES")
     )
       return message.channel.send(
         fn.embed(
@@ -48,7 +49,7 @@ module.exports = {
         )
       );
 
-    let muteRole = message.guild.roles.get(shared.guild.muteRole);
+    let muteRole = message.guild.roles.cache.get(shared.guild.muteRole);
     if (!muteRole) {
       muteRole = message.guild.roles
         .find(role => role.name.toLowerCase().startsWith("mute"))

@@ -9,7 +9,7 @@ const config = require("/app/util/config"),
 module.exports = client => {
   client.on("guildMemberRemove", async member => {
     let memberLogID = guildData.get(`${member.guild.id}.memberlog`);
-    let memberLog = client.channels.get(memberLogID);
+    let memberLog = client.channels.cache.get(memberLogID);
     if (memberLog) {
       memberLog.send(
         new Discord.RichEmbed()

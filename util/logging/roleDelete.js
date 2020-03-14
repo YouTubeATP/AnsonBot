@@ -9,7 +9,7 @@ const config = require("/app/util/config"),
 module.exports = client => {
   client.on("roleDelete", async role => {
     let logChannelID = guildData.get(`${role.guild.id}.botlog`);
-    let logChannel = client.channels.get(logChannelID);
+    let logChannel = client.channels.cache.get(logChannelID);
     if (!logChannel) return;
 
     logChannel.send(

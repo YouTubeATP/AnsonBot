@@ -9,7 +9,7 @@ const config = require("/app/util/config"),
 module.exports = client => {
   client.on("roleUpdate", async (oldRole, newRole) => {
     let logChannelID = guildData.get(`${newRole.guild.id}.botlog`);
-    let logChannel = client.channels.get(logChannelID);
+    let logChannel = client.channels.cache.get(logChannelID);
     if (!logChannel) return;
 
     if (oldRole.name !== newRole.name)

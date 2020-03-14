@@ -10,7 +10,7 @@ module.exports = client => {
   client.on("channelDelete", async channel => {
     if (!channel.guild) return;
     let logChannelID = guildData.get(`${channel.guild.id}.botlog`);
-    let logChannel = client.channels.get(logChannelID);
+    let logChannel = client.channels.cache.get(logChannelID);
     if (!logChannel) return;
 
     logChannel.send(

@@ -17,7 +17,7 @@ module.exports = client => {
 
         for (var j = 0; j < guildTMs.length; j++) {
           if (moment(guildTMs[j].unmute) <= moment()) {
-            let guild = client.guilds.get(guilds[i].ID);
+            let guild = client.guilds.cache.get(guilds[i].ID);
             if (!guild) return;
 
             let TMCase = guildData.get(`${guild.id}.tempmutes`);
@@ -26,10 +26,10 @@ module.exports = client => {
               TMCase.filter(c => guildTMs[j].case != c.case)
             );
 
-            let muteRole = guild.roles.get(
+            let muteRole = guild.roles.cache.get(
               guildData.get(`${guilds[i].ID}.muteRole`)
             );
-            let member = guild.members.get(guildTMs[j].user);
+            let member = guild.members.cache.get(guildTMs[j].user);
             if (!muteRole || !member) return;
 
             member
@@ -53,8 +53,8 @@ module.exports = client => {
                   .catch(error => {});
                 member.user.send(embed).catch(error => {});
 
-                let modlog = guild.channels.get(
-                  guildData.get(`${guild.id}.modlog`)
+                let modlog = guild.channels.cache.get(
+                  guildData.cache.get(`${guild.id}.modlog`)
                 );
                 if (modlog) modlog.send(embed);
               })
