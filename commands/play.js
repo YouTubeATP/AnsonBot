@@ -214,7 +214,7 @@ module.exports = {
               .replace(/&nbsp;/g, " ")}`
         );
 
-        var vindex;
+        let vindex;
 
         let bicon = client.user.displayAvatarURL();
         let videosEmbed = new Discord.MessageEmbed()
@@ -285,46 +285,37 @@ module.exports = {
           }
         }
 
-        let videosChoice = new RC.Menu(
-          videosEmbed,
-          [
-            {
-              emoji: "662296249717751869",
-              run: (user, message) => {
-                vindex = "cancel";
-                cancelled = true;
-                return detectSelection();
-              }
-            }
-          ],
-          {
-            owner: message.member.id
-          }
-        );
+        let men, mid;
 
-        shared.handler.addMenus(videosChoice);
-
-        let mid;
-
-        message.channel.send(videosEmbed).then(m => (mid = m.id));
+        message.channel.send(videosEmbed).then(m => {
+          mid = m.id;
+          m.react("662296249717751869");
+        });
         shared.activeMusicSelection.push(message.author.id);
 
         try {
-          var response = await message.channel.awaitMessages(
-            m =>
-              m.content >= 1 &&
-              m.content <= 10 &&
-              !m.content.includes("-") &&
-              !m.content.includes(".") &&
-              !m.content.includes(",") &&
-              !m.content.includes(" ") &&
-              message.author.id === m.author.id,
-            {
-              max: 1,
-              time: 60000,
-              errors: ["time"]
-            }
-          );
+          let response =
+            (await message.channel.awaitMessages(
+              m =>
+                m.content >= 1 &&
+                m.content <= 10 &&
+                !m.content.includes("-") &&
+                !m.content.includes(".") &&
+                !m.content.includes(",") &&
+                !m.content.includes(" ") &&
+                message.author.id === m.author.id,
+              {
+                max: 1,
+                time: 60000,
+                errors: ["time"]
+              }
+            )) ||
+            men.awaitReactions(
+              (reaction, user) =>
+                user.id == men.member.id &&
+                ["662296249717751869"].includes(reaction.emoji.id),
+              { time: 60 * 1000, max: 1, errors: ["time"] }
+            );
           if (cancelled) return (cancelled = false);
           vindex = parseInt(response.first().content, 10);
           message.channel.messages
