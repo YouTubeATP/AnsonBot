@@ -39,7 +39,7 @@ module.exports = {
       );
 
     if (
-      target.highestRole.comparePositionTo(message.member.highestRole) >= 0 &&
+      target.roles.highest.comparePositionTo(message.member.roles.highest) >= 0 &&
       message.guild.ownerID != message.author.id
     )
       return message.channel.send(
@@ -56,7 +56,7 @@ module.exports = {
         )
       );
 
-    let modlog = message.guild.channels.find(
+    let modlog = message.guild.channels.cache.find(
       channel => channel.id == shared.guild.modlog
     );
 

@@ -41,7 +41,7 @@ module.exports = {
       );
 
     if (
-      target.highestRole.comparePositionTo(message.member.highestRole) >= 0 &&
+      target.roles.highest.comparePositionTo(message.member.roles.highest) >= 0 &&
       message.guild.ownerID != message.author.id
     )
       return message.channel.send(
@@ -62,7 +62,7 @@ module.exports = {
 
     let muteRole = message.guild.roles.cache.get(shared.guild.muteRole);
     if (!muteRole) {
-      muteRole = message.guild.roles
+      muteRole = message.guild.roles.cache
         .find(role => role.name.toLowerCase().startsWith("mute"))
         .first();
       if (!muteRole) {
@@ -89,7 +89,7 @@ module.exports = {
         fn.embed(client, `${target} is already muted!`)
       );
 
-    let modlog = message.guild.channels.find(
+    let modlog = message.guild.channels.cache.find(
       channel => channel.id == shared.guild.modlog
     );
 
@@ -152,7 +152,7 @@ module.exports = {
               )
             );
 
-          let modlog = message.guild.channels.find(
+          let modlog = message.guild.channels.cache.find(
             channel => channel.id == shared.guild.modlog
           );
 
@@ -222,7 +222,7 @@ module.exports = {
               )
             );
 
-          let modlog = message.guild.channels.find(
+          let modlog = message.guild.channels.cache.find(
             channel => channel.id == shared.guild.modlog
           );
 

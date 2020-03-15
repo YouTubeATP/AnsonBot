@@ -52,7 +52,7 @@ module.exports = {
             );
             message.channel.send(embed);
 
-            let modlog = message.guild.channels.find(
+            let modlog = message.guild.channels.cache.find(
               channel => channel.id == shared.guild.modlog
             );
 

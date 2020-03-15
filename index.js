@@ -124,7 +124,7 @@ client.on("guildMemberAdd", async member => {
   let memberTag = member.user.id;
   if (guild.id === config.server && !member.user.bot) {
     member.roles
-      .add(guild.roles.cache.find("name", "Member"))
+      .add(guild.roles.cache.find(c => c.name === "Member"))
       .then(() => {
         client.channels.cache
           .get("653133031292403742")
