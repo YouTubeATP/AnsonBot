@@ -9,7 +9,7 @@ const userData = new db.table("USERDATA"),
   guildData = new db.table("GUILDDATA"),
   modCases = new db.table("MODCASES");
 
-let activities = ["Playing", "Streaming", "Listening to", "Watching", ""];
+let activity = ["Playing", "Streaming", "Listening to", "Watching", ""];
 let statuses = {
   online: "Online",
   idle: "Idle",
@@ -97,11 +97,11 @@ module.exports = {
           .addField("Status", `${statuses[client.user.presence.status]}`, true)
           .addField(
             "Presence",
-            target.user.presence.game
-              ? `${activities[target.user.presence.activities.type]} ${
-                  target.user.presence.activities.type == 4
-                    ? target.user.presence.activities.state
-                    : target.user.presence.activities.name
+            target.user.presence.activities[0]
+              ? `${activity[target.user.presence.activities[0].type]} ${
+                  target.user.presence.activities[0].type === "CUSTOM_STATUS"
+                    ? target.user.presence.activities[0].state
+                    : target.user.presence.activities[0].name
                 }`
               : "None",
             true
@@ -149,11 +149,11 @@ module.exports = {
         .addField("Status", `${statuses[target.user.presence.status]}`, true)
         .addField(
           "Presence",
-          target.user.presence.game
-            ? `${activities[target.user.presence.activities.type]} ${
-                target.user.presence.activities.type == 4
-                  ? target.user.presence.activities.state
-                  : target.user.presence.activities.name
+          target.user.presence.activities[0]
+            ? `${activity[target.user.presence.activities[0].type]} ${
+                target.user.presence.activities[0].type === "CUSTOM_STATUS"
+                  ? target.user.presence.activities[0].state
+                  : target.user.presence.activities[0].name
               }`
             : "None",
           true

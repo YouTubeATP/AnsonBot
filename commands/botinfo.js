@@ -17,7 +17,7 @@ module.exports = {
       )
     ];
 
-    let activities = ["Playing", "Streaming", "Listening to", "Watching", ""];
+    let activity = ["Playing", "Streaming", "Listening to", "Watching", ""];
     let statuses = {
       online: "Online",
       idle: "Idle",
@@ -65,11 +65,11 @@ module.exports = {
         .addField("Status", `${statuses[client.user.presence.status]}`, true)
         .addField(
           "Presence",
-          client.user.presence.game
-            ? `${activities[client.user.presence.activities.type]} ${
-                client.user.presence.activities.type == 4
-                  ? client.user.presence.activities.state
-                  : client.user.presence.activities.name
+          client.user.presence.activites
+            ? `${activity[client.user.presence.activities[0].type]} ${
+                client.user.presence.activities[0].type === "CUSTOM_STATUS"
+                  ? client.user.presence.activities[0].state
+                  : client.user.presence.activities[0].name
               }`
             : "None",
           true
