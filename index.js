@@ -419,19 +419,19 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
     if (
       oldState.channel != null &&
       newState.channel ===
-        client.channels.cache.get(newSt.guild.afkChannelID)
+        client.channels.cache.get(newState.guild.afkChannelID)
     ) {
-      newMember.voice.setChannel(null);
+      newState.setChannel(null);
       let afk = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Voice Disconnected for Inactivity`)
         .setDescription(
-          `You have been idle in the voice channel **${oldMember.channel.name}** in **${guild}** for more than 5 minutes, so you were automatically disconnected.`
+          `You have been idle in the voice channel **${oldState.channel.name}** in **${guild}** for more than 5 minutes, so you were automatically disconnected.`
         )
         .setThumbnail(guild.iconURL())
         .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
-      newMember.send(afk);
+      newState.send(afk);
     }
   } catch (e) {
     console.log("Couldn't disconnect user from AFK channel", e);
@@ -535,9 +535,9 @@ client.on("voiceStateUpdate", (oldState, newState) => {
           type: "voice",
           parent: category
         })
-        .then(newChannel => newState.member.voice.setChannel(newChannel));
+        .then(newChannel => newState.setChannel(newChannel));
     } else if (index >= maxChannels) {
-      newState.member.voice.setChannel(null);
+      newState.setChannel(null);
       console.log(`${index} not changed`);
       let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)

@@ -20,8 +20,7 @@ module.exports = {
 
     message.delete().catch(O_o => {});
 
-    const voiceChannel = message.member.voiceChannel;
-    const botVoiceConnection = message.guild.voiceConnection;
+    const voiceChannel = message.member.voice.channel;
 
     let cancelled;
 

@@ -20,7 +20,7 @@ module.exports = client => {
             .setThumbnail(newState.member.user.displayAvatarURL())
             .addField(
               newState.member.bot ? "Bot" : "User",
-              `${newState} (${newState.member.tag})`
+              `${newState.member.user} (${newState.member.user.tag})`
             )
             .addField("Voice Channel", `${newState.channel.name}`)
             .addField("ID", `${newState.channel.id}`)
@@ -35,7 +35,7 @@ module.exports = client => {
             .setThumbnail(newState.member.user.displayAvatarURL())
             .addField(
               newState.member.bot ? "Bot" : "User",
-              `${newState} (${newState.member.tag})`
+              `${newState.member.user} (${newState.member.user.tag})`
             )
             .addField("Voice Channel", `${oldState.channel.name}`)
             .addField("ID", `${oldState.channel.id}`)
@@ -50,16 +50,10 @@ module.exports = client => {
             .setThumbnail(newState.member.user.displayAvatarURL())
             .addField(
               newState.member.bot ? "Bot" : "User",
-              `${newState} (${newState.member.tag})`
+              `${newState.member.user} (${newState.member.user.tag})`
             )
-            .addField(
-              "Previous Voice Channel",
-              `${oldState.channel.name}`
-            )
-            .addField(
-              "Current Voice Channel",
-              `${newState.channel.name}`
-            )
+            .addField("Previous Voice Channel", `${oldState.channel.name}`)
+            .addField("Current Voice Channel", `${newState.channel.name}`)
             .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
