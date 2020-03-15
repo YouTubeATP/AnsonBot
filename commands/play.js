@@ -140,215 +140,213 @@ module.exports = {
         /^https?:\/\/(www.youtube.com|youtube.com)\/watch(.*)$/
       )
     ) {
-        let video;
+      let video;
+
+      try {
+        video = await shared.youtube1.getVideo(searchString);
+      } catch (error) {
+        video = await shared.youtube2.getVideo(searchString);
+      }
+
+      return handleVideo(video, message, voiceChannel);
+    } else {
+      try {
+        let index = 0;
+        let videos;
 
         try {
-          video = await shared.youtube1.getVideo(searchString);
+          videos = await shared.youtube1.searchVideos(searchString, 10);
         } catch (error) {
-          video = await shared.youtube2.getVideo(searchString);
+          videos = await shared.youtube2.searchVideos(searchString, 10);
         }
 
-        return handleVideo(video, message, voiceChannel);
-      } catch (error) {
-        try {
-          let index = 0;
-          let videos;
+        if (videos.length === 0) {
+          var noresult = new Discord.MessageEmbed()
+            .setColor("RED")
+            .setAuthor(message.author.tag, message.author.avatarURL())
+            .setThumbnail(client.user.displayAvatarURL())
+            .setTitle("No results could be found.")
+            .setDescription(
+              `Check if you've inputted your search string correctly.`
+            )
+            .setFooter(client.user.username, client.user.avatarURL())
+            .setTimestamp();
 
-          try {
-            videos = await shared.youtube1.searchVideos(searchString, 10);
-          } catch (error) {
-            videos = await shared.youtube2.searchVideos(searchString, 10);
+          return message.channel.send(noresult).then(m => m.delete(10000));
+        }
+
+        console.log(videos);
+
+        const searchResult = videos.map(
+          video2 =>
+            `**${++index}.** ${video2.title
+              .replace(/&amp;/g, "&")
+              .replace(/&gt;/g, ">")
+              .replace(/&lt;/g, "<")
+              .replace(/&quot;/g, '"')
+              .replace(/&OElig;/g, "Œ")
+              .replace(/&oelig;/g, "œ")
+              .replace(/&Scaron;/g, "Š")
+              .replace(/&scaron;/g, "š")
+              .replace(/&Yuml;/g, "Ÿ")
+              .replace(/&circ;/g, "ˆ")
+              .replace(/&tilde;/g, "˜")
+              .replace(/&ndash;/g, "–")
+              .replace(/&mdash;/g, "—")
+              .replace(/&lsquo;/g, "‘")
+              .replace(/&rsquo;/g, "’")
+              .replace(/&#39;/g, "'")
+              .replace(/&#96;/g, "`")
+              .replace(/&#124;/g, "|")
+              .replace(/&sbquo;/g, "‚")
+              .replace(/&ldquo;/g, "“")
+              .replace(/&rdquo;/g, "”")
+              .replace(/&bdquo;/g, "„")
+              .replace(/&dagger;/g, "†")
+              .replace(/&Dagger;/g, "‡")
+              .replace(/&permil;/g, "‰")
+              .replace(/&lsaquo;/g, "‹")
+              .replace(/&rsaquo;/g, "›")
+              .replace(/&euro;/g, "€")
+              .replace(/&copy;/g, "©")
+              .replace(/&trade;/g, "™")
+              .replace(/&reg;/g, "®")
+              .replace(/&nbsp;/g, " ")}`
+        );
+
+        var vindex;
+
+        let bicon = client.user.displayAvatarURL();
+        let videosEmbed = new Discord.MessageEmbed()
+          .setColor(config.embedColor)
+          .setTitle("Music Selection")
+          .setAuthor(message.author.tag, message.author.avatarURL())
+          .setThumbnail(client.user.displayAvatarURL())
+          .addField(
+            "Provide a valid integer (1-10) to make a selection. \nClick " +
+              client.emojis.cache.get("662296249717751869").toString() +
+              " to cancel.",
+            searchResult
+          )
+          .setFooter(client.user.username, bicon)
+          .setTimestamp();
+
+        async function detectSelection() {
+          message.channel.messages.fetch(mid).then(m => m.delete());
+          for (var x = 0; x < shared.activeMusicSelection.length; x++) {
+            if (shared.activeMusicSelection[x] === message.author.id) {
+              shared.activeMusicSelection.splice(x, 1);
+            }
           }
 
-          if (videos.length === 0) {
-            console.log(error);
-            var noresult = new Discord.MessageEmbed()
+          if (vindex === "time") {
+            let timeout = new Discord.MessageEmbed()
               .setColor("RED")
               .setAuthor(message.author.tag, message.author.avatarURL())
               .setThumbnail(client.user.displayAvatarURL())
-              .setTitle("No results could be found.")
+              .setTitle("Music selection cancelled!")
               .setDescription(
-                `Check if you've inputted your search string correctly.`
+                "Your music selection menu timed out. To maintain quality performance, all music selection menus expire after 60 seconds."
               )
               .setFooter(client.user.username, client.user.avatarURL())
               .setTimestamp();
 
-            return message.channel.send(noresult).then(m => m.delete(10000));
-          }
+            return message.channel.send(timeout).then(m => m.delete(10000));
+          } else if (vindex === "cancel") {
+            let cancelmsg = new Discord.MessageEmbed()
+              .setColor("RED")
+              .setAuthor(message.author.tag, message.author.avatarURL())
+              .setThumbnail(client.user.displayAvatarURL())
+              .setTitle("Music selection cancelled!")
+              .setDescription(
+                "You have manually cancelled your music selection menu."
+              )
+              .setFooter(client.user.username, client.user.avatarURL())
+              .setTimestamp();
 
-          console.log(videos);
+            return message.channel.send(cancelmsg).then(m => m.delete(10000));
+          } else {
+            const videoIndex = parseInt(vindex);
 
-          const searchResult = videos.map(
-            video2 =>
-              `**${++index}.** ${video2.title
-                .replace(/&amp;/g, "&")
-                .replace(/&gt;/g, ">")
-                .replace(/&lt;/g, "<")
-                .replace(/&quot;/g, '"')
-                .replace(/&OElig;/g, "Œ")
-                .replace(/&oelig;/g, "œ")
-                .replace(/&Scaron;/g, "Š")
-                .replace(/&scaron;/g, "š")
-                .replace(/&Yuml;/g, "Ÿ")
-                .replace(/&circ;/g, "ˆ")
-                .replace(/&tilde;/g, "˜")
-                .replace(/&ndash;/g, "–")
-                .replace(/&mdash;/g, "—")
-                .replace(/&lsquo;/g, "‘")
-                .replace(/&rsquo;/g, "’")
-                .replace(/&#39;/g, "'")
-                .replace(/&#96;/g, "`")
-                .replace(/&#124;/g, "|")
-                .replace(/&sbquo;/g, "‚")
-                .replace(/&ldquo;/g, "“")
-                .replace(/&rdquo;/g, "”")
-                .replace(/&bdquo;/g, "„")
-                .replace(/&dagger;/g, "†")
-                .replace(/&Dagger;/g, "‡")
-                .replace(/&permil;/g, "‰")
-                .replace(/&lsaquo;/g, "‹")
-                .replace(/&rsaquo;/g, "›")
-                .replace(/&euro;/g, "€")
-                .replace(/&copy;/g, "©")
-                .replace(/&trade;/g, "™")
-                .replace(/&reg;/g, "®")
-                .replace(/&nbsp;/g, " ")}`
-          );
-
-          var vindex;
-
-          let bicon = client.user.displayAvatarURL();
-          let videosEmbed = new Discord.MessageEmbed()
-            .setColor(config.embedColor)
-            .setTitle("Music Selection")
-            .setAuthor(message.author.tag, message.author.avatarURL())
-            .setThumbnail(client.user.displayAvatarURL())
-            .addField(
-              "Provide a valid integer (1-10) to make a selection. \nClick " +
-                client.emojis.get("662296249717751869").toString() +
-                " to cancel.",
-              searchResult
-            )
-            .setFooter(client.user.username, bicon)
-            .setTimestamp();
-
-          async function detectSelection() {
-            message.channel.messages.fetch(mid).then(m => m.delete());
-            for (var x = 0; x < shared.activeMusicSelection.length; x++) {
-              if (shared.activeMusicSelection[x] === message.author.id) {
-                shared.activeMusicSelection.splice(x, 1);
-              }
+            let video;
+            try {
+              video = await shared.youtube1.getVideoByID(
+                videos[videoIndex - 1].id
+              );
+              console.log("Music || API #1");
+            } catch (error) {
+              video = await shared.youtube2.getVideoByID(
+                videos[videoIndex - 1].id
+              );
+              console.log("Music || API #2");
             }
 
-            if (vindex === "time") {
-              let timeout = new Discord.MessageEmbed()
-                .setColor("RED")
-                .setAuthor(message.author.tag, message.author.avatarURL())
-                .setThumbnail(client.user.displayAvatarURL())
-                .setTitle("Music selection cancelled!")
-                .setDescription(
-                  "Your music selection menu timed out. To maintain quality performance, all music selection menus expire after 60 seconds."
-                )
-                .setFooter(client.user.username, client.user.avatarURL())
-                .setTimestamp();
-
-              return message.channel.send(timeout).then(m => m.delete(10000));
-            } else if (vindex === "cancel") {
-              let cancelmsg = new Discord.MessageEmbed()
-                .setColor("RED")
-                .setAuthor(message.author.tag, message.author.avatarURL())
-                .setThumbnail(client.user.displayAvatarURL())
-                .setTitle("Music selection cancelled!")
-                .setDescription(
-                  "You have manually cancelled your music selection menu."
-                )
-                .setFooter(client.user.username, client.user.avatarURL())
-                .setTimestamp();
-
-              return message.channel.send(cancelmsg).then(m => m.delete(10000));
-            } else {
-              const videoIndex = parseInt(vindex);
-
-              let video;
-              try {
-                video = await shared.youtube1.getVideoByID(
-                  videos[videoIndex - 1].id
-                );
-                console.log("Music || API #1");
-              } catch (error) {
-                video = await shared.youtube2.getVideoByID(
-                  videos[videoIndex - 1].id
-                );
-                console.log("Music || API #2");
-              }
-
-              return handleVideo(video, message, voiceChannel);
-            }
+            return handleVideo(video, message, voiceChannel);
           }
-
-          let videosChoice = new RC.Menu(
-            videosEmbed,
-            [
-              {
-                emoji: "662296249717751869",
-                run: (user, message) => {
-                  vindex = "cancel";
-                  cancelled = true;
-                  return detectSelection();
-                }
-              }
-            ],
-            {
-              owner: message.member.id
-            }
-          );
-
-          shared.handler.addMenus(videosChoice);
-
-          var mid;
-
-          message.channel.sendMenu(videosChoice).then(m => (mid = m.id));
-          shared.activeMusicSelection.push(message.author.id);
-
-          try {
-            var response = await message.channel.awaitMessages(
-              m =>
-                m.content >= 1 &&
-                m.content <= 10 &&
-                !m.content.includes("-") &&
-                !m.content.includes(".") &&
-                !m.content.includes(",") &&
-                !m.content.includes(" ") &&
-                message.author.id === m.author.id,
-              {
-                max: 1,
-                time: 60000,
-                errors: ["time"]
-              }
-            );
-            if (cancelled) return (cancelled = false);
-            vindex = parseInt(response.first().content, 10);
-            message.channel.messages
-              .fetch(response.first().id)
-              .then(m => m.delete);
-          } catch (err) {
-            if (cancelled) return (cancelled = false);
-            vindex = "time";
-          }
-          return detectSelection();
-        } catch (err) {
-          console.log(error);
-          var searchError = new Discord.MessageEmbed()
-            .setColor("RED")
-            .setAuthor(message.author.tag, message.author.avatarURL())
-            .setThumbnail(client.user.displayAvatarURL())
-            .setTitle("An error occured whilst searching for your music!")
-            .setDescription(error)
-            .setFooter(client.user.username, client.user.avatarURL())
-            .setTimestamp();
-
-          return message.channel.send(searchError).then(m => m.delete(10000));
         }
+
+        let videosChoice = new RC.Menu(
+          videosEmbed,
+          [
+            {
+              emoji: "662296249717751869",
+              run: (user, message) => {
+                vindex = "cancel";
+                cancelled = true;
+                return detectSelection();
+              }
+            }
+          ],
+          {
+            owner: message.member.id
+          }
+        );
+
+        shared.handler.addMenus(videosChoice);
+
+        let mid;
+
+        message.channel.send(videosEmbed).then(m => (mid = m.id));
+        shared.activeMusicSelection.push(message.author.id);
+
+        try {
+          var response = await message.channel.awaitMessages(
+            m =>
+              m.content >= 1 &&
+              m.content <= 10 &&
+              !m.content.includes("-") &&
+              !m.content.includes(".") &&
+              !m.content.includes(",") &&
+              !m.content.includes(" ") &&
+              message.author.id === m.author.id,
+            {
+              max: 1,
+              time: 60000,
+              errors: ["time"]
+            }
+          );
+          if (cancelled) return (cancelled = false);
+          vindex = parseInt(response.first().content, 10);
+          message.channel.messages
+            .fetch(response.first().id)
+            .then(m => m.delete);
+        } catch (err) {
+          if (cancelled) return (cancelled = false);
+          vindex = "time";
+        }
+        return detectSelection();
+      } catch (err) {
+        console.log(err);
+        var searchError = new Discord.MessageEmbed()
+          .setColor("RED")
+          .setAuthor(message.author.tag, message.author.avatarURL())
+          .setThumbnail(client.user.displayAvatarURL())
+          .setTitle("An error occured whilst searching for your music!")
+          .setDescription(err)
+          .setFooter(client.user.username, client.user.avatarURL())
+          .setTimestamp();
+
+        return message.channel.send(searchError).then(m => m.delete(10000));
       }
     }
 
