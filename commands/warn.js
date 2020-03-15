@@ -17,7 +17,7 @@ module.exports = {
   run: async (client, message, args, shared) => {
     if (!args[0])
       return message.channel.send(
-        fn.embed(client, "Please mention the user you want to kick.")
+        fn.embed(client, "Please mention the user you want to warn.")
       );
     let target = message.mentions.members
       .filter(member => member.user.id != client.user.id)
@@ -25,7 +25,7 @@ module.exports = {
     if (!target) target = fn.getMember(message.guild, args[0]);
     if (!target)
       return message.channel.send(
-        fn.embed(client, "Please mention the user you want to kick.")
+        fn.embed(client, "Please mention the user you want to warn.")
       );
 
     if (
@@ -38,7 +38,9 @@ module.exports = {
       );
 
     if (
-      target.highestRole.comparePositionTo(message.member.highestRole) >= 0 &&
+      target.roles.highest.comparePositionTo(
+        message.member.roles.highest
+      ) >= 0 &&
       message.guild.ownerID != message.author.id
     )
       return message.channel.send(
@@ -48,7 +50,7 @@ module.exports = {
         )
       );
 
-    let modlog = message.guild.channels.find(
+    let modlog = message.guild.channels.cache.find(
       channel => channel.id == shared.guild.modlog
     );
 

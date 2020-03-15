@@ -26,9 +26,9 @@ module.exports = {
   category: "Utility",
   run: async (client, message, args, shared) => {
     const promises = [
-      client.shard.broadcastEval("this.guilds.size"),
+      client.shard.broadcastEval(`this.guilds.size`),
       client.shard.broadcastEval(
-        "this.guilds.reduce((prev, guild) => prev + guild.memberCount, 0)"
+        `this.guilds.reduce((prev, guild) => prev + guild.memberCount, 0)`
       )
     ];
     let target = message.member;

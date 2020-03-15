@@ -1,4 +1,4 @@
-m/he/* --- ALL PACKAGES --- */
+/* --- ALL PACKAGES --- */
 
 require("es6-shim");
 
