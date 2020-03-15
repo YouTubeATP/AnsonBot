@@ -431,7 +431,7 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
         .setThumbnail(guild.iconURL())
         .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
-      newState.send(afk);
+      newState.member.send(afk);
     }
   } catch (e) {
     console.log("Couldn't disconnect user from AFK channel", e);
