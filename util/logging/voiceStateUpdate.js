@@ -7,38 +7,38 @@ const config = require("/app/util/config"),
   fn = require("/app/util/fn");
 
 module.exports = client => {
-  client.on("voiceStateUpdate", async (oldMember, newMember) => {
-    let logChannelID = guildData.get(`${newMember.guild.id}.botlog`);
+  client.on("voiceStateUpdate", async (oldState, newState) => {
+    let logChannelID = guildData.get(`${newState.guild.id}.botlog`);
     let logChannel = client.channels.cache.get(logChannelID);
     if (!logChannel) return;
-    if (oldMember.voiceChannel != newMember.voiceChannel) {
-      if (!oldMember.voiceChannel)
+    if (oldState.voiceChannel != newState.voiceChannel) {
+      if (!oldState.voiceChannel)
         return logChannel.send(
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Voice Connected")
-            .setThumbnail(newMember.user.displayAvatarURL())
+            .setThumbnail(newState.user.displayAvatarURL())
             .addField(
-              newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`
+              newState.user.bot ? "Bot" : "User",
+              `${newState} (${newState.user.tag})`
             )
-            .addField("Voice Channel", `${newMember.voiceChannel.name}`)
-            .addField("ID", `${newMember.voiceChannel.id}`)
+            .addField("Voice Channel", `${newState.voiceChannel.name}`)
+            .addField("ID", `${newState.voiceChannel.id}`)
             .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
-      else if (!newMember.voiceChannel)
+      else if (!newState.voiceChannel)
         return logChannel.send(
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Voice Disconnected")
-            .setThumbnail(newMember.user.displayAvatarURL())
+            .setThumbnail(newState.user.displayAvatarURL())
             .addField(
-              newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`
+              newState.user.bot ? "Bot" : "User",
+              `${newState} (${newState.user.tag})`
             )
-            .addField("Voice Channel", `${oldMember.voiceChannel.name}`)
-            .addField("ID", `${oldMember.voiceChannel.id}`)
+            .addField("Voice Channel", `${oldState.voiceChannel.name}`)
+            .addField("ID", `${oldState.voiceChannel.id}`)
             .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()
         );
@@ -47,18 +47,18 @@ module.exports = client => {
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Channel Switched")
-            .setThumbnail(newMember.user.displayAvatarURL())
+            .setThumbnail(newState.user.displayAvatarURL())
             .addField(
-              newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`
+              newState.user.bot ? "Bot" : "User",
+              `${newState} (${newState.user.tag})`
             )
             .addField(
               "Previous Voice Channel",
-              `${oldMember.voiceChannel.name}`
+              `${oldState.voiceChannel.name}`
             )
             .addField(
               "Current Voice Channel",
-              `${newMember.voiceChannel.name}`
+              `${newState.voiceChannel.name}`
             )
             .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp()

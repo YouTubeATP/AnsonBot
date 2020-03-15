@@ -54,7 +54,7 @@ let getUser = (client, data) => {
   if (data instanceof Discord.GuildMember) return data.user;
   if (data instanceof Discord.Message) return data.author;
   if (typeof data == "string")
-    return client.users.find(
+    return client.users.cache.find(
       user => user.id == data || user.tag.toLowerCase() == data.toLowerCase()
     );
   throw Error("Cannot find user.");
@@ -65,7 +65,7 @@ let getMember = (guild, data) => {
   if (data instanceof Discord.GuildMember) return data;
   if (data instanceof Discord.Message) return data.member;
   if (typeof data == "string")
-    return guild.members.find(
+    return guild.members.cache.find(
       member =>
         member.user.id == data ||
         member.user.tag.toLowerCase() == data.toLowerCase()
@@ -76,7 +76,7 @@ let getMember = (guild, data) => {
 let getRole = (guild, data) => {
   if (data instanceof Discord.Role) return data;
   if (typeof data == "string")
-    return guild.roles.find(
+    return guild.roles.cache.find(
       role =>
         role.name.toLowerCase() == data.toLowerCase() ||
         role.id == data ||

@@ -488,9 +488,9 @@ client.on("voiceStateUpdate", (oldState, newState) => {
         if (
           oldState.voiceChannel &&
           oldState.voiceChannel.name.includes(`Public Lounge #`) &&
-          oldMember.voiceChannel.members.size <= 0
+          oldState.voiceChannel.members.size <= 0
         ) {
-          oldMember.voiceChannel.delete("Served its purpose");
+          oldState.voiceChannel.delete("Served its purpose");
           for (j = i + 1; j <= parseInt(maxChannels + 1); j++) {
             try {
               if (
@@ -520,21 +520,21 @@ client.on("voiceStateUpdate", (oldState, newState) => {
     console.log("Lounges not updated", e);
   }
   try {
-    if (newMember.voiceChannel != joinVoiceChannel) return;
+    if (newState.voiceChannel != joinVoiceChannel) return;
     else if (
-      oldMember.voiceChannel != newMember.voiceChannel &&
+      oldState.voiceChannel != newState.voiceChannel &&
       index < maxChannels
     ) {
       console.log(`Index changed from ${index++} to ${index}`);
       const category = guild.channels.cache.get("653088922649362443");
-      return guild
-        .createChannel(`Public Lounge #${index}`, {
+      return guild.channels
+        .create(`Public Lounge #${index}`, {
           type: "voice",
           parent: category
         })
-        .then(newChannel => newMember.setVoiceChannel(newChannel));
+        .then(newChannel => newState.setVoiceChannel(newChannel));
     } else if (index >= maxChannels) {
-      newMember.setVoiceChannel(null);
+      newState.setVoiceChannel(null);
       console.log(`${index} not changed`);
       let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
@@ -545,7 +545,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
         .setThumbnail(guild.iconURL())
         .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
-      return newMember.send(embed);
+      return newState.send(embed);
     }
   } catch (e) {
     console.log("Couldn't move users", e);
