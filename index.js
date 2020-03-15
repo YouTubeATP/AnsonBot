@@ -278,7 +278,7 @@ client.on("message", async message => {
     shared.commandName = commandName;
     const command =
       client.commands.get(commandName) ||
-      client.commands.cache.find(
+      client.commands.find(
         cmd => cmd.aliases && cmd.aliases.includes(commandName)
       );
 

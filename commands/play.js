@@ -294,8 +294,8 @@ module.exports = {
                 reaction.emoji.id.includes("662296249717751869"),
               { time: 60 * 1000, max: 1, errors: ["time"] }
             );
-            reaction = reaction.first();
-            if (reaction.emoji.id === "662296249717751869") {
+            reaction = reaction.slice(1).first();
+            if (reaction.emoji.id == "662296249717751869") {
               cancelled = true;
               vindex = "cancel";
               return detectSelection();
@@ -337,7 +337,8 @@ module.exports = {
             .then(m => m.delete());
         } catch (err) {
           if (cancelled) return (cancelled = false);
-          vindex = "time";
+          if (vindex !== "cancel") vindex = "time";
+          else return;
         }
         return detectSelection();
       } catch (err) {
