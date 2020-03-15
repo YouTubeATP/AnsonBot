@@ -417,8 +417,8 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
   const guild = newMember.guild;
   try {
     if (
-      oldMember.voiceChannel != null &&
-      newMember.voiceChannel ===
+      oldMember.channel != null &&
+      newMember.channel ===
         client.channels.cache.get(newMember.guild.afkChannelID)
     ) {
       newMember.setVoiceChannel(null);
@@ -426,7 +426,7 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
         .setColor(config.embedColor)
         .setTitle(`Voice Disconnected for Inactivity`)
         .setDescription(
-          `You have been idle in the voice channel **${oldMember.voiceChannel.name}** in **${guild}** for more than 5 minutes, so you were automatically disconnected.`
+          `You have been idle in the voice channel **${oldMember.channel.name}** in **${guild}** for more than 5 minutes, so you were automatically disconnected.`
         )
         .setThumbnail(guild.iconURL())
         .setFooter(client.user.username, client.user.avatarURL())
@@ -453,28 +453,30 @@ client.on("voiceStateUpdate", (oldState, newState) => {
       try {
         if (
           index < i &&
-          guild.channels.cache.find("name", `Public Lounge #${i}`) &&
-          guild.channels.cache.find("name", `Public Lounge #${i}`).members
-            .size <= 0
+          guild.channels.cache.find(c => c.name === `Public Lounge #${i}`) &&
+          guild.channels.cache.find(c => c.name === `Public Lounge #${i}`)
+            .members.size <= 0
         ) {
           guild.channels.cache
-            .find("name", `Public Lounge #${i}`)
+            .find(c => c.name === `Public Lounge #${i}`)
             .delete("Served its purpose");
           console.log(`${index} not changed`);
         } else if (
           index < i &&
-          guild.channels.cache.find("name", `Public Lounge #${i}`) &&
-          guild.channels.cache.find("name", `Public Lounge #${i}`).members
-            .size > 0
+          guild.channels.cache.find(c => c.name === `Public Lounge #${i}`) &&
+          guild.channels.cache.find(c => c.name === `Public Lounge #${i}`)
+            .members.size > 0
         ) {
           for (k = 1; k < i; k++) {
             if (
               !semiModified &&
-              guild.channels.cache.find("name", `Public Lounge #${i}`) &&
-              !guild.channels.cache.find("name", `Public Lounge #${k}`)
+              guild.channels.cache.find(
+                c => c.name === `Public Lounge #${i}`
+              ) &&
+              !guild.channels.cache.find(c => c.name === `Public Lounge #${k}`)
             ) {
               guild.channels.cache
-                .find("name", `Public Lounge #${i}`)
+                .find(c => c.name === `Public Lounge #${i}`)
                 .setName(`Public Lounge #${k}`);
               console.log(`Index changed from ${index++} to ${index}`);
               semiModified = true;
@@ -486,20 +488,24 @@ client.on("voiceStateUpdate", (oldState, newState) => {
       }
       try {
         if (
-          oldState.voiceChannel &&
-          oldState.voiceChannel.name.includes(`Public Lounge #`) &&
-          oldState.voiceChannel.members.size <= 0
+          oldState.channel &&
+          oldState.channel.name.includes(`Public Lounge #`) &&
+          oldState.channel.members.size <= 0
         ) {
-          oldState.voiceChannel.delete("Served its purpose");
+          oldState.channel.delete("Served its purpose");
           for (j = i + 1; j <= parseInt(maxChannels + 1); j++) {
             try {
               if (
-                guild.channels.cache.find("name", `Public Lounge #${i + 1}`) &&
-                !guild.channels.cache.find("name", `Public Lounge #${j}`) &&
+                guild.channels.cache.find(
+                  c => c.name === `Public Lounge #${i + 1}`
+                ) &&
+                !guild.channels.cache.find(
+                  c => c.name === `Public Lounge #${j}`
+                ) &&
                 !verySemiModified
               ) {
                 guild.channels.cache
-                  .find("name", `Public Lounge #${i + 1}`)
+                  .find(c => c.name === `Public Lounge #${i + 1}`)
                   .setName(`Public Lounge #${i}`);
                 verySemiModified = true;
               }
@@ -520,9 +526,9 @@ client.on("voiceStateUpdate", (oldState, newState) => {
     console.log("Lounges not updated", e);
   }
   try {
-    if (newState.voiceChannel != joinVoiceChannel) return;
+    if (newState.channel != joinVoiceChannel) return;
     else if (
-      oldState.voiceChannel != newState.voiceChannel &&
+      oldState.channel != newState.channel &&
       index < maxChannels
     ) {
       console.log(`Index changed from ${index++} to ${index}`);
