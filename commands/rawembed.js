@@ -106,7 +106,7 @@ module.exports = {
           message.delete().catch(O_o => {});
           return message
             .reply("please refrain from using such contemptable words.")
-            .then(m => m.delete(5000));
+            .then(m => m.delete({ timeout: 5000 }));
         }
       }
 

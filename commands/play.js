@@ -115,7 +115,7 @@ module.exports = {
 
         return message.channel
           .send(alreadySelection)
-          .then(m => m.delete(10000));
+          .then(m => m.delete({ timeout: 10000 }));
       }
     }
 
@@ -172,7 +172,9 @@ module.exports = {
             .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp();
 
-          return message.channel.send(noresult).then(m => m.delete(10000));
+          return message.channel
+            .send(noresult)
+            .then(m => m.delete({ timeout: 10000 }));
         }
 
         console.log(videos);
@@ -251,7 +253,9 @@ module.exports = {
               .setFooter(client.user.username, client.user.avatarURL())
               .setTimestamp();
 
-            return message.channel.send(timeout).then(m => m.delete(10000));
+            return message.channel
+              .send(timeout)
+              .then(m => m.delete({ timeout: 10000 }));
           } else if (vindex === "cancel") {
             let cancelmsg = new Discord.MessageEmbed()
               .setColor("RED")
@@ -264,7 +268,9 @@ module.exports = {
               .setFooter(client.user.username, client.user.avatarURL())
               .setTimestamp();
 
-            return message.channel.send(cancelmsg).then(m => m.delete(10000));
+            return message.channel
+              .send(cancelmsg)
+              .then(m => m.delete({ timeout: 10000 }));
           } else {
             const videoIndex = parseInt(vindex);
 
@@ -359,7 +365,9 @@ module.exports = {
           .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
 
-        return message.channel.send(searchError).then(m => m.delete(10000));
+        return message.channel
+          .send(searchError)
+          .then(m => m.delete({ timeout: 10000 }));
       }
     }
 

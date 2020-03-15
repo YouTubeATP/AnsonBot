@@ -24,7 +24,7 @@ module.exports = {
       .send(embed)
       .then(msg => {
         message.delete();
-        msg.delete(5000);
+        msg.delete({ timeout: 5000 });
       })
       .catch(console.error);
   }
