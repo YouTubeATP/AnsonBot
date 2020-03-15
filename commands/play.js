@@ -286,26 +286,30 @@ module.exports = {
         }
 
         async function detectReaction(msg) {
-          let reaction =msg.awaitReactions(
-            (reaction, user) =>
-              user.id == msg.author.id &&
-              ["662296249717751869"].includes(reaction.emoji.id),
-            { time: 60 * 1000, max: 1, errors: ["time"] }
-          ).catch(console.error);
-          reaction.on("collect", r => {
-            if (r.emoji.id === "662296249717751869") {
+          try {
+            await msg.react("662296249717751869");
+            let reaction = await msg.awaitReactions(
+              (reaction, user) =>
+                user.id == msg.author.id &&
+                reaction.emoji.id.includes("662296249717751869"),
+              { time: 60 * 1000, max: 1, errors: ["time"] }
+            );
+            reaction = reaction.first();
+            if (reaction.emoji.id === "662296249717751869") {
               cancelled = true;
               vindex = "cancel";
               return detectSelection();
             }
-          });
+          } catch {
+            if (cancelled) return (cancelled = false);
+            vindex = "time";
+          }
         }
 
         let mid;
 
         message.channel.send(videosEmbed).then(m => {
           mid = m.id;
-          m.react("662296249717751869");
           detectReaction(m);
         });
         shared.activeMusicSelection.push(message.author.id);
