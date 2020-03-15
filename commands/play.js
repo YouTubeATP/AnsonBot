@@ -287,7 +287,7 @@ module.exports = {
 
         let mid;
 
-        await message.channel.send(videosEmbed).then(async m => {
+        message.channel.send(videosEmbed).then(async m => {
           mid = m.id;
           m.react("662296249717751869");
           let reaction = await m
