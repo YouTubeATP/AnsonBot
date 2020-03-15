@@ -20,7 +20,10 @@ module.exports = {
 
     message.delete().catch(O_o => {});
 
-    const voiceChannel = message.member.voice.channel;
+    let voiceChannel, botVoiceConnection;
+    if (message.member.voice) voiceChannel = message.member.voice.channel;
+    if (message.guild.voice)
+      botVoiceConnection = message.guild.voice.connection;
 
     let cancelled;
 
@@ -132,9 +135,12 @@ module.exports = {
         .setFooter(client.user.username, client.user.avatarURL());
 
       return message.channel.send(nope).then(m => m.delete(10000));
-    } else {
-      try {
-        var video;
+    } else if (
+      searchString.match(
+        /^https?:\/\/(www.youtube.com|youtube.com)\/watch(.*)$/
+      )
+    ) {
+        let video;
 
         try {
           video = await shared.youtube1.getVideo(searchString);
@@ -146,7 +152,7 @@ module.exports = {
       } catch (error) {
         try {
           let index = 0;
-          var videos;
+          let videos;
 
           try {
             videos = await shared.youtube1.searchVideos(searchString, 10);

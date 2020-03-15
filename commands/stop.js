@@ -20,9 +20,10 @@ module.exports = {
     const queue = shared.queue;
     const serverQueue = queue.get(message.guild.id);
 
-    message.delete().catch(O_o => {});
-    const voiceChannel = message.member.voice.channel;
-    const botVoiceConnection = message.guild.voice.connection;
+    let voiceChannel, botVoiceConnection;
+    if (message.member.voice) voiceChannel = message.member.voice.channel;
+    if (message.guild.voice)
+      botVoiceConnection = message.guild.voice.connection;
 
     if (!voiceChannel)
       return message.channel.send(
