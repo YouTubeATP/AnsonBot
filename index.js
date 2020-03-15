@@ -100,7 +100,7 @@ client.on("ready", () => {
   console.log(`${fn.time()} | ${client.user.username} is up!`);
   client.user.setPresence({
     status: "online",
-    game: {
+    activity: {
       name: `MusicSounds`,
       type: "LISTENING"
     }

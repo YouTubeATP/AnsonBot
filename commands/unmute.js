@@ -81,7 +81,7 @@ module.exports = {
     );
     let embed = fn.modCaseEmbed(client, modCase);
 
-    if (!target.roles.has(muteRole.id))
+    if (!target.roles.cache.has(muteRole.id))
       return message.channel.send(fn.embed(client, `${target} is not muted!`));
 
     target.roles

@@ -84,7 +84,7 @@ module.exports = {
       guildData.set(`${message.guild.id}.muteRole`, muteRole.id);
     }
 
-    if (target.roles.has(muteRole.id))
+    if (target.roles.cache.has(muteRole.id))
       return message.channel.send(
         fn.embed(client, `${target} is already muted!`)
       );
