@@ -53,7 +53,7 @@ module.exports = {
       return message.channel.send(
         fn.embed(client, "I do not have permissions to remove roles.")
       );
-    if (role.position >= message.guild.me.highestRole.position)
+    if (role.position >= message.guild.me.roles.highest.position)
       return message.channel.send(
         fn.embed(client, "I do not have permissions to remove this role.")
       );
@@ -64,11 +64,12 @@ module.exports = {
         message.channel.send(
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
-            .setTitle("Remove Role Success")
+            .setTitle("Role Removed")
             .setThumbnail(target.user.displayAvatarURL())
-            .addField(target.user.bot ? "Bot" : "User", `${target}`, true)
-            .addField("Role", `${role}`, true)
+            .addField(target.user.bot ? "Bot" : "User", `${target}`)
+            .addField("Role", `${role}`)
             .setFooter(client.user.username, client.user.avatarURL())
+            .setTimestamp()
         );
       })
       .catch(error => {
