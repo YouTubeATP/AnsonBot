@@ -440,10 +440,10 @@ client.on("voiceStateUpdate", async (oldMember, newMember) => {
 
 // temporary channel system
 
-client.on("voiceStateUpdate", (oldMember, newMember) => {
+client.on("voiceStateUpdate", (oldState, newState) => {
   if (index < 0) index = 0;
   if (index > maxChannels) index = maxChannels;
-  const guild = newMember.guild;
+  const guild = newState.guild;
   let joinVoiceChannel = client.channels.cache.get("662837599857278987");
   try {
     modified = false;
@@ -454,7 +454,8 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         if (
           index < i &&
           guild.channels.cache.find("name", `Public Lounge #${i}`) &&
-          guild.channels.cache.find("name", `Public Lounge #${i}`).members.size <= 0
+          guild.channels.cache.find("name", `Public Lounge #${i}`).members
+            .size <= 0
         ) {
           guild.channels.cache
             .find("name", `Public Lounge #${i}`)
@@ -463,7 +464,8 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         } else if (
           index < i &&
           guild.channels.cache.find("name", `Public Lounge #${i}`) &&
-          guild.channels.cache.find("name", `Public Lounge #${i}`).members.size > 0
+          guild.channels.cache.find("name", `Public Lounge #${i}`).members
+            .size > 0
         ) {
           for (k = 1; k < i; k++) {
             if (
@@ -484,8 +486,8 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
       }
       try {
         if (
-          oldMember.voiceChannel &&
-          oldMember.voiceChannel.name.includes(`Public Lounge #`) &&
+          oldState.voiceChannel &&
+          oldState.voiceChannel.name.includes(`Public Lounge #`) &&
           oldMember.voiceChannel.members.size <= 0
         ) {
           oldMember.voiceChannel.delete("Served its purpose");
