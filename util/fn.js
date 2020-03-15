@@ -174,70 +174,6 @@ let paginator = async (author, msg, embeds, pageNow) => {
     msg.clearReactions().catch(error => console.error(error));
 };
 
-let helpPaginator = async (author, msg, embeds, pageNow) => {
-  const client = index.client;
-  if (pageNow != 0) {
-    await msg.react("⏪");
-    await msg.react("◀");
-  }
-  if (pageNow != embeds.length - 1) {
-    await msg.react("▶");
-    await msg.react("⏩");
-  }
-  await msg.react("662296249717751869");
-  let reaction = await msg
-    .awaitReactions(
-      (reaction, user) =>
-        user.id == author &&
-        (["◀", "▶", "⏪", "⏩"].includes(reaction.emoji.name) ||
-          ["662296249717751869"].includes(reaction.emoji.id)),
-      { time: 90 * 1000, max: 1, errors: ["time"] }
-    )
-    .catch(err => {
-      let delembed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setThumbnail(client.user.displayAvatarURL())
-        .setTitle("Help menu deleted!")
-        .setDescription(
-          "Your help menu timed out. To maintain quality performance, all help menus expire after 90 seconds."
-        )
-        .setFooter(client.user.username, client.user.avatarURL())
-        .setTimestamp();
-      msg.channel.send(delembed);
-      return msg.delete();
-    });
-  reaction = reaction.first();
-  if (reaction.emoji.name == "◀") {
-    let m = await msg.channel.send(embeds[Math.max(pageNow - 1, 0)]);
-    msg.delete();
-    helpPaginator(author, m, embeds, Math.max(pageNow - 1, 0));
-  } else if (reaction.emoji.name == "▶") {
-    let m = await msg.channel.send(
-      embeds[Math.min(pageNow + 1, embeds.length - 1)]
-    );
-    msg.delete();
-    helpPaginator(author, m, embeds, Math.min(pageNow + 1, embeds.length - 1));
-  } else if (reaction.emoji.name == "⏪") {
-    let m = await msg.channel.send(embeds[0]);
-    msg.delete();
-    helpPaginator(author, m, embeds, 0);
-  } else if (reaction.emoji.name == "⏩") {
-    let m = await msg.channel.send(embeds[embeds.length - 1]);
-    msg.delete();
-    helpPaginator(author, m, embeds, embeds.length - 1);
-  } else if (reaction.emoji.id == "662296249717751869") {
-    let cancelembed = new Discord.MessageEmbed()
-      .setColor("RED")
-      .setThumbnail(client.user.displayAvatarURL())
-      .setTitle("Help menu deleted!")
-      .setDescription("You have manually deleted your help menu.")
-      .setFooter(client.user.username, client.user.avatarURL())
-      .setTimestamp();
-    msg.channel.send(cancelembed);
-    return msg.delete();
-  }
-};
-
 function log(msg) {
   console.log(msg);
   fs.writeFileSync("/app/templogs.txt");
@@ -256,6 +192,5 @@ module.exports = {
   ModCase: ModCase,
   modCaseEmbed: modCaseEmbed,
   paginator: paginator,
-  helpPaginator: helpPaginator,
   log: log
 };

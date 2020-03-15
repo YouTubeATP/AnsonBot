@@ -66,7 +66,7 @@ module.exports = {
             .setFooter(client.user.username, client.user.avatarURL())
             .setTimestamp();
           message.channel.send(sentEmbed);
-          fn.helpPaginator(message.author.id, msg, embeds, 0, client);
+          fn.paginator(message.author.id, msg, embeds, 0, client);
         })
         .catch(err => {
           message.channel.send(

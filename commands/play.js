@@ -294,7 +294,14 @@ module.exports = {
         shared.activeMusicSelection.push(message.author.id);
 
         try {
+          let reaction = await men.awaitReactions(
+            (reaction, user) =>
+              user.id == men.member.id &&
+              ["662296249717751869"].includes(reaction.emoji.id),
+            { time: 60 * 1000, max: 1, errors: ["time"] }
+          );
           let response =
+            reaction ||
             (await message.channel.awaitMessages(
               m =>
                 m.content >= 1 &&
@@ -309,15 +316,10 @@ module.exports = {
                 time: 60000,
                 errors: ["time"]
               }
-            )) ||
-            men.awaitReactions(
-              (reaction, user) =>
-                user.id == men.member.id &&
-                ["662296249717751869"].includes(reaction.emoji.id),
-              { time: 60 * 1000, max: 1, errors: ["time"] }
-            );
+            ));
           if (cancelled) return (cancelled = false);
-          vindex = parseInt(response.first().content, 10);
+          if (reaction.emoji.id == "662296249717751869") vindex = "cancel";
+          else vindex = parseInt(response.first().content, 10);
           message.channel.messages
             .fetch(response.first().id)
             .then(m => m.delete);
