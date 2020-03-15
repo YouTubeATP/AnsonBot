@@ -17,7 +17,7 @@ module.exports = client => {
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Voice Connected")
-            .setThumbnail(newState.member.displayAvatarURL())
+            .setThumbnail(newState.member.user.displayAvatarURL())
             .addField(
               newState.member.bot ? "Bot" : "User",
               `${newState} (${newState.member.tag})`
@@ -32,7 +32,7 @@ module.exports = client => {
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Voice Disconnected")
-            .setThumbnail(newState.member.displayAvatarURL())
+            .setThumbnail(newState.member.user.displayAvatarURL())
             .addField(
               newState.member.bot ? "Bot" : "User",
               `${newState} (${newState.member.tag})`
@@ -47,7 +47,7 @@ module.exports = client => {
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
             .setTitle("Channel Switched")
-            .setThumbnail(newState.member.displayAvatarURL())
+            .setThumbnail(newState.member.user.displayAvatarURL())
             .addField(
               newState.member.bot ? "Bot" : "User",
               `${newState} (${newState.member.tag})`

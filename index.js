@@ -413,15 +413,15 @@ function clean(text) {
 
 // AFK notification
 
-client.on("voiceStateUpdate", async (oldMember, newMember) => {
-  const guild = newMember.guild;
+client.on("voiceStateUpdate", async (oldState, newState) => {
+  const guild = newState.guild;
   try {
     if (
-      oldMember.channel != null &&
-      newMember.channel ===
-        client.channels.cache.get(newMember.guild.afkChannelID)
+      oldState.channel != null &&
+      newState.channel ===
+        client.channels.cache.get(newSt.guild.afkChannelID)
     ) {
-      newMember.setVoiceChannel(null);
+      newMember.voice.setChannel(null);
       let afk = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`Voice Disconnected for Inactivity`)
@@ -527,10 +527,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
   }
   try {
     if (newState.channel != joinVoiceChannel) return;
-    else if (
-      oldState.channel != newState.channel &&
-      index < maxChannels
-    ) {
+    else if (oldState.channel != newState.channel && index < maxChannels) {
       console.log(`Index changed from ${index++} to ${index}`);
       const category = guild.channels.cache.get("653088922649362443");
       return guild.channels
@@ -538,9 +535,9 @@ client.on("voiceStateUpdate", (oldState, newState) => {
           type: "voice",
           parent: category
         })
-        .then(newChannel => newState.setVoiceChannel(newChannel));
+        .then(newChannel => newState.member.voice.setChannel(newChannel));
     } else if (index >= maxChannels) {
-      newState.setVoiceChannel(null);
+      newState.member.voice.setChannel(null);
       console.log(`${index} not changed`);
       let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
