@@ -286,19 +286,19 @@ module.exports = {
         }
 
         async function detectReaction(msg) {
-          let reaction = msg
-            .awaitReactions(
-              (reaction, user) =>
-                user.id == msg.author.id &&
-                ["662296249717751869"].includes(reaction.emoji.id),
-              { time: 60 * 1000, max: 1, errors: ["time"] }
-            )
-            .catch(err => console.log(err));
-          reaction = reaction.array().first();
-          if (reaction.emoji.id === "662296249717751869") {
-            cancelled = true;
-            vindex = "cancel";
-          }
+          let reaction =msg.awaitReactions(
+            (reaction, user) =>
+              user.id == msg.author.id &&
+              ["662296249717751869"].includes(reaction.emoji.id),
+            { time: 60 * 1000, max: 1, errors: ["time"] }
+          ).catch(console.error);
+          reaction.on("collect", r => {
+            if (r.emoji.id === "662296249717751869") {
+              cancelled = true;
+              vindex = "cancel";
+              return detectSelection();
+            }
+          });
         }
 
         let mid;
