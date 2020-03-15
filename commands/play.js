@@ -287,42 +287,46 @@ module.exports = {
 
         let men, mid;
 
-        message.channel.send(videosEmbed).then(m => {
+        await message.channel.send(videosEmbed).then(m => {
           mid = m.id;
+          
           m.react("662296249717751869");
         });
         shared.activeMusicSelection.push(message.author.id);
-
-        try {
-          let reaction = await men.awaitReactions(
+        let reaction = await men
+          .awaitReactions(
             (reaction, user) =>
               user.id == men.member.id &&
               ["662296249717751869"].includes(reaction.emoji.id),
             { time: 60 * 1000, max: 1, errors: ["time"] }
+          )
+          .catch(err => console.log(err));
+        if (reaction.emoji.id == "662296249717751869") {
+          cancelled = true;
+          vindex = "cancel";
+        }
+
+        try {
+          let response = await message.channel.awaitMessages(
+            m =>
+              m.content >= 1 &&
+              m.content <= 10 &&
+              !m.content.includes("-") &&
+              !m.content.includes(".") &&
+              !m.content.includes(",") &&
+              !m.content.includes(" ") &&
+              message.author.id === m.author.id,
+            {
+              max: 1,
+              time: 60000,
+              errors: ["time"]
+            }
           );
-          let response =
-            reaction ||
-            (await message.channel.awaitMessages(
-              m =>
-                m.content >= 1 &&
-                m.content <= 10 &&
-                !m.content.includes("-") &&
-                !m.content.includes(".") &&
-                !m.content.includes(",") &&
-                !m.content.includes(" ") &&
-                message.author.id === m.author.id,
-              {
-                max: 1,
-                time: 60000,
-                errors: ["time"]
-              }
-            ));
           if (cancelled) return (cancelled = false);
-          if (reaction.emoji.id == "662296249717751869") vindex = "cancel";
-          else vindex = parseInt(response.first().content, 10);
+          vindex = parseInt(response.first().content, 10);
           message.channel.messages
             .fetch(response.first().id)
-            .then(m => m.delete);
+            .then(m => m.delete());
         } catch (err) {
           if (cancelled) return (cancelled = false);
           vindex = "time";
