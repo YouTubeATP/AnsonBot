@@ -3,6 +3,21 @@ const Discord = require("discord.js");
 const config = require("/app/util/config"),
   fn = require("/app/util/fn");
 
+let activity = {
+  PLAYING: "Playing",
+  STREAMING: "Streaming",
+  LISTENING: "Listening to",
+  WATCHING: "Watching",
+  CUSTOM_STATUS: ""
+};
+
+let statuses = {
+  online: "Online",
+  idle: "Idle",
+  dnd: "DND",
+  offline: "Offline"
+};
+
 module.exports = {
   name: "botinfo",
   usage: "botinfo",
@@ -16,22 +31,6 @@ module.exports = {
         `this.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)`
       )
     ];
-
-    let activity = {
-      PLAYING: "Playing",
-      STREAMING: "Streaming",
-      LISTENING: "Listening to",
-      WATCHING: "Watching",
-      CUSTOM_STATUS: ""
-    };
-
-    let statuses = {
-      online: "Online",
-      idle: "Idle",
-      dnd: "DND",
-      offline: "Offline"
-    };
-
     return Promise.all(promises).then(results => {
       const totalGuilds = results[0].reduce(
         (prev, guildCount) => prev + guildCount,
@@ -71,18 +70,18 @@ module.exports = {
         )
         .addField("Status", `${statuses[client.user.presence.status]}`, true)
         .addField(
-            "Presence",
-            target.user.presence.activities[0]
-              ? `${activity[target.user.presence.activities[0].type]} ${
-                  target.user.presence.activities[0].type === "CUSTOM_STATUS"
-                    ? target.user.presence.activities[0].emoji
-                      ? `${target.user.presence.activities[0].emoji} ${target.user.presence.activities[0].state}`
-                      : target.user.presence.activities[0].state
-                    : target.user.presence.activities[0].name
-                }`
-              : "None",
-            true
-          )
+          "Presence",
+          client.user.presence.activities[0]
+            ? `${activity[client.user.presence.activities[0].type]} ${
+                client.user.presence.activities[0].type === "CUSTOM_STATUS"
+                  ? client.user.presence.activities[0].emoji
+                    ? `${client.user.presence.activities[0].emoji} ${client.user.presence.activities[0].state}`
+                    : client.user.presence.activities[0].state
+                  : client.user.presence.activities[0].name
+              }`
+            : "None",
+          true
+        )
         .addField(
           `Role${bot.roles.cache.size == 2 ? "" : "s"} [${bot.roles.cache.size -
             1}]`,

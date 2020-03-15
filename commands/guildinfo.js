@@ -28,7 +28,7 @@ module.exports = {
     let embed = new Discord.MessageEmbed()
       .setColor(config.embedColor)
       .setTitle(`${guild} | Information`)
-      .setThumbnail(guild.iconURL)
+      .setThumbnail(guild.iconURL())
       .addField("Name", `${guild}`, true)
       .addField("Owner", `${guild.owner}`, true)
       .addField("Region", `${guild.region}`, true)
@@ -37,32 +37,38 @@ module.exports = {
         `${fn.date(guild.createdAt)} (${fn.ago(guild.createdAt)})`
       )
       .addField(
-        `Member${guild.members.size == 1 ? "" : "s"} [${guild.members.size}]`,
-        `${guild.members.filter(member => !member.user.bot).size} Human${
-          guild.members.filter(member => !member.user.bot).size == 1 ? "" : "s"
+        `Member${guild.members.cache.size == 1 ? "" : "s"} [${guild.members.cache.size}]`,
+        `${guild.members.cache.filter(member => !member.user.bot).size} Human${
+          guild.members.cache.filter(member => !member.user.bot).size == 1
+            ? ""
+            : "s"
         } (${
-          guild.members.filter(
+          guild.members.cache.filter(
             member =>
               !member.user.bot && member.user.presence.status != "offline"
           ).size
-        } Online)\n${guild.members.filter(member => member.user.bot).size} Bot${
-          guild.members.filter(member => member.user.bot).size == 1 ? "" : "s"
+        } Online)\n${
+          guild.members.cache.filter(member => member.user.bot).size
+        } Bot${
+          guild.members.cache.filter(member => member.user.bot).size == 1
+            ? ""
+            : "s"
         }`,
         true
       )
       .addField(
-        `Channel${guild.channels.size == 1 ? "" : "s"} [${
-          guild.channels.size
+        `Channel${guild.channels.cache.size == 1 ? "" : "s"} [${
+          guild.channels.cache.size
         }]`,
         `${
-          guild.channels.filter(
+          guild.channels.cache.filter(
             channel =>
               channel.type == "text" ||
               channel.type == "news" ||
               channel.type == "store"
           ).size
         } Text Channel${
-          guild.channels.filter(
+          guild.channels.cache.filter(
             channel =>
               channel.type == "text" ||
               channel.type == "news" ||
@@ -71,34 +77,37 @@ module.exports = {
             ? ""
             : "s"
         }\n${
-          guild.channels.filter(channel => channel.type == "voice").size
+          guild.channels.cache.filter(channel => channel.type == "voice").size
         } Voice Channel${
-          guild.channels.filter(channel => channel.type == "voice").size == 1
+          guild.channels.cache.filter(channel => channel.type == "voice")
+            .size == 1
             ? ""
             : "s"
         }\n${
-          guild.channels.filter(channel => channel.type == "category").size
+          guild.channels.cache.filter(channel => channel.type == "category")
+            .size
         } Categor${
-          guild.channels.filter(channel => channel.type == "category").size == 1
+          guild.channels.cache.filter(channel => channel.type == "category")
+            .size == 1
             ? "y"
             : "ies"
         }`,
         true
       )
       .addField(
-        `Role${guild.roles.size == 1 ? "" : "s"}${
-          guild.channels.size <= 44 ? ` [${guild.roles.size}]` : ""
+        `Role${guild.roles.cache.size == 1 ? "" : "s"}${
+          guild.channels.cache.size <= 44 ? ` [${guild.roles.cache.size}]` : ""
         }`,
         `${
-          guild.roles.size <= 43
-            ? guild.roles
+          guild.roles.cache.size <= 43
+            ? guild.roles.cache
                 .sort((a, b) => {
                   if (a.position < b.position) return 1;
                   if (a.position > b.position) return -1;
                 })
                 .map(r => `${r}`)
                 .join(" ")
-            : guild.roles.size - 1
+            : guild.roles.cache.size - 1
         }`
       )
       .setFooter(
