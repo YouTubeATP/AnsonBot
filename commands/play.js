@@ -288,18 +288,25 @@ module.exports = {
         async function detectReaction(msg) {
           try {
             await msg.react("662296249717751869");
-            let reaction = await msg.awaitReactions(
-              (reaction, user) =>
-                user.id == msg.author.id &&
-                reaction.emoji.id.includes("662296249717751869"),
-              { time: 60 * 1000, max: 1, errors: ["time"] }
-            );
-            reaction = reaction.slice(1).first();
-            if (reaction.emoji.id == "662296249717751869") {
-              cancelled = true;
-              vindex = "cancel";
-              return detectSelection();
-            }
+            let reaction = await msg
+              .awaitReactions(
+                (reaction, user) =>
+                  ["662296249717751869"].includes(reaction.emoji.id) &&
+                  user.id === message.author.id,
+                {
+                  time: 60 * 1000,
+                  max: 1,
+                  errors: ["time"]
+                }
+              )
+              .then(collected => {
+                const reaction = collected.first();
+                if (reaction.emoji.id == "662296249717751869") {
+                  cancelled = true;
+                  vindex = "cancel";
+                  return detectSelection();
+                }
+              });
           } catch {
             if (cancelled) return (cancelled = false);
             vindex = "time";
