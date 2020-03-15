@@ -93,7 +93,6 @@ module.exports = {
           .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp();
         return message.channel.send(embed).then(m => {
-          message.delete();
           m.delete({ timeout: 5000 });
         });
       }
@@ -132,7 +131,7 @@ module.exports = {
             : command.usage.map(i => `\`${i}\``).join("\n")
         );
 
-      message.channel.send(embed).then(message.delete());
+      message.channel.send(embed);
     }
   }
 };

@@ -101,8 +101,9 @@ client.on("ready", () => {
   client.user.setPresence({
     status: "online",
     activity: {
-      name: `MusicSounds`,
-      type: "LISTENING"
+      name: 'MusicSounds',
+      type: "LISTENING",
+      url: "https://invite.gg/MusicSounds"
     }
   });
 });
