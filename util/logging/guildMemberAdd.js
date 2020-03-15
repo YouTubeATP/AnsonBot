@@ -11,10 +11,10 @@ module.exports = client => {
     let autoRole = guildData.get(`${member.guild.id}.autoRole`);
     if (autoRole && !member.user.bot) {
       if (typeof autoRole == "string")
-        member.addRole(fn.getRole(member.guild, autoRole));
+        member.roles.add(fn.getRole(member.guild, autoRole));
       else
         for (var i in autoRole)
-          member.addRole(fn.getRole(member.guild, autoRole[i]));
+          member.roles.add(fn.getRole(member.guild, autoRole[i]));
     }
 
     let memberLogID = guildData.get(`${member.guild.id}.memberlog`);

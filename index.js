@@ -292,7 +292,7 @@ client.on("message", async message => {
         .setThumbnail(message.guild.iconURL())
         .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp();
-      message.channel.send(embed).then(m => m.delete(5000));
+      message.channel.send(embed).then(m => m.delete({ timeout: 5000 }));
       return message.delete();
     }
 
@@ -301,7 +301,7 @@ client.on("message", async message => {
         .send(
           fn.embed(client, "You do not have permission to use this command!")
         )
-        .then(m => m.delete(5000));
+        .then(m => m.delete({ timeout: 5000 }));
       return message.delete();
     }
     if (
@@ -312,7 +312,7 @@ client.on("message", async message => {
         .send(
           fn.embed(client, "You do not have permission to use this command!")
         )
-        .then(m => m.delete(5000));
+        .then(m => m.delete({ timeout: 5000 }));
       return message.delete();
     }
 
@@ -397,7 +397,7 @@ client.on("message", message => {
     message.delete();
     return message
       .reply("please stick to <#662249455847735306> when advertising.")
-      .then(m => m.delete(5000));
+      .then(m => m.delete({ timeout: 5000 }));
   }
 });
 
@@ -459,7 +459,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
         ) {
           guild.channels.cache
             .find(c => c.name === `Public Lounge #${i}`)
-            .delete("Served its purpose");
+            .delete();
           console.log(`${index} not changed`);
         } else if (
           index < i &&
@@ -492,7 +492,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
           oldState.channel.name.includes(`Public Lounge #`) &&
           oldState.channel.members.size <= 0
         ) {
-          oldState.channel.delete("Served its purpose");
+          oldState.channel.delete();
           for (j = i + 1; j <= parseInt(maxChannels + 1); j++) {
             try {
               if (

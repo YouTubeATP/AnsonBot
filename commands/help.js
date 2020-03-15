@@ -94,7 +94,7 @@ module.exports = {
           .setTimestamp();
         return message.channel.send(embed).then(m => {
           message.delete();
-          m.delete(5000);
+          m.delete({ timeout: 5000 });
         });
       }
 

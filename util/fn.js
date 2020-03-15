@@ -106,11 +106,15 @@ let modCaseEmbed = (client, thisCase) => {
     .setTitle(
       thisCase.type === "BAN"
         ? "User Banned"
+        : thisCase.type === "UNBAN"
+        ? "User Unbanned"
         : thisCase.type === "WARN"
         ? "User Warned"
         : thisCase.type === "KICK"
         ? "User Kicked"
-        : "User Muted"
+        : thisCase.type === "MUTE"
+        ? "User Muted"
+        : "User Unmuted"
     )
     .setThumbnail(user.displayAvatarURL())
     .addField(user.bot ? "Bot" : "User", `${user} (${user.tag})`, true)
@@ -150,7 +154,9 @@ let paginator = async (author, msg, embeds, pageNow) => {
           ["662296249717751869"].includes(reaction.emoji.id)),
       { time: 90 * 1000, max: 1, errors: ["time"] }
     )
-    .catch(err => msg.reactions.removeAll().catch(error => console.error(error)));
+    .catch(err =>
+      msg.reactions.removeAll().catch(error => console.error(error))
+    );
   reaction = reaction.first();
   if (reaction.emoji.name == "◀") {
     let m = await msg.channel.send(embeds[Math.max(pageNow - 1, 0)]);

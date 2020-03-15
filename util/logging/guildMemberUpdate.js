@@ -13,8 +13,8 @@ module.exports = client => {
     if (!logChannel) return;
 
     // Check for given roles
-    newMember.roles.forEach(role => {
-      if (!oldMember.roles.find(r => r.id == role.id)) {
+    newMember.roles.cache.forEach(role => {
+      if (!oldMember.roles.cache.find(r => r.id == role.id)) {
         return logChannel.send(
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
@@ -32,8 +32,8 @@ module.exports = client => {
     });
 
     // Check for removed roles
-    oldMember.roles.forEach(role => {
-      if (!newMember.roles.find(r => r.id == role.id)) {
+    oldMember.roles.cache.forEach(role => {
+      if (!newMember.roles.cache.find(r => r.id == role.id)) {
         return logChannel.send(
           new Discord.MessageEmbed()
             .setColor(config.embedColor)
