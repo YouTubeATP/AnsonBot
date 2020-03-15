@@ -26,9 +26,9 @@ module.exports = {
   category: "Utility",
   run: async (client, message, args, shared) => {
     const promises = [
-      client.shard.broadcastEval(`this.guilds.size`),
+      client.shard.broadcastEval(`this.guilds.cache.size`),
       client.shard.broadcastEval(
-        `this.guilds.reduce((prev, guild) => prev + guild.memberCount, 0)`
+        `this.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)`
       )
     ];
     let target = message.member;
@@ -42,8 +42,9 @@ module.exports = {
       target = message.mentions.members.first(2)[1];
     else if (message.mentions.members.size)
       target = message.mentions.members.first();
-    
-    if (!target) return message.channel.send(
+
+    if (!target)
+      return message.channel.send(
         fn.embed(client, {
           title: "User not found!",
           description:
@@ -96,18 +97,19 @@ module.exports = {
           .addField("Status", `${statuses[client.user.presence.status]}`, true)
           .addField(
             "Presence",
-            client.user.presence.game
-              ? `${activities[client.user.presence.game.type]} ${
-                  client.user.presence.game.type == 4
-                    ? client.user.presence.game.state
-                    : client.user.presence.game.name
+            target.user.presence.game
+              ? `${activities[target.user.presence.activities.type]} ${
+                  target.user.presence.activities.type == 4
+                    ? target.user.presence.activities.state
+                    : target.user.presence.activities.name
                 }`
               : "None",
             true
           )
           .addField(
-            `Role${bot.roles.size == 2 ? "" : "s"} [${bot.roles.size - 1}]`,
-            bot.roles
+            `Role${bot.roles.cache.size == 2 ? "" : "s"} [${bot.roles.cache
+              .size - 1}]`,
+            bot.roles.cache
               .sort((a, b) => {
                 if (a.position < b.position) return -1;
                 if (a.position > b.position) return 1;
@@ -148,10 +150,10 @@ module.exports = {
         .addField(
           "Presence",
           target.user.presence.game
-            ? `${activities[target.user.presence.game.type]} ${
-                target.user.presence.game.type == 4
-                  ? target.user.presence.game.state
-                  : target.user.presence.game.name
+            ? `${activities[target.user.presence.activities.type]} ${
+                target.user.presence.activities.type == 4
+                  ? target.user.presence.activities.state
+                  : target.user.presence.activities.name
               }`
             : "None",
           true
@@ -160,10 +162,11 @@ module.exports = {
           `ID: ${target.id} | ${client.user.username}`,
           client.user.avatarURL()
         );
-      if (target.roles.size > 1)
+      if (target.roles.cache.size > 1)
         embed.addField(
-          `Role${target.roles.size == 2 ? "" : "s"} [${target.roles.size - 1}]`,
-          target.roles
+          `Role${target.roles.cache.size == 2 ? "" : "s"} [${target.roles.cache
+            .size - 1}]`,
+          target.roles.cache
             .sort((a, b) => {
               if (a.position < b.position) return -1;
               if (a.position > b.position) return 1;

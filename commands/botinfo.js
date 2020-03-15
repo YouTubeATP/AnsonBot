@@ -11,9 +11,9 @@ module.exports = {
   category: "Utility",
   run: async (client, message, args, shared) => {
     const promises = [
-      client.shard.broadcastEval("this.guilds.size"),
+      client.shard.broadcastEval(`this.guilds.cache.size`),
       client.shard.broadcastEval(
-        "this.guilds.reduce((prev, guild) => prev + guild.memberCount, 0)"
+        `this.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)`
       )
     ];
 
@@ -66,17 +66,18 @@ module.exports = {
         .addField(
           "Presence",
           client.user.presence.game
-            ? `${activities[client.user.presence.game.type]} ${
-                client.user.presence.game.type == 4
-                  ? client.user.presence.game.state
-                  : client.user.presence.game.name
+            ? `${activities[client.user.presence.activities.type]} ${
+                client.user.presence.activities.type == 4
+                  ? client.user.presence.activities.state
+                  : client.user.presence.activities.name
               }`
             : "None",
           true
         )
         .addField(
-          `Role${bot.roles.size == 2 ? "" : "s"} [${bot.roles.size - 1}]`,
-          bot.roles
+          `Role${bot.roles.cache.size == 2 ? "" : "s"} [${bot.roles.cache.size -
+            1}]`,
+          bot.roles.cache
             .sort((a, b) => {
               if (a.position < b.position) return -1;
               if (a.position > b.position) return 1;
@@ -95,11 +96,9 @@ module.exports = {
           client.user.avatarURL()
         );
 
-      message.channel
-        .send(embed)
-        .catch(e => {
-          shared.printError(message, e, `I couldn't fetch the bot's info!`);
-        });
+      message.channel.send(embed).catch(e => {
+        shared.printError(message, e, `I couldn't fetch the bot's info!`);
+      });
     });
   }
 };
