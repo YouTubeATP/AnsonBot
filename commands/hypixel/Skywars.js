@@ -25,16 +25,7 @@ const modes = {
   teams_insane: "Doubles (Insane)",
   ranked: "Ranked",
   mega_doubles: "Mega Doubles",
-  mega: "Mega",
-  eight_two_ultimate: "Doubles Ultimate",
-  four_four_ultimate: "4v4v4v4 Ultimate",
-  eight_two_voidless: "Doubles Voidless",
-  four_four_voidless: "4v4v4v4 Voidless",
-  eight_two_armed: "Doubles Armed",
-  four_four_armed: "4v4v4v4 Armed",
-  eight_two_lucky: "Doubles Lucky Blocks",
-  four_four_lucky: "4v4v4v4 Lucky Blocks",
-  castle: "Castle"
+  mega: "Mega"
 };
 
 module.exports = {
