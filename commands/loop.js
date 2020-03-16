@@ -2,8 +2,7 @@ const Discord = require("discord.js"),
   { Util } = require("discord.js"),
   ytdl = require("ytdl-core"),
   opus = require("node-opus"),
-  YouTube = require("simple-youtube-api"),
-  RC = require("reaction-core");
+  YouTube = require("simple-youtube-api");
 
 const config = require("/app/util/config"),
   fn = require("/app/util/fn");
