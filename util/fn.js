@@ -154,9 +154,11 @@ let paginator = async (author, msg, embeds, pageNow) => {
           ["662296249717751869"].includes(reaction.emoji.id)),
       { time: 90 * 1000, max: 1, errors: ["time"] }
     )
-    .catch(err =>
-      msg.reactions.removeAll().catch(error => console.error(error))
-    );
+    .catch(err => {
+      if (msg.channel.type !== "dm")
+        msg.reactions.removeAll().catch(error => console.error(error));
+      else msg.delete();
+    });
   reaction = reaction.first();
   if (reaction.emoji.name == "◀") {
     let m = await msg.channel.send(embeds[Math.max(pageNow - 1, 0)]);
@@ -177,7 +179,9 @@ let paginator = async (author, msg, embeds, pageNow) => {
     msg.delete();
     paginator(author, m, embeds, embeds.length - 1);
   } else if (reaction.emoji.id == "662296249717751869")
-    msg.reactions.removeAll().catch(error => console.error(error));
+    if (msg.channel.type !== "dm")
+      msg.reactions.removeAll().catch(error => console.error(error));
+    else msg.delete();
 };
 
 function log(msg) {
