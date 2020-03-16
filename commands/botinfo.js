@@ -71,13 +71,15 @@ module.exports = {
         .addField("Status", `${statuses[client.user.presence.status]}`, true)
         .addField(
           "Presence",
-          client.user.presence.activities[0]
-            ? `${activity[client.user.presence.activities[0].type]} ${
-                client.user.presence.activities[0].type === "CUSTOM_STATUS"
-                  ? client.user.presence.activities[0].emoji
-                    ? `${client.user.presence.activities[0].emoji} ${client.user.presence.activities[0].state}`
-                    : client.user.presence.activities[0].state
-                  : client.user.presence.activities[0].name
+          target.user.presence.activities[0]
+            ? `${activity[target.user.presence.activities[0].type]} ${
+                target.user.presence.activities[0].type === "CUSTOM_STATUS"
+                  ? client.emojis.cache.get(
+                      target.user.presence.activities[0].emoji
+                    )
+                    ? `${target.user.presence.activities[0].emoji} ${target.user.presence.activities[0].state}`
+                    : target.user.presence.activities[0].state
+                  : target.user.presence.activities[0].name
               }`
             : "None",
           true
