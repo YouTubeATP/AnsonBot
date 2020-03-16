@@ -11,8 +11,7 @@ const Discord = require("discord.js"),
   AntiSpam = require("discord-anti-spam"),
   ytdl = require("ytdl-core"),
   opus = require("node-opus"),
-  YouTube = require("simple-youtube-api"),
-  RC = require("reaction-core");
+  YouTube = require("simple-youtube-api");
 
 /* --- ALL PACKAGES --- */
 
@@ -24,7 +23,6 @@ const client = new Discord.Client(),
   userData = new db.table("USERDATA"),
   guildData = new db.table("GUILDDATA"),
   botData = new db.table("BOTDATA"),
-  handler = new RC.Handler(),
   mutedSet = new Set(),
   queue = new Map();
 
@@ -39,7 +37,6 @@ let shared = {},
 shared.queue = queue;
 shared.youtube1 = new YouTube(process.env.YTAPI1);
 shared.youtube2 = new YouTube(process.env.YTAPI2);
-shared.handler = handler;
 shared.stopping = stopping;
 shared.voteSkipPass = voteSkipPass;
 shared.voted = voted;

@@ -16,7 +16,6 @@ dependencies:
   node-opus: 0.3.3
   path: 0.12.7
   quick.db: 7.0.0-b22
-  reaction-core: 2.3.0
   simple-youtube-api: 5.2.1
   striptags: 3.1.1
   ytdl-core: 2.0.0
@@ -247,26 +246,6 @@ packages:
       sqlite: ^2.0.0
     resolution:
       integrity: sha1-v6mL8zEIcDdvPHoNe3Nqaj5dCg8=
-  /discord.js/11.5.1:
-    dependencies:
-      long: 4.0.0
-      prism-media: 0.0.3
-      snekfetch: 3.6.4
-      tweetnacl: 1.0.1
-      ws: 6.2.1
-    dev: false
-    engines:
-      node: '>=6.0.0'
-    peerDependencies:
-      '@discordjs/uws': ^10.149.0
-      bufferutil: ^4.0.0
-      erlpack: discordapp/erlpack
-      libsodium-wrappers: ^0.7.3
-      node-opus: ^0.2.7
-      opusscript: ^0.0.6
-      sodium: ^2.0.3
-    resolution:
-      integrity: sha512-tGhV5xaZXE3Z+4uXJb3hYM6gQ1NmnSxp9PClcsSAYFVRzH6AJH74040mO3afPDMWEAlj8XsoPXXTJHTxesqcGw==
   /discord.js/11.6.2:
     dependencies:
       long: 4.0.0
@@ -839,10 +818,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
-  /prism-media/0.0.3:
-    dev: false
-    resolution:
-      integrity: sha512-c9KkNifSMU/iXT8FFTaBwBMr+rdVcN+H/uNv1o+CuFeTThNZNTOrQ+RgXA1yL/DeLk098duAeRPP3QNPNbhxYQ==
   /prism-media/0.0.4:
     dev: false
     resolution:
@@ -919,12 +894,6 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-4Oz8DUIwdvoa5qMJelxipzi/iJIi40O5cGV1wNYp5hvZP8ZN0T+jiNkL0QepXs+EsQ9XJ8ipEDoiH70ySUJP3Q==
-  /reaction-core/2.3.0:
-    dependencies:
-      discord.js: 11.5.1
-    dev: false
-    resolution:
-      integrity: sha512-84GWCcS7q7JMyLGQyZ+99aWazDQxluALSx5ugL4SS0ZhSDvxeZvRPunQ1PyBBejJNXAw1uKx/3rbNrvge1jFIw==
   /ref-struct/1.1.0:
     dependencies:
       debug: 2.6.9
@@ -1108,10 +1077,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
-  /tweetnacl/1.0.1:
-    dev: false
-    resolution:
-      integrity: sha512-kcoMoKTPYnoeS50tzoqjPY3Uv9axeuuFAZY9M/9zFnhoVvRfxz9K29IMPD7jGmt2c8SW7i3gT9WqDl2+nV7p4A==
   /tweetnacl/1.0.3:
     dev: false
     resolution:
@@ -1225,7 +1190,6 @@ specifiers:
   node-opus: ^0.3.2
   path: ^0.12.7
   quick.db: ^7.0.0-b22
-  reaction-core: ^2.3.0
   simple-youtube-api: ^5.2.1
   striptags: ^3.1.1
   ytdl-core: ^2.0.0
