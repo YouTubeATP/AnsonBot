@@ -345,12 +345,6 @@ client.on("guildMemberUpdate", async (oldMember, newMember) => {
   } else return;
 });
 
-// reaction detection
-
-client.on("messageReactionAdd", (messageReaction, user) =>
-  handler.handle(messageReaction, user)
-);
-
 // invite link detection
 
 client.on("message", message => {
