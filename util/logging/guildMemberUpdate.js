@@ -98,10 +98,10 @@ module.exports = client => {
           .setTimestamp()
       );
 
-    if (newMember.guild.roles.find("name", "Nitro Booster")) {
+    if (newMember.guild.roles.cache.find("name", "Nitro Booster")) {
       if (
-        !oldMember.roles.find(r => r.name === "Nitro Booster") &&
-        newMember.roles.find(r => r.name === "Nitro Booster")
+        !oldMember.roles.cache.find(r => r.name === "Nitro Booster") &&
+        newMember.roles.cache.find(r => r.name === "Nitro Booster")
       ) {
         return logChannel.send(
           new Discord.MessageEmbed()

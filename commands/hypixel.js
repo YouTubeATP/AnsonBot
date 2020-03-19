@@ -689,8 +689,8 @@ module.exports = {
           if (player1.socialMedia.links.DISCORD) {
             let nameargs = player1.socialMedia.links.DISCORD.split("#");
             try {
-              disc1 = client.users
-                .filterArray(u => u.discriminator === nameargs[1])
+              disc1 = client.users.cache.array
+                .filter(u => u.discriminator === nameargs[1])
                 .find(x => x.tag.includes(nameargs[0]));
             } catch (err) {
               disc1 = undefined;
@@ -707,8 +707,8 @@ module.exports = {
           if (player2.socialMedia.links.DISCORD) {
             let nameargs = player2.socialMedia.links.DISCORD.split("#");
             try {
-              disc2 = client.users
-                .filterArray(u => u.discriminator === nameargs[1])
+              disc2 = client.users.cache.array
+                .filter(u => u.discriminator === nameargs[1])
                 .find(x => x.tag.includes(nameargs[0]));
             } catch (err) {
               disc2 = undefined;
@@ -897,8 +897,8 @@ module.exports = {
           if (player.socialMedia.links.DISCORD) {
             let nameargs = player.socialMedia.links.DISCORD.split("#");
             try {
-              disc = client.users
-                .filterArray(u => u.discriminator === nameargs[1])
+              disc = client.users.cache.array
+                .filter(u => u.discriminator === nameargs[1])
                 .find(x => x.tag.includes(nameargs[0]));
             } catch (err) {
               disc = undefined;
