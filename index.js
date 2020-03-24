@@ -100,7 +100,7 @@ client.on("ready", () => {
     activity: {
       name: 'MusicSounds',
       type: "LISTENING",
-      url: "https://invite.gg/MusicSounds"
+      url: "https://discord.plus/MusicSounds"
     }
   });
 });
