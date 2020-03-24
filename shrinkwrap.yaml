@@ -1,6 +1,6 @@
 dependencies:
   better-sqlite-pool: 0.2.3
-  discord-anti-spam: 2.3.6
+  discord-anti-spam: 2.4.0
   discord.js: 12.0.2
   discord.js-arbitrary-ffmpeg: 1.0.0
   discord.js-commando: 0.10.0
@@ -18,7 +18,7 @@ dependencies:
   quick.db: 7.0.0-b22
   simple-youtube-api: 5.2.1
   striptags: 3.1.1
-  ytdl-core: 2.0.0
+  ytdl-core: 2.0.1
 packages:
   /@discordjs/collection/0.1.5:
     dev: false
@@ -66,10 +66,6 @@ packages:
       node: '>=0.8'
     resolution:
       integrity: sha1-8S4PPF13sLHN2RRpQuTpbB5N1SU=
-  /async-limiter/1.0.0:
-    dev: false
-    resolution:
-      integrity: sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
   /asynckit/0.4.0:
     dev: false
     resolution:
@@ -223,12 +219,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
-  /discord-anti-spam/2.3.6:
-    dependencies:
-      discord.js: 11.6.2
+  /discord-anti-spam/2.4.0:
     dev: false
     resolution:
-      integrity: sha512-x9kgpCX2NaCXmAoaXDZgzloQ0J4ymKI+pbO6M2cwgAdvNNxDei4o9Nh3vFAyd1xFmxyF7342nkADqGBVlWo02A==
+      integrity: sha512-WWlK4MwPBuUBw8kZpGNfWdbgJtCYYClqgCDTjkfn4NzaH+6/zSkUet7qzb8wublaZLGmG2yPmNw+vAi0jOrNew==
   /discord.js-arbitrary-ffmpeg/1.0.0:
     dev: false
     resolution:
@@ -246,27 +240,6 @@ packages:
       sqlite: ^2.0.0
     resolution:
       integrity: sha1-v6mL8zEIcDdvPHoNe3Nqaj5dCg8=
-  /discord.js/11.6.2:
-    dependencies:
-      long: 4.0.0
-      prism-media: 0.0.4
-      snekfetch: 3.6.4
-      tweetnacl: 1.0.3
-      ws: 6.2.1
-    dev: false
-    engines:
-      node: '>=6.0.0'
-    peerDependencies:
-      '@discordjs/opus': ^0.1.0
-      '@discordjs/uws': ^10.149.0
-      bufferutil: ^4.0.0
-      erlpack: discordapp/erlpack
-      libsodium-wrappers: ^0.7.3
-      node-opus: ^0.2.7
-      opusscript: ^0.0.6
-      sodium: ^2.0.3
-    resolution:
-      integrity: sha512-QwN7RBb705qqvxletW41aw8ScZJh4LUVWtGNdLA1/N4od1pf8pueDWdnKLqw9pAud6cg9AADcCkm8os1YHWESg==
   /discord.js/12.0.2:
     dependencies:
       '@discordjs/collection': 0.1.5
@@ -632,13 +605,9 @@ packages:
     dev: false
     resolution:
       integrity: sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
-  /long/4.0.0:
-    dev: false
-    resolution:
-      integrity: sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==
   /m3u8stream/0.6.5:
     dependencies:
-      miniget: 1.6.1
+      miniget: 1.7.0
       sax: 1.2.4
     dev: false
     engines:
@@ -696,12 +665,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==
-  /miniget/1.6.1:
+  /miniget/1.7.0:
     dev: false
     engines:
-      node: '>=8'
+      node: '>=10'
     resolution:
-      integrity: sha512-I5oBwZmcaOuJrjQn7lpS29HM+aAZDbzKbX5ouxVyhFYdg6fA6YKOTwOCgzZQwlHuMek3FlCxz6eNrd4pOXbwOA==
+      integrity: sha512-yrgaDSMRzrfYTkudB4Y6xK8pCb7oAH2bvfv6iPY2m6CedZfs9yK4b/ofh0Vzv08hCYXH/HHkoS8an6fkWtOAQA==
   /minimist/0.0.8:
     dev: false
     resolution:
@@ -818,10 +787,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
-  /prism-media/0.0.4:
-    dev: false
-    resolution:
-      integrity: sha512-dG2w7WtovUa4SiYTdWn9H8Bd4JNdei2djtkP/Bk9fXq81j5Q15ZPHYSwhUVvBRbp5zMkGtu0Yk62HuMcly0pRw==
   /prism-media/1.2.1:
     dev: false
     peerDependencies:
@@ -1006,11 +971,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-vmndP9Bkh35tifn2OwY+th2imSsfYtmDqczgdOW5yEARFzvSoR8VSQFsivJnctfV5QHQUL6VrOpNdbmDRLh9Bg==
-  /snekfetch/3.6.4:
-    deprecated: use node-fetch instead
-    dev: false
-    resolution:
-      integrity: sha512-NjxjITIj04Ffqid5lqr7XdgwM7X61c/Dns073Ly170bPQHLm6jkmelye/eglS++1nfTWktpP6Y2bFXjdPlQqdw==
   /sshpk/1.16.1:
     dependencies:
       asn1: 0.2.4
@@ -1139,12 +1099,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-xxMLan6gRpPoQs3J56Hyqjmjn4I=
-  /ws/6.2.1:
-    dependencies:
-      async-limiter: 1.0.0
-    dev: false
-    resolution:
-      integrity: sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
   /ws/7.2.3:
     dev: false
     engines:
@@ -1158,23 +1112,23 @@ packages:
     dev: false
     resolution:
       integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
-  /ytdl-core/2.0.0:
+  /ytdl-core/2.0.1:
     dependencies:
       html-entities: 1.2.1
       m3u8stream: 0.6.5
-      miniget: 1.6.1
+      miniget: 1.7.0
       sax: 1.2.4
     dev: false
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-cYdcxXhgldJeOaWaN/mxT+j07XFZdR+qUqfz5eddx4WcyWCha66FfJvmQBOPqyQo1TCyj/IkgZqdGADWlNdTcQ==
+      integrity: sha512-PZBcVzQpkBxi9OQh9I4QIrYNmkbM/zh4QJQuxE8I6RojLUVYkkps5iLYquE3H+pwmBXtEXQMDJfVRajgdiz+iA==
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   better-sqlite-pool: ^0.2.3
-  discord-anti-spam: ^2.3.6
+  discord-anti-spam: ^2.4.0
   discord.js: ^12.0.2
   discord.js-arbitrary-ffmpeg: ^1.0.0
   discord.js-commando: ^0.10.0
@@ -1192,4 +1146,4 @@ specifiers:
   quick.db: ^7.0.0-b22
   simple-youtube-api: ^5.2.1
   striptags: ^3.1.1
-  ytdl-core: ^2.0.0
+  ytdl-core: ^2.0.1
