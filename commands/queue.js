@@ -86,7 +86,7 @@ module.exports = {
     let queueEmbed = new Discord.MessageEmbed()
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setTitle(`Current Queue in Server: \`${message.guild.name}\``)
-      .setColor(0x00bdf2)
+      .setColor(config.embedColor)
       .setThumbnail(message.guild.iconURL())
       .setDescription(`**Loop:** \`${serverQueue.loop}\``)
       .addField("Now Playing", `[${song.title}](${song.url})`)

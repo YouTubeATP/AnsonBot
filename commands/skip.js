@@ -78,7 +78,7 @@ module.exports = {
       shared.voteSkipPass = 0;
       shared.playerVoted = [];
     } else {
-      var voteSkip = new Discord.RichEmbed()
+      var voteSkip = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())
@@ -96,7 +96,7 @@ module.exports = {
       var voteSkipPass1 = shared.voteSkipPass - 1;
       var voteSkip = Math.round(voteSkipPass1 / 2);
       if (voteSkip === 0) voteSkip = 1;
-      var voteSkipFail = new Discord.RichEmbed()
+      var voteSkipFail = new Discord.MessageEmbed()
         .setColor("RED")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())
