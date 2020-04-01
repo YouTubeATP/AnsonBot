@@ -42,6 +42,7 @@ module.exports = {
 
     shared.stopping = true;
     serverQueue.voiceChannel.leave();
+    queue.delete(message.guild.id);
 
     var stop = new Discord.MessageEmbed()
       .setColor(config.embedColor)
