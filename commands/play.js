@@ -136,7 +136,7 @@ module.exports = {
       return message.channel.send(nope).then(m => m.delete(10000));
     } else if (
       searchString.match(
-        /^https?:\/\/(www.youtube.com|youtube.com)\/watch(.*)$/
+        /^https?:\/\/(www.youtube.com\/watch|youtube.com\/watch|youtu.be\/)(.*)$/
       )
     ) {
       let video;
