@@ -107,11 +107,13 @@ module.exports = {
             target.user.presence.activities[0]
               ? `${activity[target.user.presence.activities[0].type]} ${
                   target.user.presence.activities[0].type === "CUSTOM_STATUS"
-                    ? !target.user.presence.activities[0].emoji.url ||
-                      client.emojis.cache.get(
-                        target.user.presence.activities[0].emoji.id
-                      )
-                      ? `${target.user.presence.activities[0].emoji} ${target.user.presence.activities[0].state}`
+                    ? target.user.presence.activities[0].emoji
+                      ? !target.user.presence.activities[0].emoji.url ||
+                        client.emojis.cache.get(
+                          target.user.presence.activities[0].emoji.id
+                        )
+                        ? `${target.user.presence.activities[0].emoji} ${target.user.presence.activities[0].state}`
+                        : target.user.presence.activities[0].state
                       : target.user.presence.activities[0].state
                     : target.user.presence.activities[0].name
                 }`
@@ -164,11 +166,13 @@ module.exports = {
           target.user.presence.activities[0]
             ? `${activity[target.user.presence.activities[0].type]} ${
                 target.user.presence.activities[0].type === "CUSTOM_STATUS"
-                  ? !target.user.presence.activities[0].emoji.url ||
-                    client.emojis.cache.get(
-                      target.user.presence.activities[0].emoji.id
-                    )
-                    ? `${target.user.presence.activities[0].emoji} ${target.user.presence.activities[0].state}`
+                  ? target.user.presence.activities[0].emoji
+                    ? !target.user.presence.activities[0].emoji.url ||
+                      client.emojis.cache.get(
+                        target.user.presence.activities[0].emoji.id
+                      )
+                      ? `${target.user.presence.activities[0].emoji} ${target.user.presence.activities[0].state}`
+                      : target.user.presence.activities[0].state
                     : target.user.presence.activities[0].state
                   : target.user.presence.activities[0].name
               }`

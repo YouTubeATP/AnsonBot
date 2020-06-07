@@ -74,11 +74,13 @@ module.exports = {
           client.user.presence.activities[0]
             ? `${activity[client.user.presence.activities[0].type]} ${
                 client.user.presence.activities[0].type === "CUSTOM_STATUS"
-                  ? !client.user.presence.activities[0].emoji.url ||
-                    client.emojis.cache.get(
-                      client.user.presence.activities[0].emoji.id
-                    )
-                    ? `${client.user.presence.activities[0].emoji} ${client.user.presence.activities[0].state}`
+                  ? client.user.presence.activities[0].emoji
+                    ? !client.user.presence.activities[0].emoji.url ||
+                      client.emojis.cache.get(
+                        client.user.presence.activities[0].emoji.id
+                      )
+                      ? `${client.user.presence.activities[0].emoji} ${client.user.presence.activities[0].state}`
+                      : client.user.presence.activities[0].state
                     : client.user.presence.activities[0].state
                   : client.user.presence.activities[0].name
               }`
