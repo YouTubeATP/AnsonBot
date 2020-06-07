@@ -17,7 +17,7 @@ module.exports = client => {
           .setTitle("Member Left")
           .setThumbnail(member.user.displayAvatarURL())
           .setDescription(
-            `There are now ${member.guild.members.size} members in ${member.guild}.`
+            `There are now ${member.guild.memberCount} members in ${member.guild}.`
           )
           .addField(
             member.user.bot ? "Bot" : "User",
