@@ -18,7 +18,8 @@ const MinecraftUUID = new Enmap({
 
 let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
-  hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
+  hypixel2 = new Hypixel({ key: process.env.HYAPI2 }),
+  hypixel3 = new Hypixel({ key: process.env.HYAPI3 });
 
 shared.client.gamemodes = new Discord.Collection();
 const gamemodeFiles = fs
