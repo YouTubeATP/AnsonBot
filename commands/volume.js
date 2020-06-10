@@ -44,7 +44,7 @@ module.exports = {
       number.includes(" ")
     ) {
       var currentvol = new Discord.MessageEmbed()
-        .setColor(0x00bdf2)
+        .setColor(config.embedColor)
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(client.user.displayAvatarURL())
         .setTitle(`The current volume level is \`${serverQueue.volume}\`.`)
@@ -73,7 +73,7 @@ module.exports = {
     }
 
     var currentvol = new Discord.MessageEmbed()
-      .setColor(0x00bdf2)
+      .setColor(config.embedColor)
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setThumbnail(client.user.displayAvatarURL())
       .setTitle(`The current volume level is \`${serverQueue.volume}\`.`)
