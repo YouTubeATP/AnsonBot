@@ -35,7 +35,7 @@ module.exports = {
     if (voiceChannel !== botVoiceConnection.channel)
       return message.channel
         .send("You need to be in my voice channel to execute this command!")
-        .then(message.delete);
+        .then(message.delete());
 
     let song = serverQueue.songs[0];
     let bicon = client.user.displayAvatarURL();

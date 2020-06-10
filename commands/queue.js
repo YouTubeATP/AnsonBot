@@ -16,8 +16,6 @@ module.exports = {
     const queue = shared.queue,
       serverQueue = queue.get(message.guild.id);
 
-    message.delete().catch(O_o => {});
-
     let voiceChannel, botVoiceConnection;
     if (message.member.voice) voiceChannel = message.member.voice.channel;
     if (message.guild.voice)
@@ -98,6 +96,6 @@ module.exports = {
       .addField("Queued Songs", queueValue)
       .setFooter(client.user.username, bicon)
       .setTimestamp();
-    return await message.channel.send(queueEmbed);
+    return await message.channel.send(queueEmbed).then(message.delete());
   }
 };
