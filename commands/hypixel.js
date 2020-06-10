@@ -60,8 +60,13 @@ module.exports = {
       console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
 
       await hypixel1.getKeyInfo((err, info) => {
-        if (err) hypixel = hypixel2;
-        else hypixel = hypixel1;
+        if (err) {
+          hypixel2.getKeyInfo((err, info) => {
+            if (err) hypixel = hypixel3;
+            else hypixel = hypixel2;
+            init();
+          });
+        } else hypixel = hypixel1;
         init();
       });
       setTimeout(() => {
