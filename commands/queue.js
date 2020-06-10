@@ -50,6 +50,9 @@ module.exports = {
       queueValue = serverQueue.songs.slice(1).map(
         s =>
           `• [${s.title
+            .replace("*", "\*")
+            .replace("_", "\_")
+            .replace(/&amp;/g, "&")
             .replace(/&gt;/g, ">")
             .replace(/&lt;/g, "<")
             .replace(/&quot;/g, '"')
@@ -66,7 +69,7 @@ module.exports = {
             .replace(/&rsquo;/g, "’")
             .replace(/&#39;/g, "'")
             .replace(/&#96;/g, "`")
-            .replace(/&#124;/g, "|")
+            .replace(/&#124;/g, "\|")
             .replace(/&sbquo;/g, "‚")
             .replace(/&ldquo;/g, "“")
             .replace(/&rdquo;/g, "”")

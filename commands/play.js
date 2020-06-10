@@ -181,6 +181,8 @@ module.exports = {
         const searchResult = videos.map(
           video2 =>
             `**${++index}.** ${video2.title
+              .replace("*", "\*")
+              .replace("_", "\_")
               .replace(/&amp;/g, "&")
               .replace(/&gt;/g, ">")
               .replace(/&lt;/g, "<")
@@ -198,7 +200,7 @@ module.exports = {
               .replace(/&rsquo;/g, "’")
               .replace(/&#39;/g, "'")
               .replace(/&#96;/g, "`")
-              .replace(/&#124;/g, "|")
+              .replace(/&#124;/g, "\|")
               .replace(/&sbquo;/g, "‚")
               .replace(/&ldquo;/g, "“")
               .replace(/&rdquo;/g, "”")
@@ -376,6 +378,8 @@ module.exports = {
         id: video.id,
         title: Util.escapeMarkdown(
           video.title
+            .replace("*", "\*")
+            .replace("_", "\_")
             .replace(/&amp;/g, "&")
             .replace(/&gt;/g, ">")
             .replace(/&lt;/g, "<")
@@ -393,7 +397,7 @@ module.exports = {
             .replace(/&rsquo;/g, "’")
             .replace(/&#39;/g, "'")
             .replace(/&#96;/g, "`")
-            .replace(/&#124;/g, "|")
+            .replace(/&#124;/g, "\|")
             .replace(/&sbquo;/g, "‚")
             .replace(/&ldquo;/g, "“")
             .replace(/&rdquo;/g, "”")
