@@ -329,22 +329,6 @@ client.on("message", async message => {
   }
 });
 
-// nitro boost detection and announcement
-
-client.on("guildMemberUpdate", async (oldMember, newMember) => {
-  if (newMember.guild.id !== config.server) return;
-  if (newMember.guild.roles.cache.find("name", "Nitro Booster")) {
-    if (
-      !oldMember.roles.cache.find(r => r.name === "Nitro Booster") &&
-      newMember.roles.cache.find(r => r.name === "Nitro Booster")
-    ) {
-      return newMember.guild.channels.cache
-        .get("653091798498934825")
-        .send(`${newMember} boosted **MusicSounds's Hangout**! Hallelujah!`);
-    }
-  } else return;
-});
-
 // invite link detection
 
 client.on("message", message => {

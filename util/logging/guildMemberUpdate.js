@@ -97,26 +97,5 @@ module.exports = client => {
           .setFooter(client.user.username, client.user.avatarURL())
           .setTimestamp()
       );
-
-    if (newMember.guild.roles.cache.find("name", "Nitro Booster")) {
-      if (
-        !oldMember.roles.cache.find(r => r.name === "Nitro Booster") &&
-        newMember.roles.cache.find(r => r.name === "Nitro Booster")
-      ) {
-        return logChannel.send(
-          new Discord.MessageEmbed()
-            .setColor(config.embedColor)
-            .setTitle("Server Boosted")
-            .setThumbnail(newMember.user.displayAvatarURL())
-            .addField(
-              newMember.user.bot ? "Bot" : "User",
-              `${newMember} (${newMember.user.tag})`
-            )
-            .addField("ID", newMember.user.id)
-            .setFooter(client.user.username, client.user.avatarURL())
-            .setTimestamp()
-        );
-      } else return;
-    } else return;
   });
 };
