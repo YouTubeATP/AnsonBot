@@ -138,7 +138,7 @@ client.on("guildMemberAdd", async member => {
         console.log(e);
       });
   } else if (guild.id === config.server && member.user.bot) {
-    member.roles.add(guild.roles.cache.find("name", "Bot")).catch(e => {
+    member.roles.add(guild.roles.cache.find(c => c.name === "Bot")).catch(e => {
       console.log(e);
     });
   }
