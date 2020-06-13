@@ -185,12 +185,12 @@ client.on("message", async message => {
     message.content.toLowerCase().startsWith(`<@!431247481267814410> `) ||
     message.content.toLowerCase().startsWith(`<@371704154705362944> `) ||
     message.content.toLowerCase().startsWith(`<@!371704154705362944> `) ||
-    message.content.toLowerCase().startsWith(`<@333422871567400961> `) ||
-    message.content.toLowerCase().startsWith(`<@!333422871567400961> `) ||
+    message.content.toLowerCase().startsWith(`<@710771990364946443> `) ||
+    message.content.toLowerCase().startsWith(`<@!710771990364946443> `) ||
     message.content.toLowerCase().startsWith(`<@365975655608745985> `) ||
     message.content.toLowerCase().startsWith(`<@!365975655608745985> `) ||
     message.content.toLowerCase().startsWith(`fm/`) ||
-    message.content.toLowerCase().startsWith(`h!`) ||
+    message.content.toLowerCase().startsWith(`hy.`) ||
     message.content.toLowerCase().startsWith(`p!`)
   )
     return message.delete();
