@@ -20,11 +20,11 @@
     "https": "^1.0.0",
     "discord-anti-spam": "^2.4.1",
     "discord.js-arbitrary-ffmpeg": "^1.1.0",
-    "enmap": "^5.2.4",
+    "enmap": "^5.3.1",
     "ffmpeg": "^0.0.4",
     "node-opus": "^0.3.3",
     "simple-youtube-api": "^5.2.1",
-    "ytdl-core": "^2.1.5",
+    "ytdl-core": "^3.1.1",
     "hypixel": "^1.0.3"
   },
   "devDependencies": {},

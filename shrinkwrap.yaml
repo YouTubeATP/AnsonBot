@@ -4,7 +4,7 @@ dependencies:
   discord.js: 12.2.0
   discord.js-arbitrary-ffmpeg: 1.1.0
   discord.js-commando: 0.10.0
-  enmap: 5.2.4
+  enmap: 5.3.1
   es6-shim: 0.35.5
   express: 4.17.1
   ffmpeg: 0.0.4
@@ -18,7 +18,7 @@ dependencies:
   quick.db: 7.1.1
   simple-youtube-api: 5.2.1
   striptags: 3.1.1
-  ytdl-core: 2.1.5
+  ytdl-core: 3.1.1
 packages:
   /@discordjs/collection/0.1.5:
     dev: false
@@ -377,14 +377,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
-  /enmap/5.2.4:
+  /enmap/5.3.1:
     dependencies:
       lodash: 4.17.15
+      on-change: 2.0.1
     dev: false
     peerDependencies:
-      better-sqlite3: ^5.4.1
+      better-sqlite3: ^7.0.1
     resolution:
-      integrity: sha512-YulKPmB3t08i1aBDBDgEew9gAWYWXVuGe8S3DLYRQ+E0FoVxTTzo2iSfcEmUX9DRLuKLDMRLRcbRqX5J0z55Uw==
+      integrity: sha512-s/tJwhUWebf7Scip9RyOY0hzOUKfqab3CdcSr+Dkn5Z8qKtIoIsS8hKqWnYvSYZXVBKP2WIzaBWn+0qRXWNYhA==
   /es6-shim/0.35.5:
     dev: false
     resolution:
@@ -796,6 +797,12 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-USPNNK2bnHLOplX8BZVMehUkyQizS/DFpBdoH0TS+fM+hQoLNg9tWg4MeY9wE8gfY0pbzmx5UBEODujt3Lz8AA==
+  /miniget/2.0.0:
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-JAHY/3Dv673TFDmYcpF3yo755ViTy0fU2L0j9y+5bobs6+fbnX4k8UkmCqC8mwwgYUNDOEgHrN1P/oO+rQNxjw==
   /minimist/1.2.5:
     dev: false
     resolution:
@@ -923,6 +930,12 @@ packages:
     optional: true
     resolution:
       integrity: sha512-dW1ok3BMnMikyXGDIgVEckWnlViW8JLWQV4qj9aN/rNRVqHlDYSlcIEtSIMH7tpuUOiIxAhY3+OxNdIOm6s17A==
+  /on-change/2.0.1:
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-M/XA/VXeR3ElAlyYBv2Bow0BtNt6qKI8mNmBI+cw+wyjatoZ3tJQPq6RNYWCaV81uKKbm3svROi6TDS3TtWVzQ==
   /on-finished/2.3.0:
     dependencies:
       ee-first: 1.1.1
@@ -1462,17 +1475,17 @@ packages:
     dev: false
     resolution:
       integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
-  /ytdl-core/2.1.5:
+  /ytdl-core/3.1.1:
     dependencies:
       html-entities: 1.3.1
       m3u8stream: 0.7.1
-      miniget: 1.7.2
+      miniget: 2.0.0
       sax: 1.2.4
     dev: false
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-6iDMndnf9/zxUaDYw8MjK4kie/wp7LqJ9nwBsrP3GvyNL3nZcnaiQi957YPBncUzmGZZUNUqA1gRNieYl+z6Fg==
+      integrity: sha512-sHw8Vz56Bs7LRKhJARW8j2JREndHFBuEdnYKgjx4RHwh1t75TsdZ5/SRpz9TLkNm2M5S8gVwvWm7AD1blhjb0g==
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -1482,7 +1495,7 @@ specifiers:
   discord.js: ^12.2.0
   discord.js-arbitrary-ffmpeg: ^1.1.0
   discord.js-commando: ^0.10.0
-  enmap: ^5.2.4
+  enmap: ^5.3.1
   es6-shim: ^0.35.5
   express: ^4.17.1
   ffmpeg: ^0.0.4
@@ -1496,4 +1509,4 @@ specifiers:
   quick.db: ^7.1.1
   simple-youtube-api: ^5.2.1
   striptags: ^3.1.1
-  ytdl-core: ^2.1.5
+  ytdl-core: ^3.1.1
