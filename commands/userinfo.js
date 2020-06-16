@@ -127,7 +127,7 @@ module.exports = {
           )
           .addField("Guilds", `\`${totalGuilds}\``, true)
           .addField("Users", `\`${totalMembers}\``, true)
-          .addField("Memory Used", `\`${process.memoryUsage().rss / 1024 / 1024}\`MB`, true)
+          .addField("Memory Used", `\`${Math.round(process.memoryUsage().rss * 10 / 1024 / 1024) / 10}\`MB`, true)
           .addField("Library", "discord.js")
           .setFooter(
             `ID: ${client.user.id} | ${client.user.username}`,
