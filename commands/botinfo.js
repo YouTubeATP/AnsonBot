@@ -41,15 +41,6 @@ module.exports = {
         0
       );
 
-      function getMemoryUsage() {
-        let total_rss = require("fs")
-          .readFileSync("/sys/fs/cgroup/memory/memory.stat", "utf8")
-          .split("\n")
-          .filter(l => l.startsWith("total_rss"))[0]
-          .split(" ")[1];
-        return Math.round(Number(total_rss) / 1e6);
-      }
-
       const bicon = client.user.displayAvatarURL();
       const bot = fn.getMember(message.guild, client.user);
       let embed = new Discord.MessageEmbed()
@@ -102,7 +93,7 @@ module.exports = {
         )
         .addField("Guilds", `\`${totalGuilds}\``, true)
         .addField("Users", `\`${totalMembers}\``, true)
-        .addField("Memory Used", `\`${getMemoryUsage()}\`MB`, true)
+        .addField("Memory Used", `\`${process.memoryUsage().rss / 1024 / 1024}\`MB`, true)
         .addField("Library", "discord.js")
         .setFooter(
           `ID: ${client.user.id} | ${client.user.username}`,
