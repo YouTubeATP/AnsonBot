@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "engines": {
-    "node": "12.x",
-    "npm": "*"
+    "node": "12.x"
   },
   "dependencies": {
     "discord.js": "^12.2.0",
