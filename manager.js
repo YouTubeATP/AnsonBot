@@ -18,17 +18,3 @@ manager.on("launch", shard =>
     `Shard ${shard.id} initiated.`
   )
 );
-
-app.use(express.static("public"));
-
-app.get("/", function(request, response) {
-  response.sendFile(__dirname + "/views/index.html");
-  console.log(Date.now() + " Ping Received");
-});
-
-const listener = app.listen(process.env.PORT, function() {
-  setInterval(() => {
-    http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-    http.get(`http://bicentenator.glitch.me/`);
-  }, 225000);
-});

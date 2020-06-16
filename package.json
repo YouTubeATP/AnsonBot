@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "main": "index.js",
   "engines": {
-    "node": ">=12"
+    "node": ">=12",
+    "npm": "*"
   },
   "dependencies": {
     "discord.js": "^12.2.0",
@@ -29,11 +30,13 @@
   },
   "devDependencies": {},
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node manager.js"
   },
   "keywords": [
     "embed"
   ],
   "author": "MusicSounds",
-  "license": "MIT"
+  "license": "MIT",
+  "description": "#### Private bot for MusicSounds's Hangout"
 }
