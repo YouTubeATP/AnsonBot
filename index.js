@@ -26,6 +26,13 @@ const client = new Discord.Client(),
   mutedSet = new Set(),
   queue = new Map();
 
+const Minecraft = new Enmap({
+  name: "link",
+  fetchAll: false,
+  autoFetch: true,
+  cloneLevel: "deep"
+});
+
 let shared = {},
   stopping = false,
   voteSkipPass = 0,
@@ -34,6 +41,7 @@ let shared = {},
   activeMusicSelection = [],
   playlist = false;
 
+shared.Minecraft = Minecraft
 shared.queue = queue;
 shared.youtube1 = new YouTube(process.env.YTAPI1);
 shared.youtube2 = new YouTube(process.env.YTAPI2);

@@ -8,12 +8,7 @@ const config = require("/app/util/config"),
 
 const talkedRecently = new Set();
 
-const MinecraftUUID = new Enmap({
-  name: "link",
-  fetchAll: false,
-  autoFetch: true,
-  cloneLevel: "deep"
-});
+const MinecraftUUID = shared.Minecraft
 
 let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
