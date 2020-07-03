@@ -3,6 +3,7 @@
 require("es6-shim");
 
 const Discord = require("discord.js"),
+  Enmap = require("enmap"),
   express = require("express"),
   fs = require("fs"),
   http = require("http"),
