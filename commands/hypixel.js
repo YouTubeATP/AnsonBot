@@ -571,7 +571,7 @@ module.exports = {
           rank1 = "YOUTUBE";
           rankcolor1 = "RED";
         } else {
-          rank1 = `${player1.rank.replace("[", String.fromCharCode(8203)).replace("]", String.fromCharCode(8203))}`;
+          rank1 = `${player1.rank}`;
           rankcolor1 = "RED";
         }
       } else if (player1.monthlyPackageRank === "SUPERSTAR") {
@@ -636,7 +636,7 @@ module.exports = {
           rank2 = "YOUTUBE";
           rankcolor2 = "RED";
         } else {
-          rank2 = `${player2.rank.replace("[", String.fromCharCode(8203)).replace("]", String.fromCharCode(8203))}`;
+          rank2 = `${player2.rank}`;
           rankcolor2 = "RED";
         }
       } else if (player2.monthlyPackageRank === "SUPERSTAR") {
@@ -847,7 +847,7 @@ module.exports = {
           rank = "YOUTUBE";
           rankcolor = "RED";
         } else {
-          rank = `[${player.rank}]`;
+          rank = `${player2.rank.replace("[", String.fromCharCode(8203)).replace("]", String.fromCharCode(8203))}`;
           rankcolor = "RED";
         }
       } else if (player.monthlyPackageRank === "SUPERSTAR") {
