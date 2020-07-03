@@ -571,7 +571,7 @@ module.exports = {
           rank1 = "YOUTUBE";
           rankcolor1 = "RED";
         } else {
-          rank1 = `${player1.rank.replace("[", "").replace("]", "")}`;
+          rank1 = `${player1.rank.replace("[", String.fromCharCode(8203)).replace("]", String.fromCharCode(8203))}`;
           rankcolor1 = "RED";
         }
       } else if (player1.monthlyPackageRank === "SUPERSTAR") {

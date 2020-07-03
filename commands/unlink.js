@@ -35,7 +35,7 @@ module.exports = {
       await MinecraftUUID.defer;
       console.log("MinecraftUUID: " + MinecraftUUID.size + " keys loaded");
       if (MinecraftUUID.get(message.author.id)) {
-        MinecraftUUID.delete(message.author.id);
+        await MinecraftUUID.delete(message.author.id);
         message.channel.send(
           fn.embed(client, {
             title: "Mojang account unlinked!",
