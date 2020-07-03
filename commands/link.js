@@ -8,8 +8,6 @@ const config = require("/app/util/config"),
 
 const talkedRecently = new Set();
 
-const MinecraftUUID = shared.Minecraft
-
 let hypixel,
   hypixel1 = new Hypixel({ key: process.env.HYAPI1 }),
   hypixel2 = new Hypixel({ key: process.env.HYAPI2 });
@@ -20,6 +18,7 @@ module.exports = {
   description: `Links a Mojang account to your Discord account if none is linked.\n\nLinking your Mojang account to the bot:\n1. In Minecraft Java Edition, join \`mc.hypixel.net\`.\n2. Switch to slot 2 (My Profile) and right click.\n3. Left-click on the icon at row 3, column 4 (Social Media).\n4. Left-click on the icon at row 4, column 8 (Discord).\n5. The game will prompt you to paste the required information in chat. Paste in your Discord username and discriminator in \`User#9999\` format.\n6. Return to Discord and use the command \`link <your username>\`.`,
   category: "Minecraft",
   run: async (client, message, args, shared) => {
+	const MinecraftUUID = shared.Minecraft
     let nameOrID = args[0],
       rawcontent = message.content.slice(shared.prefix.length + 8).trim();
 

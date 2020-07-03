@@ -42,7 +42,7 @@ let shared = {},
   activeMusicSelection = [],
   playlist = false;
 
-shared.Minecraft = Minecraft
+shared.Minecraft = Minecraft;
 shared.queue = queue;
 shared.youtube1 = new YouTube(process.env.YTAPI1);
 shared.youtube2 = new YouTube(process.env.YTAPI2);
