@@ -463,7 +463,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
   let voiceChannel, botVoiceConnection;
   if (newState.guild.voice) botVoiceConnection = newState.guild.voice.connection;
   if (botVoiceConnection) channelMembers = botVoiceConnection.channel.members;
-  if (message.guild.voice.channel.members.filter(i => i.id).size <= 1) {
+  if (channelMembers.filter(i => i.id).size <= 1) {
     shared.stopping = true;
     serverQueue.voiceChannel.leave();
     queue.delete(message.guild.id);
