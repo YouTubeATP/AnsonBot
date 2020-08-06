@@ -457,6 +457,32 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
   }
 });
 
+// bot auto-disconnect if channel vacant
+
+client.on("voiceStateUpdate", (oldState, newState) => {
+  let voiceChannel, botVoiceConnection;
+  if (newState.guild.voice) botVoiceConnection = newState.guild.voice.connection;
+  if (botVoiceConnection) channelMembers = botVoiceConnection.channel.members;
+  if (message.guild.voice.channel.members.filter(i => i.id).size <= 1) {
+    shared.stopping = true;
+    serverQueue.voiceChannel.leave();
+    queue.delete(message.guild.id);
+
+    var stop = new Discord.MessageEmbed()
+      .setColor(config.embedColor)
+      .setAuthor(message.author.tag, message.author.avatarURL())
+      .setThumbnail(message.guild.iconURL())
+      .setTitle("Music Terminated")
+      .setDescription(
+        `Since the voice channel I am in has been vacanted, in order to preserve resources, the queue for \`${message.guild.name}\` has been deleted and I have left the voice channel.`
+      )
+      .setFooter(client.user.username, client.user.avatarURL())
+      .setTimestamp();
+
+    return message.channel.send(stop);
+  } else return;
+});
+
 // temporary channel system
 
 client.on("voiceStateUpdate", (oldState, newState) => {

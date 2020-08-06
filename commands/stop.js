@@ -50,7 +50,7 @@ module.exports = {
       .setThumbnail(message.guild.iconURL())
       .setTitle("Music Terminated")
       .setDescription(
-        `The queue for \`${message.guild.name}\` has been deleted, and I have left the voice channel.`
+        `The queue for \`${message.guild.name}\` has been manually deleted by a moderator, and I have left the voice channel.`
       )
       .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();

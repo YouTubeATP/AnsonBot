@@ -21,8 +21,7 @@ module.exports = {
 
     let voiceChannel, botVoiceConnection;
     if (message.member.voice) voiceChannel = message.member.voice.channel;
-    if (message.guild.voice)
-      botVoiceConnection = message.guild.voice.connection;
+    if (message.guild.voice) botVoiceConnection = message.guild.voice.connection;
 
     let cancelled;
 
