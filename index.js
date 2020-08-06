@@ -470,17 +470,16 @@ client.on("voiceStateUpdate", (oldState, newState) => {
 
     var stop = new Discord.MessageEmbed()
       .setColor(config.embedColor)
-      .setAuthor(message.author.tag, message.author.avatarURL())
-      .setThumbnail(message.guild.iconURL())
+      .setThumbnail(oldState.guild.iconURL())
       .setTitle("Music Terminated")
       .setDescription(
-        `Since the voice channel I am in has been vacanted, in order to preserve resources, the queue for \`${message.guild.name}\` has been deleted and I have left the voice channel.`
+        `Since the voice channel I am in has been vacanted, in order to preserve resources, the queue for \`${oldState.guild.name}\` has been deleted and I have left the voice channel.`
       )
       .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
 
     serverQueue.textChannel.send(stop);
-    queue.delete(message.guild.id);
+    queue.delete(oldState.guild.id);
   } else return;
 });
 
