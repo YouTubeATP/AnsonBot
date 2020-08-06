@@ -460,7 +460,7 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
 // bot auto-disconnect if channel vacant
 
 client.on("voiceStateUpdate", (oldState, newState) => {
-  const serverQueue = queue.get(message.guild.id);
+  const serverQueue = queue.get(oldState.guild.id);
   let voiceChannel, botVoiceConnection;
   if (oldState.guild.voice) botVoiceConnection = oldState.guild.voice.connection;
   if (botVoiceConnection) channelMembers = botVoiceConnection.channel.members;
