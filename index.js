@@ -467,7 +467,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
   if (channelMembers) {
     if (channelMembers.filter(i => i.id).size <= 1 || !newState.guild.voice) {
       shared.stopping = true;
-      if (!newState.guild.voice) serverQueue.voiceChannel.leave();
+      serverQueue.voiceChannel.leave();
 
       var stop = new Discord.MessageEmbed()
         .setColor(config.embedColor)
