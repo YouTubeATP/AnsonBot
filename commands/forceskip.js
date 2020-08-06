@@ -4,20 +4,21 @@ const Discord = require("discord.js"),
   opus = require("node-opus"),
   YouTube = require("simple-youtube-api");
 
-const config = require("/app/util/config"),
-  fn = require("/app/util/fn");
-
 module.exports = {
-  name: "stop",
-  usage: "stop",
-  aliases: ["forcestop"],
+  name: "forceskip",
+  usage: "forceskip",
+  aliases: ["fs"],
   description:
-    "Resets the queue and stops music.\nAlso forces bot to leave the voice channel.",
+    "Forcibly skips the currently playing song.",
   category: "Music",
   guildPerms: ["MOVE_MEMBERS"],
   run: async (client, message, args, shared) => {
+    let sender = message.author;
+
     const queue = shared.queue;
     const serverQueue = queue.get(message.guild.id);
+
+    message.delete().catch(O_o => {});
 
     let voiceChannel, botVoiceConnection;
     if (message.member.voice) voiceChannel = message.member.voice.channel;
@@ -37,24 +38,23 @@ module.exports = {
         "You need to be in my voice channel to execute this command!"
       );
 
-    if (!message.member.hasPermission("MOVE_MEMBERS"))
-      return await message.reply("you don't have sufficient permissions!");
+    var skip = new Discord.MessageEmbed()
+        .setColor("GREEN")
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setThumbnail(client.user.displayAvatarURL())
+        .setTitle("Song forcibly skipped!")
+        .setDescription(
+          `A moderator has decided to forcibly skip the currently playing song.`
+        )
+        .setFooter(client.user.username, client.user.avatarURL())
+        .setTimestamp();
 
-    shared.stopping = true;
-    serverQueue.voiceChannel.leave();
-    queue.delete(message.guild.id);
+    await message.channel.send(skip);
+    serverQueue.connection.dispatcher.end();
+    shared.voted = 0;
+    shared.voteSkipPass = 0;
+    shared.playerVoted = [];
 
-    var stop = new Discord.MessageEmbed()
-      .setColor(config.embedColor)
-      .setAuthor(message.author.tag, message.author.avatarURL())
-      .setThumbnail(message.guild.iconURL())
-      .setTitle("Music Terminated")
-      .setDescription(
-        `The queue for \`${message.guild.name}\` has been deleted, and I have left the voice channel.`
-      )
-      .setFooter(client.user.username, client.user.avatarURL())
-      .setTimestamp();
-
-    return message.channel.send(stop);
+    return undefined;
   }
 };
