@@ -460,27 +460,29 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
 // bot auto-disconnect if channel vacant
 
 client.on("voiceStateUpdate", (oldState, newState) => {
-  const serverQueue = queue.get(oldState.guild.id);
+  const serverQueue = queue.get(newState.guild.id);
   let voiceChannel, botVoiceConnection;
   if (oldState.guild.voice) botVoiceConnection = oldState.guild.voice.connection;
   if (botVoiceConnection) channelMembers = botVoiceConnection.channel.members;
-  if (channelMembers.filter(i => i.id).size <= 1 || !newState.guild.voice) {
-    shared.stopping = true;
-    if (!newState.guild.voice) serverQueue.voiceChannel.leave();
+  if (channelMembers) {
+    if (channelMembers.filter(i => i.id).size <= 1 || !newState.guild.voice) {
+      shared.stopping = true;
+      if (!newState.guild.voice) serverQueue.voiceChannel.leave();
 
-    var stop = new Discord.MessageEmbed()
-      .setColor(config.embedColor)
-      .setThumbnail(oldState.guild.iconURL())
-      .setTitle("Music Terminated")
-      .setDescription(
-        `Since the voice channel I am in has been vacanted, in order to preserve resources, the queue for \`${oldState.guild.name}\` has been deleted and I have left the voice channel.`
-      )
-      .setFooter(client.user.username, client.user.avatarURL())
-      .setTimestamp();
+      var stop = new Discord.MessageEmbed()
+        .setColor(config.embedColor)
+        .setThumbnail(oldState.guild.iconURL())
+        .setTitle("Music Terminated")
+        .setDescription(
+          `Since the voice channel I am in has been vacanted, in order to preserve resources, the queue for \`${oldState.guild.name}\` has been deleted and I have left the voice channel.`
+        )
+        .setFooter(client.user.username, client.user.avatarURL())
+        .setTimestamp();
 
-    serverQueue.textChannel.send(stop);
-    queue.delete(oldState.guild.id);
-  } else return;
+      serverQueue.textChannel.send(stop);
+      queue.delete(oldState.guild.id);
+    } else return;
+  }
 });
 
 // temporary channel system
