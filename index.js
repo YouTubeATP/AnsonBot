@@ -461,7 +461,7 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
 
 client.on("voiceStateUpdate", (oldState, newState) => {
   let voiceChannel, botVoiceConnection;
-  if (newState.guild.voice) botVoiceConnection = newState.guild.voice.connection;
+  if (oldState.guild.voice) botVoiceConnection = oldState.guild.voice.connection;
   if (botVoiceConnection) channelMembers = botVoiceConnection.channel.members;
   if (channelMembers.filter(i => i.id).size <= 1) {
     shared.stopping = true;
