@@ -460,13 +460,13 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
 // bot auto-disconnect if channel vacant
 
 client.on("voiceStateUpdate", (oldState, newState) => {
+  const serverQueue = queue.get(message.guild.id);
   let voiceChannel, botVoiceConnection;
   if (oldState.guild.voice) botVoiceConnection = oldState.guild.voice.connection;
   if (botVoiceConnection) channelMembers = botVoiceConnection.channel.members;
-  if (channelMembers.filter(i => i.id).size <= 1) {
+  if (channelMembers.filter(i => i.id).size <= 1 || !newState.guild.voice) {
     shared.stopping = true;
-    serverQueue.voiceChannel.leave();
-    queue.delete(message.guild.id);
+    if (!newState.guild.voice) serverQueue.voiceChannel.leave();
 
     var stop = new Discord.MessageEmbed()
       .setColor(config.embedColor)
@@ -479,7 +479,8 @@ client.on("voiceStateUpdate", (oldState, newState) => {
       .setFooter(client.user.username, client.user.avatarURL())
       .setTimestamp();
 
-    return message.channel.send(stop);
+    serverQueue.textChannel.send(stop);
+    queue.delete(message.guild.id);
   } else return;
 });
 
