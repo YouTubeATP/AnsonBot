@@ -25,7 +25,7 @@ module.exports = {
         .setColor("RED")
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setThumbnail(
-          "https://cdn.glitch.com/018cc8ba-350d-4bd4-847b-a54addad6e97%2F33571_preview.png?v=1582621594066"
+          "https://cdn.discordapp.com/attachments/503935982945435679/742791759003779082/018cc8ba-350d-4bd4-847b-a54addad6e972F33571_preview.png"
         )
         .setTitle(`No question provided!`)
         .setDescription("Provide a question and try again.")
