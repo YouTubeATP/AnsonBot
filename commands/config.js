@@ -109,7 +109,7 @@ module.exports = {
     
       let newVal
       if (cfgItem.type == "channel") {
-        let { id } = message.mentions.channels.filter(x => x.type == 'text').first() || message.guild.channels.filter(x => x.type == 'text').find(channel => channel.id == args[2] || channel.name.startsWith(args[2].toLowerCase()))
+        let { id } = message.mentions.channels.cache.filter(x => x.type == 'text').first() || message.guild.channels.cache.filter(x => x.type == 'text').find(channel => channel.id == args[2] || channel.name.startsWith(args[2].toLowerCase()))
         newVal = id
       } else if (cfgItem.type == "role") {
         let { id } = message.mentions.roles.filter(x => x.name != '@everyone').first() || message.guild.roles.filter(x => x.name != '@everyone').find(role => role.id == args[2] || role.name.toLowerCase().startsWith(args[2].toLowerCase()))
