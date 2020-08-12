@@ -87,9 +87,9 @@ client.on("ready", () => {
   client.user.setPresence({
     status: "online",
     activity: {
-      name: "MusicSounds",
+      name: "depression",
       type: "LISTENING",
-      url: "https://discord.plus/MusicSounds"
+      url: "https://discord.io/ansonthepro"
     }
   });
 });
