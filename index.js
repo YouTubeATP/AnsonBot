@@ -521,7 +521,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
     if (newState.channel != joinVoiceChannel) return;
     else if (oldState.channel != newState.channel && index < maxChannels) {
       console.log(`Index changed from ${index++} to ${index}`);
-      const category = guild.channels.cache.get("653088922649362443");
+      const category = guild.channels.cache.get("737589083383136416");
       return guild.channels
         .create(`休息室 ${index} 號 Lounge ${index}`, {
           type: "voice",
