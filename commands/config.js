@@ -34,10 +34,6 @@ const configItems = [{
   displayName: "Role Given on Join",
   type: "role",
   list: true
-}, {
-  name: "automod",
-  displayName: "Auto Moderation",
-  type: "boolean"
 }]
 
 module.exports = {
@@ -109,15 +105,12 @@ module.exports = {
     
       let newVal
       if (cfgItem.type == "channel") {
-        let id;
-        if (message.mentions.channels) id = message.mentions.channels.filter(x => x.type == 'text').first()
-        else id = message.guild.channels.cache.filter(x => x.type == 'text').find(channel => channel.id == args[2] || channel.name.startsWith(args[2].toLowerCase()))
+        if (message.mentions.channels) newVal =  message.mentions.channels.filter(x => x.type == 'text').first().id
+        else newVal = message.guild.channels.cache.filter(x => x.type == 'text').find(channel => channel.id == args[2] || channel.name.startsWith(args[2].toLowerCase())).id
         newVal = id
       } else if (cfgItem.type == "role") {
-        let id;
-        if (message.mentions.roles) id = message.mentions.roles.filter(x => x.name != '@everyone').first()
-        else id = message.guild.roles.cache.filter(x => x.name != '@everyone').find(role => role.id == args[2] || role.name.toLowerCase().startsWith(args[2].toLowerCase()))
-        newVal = id
+        if (message.mentions.roles) newVal = message.mentions.roles.filter(x => x.name != '@everyone').first().id
+        else newVal = message.guild.roles.cache.filter(x => x.name != '@everyone').find(role => role.id == args[2] || role.name.toLowerCase().startsWith(args[2].toLowerCase())).id
       } else if (cfgItem.type == "boolean") {
         newVal = args[2].toLowerCase() == "true" ? true
                : args[2].toLowerCase() == "false" ? false : undefined
