@@ -18,7 +18,6 @@
     "better-sqlite-pool": "^0.3.0",
     "striptags": "^3.1.1",
     "https": "^1.0.0",
-    "discord-anti-spam": "^2.4.1",
     "discord.js-arbitrary-ffmpeg": "^1.1.0",
     "enmap": "^5.3.1",
     "ffmpeg": "^0.0.4",

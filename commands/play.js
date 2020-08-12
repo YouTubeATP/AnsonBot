@@ -228,7 +228,7 @@ module.exports = {
           .setThumbnail(client.user.displayAvatarURL())
           .addField(
             "Provide a valid integer (1-10) to make a selection. \nClick " +
-              client.emojis.cache.get("662296249717751869").toString() +
+              client.emojis.cache.get("743138103195205763").toString() +
               " to cancel.",
             searchResult
           )
@@ -295,11 +295,11 @@ module.exports = {
 
         async function detectReaction(msg) {
           try {
-            await msg.react("662296249717751869");
+            await msg.react("743138103195205763");
             let reaction = await msg
               .awaitReactions(
                 (reaction, user) =>
-                  ["662296249717751869"].includes(reaction.emoji.id) &&
+                  ["743138103195205763"].includes(reaction.emoji.id) &&
                   user.id === message.author.id,
                 {
                   time: 60 * 1000,
@@ -309,7 +309,7 @@ module.exports = {
               )
               .then(collected => {
                 const reaction = collected.first();
-                if (reaction.emoji.id == "662296249717751869") {
+                if (reaction.emoji.id == "743138103195205763") {
                   cancelled = true;
                   vindex = "cancel";
                   return detectSelection();

@@ -145,13 +145,13 @@ let paginator = async (author, msg, embeds, pageNow) => {
     await msg.react("▶");
     await msg.react("⏩");
   }
-  await msg.react("662296249717751869");
+  await msg.react("743138103195205763");
   let reaction = await msg
     .awaitReactions(
       (reaction, user) =>
         user.id == author &&
         (["◀", "▶", "⏪", "⏩"].includes(reaction.emoji.name) ||
-          ["662296249717751869"].includes(reaction.emoji.id)),
+          ["743138103195205763"].includes(reaction.emoji.id)),
       { time: 90 * 1000, max: 1, errors: ["time"] }
     )
     .catch(err => {
@@ -178,7 +178,7 @@ let paginator = async (author, msg, embeds, pageNow) => {
     let m = await msg.channel.send(embeds[embeds.length - 1]);
     msg.delete();
     paginator(author, m, embeds, embeds.length - 1);
-  } else if (reaction.emoji.id == "662296249717751869")
+  } else if (reaction.emoji.id == "743138103195205763")
     if (msg.channel.type !== "dm")
       msg.reactions.removeAll().catch(error => console.error(error));
     else msg.delete();

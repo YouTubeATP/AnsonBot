@@ -9,7 +9,6 @@ const Discord = require("discord.js"),
   http = require("http"),
   moment = require("moment"),
   db = require("quick.db"),
-  AntiSpam = require("discord-anti-spam"),
   ytdl = require("ytdl-core"),
   opus = require("node-opus"),
   YouTube = require("simple-youtube-api");
@@ -55,25 +54,6 @@ shared.playlist = playlist;
 shared.client = client;
 
 exports.client = client;
-
-const antiSpam = new AntiSpam({
-  warnThreshold: 3, // Amount of messages sent in a row that will cause a warning.
-  kickThreshold: 5, // Amount of messages sent in a row that will cause a ban.
-  banThreshold: 7, // Amount of messages sent in a row that will cause a ban.
-  maxInterval: 1500, // Amount of time (in milliseconds) in which messages are considered spam.
-  warnMessage:
-    "{@user}, please refrain from spamming the chat. Further infractions will result in a kick or ban.", // Message that will be sent in chat upon warning a user.
-  kickMessage: "**{user_tag}** has been kicked for spamming.", // Message that will be sent in chat upon kicking a user.
-  banMessage: "**{user_tag}** has been banned for spamming.", // Message that will be sent in chat upon banning a user.
-  maxDuplicatesWarning: 3, // Amount of duplicate messages that trigger a warning.
-  maxDuplicatesKick: 5, // Amount of duplicate messages that trigger a warning.
-  maxDuplicatesBan: 7, // Amount of duplicate messages that trigger a warning.
-  exemptPermissions: ["ADMINISTRATOR"], // Bypass users with any of these permissions.
-  ignoreBots: true, // Ignore bot messages.
-  verbose: true, // Extended Logs from module.
-  ignoredUsers: [], // Array of User IDs that get ignored.
-  ignoredChannels: ["678631186225954831"] // Array of channel IDs that get ignored.
-});
 
 let i,
   j,
@@ -134,11 +114,11 @@ client.on("guildMemberAdd", async member => {
       .add(guild.roles.cache.find(c => c.name === "Member"))
       .then(() => {
         client.channels.cache
-          .get("653133031292403742")
+          .get("574095353608011817")
           .send(
             "<@" +
               memberTag +
-              "> has joined **MusicSounds's Hangout**. Welcome, <@" +
+              "> has joined **Anson the pro!'s Hideout**. Welcome, <@" +
               memberTag +
               ">."
           );
@@ -159,11 +139,11 @@ client.on("guildMemberRemove", async member => {
   let memberTag = member.user.id;
   if (guild.id === config.server) {
     client.channels.cache
-      .get("653133031292403742")
+      .get("574095353608011817")
       .send(
         "<@" +
           memberTag +
-          "> has left **MusicSounds's Hangout**. Farewell, <@" +
+          "> has left **Anson the pro!'s Hideout**. Farewell, <@" +
           memberTag +
           ">."
       );
@@ -186,45 +166,6 @@ client.on("message", async message => {
       message.author.tag
     } > ${message.cleanContent}`
   );
-
-  antiSpam.message(message);
-
-  if (
-    message.content.toLowerCase().startsWith(`<@431247481267814410> `) ||
-    message.content.toLowerCase().startsWith(`<@!431247481267814410> `) ||
-    message.content.toLowerCase().startsWith(`<@371704154705362944> `) ||
-    message.content.toLowerCase().startsWith(`<@!371704154705362944> `) ||
-    message.content.toLowerCase().startsWith(`<@710771990364946443> `) ||
-    message.content.toLowerCase().startsWith(`<@!710771990364946443> `) ||
-    message.content.toLowerCase().startsWith(`<@365975655608745985> `) ||
-    message.content.toLowerCase().startsWith(`<@!365975655608745985> `) ||
-    message.content.toLowerCase().startsWith(`fm/`) ||
-    message.content.toLowerCase().startsWith(`hy.`) ||
-    message.content.toLowerCase().startsWith(`p!`)
-  )
-    return message.delete();
-  if (
-    message.guild.id === config.server &&
-    message.author.bot &&
-    message.author.id !== client.user.id &&
-    message.channel.id !== "653091741351542825" &&
-    message.channel.id !== "653091798498934825" &&
-    message.channel.id !== "653133031292403742" &&
-    message.channel.id !== "662243626050519060" &&
-    message.channel.id !== "653130414847688705" &&
-    message.channel.id !== "662273284322230282" &&
-    message.channel.id !== "663694873227952128" &&
-    message.channel.id !== "678631186225954831"
-  )
-    return message.delete();
-
-  if (
-    message.channel.id === "663694873227952128" &&
-    message.guild.id === config.server &&
-    message.author.id !== client.user.id &&
-    message.author.id !== "365975655608745985"
-  )
-    return message.delete();
 
   if (!userData.has(message.author.id)) {
     let newUserData = {

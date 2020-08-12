@@ -40,7 +40,7 @@ module.exports = {
             new Discord.MessageEmbed()
               .setColor("GREEN")
               .setTitle(
-                `<:yes:662296097947123715> Evaluation Success!`
+                `<:yes:743138102943416351> Evaluation Success!`
               )
               .addField(`Expression`, "```js\n" + args.join(" ") + "```")
               .addField(`Result`, "```js\n" + out + "```")
@@ -61,7 +61,7 @@ module.exports = {
             new Discord.MessageEmbed()
               .setColor("GREEN")
               .setTitle(
-                `<:yes:662296097947123715> Evaluation Success!`
+                `<:yes:743138102943416351> Evaluation Success!`
               )
               .addField(`Expression`, "```js\n" + args.join(" ") + "```")
               .addField(
@@ -76,7 +76,7 @@ module.exports = {
       var embed = new Discord.MessageEmbed()
         .setColor("RED")
         .setTitle(
-          `<:no:662296249717751869> Evaluation Failed!`
+          `<:no:743138103195205763> Evaluation Failed!`
         )
         .addField(`Expression`, "```js\n" + args.join(" ") + "```")
         .addField(`Error Message`, "```js\n" + e + "```")
