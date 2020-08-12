@@ -436,7 +436,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
   if (index < 0) index = 0;
   if (index > maxChannels) index = maxChannels;
   const guild = newState.guild;
-  let joinVoiceChannel = client.channels.cache.get("662837599857278987");
+  let joinVoiceChannel = client.channels.cache.get("737589084557541446");
   try {
     modified = false;
     for (i = 1; i <= parseInt(maxChannels + 1); i++) {
@@ -445,31 +445,31 @@ client.on("voiceStateUpdate", (oldState, newState) => {
       try {
         if (
           index < i &&
-          guild.channels.cache.find(c => c.name === `Public Lounge #${i}`) &&
-          guild.channels.cache.find(c => c.name === `Public Lounge #${i}`)
+          guild.channels.cache.find(c => c.name === `休息室 ${i} 號 Lounge ${i}`) &&
+          guild.channels.cache.find(c => c.name === `休息室 ${i} 號 Lounge ${i}`)
             .members.size <= 0
         ) {
           guild.channels.cache
-            .find(c => c.name === `Public Lounge #${i}`)
+            .find(c => c.name === `休息室 ${i} 號 Lounge ${i}`)
             .delete();
           console.log(`${index} not changed`);
         } else if (
           index < i &&
-          guild.channels.cache.find(c => c.name === `Public Lounge #${i}`) &&
-          guild.channels.cache.find(c => c.name === `Public Lounge #${i}`)
+          guild.channels.cache.find(c => c.name === `休息室 ${i} 號 Lounge ${i}`) &&
+          guild.channels.cache.find(c => c.name === `休息室 ${i} 號 Lounge ${i}`)
             .members.size > 0
         ) {
           for (k = 1; k < i; k++) {
             if (
               !semiModified &&
               guild.channels.cache.find(
-                c => c.name === `Public Lounge #${i}`
+                c => c.name === `休息室 ${i} 號 Lounge ${i}`
               ) &&
-              !guild.channels.cache.find(c => c.name === `Public Lounge #${k}`)
+              !guild.channels.cache.find(c => c.name === `休息室 ${k} 號 Lounge ${k}`)
             ) {
               guild.channels.cache
-                .find(c => c.name === `Public Lounge #${i}`)
-                .setName(`Public Lounge #${k}`);
+                .find(c => c.name === `休息室 ${i} 號 Lounge ${i}`)
+                .setName(`休息室 ${k} 號 Lounge ${k}`);
               console.log(`Index changed from ${index++} to ${index}`);
               semiModified = true;
             }
@@ -481,7 +481,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
       try {
         if (
           oldState.channel &&
-          oldState.channel.name.includes(`Public Lounge #`) &&
+          oldState.channel.name.includes(`休息室`) &&
           oldState.channel.members.size <= 0
         ) {
           oldState.channel.delete();
@@ -489,16 +489,16 @@ client.on("voiceStateUpdate", (oldState, newState) => {
             try {
               if (
                 guild.channels.cache.find(
-                  c => c.name === `Public Lounge #${i + 1}`
+                  c => c.name === `休息室 ${i + 1} 號 Lounge ${i + 1}`
                 ) &&
                 !guild.channels.cache.find(
-                  c => c.name === `Public Lounge #${j}`
+                  c => c.name === `休息室 ${j} 號 Lounge ${j}`
                 ) &&
                 !verySemiModified
               ) {
                 guild.channels.cache
-                  .find(c => c.name === `Public Lounge #${i + 1}`)
-                  .setName(`Public Lounge #${i}`);
+                  .find(c => c.name === `休息室 ${i + 1} 號 Lounge ${i + 1}`)
+                  .setName(`休息室 ${i} 號 Lounge ${i}`);
                 verySemiModified = true;
               }
             } catch (e) {
@@ -523,7 +523,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
       console.log(`Index changed from ${index++} to ${index}`);
       const category = guild.channels.cache.get("653088922649362443");
       return guild.channels
-        .create(`Public Lounge #${index}`, {
+        .create(`休息室 ${index} 號 Lounge ${index}`, {
           type: "voice",
           parent: category
         })
