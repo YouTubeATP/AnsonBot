@@ -292,13 +292,6 @@ client.on("message", message => {
   )
     return;
 
-  if (
-    message.author.id === "344335337889464357" ||
-    message.channel.id === "662249455847735306" ||
-    message.channel.id === "678631186225954831"
-  )
-    return;
-
   const perms = message.member.permissions;
   const admin = perms.has("ADMINISTRATOR", true);
   if (admin) return;
@@ -322,7 +315,7 @@ client.on("message", message => {
   if (links.some(link => bannedlinks.includes(link))) {
     message.delete();
     return message
-      .reply("please stick to <#662249455847735306> when advertising.")
+      .reply("please refrain from advertising in this server.")
       .then(m => m.delete({ timeout: 5000 }));
   }
 });
