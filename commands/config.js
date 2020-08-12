@@ -109,12 +109,14 @@ module.exports = {
     
       let newVal
       if (cfgItem.type == "channel") {
-        let { id };
+        let id;
         if (message.mentions.channels) id = message.mentions.channels.cache.filter(x => x.type == 'text').first()
         else id = message.guild.channels.cache.filter(x => x.type == 'text').find(channel => channel.id == args[2] || channel.name.startsWith(args[2].toLowerCase()))
         newVal = id
       } else if (cfgItem.type == "role") {
-        let { id } = message.mentions.roles.filter(x => x.name != '@everyone').first() || message.guild.roles.filter(x => x.name != '@everyone').find(role => role.id == args[2] || role.name.toLowerCase().startsWith(args[2].toLowerCase()))
+        let id;
+        if (message.mentions.roles) id = message.mentions.roles.cache.filter(x => x.name != '@everyone').first()
+        else id = message.guild.roles.cache.filter(x => x.name != '@everyone').find(role => role.id == args[2] || role.name.toLowerCase().startsWith(args[2].toLowerCase()))
         newVal = id
       } else if (cfgItem.type == "boolean") {
         newVal = args[2].toLowerCase() == "true" ? true
