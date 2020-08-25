@@ -1,6 +1,6 @@
 # Musical Pal
 
-#### Private bot for MusicSounds's Hangout
+#### Private bot for Anson the pro!s Hideout
 
 Startup: `node manager.js`
 
