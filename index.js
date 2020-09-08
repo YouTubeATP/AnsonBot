@@ -152,6 +152,12 @@ client.on("guildMemberRemove", async member => {
 
 // message detection
 
+client.on("message", message => {
+  if (message.content === 'a!!source') {
+    message.channel.send('https://github.com/YouTubeATP/AnsonBot');
+  }
+});
+
 client.on("message", async message => {
   if (
     message.channel.type != "text" ||
