@@ -64,6 +64,7 @@ let i,
   semiModified,
   verySemiModified,
   index = 0,
+  indee = 0,
   maxChannels = 5;
 
 client.commands = new Discord.Collection();
@@ -542,8 +543,8 @@ client.on("voiceStateUpdate", (oldState, newState) => {
 });
 
 client.on("voiceStateUpdate", (oldState, newState) => {
-  if (index < 0) index = 0;
-  if (index > maxChannels) index = maxChannels;
+  if (indee < 0) indee = 0;
+  if (indee > maxChannels) indee = maxChannels;
   const guild = newState.guild;
   let joinVoiceChannel = client.channels.cache.get("753271404786614352");
   try {
@@ -553,7 +554,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
       verySemiModified = false;
       try {
         if (
-          index < i &&
+          indee < i &&
           guild.channels.cache.find(c => c.name === `Lounge ${i}`) &&
           guild.channels.cache.find(c => c.name === `Lounge ${i}`)
             .members.size <= 0
@@ -561,9 +562,9 @@ client.on("voiceStateUpdate", (oldState, newState) => {
           guild.channels.cache
             .find(c => c.name === `Lounge ${i}`)
             .delete();
-          console.log(`${index} not changed`);
+          console.log(`${indee} not changed`);
         } else if (
-          index < i &&
+          indee < i &&
           guild.channels.cache.find(c => c.name === `Lounge ${i}`) &&
           guild.channels.cache.find(c => c.name === `Lounge ${i}`)
             .members.size > 0
@@ -579,7 +580,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
               guild.channels.cache
                 .find(c => c.name === `Lounge ${i}`)
                 .setName(`Lounge ${k}`);
-              console.log(`Index changed from ${index++} to ${index}`);
+              console.log(`indee changed from ${indee++} to ${indee}`);
               semiModified = true;
             }
           }
@@ -615,7 +616,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
             }
           }
           if (!modified) {
-            console.log(`Index changed from ${index--} to ${index}`);
+            console.log(`indee changed from ${indee--} to ${indee}`);
             modified = true;
           }
         }
@@ -628,18 +629,18 @@ client.on("voiceStateUpdate", (oldState, newState) => {
   }
   try {
     if (newState.channel != joinVoiceChannel) return;
-    else if (oldState.channel != newState.channel && index < maxChannels) {
-      console.log(`Index changed from ${index++} to ${index}`);
+    else if (oldState.channel != newState.channel && indee < maxChannels) {
+      console.log(`Index changed from ${indee++} to ${indee}`);
       const category = guild.channels.cache.get("753271330962407534");
       return guild.channels
-        .create(`Lounge ${index}`, {
+        .create(`Lounge ${indee}`, {
           type: "voice",
           parent: category
         })
         .then(newChannel => newState.setChannel(newChannel));
-    } else if (index >= maxChannels) {
+    } else if (indee >= maxChannels) {
       newState.setChannel(null);
-      console.log(`${index} not changed`);
+      console.log(`${indee} not changed`);
       let embed = new Discord.MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(`You can't create a new lounge right now!`)
