@@ -130,10 +130,7 @@ client.on("guildMemberAdd", async member => {
     member.roles.add(guild.roles.cache.find(c => c.name === "Bot")).catch(e => {
       console.log(e);
     });
-  }
-});
-
-client.on("guildMemberAdd", async member => {
+  };
   let guild = member.guild;
   let memberTag = member.user.id;
   if (guild.id === config.playground && !member.user.bot) {
@@ -174,10 +171,7 @@ client.on("guildMemberRemove", async member => {
           memberTag +
           ">."
       );
-  }
-});
-
-client.on("guildMemberRemove", async member => {
+  };
   let guild = member.guild;
   if (member.user.bot) return;
   let memberTag = member.user.id;
