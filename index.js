@@ -15,6 +15,10 @@ const Discord = require("discord.js"),
 
 /* --- ALL PACKAGES --- */
 
+/* --- ENV IN WINDOWS --- */
+require('dotenv').config();
+/* --- ENV In WINDOWS --- */
+
 /* --- ALL GLOBAL CONSTANTS & FUNCTIONS --- */
 
 const client = new Discord.Client(),
@@ -109,7 +113,7 @@ client.on("guildCreate", async guild => {
 client.on("guildMemberAdd", async member => {
   let guild = member.guild;
   let memberTag = member.user.id;
-  if (guild.id === config.server && !member.user.bot) {
+  if (guild.id === config.hideout && !member.user.bot) {
     member.roles
       .add(guild.roles.cache.find(c => c.name === "Member"))
       .then(() => {
@@ -126,7 +130,34 @@ client.on("guildMemberAdd", async member => {
       .catch(e => {
         console.log(e);
       });
-  } else if (guild.id === config.server && member.user.bot) {
+  } else if (guild.id === config.hideout && member.user.bot) {
+    member.roles.add(guild.roles.cache.find(c => c.name === "Bot")).catch(e => {
+      console.log(e);
+    });
+  }
+});
+
+client.on("guildMemberAdd", async member => {
+  let guild = member.guild;
+  let memberTag = member.user.id;
+  if (guild.id === config.playground && !member.user.bot) {
+    member.roles
+      .add(guild.roles.cache.find(c => c.name === "Member"))
+      .then(() => {
+        client.channels.cache
+          .get("744849390211956866")
+          .send(
+            "<@" +
+              memberTag +
+              "> has joined **YouTubeATP's Bot Playground**. Welcome, <@" +
+              memberTag +
+              ">."
+          );
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  } else if (guild.id === config.playground && member.user.bot) {
     member.roles.add(guild.roles.cache.find(c => c.name === "Bot")).catch(e => {
       console.log(e);
     });
@@ -137,7 +168,24 @@ client.on("guildMemberRemove", async member => {
   let guild = member.guild;
   if (member.user.bot) return;
   let memberTag = member.user.id;
-  if (guild.id === config.server) {
+  if (guild.id === config.playground) {
+    client.channels.cache
+      .get("744849390211956866")
+      .send(
+        "<@" +
+          memberTag +
+          "> has left **YouTubeATP's Bot Playground**. Farewell, <@" +
+          memberTag +
+          ">."
+      );
+  }
+});
+
+client.on("guildMemberRemove", async member => {
+  let guild = member.guild;
+  if (member.user.bot) return;
+  let memberTag = member.user.id;
+  if (guild.id === config.hideout) {
     client.channels.cache
       .get("574095353608011817")
       .send(
@@ -282,47 +330,6 @@ client.on("message", async message => {
     }
 
     message.delete().catch(error => {});
-  }
-});
-
-// invite link detection
-
-client.on("message", message => {
-  if (
-    message.channel.type != "text" ||
-    message.guild.id !== config.server ||
-    message.guild === null ||
-    message.member === null ||
-    client.user === null ||
-    message.channel.name == undefined
-  )
-    return;
-
-  const perms = message.member.permissions;
-  const admin = perms.has("ADMINISTRATOR", true);
-  if (admin) return;
-
-  const links = [
-    "DISCORD.ME",
-    "DISCORD.GG",
-    "DISCORDAPP.COM",
-    "INVITE.GG",
-    "DISCORDBOTS.ORG",
-    "DISC.GG",
-    "DISCORD.CHAT",
-    "DISCSERVS.CO",
-    "DISCORD.BOTS.GG",
-    "DISCORD.IO"
-  ];
-  const author = message.author;
-  const bannedlink = message.content;
-  const bannedlinks = message.content.toUpperCase();
-
-  if (links.some(link => bannedlinks.includes(link))) {
-    message.delete();
-    return message
-      .reply("please refrain from advertising in this server.")
-      .then(m => m.delete({ timeout: 5000 }));
   }
 });
 
@@ -523,6 +530,121 @@ client.on("voiceStateUpdate", (oldState, newState) => {
       const category = guild.channels.cache.get("737589083383136416");
       return guild.channels
         .create(`休息室 ${index} 號 Lounge ${index}`, {
+          type: "voice",
+          parent: category
+        })
+        .then(newChannel => newState.setChannel(newChannel));
+    } else if (index >= maxChannels) {
+      newState.setChannel(null);
+      console.log(`${index} not changed`);
+      let embed = new Discord.MessageEmbed()
+        .setColor(config.embedColor)
+        .setTitle(`You can't create a new lounge right now!`)
+        .setDescription(
+          `Only **${maxChannels}** public lounges may be present in **${guild}** at a time. Consider joining one of them instead!`
+        )
+        .setThumbnail(guild.iconURL())
+        .setFooter(client.user.username, client.user.avatarURL())
+        .setTimestamp();
+      return newState.send(embed);
+    }
+  } catch (e) {
+    console.log("Couldn't move users", e);
+  }
+});
+
+client.on("voiceStateUpdate", (oldState, newState) => {
+  if (index < 0) index = 0;
+  if (index > maxChannels) index = maxChannels;
+  const guild = newState.guild;
+  let joinVoiceChannel = client.channels.cache.get("753271404786614352");
+  try {
+    modified = false;
+    for (i = 1; i <= parseInt(maxChannels + 1); i++) {
+      semiModified = false;
+      verySemiModified = false;
+      try {
+        if (
+          index < i &&
+          guild.channels.cache.find(c => c.name === `Lounge ${i}`) &&
+          guild.channels.cache.find(c => c.name === `Lounge ${i}`)
+            .members.size <= 0
+        ) {
+          guild.channels.cache
+            .find(c => c.name === `Lounge ${i}`)
+            .delete();
+          console.log(`${index} not changed`);
+        } else if (
+          index < i &&
+          guild.channels.cache.find(c => c.name === `Lounge ${i}`) &&
+          guild.channels.cache.find(c => c.name === `Lounge ${i}`)
+            .members.size > 0
+        ) {
+          for (k = 1; k < i; k++) {
+            if (
+              !semiModified &&
+              guild.channels.cache.find(
+                c => c.name === `Lounge ${i}`
+              ) &&
+              !guild.channels.cache.find(c => c.name === `Lounge ${k}`)
+            ) {
+              guild.channels.cache
+                .find(c => c.name === `Lounge ${i}`)
+                .setName(`Lounge ${k}`);
+              console.log(`Index changed from ${index++} to ${index}`);
+              semiModified = true;
+            }
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      try {
+        if (
+          oldState.channel &&
+          oldState.channel.name.includes(`Lounge`) &&
+          oldState.channel.members.size <= 0
+        ) {
+          oldState.channel.delete();
+          for (j = i + 1; j <= parseInt(maxChannels + 1); j++) {
+            try {
+              if (
+                guild.channels.cache.find(
+                  c => c.name === `Lounge ${i + 1}`
+                ) &&
+                !guild.channels.cache.find(
+                  c => c.name === `Lounge ${j}`
+                ) &&
+                !verySemiModified
+              ) {
+                guild.channels.cache
+                  .find(c => c.name === `Lounge ${i + 1}`)
+                  .setName(`Lounge ${i}`);
+                verySemiModified = true;
+              }
+            } catch (e) {
+              console.log("Couldn't rename channels", e);
+            }
+          }
+          if (!modified) {
+            console.log(`Index changed from ${index--} to ${index}`);
+            modified = true;
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  } catch (e) {
+    console.log("Lounges not updated", e);
+  }
+  try {
+    if (newState.channel != joinVoiceChannel) return;
+    else if (oldState.channel != newState.channel && index < maxChannels) {
+      console.log(`Index changed from ${index++} to ${index}`);
+      const category = guild.channels.cache.get("753271330962407534");
+      return guild.channels
+        .create(`Lounge ${index}`, {
           type: "voice",
           parent: category
         })
