@@ -89,7 +89,7 @@ client.on("ready", () => {
   client.user.setPresence({
     status: "online",
     activity: {
-      name: "to you guys having fun",
+      name: "you guys having fun",
       type: "LISTENING",
       url: "https://discord.io/ansonthepro"
     }
