@@ -1,6 +1,6 @@
 # AnsonBot
 
-#### Private bot for Anson the pro!s Hideout, modified from MusicSounds/musical-pal by MusicSounds.
+#### Private bot for Anson the pro!s Hideout and YouTubeATP's Bot Playground, modified from MusicSounds/musical-pal by MusicSounds.
 
 Startup: `node manager.js`
 

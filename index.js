@@ -15,10 +15,6 @@ const Discord = require("discord.js"),
 
 /* --- ALL PACKAGES --- */
 
-/* --- ENV IN WINDOWS --- */
-require('dotenv').config();
-/* --- ENV In WINDOWS --- */
-
 /* --- ALL GLOBAL CONSTANTS & FUNCTIONS --- */
 
 const client = new Discord.Client(),
