@@ -1,6 +1,8 @@
 /* --- ALL PACKAGES --- */
 
 require("es6-shim");
+require('dotenv').config();
+
 
 const Discord = require("discord.js"),
   Enmap = require("enmap"),
