@@ -133,8 +133,6 @@ client.on("guildMemberAdd", async member => {
       console.log(e);
     });
   };
-  let guild = member.guild;
-  let memberTag = member.user.id;
   if (guild.id === config.playground && !member.user.bot) {
     member.roles
       .add(guild.roles.cache.find(c => c.name === "Member"))
@@ -174,9 +172,7 @@ client.on("guildMemberRemove", async member => {
           ">."
       );
   };
-  let guild = member.guild;
   if (member.user.bot) return;
-  let memberTag = member.user.id;
   if (guild.id === config.hideout) {
     client.channels.cache
       .get("574095353608011817")
