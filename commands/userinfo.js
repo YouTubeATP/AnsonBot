@@ -84,7 +84,7 @@ module.exports = {
           .addField("Custom Prefix", "`" + shared.customPrefix + "`", true)
           .addField(
             "Developers",
-            "<@344335337889464357>, <@336389636878368770>",
+            "<@344335337889464357>, <@336389636878368770>, <@438298127225847810>",
             true
           )
           .addField(
